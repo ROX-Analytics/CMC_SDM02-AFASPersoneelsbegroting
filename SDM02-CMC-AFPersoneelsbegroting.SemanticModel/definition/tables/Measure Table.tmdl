@@ -1,0 +1,138 @@
+table 'Measure Table'
+	lineageTag: 5d5105e0-68a1-4e70-8319-2121d5adb71a
+
+	measure 'Bedrag Journal Entries' = SUM('Fact Journal Entries'[Bedrag in LC])
+		formatString: #,0
+		displayFolder: Journal Entries
+		lineageTag: 6f3fc62e-be49-4ec8-a2b2-6829313e94fe
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Bedrag Personeel' = SUM('Fact Personeels Kosten'[Waarde])
+		formatString: #,0.00
+		displayFolder: Personeel
+		lineageTag: d0a22982-f1a7-4121-bcc3-6a22f4dee6e6
+
+	measure 'Bedrag Budget' = SUM('Fact Budget'[Oorspronkelijk_bedrag])
+		formatString: #,0.00
+		displayFolder: Budget
+		lineageTag: 5a3ee8c8-dfc9-4899-aea7-f4c5b30d4204
+
+	measure 'Begroot (FTE)' = SUM('Fact FormatiePlaats'[FTE_Begroot])
+		displayFolder: Formatie Plaats
+		lineageTag: d9fa012b-2b8b-4c11-8bf3-0f8275666e7b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Actuals (FTE)' =
+			
+			
+			SUMX(
+			    SUMMARIZE(
+			        'Fact Personeels Kosten',
+			        'Fact Personeels Kosten'[Medewerker ID]
+			    ),
+			    MAX('Fact Personeels Kosten'[FTE])
+			)
+		formatString: 0.00
+		displayFolder: Personeel
+		lineageTag: 9dfdd747-b722-4dab-aa0a-f7bef93f6627
+
+	measure 'Verschil (FTE)' = SUM('Fact FormatiePlaats'[Verschil (excl)])
+		displayFolder: Formatie Plaats
+		lineageTag: 9cdd3a6a-3537-4663-97b4-df1417b6b9f4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Mederwerkers (FTE)' =
+			
+			VAR StartDate = MIN('Dim Calendar'[Date])
+			VAR EndDate = MAX('Dim Calendar'[Date])
+			RETURN
+			CALCULATE(
+			    SUMX(
+			        'Dim Medewerker Details',
+			        IF(
+			            'Dim Medewerker Details'[Datum_in_dienst] <= EndDate &&
+			            (ISBLANK('Dim Medewerker Details'[Datum_uit_dienst]) || 'Dim Medewerker Details'[Datum_uit_dienst] >= StartDate),
+			            'Dim Medewerker Details'[Aantal_FTE],
+			            0
+			        )
+			    ),
+			    FILTER(
+			        'Dim Calendar',
+			        'Dim Calendar'[Date] >= StartDate && 'Dim Calendar'[Date] <= EndDate
+			    )
+			)
+		displayFolder: Formatie Plaats
+		lineageTag: 438b1594-9f32-427f-8a33-3265b0f54b35
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Medewerkers 2 (FTE)' = ```
+			
+			CALCULATE(
+			    AVERAGEX(
+			        VALUES('Dim calendar'[Year/Month no.]), 
+			        [Mederwerkers (FTE)]
+			    ),
+			    DATESBETWEEN('Dim Calendar'[Date], MIN('Dim Calendar'[Date]), MAX('Dim Calendar'[Date]))
+			)
+			```
+		displayFolder: Formatie Plaats
+		lineageTag: e3ae9388-6ae7-45ee-87cf-988a9ad8b48c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure SelectedDaysCount =
+			
+			COUNTROWS(
+			    VALUES('Dim Calendar'[Date])
+			)
+		formatString: 0
+		displayFolder: Formatie Plaats
+		lineageTag: c51e88a9-2636-4229-802b-3fce27e40ac0
+
+	measure 'Begroot (FTE) Total' = DIVIDE([Begroot (FTE)], [SelectedDaysCount])
+		displayFolder: Formatie Plaats
+		lineageTag: 25b9d069-154d-4515-abd4-559425062078
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Formatie Verschil' =
+			
+			[Begroot (FTE) Total] - [Medewerkers 2 (FTE)]
+		displayFolder: Formatie Plaats
+		lineageTag: 2c4c3898-b84a-4730-adc4-619bb299c958
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Formatieverschil Vacatures' =
+			
+			CALCULATE(
+			    SUMX(
+			        VALUES('Dim Formatieplaats'[Formatieplaats]),
+			        IF([Formatie Verschil] > 0, [Formatie Verschil], 0)
+			    )
+			)
+		displayFolder: Formatie Plaats
+		lineageTag: 212b50cc-e21f-469b-a562-539347fd2d17
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Actuals (FTE) 2'
+		displayFolder: Personeel
+		lineageTag: 9eee6c56-5bef-44d6-bc69-c68f4f0d4be9
+
+	partition 'Measure Table' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlSKjQUA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", Int64.Type}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,43 @@
+table 'Dim Organisatie Eenheid'
+	lineageTag: 81c24bbf-9ac2-48f5-9b10-a06d2f097f34
+
+	column OE
+		dataType: string
+		lineageTag: 12ae367f-108c-4057-9f7a-7039eed01d92
+		summarizeBy: none
+		sourceColumn: OE
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'OE Omschrijving'
+		dataType: string
+		lineageTag: 617ca364-fdd2-4a7f-86f4-afcfae610773
+		summarizeBy: none
+		sourceColumn: OE Omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'OE Code + Omschrijving' = 'Dim Organisatie Eenheid'[OE] & " " & "-" & " " & 'Dim Organisatie Eenheid'[OE Omschrijving]
+		lineageTag: 55a828c9-0587-49a4-94e7-af56bedc71b5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Organisatie Eenheid' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = #"FormatiePlaats (Staging)",
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Organisatorische_eenheid", "Omschrijving_2"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Other Columns",{{"Organisatorische_eenheid", "OE"}, {"Omschrijving_2", "OE Omschrijving"}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns1"),
+				    #"Filtered Rows1" = Table.SelectRows(#"Removed Duplicates", each ([OE] <> null)),
+				    #"Removed Duplicates1" = Table.Distinct(#"Filtered Rows1")
+				in
+				    #"Removed Duplicates1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

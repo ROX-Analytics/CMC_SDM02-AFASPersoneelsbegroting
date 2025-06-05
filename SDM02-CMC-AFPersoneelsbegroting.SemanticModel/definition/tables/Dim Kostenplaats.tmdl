@@ -1,0 +1,38 @@
+table 'Dim Kostenplaats'
+	lineageTag: 234d6e66-dc75-435c-abfa-85f472e752a3
+
+	column Kostenplaats
+		dataType: string
+		lineageTag: b9e1cfd5-4ae2-4af7-8f4a-83603c1a4136
+		summarizeBy: none
+		sourceColumn: Kostenplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostenplaats_omschrijving
+		dataType: string
+		lineageTag: 9114001b-6c62-4924-8c0d-6628b8d1595d
+		summarizeBy: none
+		sourceColumn: Kostenplaats_omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Kostenplaats' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025"}),
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Kostenplaats", "Kostenplaats_omschrijving"}),
+				    #"Appended Query" = Table.Combine({#"Removed Other Columns", #"Dim Kostenplaats (Budget)"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Appended Query",{{"Kostenplaats", type text}, {"Kostenplaats_omschrijving", type text}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type",{{"Kostenplaats", Text.Trim, type text}, {"Kostenplaats_omschrijving", Text.Trim, type text}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Trimmed Text", {"Kostenplaats"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Duplicates", each ([Kostenplaats] <> null))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

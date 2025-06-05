@@ -1,0 +1,68 @@
+table 'Dim Grootboek'
+	lineageTag: c37ad517-c7bd-4de4-bb24-808a9070814f
+
+	column Rapportagecockpit
+		dataType: string
+		lineageTag: 880a6ea5-eca0-4049-b9c9-0c53e5d82f41
+		summarizeBy: none
+		sourceColumn: Rapportagecockpit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rapportagecockpit_omschrijving
+		dataType: string
+		lineageTag: 0bb8d45a-ce75-4092-a315-4ecbbfea73e0
+		summarizeBy: none
+		sourceColumn: Rapportagecockpit_omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Code Grootboek'
+		dataType: string
+		lineageTag: 8bbd861c-b196-4d2d-9bf5-28ae744df80b
+		summarizeBy: none
+		sourceColumn: Code Grootboek
+
+		annotation SummarizationSetBy = Automatic
+
+	column Omschrijving
+		dataType: string
+		lineageTag: 9ef19e28-01c3-4557-b753-14f5fcd3ec51
+		summarizeBy: none
+		sourceColumn: Omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type_rekening
+		dataType: string
+		lineageTag: d1e3e489-3de5-41d6-8cca-e26dfda099f5
+		summarizeBy: none
+		sourceColumn: Type_rekening
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Code GB + Omschrijving' = 'Dim Grootboek'[Code Grootboek] & " " & "-" & " " & 'Dim Grootboek'[Omschrijving]
+		lineageTag: ada4dc22-8134-4f67-bf05-7c089399369e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Grootboek' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.Combine({#"GC_FinancialeMutaties (2024 - 1-3)", #"GC_FinancialeMutaties (2024 - >10)", #"GC_FinancialeMutaties (2024 - 4-6)", #"GC_FinancialeMutaties (2024 - 7-9)", #"GC_FinancialeMutaties (2025 - >10)", #"GC_FinancialeMutaties (2025 - 1-3)", #"GC_FinancialeMutaties (2025 - 7-9)", #"GC_FinancialeMutaties (2025 - 4-6)", #"GC_FinancialeMutaties (>2026)"}),
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Type_rekening", "Rapportagecockpit_omschrijving", "Rekeningnummer_2", "Omschrijving", "Rapportagecockpit"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns", {"Rekeningnummer_2"}),
+				    #"Sorted Rows" = Table.Sort(#"Removed Duplicates",{{"Rekeningnummer_2", Order.Ascending}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Sorted Rows",{{"Rekeningnummer_2", "Code Grootboek"}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns",{"Rapportagecockpit", "Rapportagecockpit_omschrijving", "Code Grootboek", "Omschrijving", "Type_rekening"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Reordered Columns", each ([Rapportagecockpit_omschrijving] <> ""))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

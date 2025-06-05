@@ -1,0 +1,36 @@
+table 'Dim Looncomponent'
+	lineageTag: d770a55b-3487-4bef-9fec-796f32eb4041
+
+	column LC
+		dataType: string
+		lineageTag: afc0f4d8-36d2-4061-abc9-9affa7e83527
+		summarizeBy: none
+		sourceColumn: LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Omschrijving LC'
+		dataType: string
+		lineageTag: 9496178e-5e29-4f7b-8ca8-5abc951aff19
+		summarizeBy: none
+		sourceColumn: Omschrijving LC
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Looncomponent' = m
+		mode: import
+		queryGroup: Model
+		source = ```
+				let
+				    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025"}),
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"LC", "Omschrijving_klant"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Omschrijving_klant", "Omschrijving LC"}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns", {"LC"})
+				in 
+				    #"Removed Duplicates"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

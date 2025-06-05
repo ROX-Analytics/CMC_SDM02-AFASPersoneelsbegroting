@@ -1,0 +1,40 @@
+table 'Dim Formatieplaats'
+	lineageTag: 10d06fa1-5849-41e1-a468-653228f72526
+
+	column Formatieplaats
+		dataType: string
+		lineageTag: fbf013e2-396a-411b-a41e-cb13dbcc6e7d
+		summarizeBy: none
+		sourceColumn: Formatieplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column Omschrijving
+		dataType: string
+		lineageTag: dc1885e7-8605-4ad2-b262-d0f1528e163e
+		summarizeBy: none
+		sourceColumn: Omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Formatieplaats + Omschrijving' = 'Dim Formatieplaats'[Formatieplaats] & " " & "-" & " " & 'Dim Formatieplaats'[Omschrijving]
+		lineageTag: c6e7c98e-a75f-44a6-ab40-9a41ceabf6c1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Formatieplaats' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = #"FormatiePlaats (Staging)",
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Formatieplaats", "Omschrijving"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns")
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

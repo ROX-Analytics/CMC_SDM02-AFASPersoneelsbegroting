@@ -1,0 +1,79 @@
+{
+  "config": "{\"version\":\"5.59\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU10\",\"version\":\"5.63\",\"type\":2}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"isPersistentUserStateDisabled\":false,\"hideVisualContainerHeader\":false,\"useStylableVisualContainerHeader\":true,\"exportDataMode\":1,\"useNewFilterPaneExperience\":true,\"optOutNewFilterPaneExperience\":false,\"defaultFilterActionIsDataFilter\":true,\"useCrossReportDrillthrough\":false,\"allowChangeFilterTypes\":true,\"allowInlineExploration\":false,\"disableFilterPaneSearch\":false,\"enableDeveloperMode\":false,\"useEnhancedTooltips\":true,\"useScaledTooltips\":false,\"useDefaultAggregateDisplayName\":true,\"queryLimitOption\":6,\"customMemoryLimit\":\"1048576\",\"customTimeoutLimit\":\"225\"},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "filters": "[]",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU10",
+            "path": "BaseThemes/CY24SU10.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Page 1",
+      "displayOption": 1,
+      "filters": "[{\"name\":\"9899bfc7118d9bf78433\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Grootboek\"}},\"Property\":\"Rapportagecockpit_omschrijving\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Rapportagecockpit_omschrijving\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'19 Lonen en salarissen'\"}}],[{\"Literal\":{\"Value\":\"'20 Sociale lasten'\"}}],[{\"Literal\":{\"Value\":\"'21 Overige personeelskosten'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{}},{\"name\":\"1dc70c08da8b489af2ae\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Grootboek\"}},\"Property\":\"Code GB + Omschrijving\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Code GB + Omschrijving\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'4113000 - WG bijdrage ZV/OV'\"}}],[{\"Literal\":{\"Value\":\"'4128000 - Extra Budget bestemd voor Personeel'\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}]",
+      "height": 720.00,
+      "name": "d0916d32eaaec00a9a4b",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"1d35efaa96a3e613d604\",\"layouts\":[{\"id\":0,\"position\":{\"x\":990.1519756838907,\"y\":12.644376899696049,\"z\":0,\"width\":286.93009118541033,\"height\":62.24924012158055,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"},\"Name\":\"Dim Period.Year\",\"NativeReferenceName\":\"Year\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"2025L\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 62.25,
+          "width": 286.93,
+          "x": 990.15,
+          "y": 12.64,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"7f6986536dace69fd05e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":16.120906801007557,\"y\":32.241813602015114,\"z\":2000,\"width\":707.1704450041982,\"height\":297.69941225860623,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.Bedrag Personeel\"},{\"queryRef\":\"Measure Table.Bedrag Budget\"}],\"Rows\":[{\"queryRef\":\"Dim Grootboek.Rapportagecockpit_omschrijving\",\"active\":true},{\"queryRef\":\"Dim Grootboek.Code GB + Omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Bedrag Personeel\"},\"Name\":\"Measure Table.Bedrag Personeel\",\"NativeReferenceName\":\"Bedrag Personeel\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Rapportagecockpit_omschrijving\"},\"Name\":\"Dim Grootboek.Rapportagecockpit_omschrijving\",\"NativeReferenceName\":\"Rapportagecockpit_omschrijving\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Code GB + Omschrijving\"},\"Name\":\"Dim Grootboek.Code GB + Omschrijving\",\"NativeReferenceName\":\"Code GB + Omschrijving\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Bedrag Budget\"},\"Name\":\"Measure Table.Bedrag Budget\",\"NativeReferenceName\":\"Bedrag Budget\"}]},\"expansionStates\":[{\"roles\":[\"Rows\"],\"levels\":[{\"queryRefs\":[\"Dim Grootboek.Rapportagecockpit_omschrijving\"],\"isCollapsed\":true,\"identityKeys\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Grootboek\"}},\"Property\":\"Rapportagecockpit_omschrijving\"}}],\"isPinned\":true},{\"queryRefs\":[\"Dim Grootboek.Code GB + Omschrijving\"],\"isCollapsed\":true,\"isPinned\":true}],\"root\":{\"identityValues\":null,\"children\":[{\"identityValues\":[{\"Literal\":{\"Value\":\"'19 Lonen en salarissen'\"}}],\"isToggled\":true},{\"identityValues\":[{\"Literal\":{\"Value\":\"'20 Sociale lasten'\"}}],\"isToggled\":true},{\"identityValues\":[{\"Literal\":{\"Value\":\"'21 Overige personeelskosten'\"}}],\"isToggled\":true},{\"identityValues\":[{\"Literal\":{\"Value\":\"'22 Huisvestingskosten'\"}}],\"isToggled\":true}]}}],\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 297.70,
+          "width": 707.17,
+          "x": 16.12,
+          "y": 32.24,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"968d1e6954f34ac9138e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":16,\"y\":330,\"width\":707,\"height\":339,\"z\":4000,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Medewerker Details.Voornaam\"},{\"queryRef\":\"Measure Table.Actuals (FTE)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker Details\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Voornaam\"},\"Name\":\"Dim Medewerker Details.Voornaam\",\"NativeReferenceName\":\"Voornaam\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Actuals (FTE)\"},\"Name\":\"Measure Table.Actuals (FTE)\",\"NativeReferenceName\":\"Actuals (FTE)\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 339.00,
+          "width": 707.00,
+          "x": 16.00,
+          "y": 330.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"c92b1c1f4e7c7f84cb66\",\"layouts\":[{\"id\":0,\"position\":{\"x\":769,\"y\":251,\"width\":511,\"height\":418,\"z\":3000,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Medewerker Details.Voornaam\"},{\"queryRef\":\"Dim Medewerker Details.OE Code\"},{\"queryRef\":\"Dim Dienstbetrekking.Dienstbetrekking\"},{\"queryRef\":\"Dim Medewerker Details.Medewerker ID\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker Details\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"Dim Dienstbetrekking\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Voornaam\"},\"Name\":\"Dim Medewerker Details.Voornaam\",\"NativeReferenceName\":\"Voornaam\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"OE Code\"},\"Name\":\"Dim Medewerker Details.OE Code\",\"NativeReferenceName\":\"OE Code\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"Dienstbetrekking\"},\"Name\":\"Dim Dienstbetrekking.Dienstbetrekking\",\"NativeReferenceName\":\"Dienstbetrekking\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Medewerker ID\"},\"Name\":\"Dim Medewerker Details.Medewerker ID\",\"NativeReferenceName\":\"Medewerker ID\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 418.00,
+          "width": 511.00,
+          "x": 769.00,
+          "y": 251.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"df102ce34b65364b6e98\",\"layouts\":[{\"id\":0,\"position\":{\"x\":943.6104114189757,\"y\":128.96725440806046,\"z\":1000,\"width\":290.176322418136,\"height\":80.60453400503779,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Month name (short)\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month name (short)\"},\"Name\":\"Dim Period.Month name (short)\",\"NativeReferenceName\":\"Month name (short)\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 80.60,
+          "width": 290.18,
+          "x": 943.61,
+          "y": 128.97,
+          "z": 1000.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

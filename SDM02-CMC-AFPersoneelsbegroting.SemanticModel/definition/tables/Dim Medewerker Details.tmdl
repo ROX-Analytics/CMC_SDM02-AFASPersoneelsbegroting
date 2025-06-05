@@ -1,0 +1,374 @@
+table 'Dim Medewerker Details'
+	lineageTag: 704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c
+
+	column 'Medewerker ID'
+		dataType: string
+		lineageTag: 8532d454-4e1a-44c8-b39a-8d06ff98c90d
+		summarizeBy: none
+		sourceColumn: Medewerker ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Voornaam
+		dataType: string
+		lineageTag: 2a031a2b-2ca4-4ead-99a0-0f3a21f22639
+		summarizeBy: none
+		sourceColumn: Voornaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column Achternaam
+		dataType: string
+		lineageTag: 693823a8-3621-458f-ae60-5a43bfdca8b6
+		summarizeBy: none
+		sourceColumn: Achternaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geboortenaam
+		dataType: string
+		lineageTag: 79768447-5502-4c47-b651-80b3f76fdfa1
+		summarizeBy: none
+		sourceColumn: Geboortenaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column E-mail_werk
+		dataType: string
+		lineageTag: d1d92bdb-8afc-440f-ad77-112335c14ba8
+		summarizeBy: none
+		sourceColumn: E-mail_werk
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geboortedatum
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 06fd6bac-ba4f-4b55-84c2-38fe6bd38ec6
+		summarizeBy: none
+		sourceColumn: Geboortedatum
+
+		variation Variation
+			isDefault
+			relationship: af0ae359-8051-4c8f-8e7b-9556229a1768
+			defaultHierarchy: LocalDateTable_34f1b705-fae0-4db0-ba69-dc3ad200a7e3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Functie Code'
+		dataType: string
+		lineageTag: 2a508837-53ca-4f6a-a6ea-981935f173e0
+		summarizeBy: none
+		sourceColumn: Functie Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geslacht
+		dataType: string
+		lineageTag: e3bc2a44-c36d-415d-9f59-ea1084791f3d
+		summarizeBy: none
+		sourceColumn: Geslacht
+
+		annotation SummarizationSetBy = Automatic
+
+	column Leeftijd
+		dataType: string
+		lineageTag: 5791a4cb-e647-4ff7-8e9f-6013f0e4b77a
+		summarizeBy: none
+		sourceColumn: Leeftijd
+
+		annotation SummarizationSetBy = Automatic
+
+	column Datum_in_dienst
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 51aafaa1-fb06-478b-8f44-0eea34d66d60
+		summarizeBy: none
+		sourceColumn: Datum_in_dienst
+
+		variation Variation
+			isDefault
+			relationship: 70058c35-4278-4132-bf5a-36fc527d722d
+			defaultHierarchy: LocalDateTable_7179e43a-e07b-4353-ad18-05456413521c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Datum_uit_dienst
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c5b1b530-3c3c-40ff-9f9d-0176f07346f6
+		summarizeBy: none
+		sourceColumn: Datum_uit_dienst
+
+		variation Variation
+			isDefault
+			relationship: b15b4e5f-dd8d-402d-a0d3-16f0eb171abb
+			defaultHierarchy: LocalDateTable_5f12439e-ea17-4015-b112-d0b0ea49a114.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Status_dienstverband
+		dataType: string
+		lineageTag: ebac9da4-069f-470d-b97a-ed2013c43c27
+		summarizeBy: none
+		sourceColumn: Status_dienstverband
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostenplaats
+		dataType: string
+		lineageTag: c2fc3ace-9cfc-4ac3-8fb8-59ca70dce9de
+		summarizeBy: none
+		sourceColumn: Kostenplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geblokkeerd
+		dataType: string
+		lineageTag: 0923da91-36ed-4265-86c4-e37e994b395c
+		summarizeBy: none
+		sourceColumn: Geblokkeerd
+
+		annotation SummarizationSetBy = Automatic
+
+	column Aantal_FTE
+		dataType: double
+		lineageTag: cef5e719-270b-451a-9f3c-c31af34a2ddd
+		summarizeBy: sum
+		sourceColumn: Aantal_FTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Dienstjaren
+		dataType: double
+		lineageTag: 773e4fd0-6e62-4814-aabe-0490093182e0
+		summarizeBy: sum
+		sourceColumn: Dienstjaren
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column In_opleiding
+		dataType: string
+		lineageTag: 4024fe93-f0eb-4daa-8bb1-86c070654e70
+		summarizeBy: none
+		sourceColumn: In_opleiding
+
+		annotation SummarizationSetBy = Automatic
+
+	column Salaris
+		dataType: double
+		lineageTag: 3a367313-673b-48cd-b3eb-702a65b9ad2f
+		summarizeBy: sum
+		sourceColumn: Salaris
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Begindatum_salaris
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: db5ec135-4e75-452b-9112-a2c0f68184f5
+		summarizeBy: none
+		sourceColumn: Begindatum_salaris
+
+		variation Variation
+			isDefault
+			relationship: ee060fd5-3406-47d7-a29a-5ce35876a3eb
+			defaultHierarchy: LocalDateTable_a05a6d95-eba5-4957-a2a5-100deadbc7e5.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Einddatum_salaris
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b4d1b4b2-7910-417d-bd69-12a9211847e4
+		summarizeBy: none
+		sourceColumn: Einddatum_salaris
+
+		variation Variation
+			isDefault
+			relationship: 37ded886-c002-4c53-90f7-68356261ba2d
+			defaultHierarchy: LocalDateTable_c14b01a2-ce33-42b3-897e-a59aeebc8f72.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Begindatum_functie
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ff8fd8eb-fba9-4539-bb2f-145503154344
+		summarizeBy: none
+		sourceColumn: Begindatum_functie
+
+		variation Variation
+			isDefault
+			relationship: 9ea96603-4370-46b1-83e8-b9092b8726d4
+			defaultHierarchy: LocalDateTable_d6929cb5-d1ee-4883-8a1f-f035cb711259.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Trede
+		dataType: string
+		lineageTag: 265529bb-b185-4773-82e4-32f9e9da0927
+		summarizeBy: none
+		sourceColumn: Trede
+
+		annotation SummarizationSetBy = Automatic
+
+	column Schaal
+		dataType: string
+		lineageTag: e14fb804-8bb8-4825-9088-51ca2126c57f
+		summarizeBy: none
+		sourceColumn: Schaal
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Formatieplaats Code'
+		dataType: string
+		lineageTag: f3a7fe43-8d6a-4a2b-97ba-ec0b4aecf41b
+		summarizeBy: none
+		sourceColumn: Formatieplaats Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cluster/Afdeling Formatieplaats'
+		dataType: string
+		lineageTag: 4e798cbe-1fe6-47fa-9d50-0053f004f277
+		summarizeBy: none
+		sourceColumn: Cluster/Afdeling Formatieplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'OE Code'
+		dataType: string
+		lineageTag: c7131ac7-79d7-46bb-97ea-e6a9dea45aec
+		summarizeBy: none
+		sourceColumn: OE Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Soort_medewerker
+		dataType: string
+		lineageTag: b705e31a-c94f-4fd0-a9b5-238421078386
+		summarizeBy: none
+		sourceColumn: Soort_medewerker
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type_contract
+		dataType: string
+		lineageTag: 107a8471-e2c9-4199-a4a8-133ad2404adf
+		summarizeBy: none
+		sourceColumn: Type_contract
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Type Personeel ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: fe025293-426f-4a10-85a7-976c01fd2e81
+		summarizeBy: none
+		sourceColumn: Type Personeel ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dienstbetrekking ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4839fa5b-66a6-4607-b981-961232cdbb14
+		summarizeBy: none
+		sourceColumn: Dienstbetrekking ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: d578eaba-0ae6-4e76-bca7-b02da6dd7b94
+		summarizeBy: none
+		sourceColumn: Schaal ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cluster/Afdeling Functie'
+		dataType: string
+		lineageTag: a8ba295b-1345-4d4b-b4cc-c2c2cf1d2c59
+		summarizeBy: none
+		sourceColumn: Cluster/Afdeling Functie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'C/A Formatie ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 67bf4684-279b-4753-ab47-33952bb9ad0b
+		summarizeBy: none
+		sourceColumn: C/A Formatie ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'C/A Functie ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: d3a802f1-1508-48a7-af8c-b5b29c9a0d77
+		summarizeBy: none
+		sourceColumn: C/A Functie ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Medewerker Details' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+				    rows = Source[rows],
+				    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Expanded Column1",{"Medewerker", "Voornaam", "Achternaam", "Geboortenaam", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Aantal_FTE", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "In_opleiding", "Cluster_Afdeling_2", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats_2", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Soort_medewerker", "Type_contract"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Medewerker", "Medewerker ID"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Begindatum_salaris", type datetime}, {"Einddatum_salaris", type datetime}, {"Begindatum_functie", type datetime}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Begindatum_salaris", type date}, {"Einddatum_salaris", type date}, {"Begindatum_functie", type date}, {"Datum_in_dienst", type datetime}, {"Datum_uit_dienst", type datetime}}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Changed Type1",{{"Datum_in_dienst", type date}, {"Datum_uit_dienst", type date}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type2",{{"Formatieplaats_2", "Formatieplaats Code"}, {"Organisatorische_eenheid_2", "OE Code"}, {"Cluster_Afdeling_3", "Cluster/Afdeling"}}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Geboortedatum", type datetime}}),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Changed Type3",{{"Geboortedatum", type date}}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type4",{{"Functie", "Functie Code"}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns2", {"Medewerker ID"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Removed Duplicates", {"Soort_functie"}, #"Dim Personeel Type", {"Type Personeel"}, "Dim Personeel Type", JoinKind.LeftOuter),
+				    #"Expanded Dim Personeel Type" = Table.ExpandTableColumn(#"Merged Queries", "Dim Personeel Type", {"Type Personeel ID"}, {"Type Personeel ID"}),
+				    #"Merged Queries1" = Table.NestedJoin(#"Expanded Dim Personeel Type", {"Schaal"}, #"Dim SchaalType", {"Schaal"}, "Dim SchaalType", JoinKind.LeftOuter),
+				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries1", "Dim SchaalType", {"Schaal ID"}, {"Schaal ID"}),
+				    #"Merged Queries2" = Table.NestedJoin(#"Expanded Dim SchaalType", {"Dienstbetrekking"}, #"Dim Dienstbetrekking", {"Dienstbetrekking"}, "Dim Dienstbetrekking", JoinKind.LeftOuter),
+				    #"Expanded Dim Dienstbetrekking" = Table.ExpandTableColumn(#"Merged Queries2", "Dim Dienstbetrekking", {"Dienstbetrekking ID"}, {"Dienstbetrekking ID"}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Expanded Dim Dienstbetrekking",{"Medewerker ID", "Voornaam", "Achternaam", "Geboortenaam", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster_Afdeling_2", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Cluster/Afdeling", "OE Code", "Soort_medewerker", "Type_contract", "Type Personeel ID", "Schaal ID", "Dienstbetrekking ID"}),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"Removed Other Columns1",{{"Salaris", type number}}),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Changed Type5",{{"Cluster/Afdeling", "Cluster/Afdeling Formatieplaats"}, {"Cluster_Afdeling_2", "Cluster/Afdeling Functie"}}),
+				    #"Merged Queries3" = Table.NestedJoin(#"Renamed Columns3", {"Cluster/Afdeling Formatieplaats"}, #"Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Formatieplaatsniveau"}, "Dim Cluster/Afdeling Formatieplaats", JoinKind.LeftOuter),
+				    #"Expanded Dim Cluster/Afdeling Formatieplaats" = Table.ExpandTableColumn(#"Merged Queries3", "Dim Cluster/Afdeling Formatieplaats", {"C/A Formatie ID"}, {"C/A Formatie ID"}),
+				    #"Merged Queries4" = Table.NestedJoin(#"Expanded Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Functie"}, #"Dim Cluster/Afdeling Functienveau", {"Cluster/Afdeling Functienveau"}, "Dim Cluster/Afdeling Functienveau", JoinKind.LeftOuter),
+				    #"Expanded Dim Cluster/Afdeling Functienveau" = Table.ExpandTableColumn(#"Merged Queries4", "Dim Cluster/Afdeling Functienveau", {"C/A Functie ID"}, {"C/A Functie ID"}),
+				    #"Changed Type6" = Table.TransformColumnTypes(#"Expanded Dim Cluster/Afdeling Functienveau",{{"Aantal_FTE", type number}, {"Dienstjaren", type number}})
+				in
+				    #"Changed Type6"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
