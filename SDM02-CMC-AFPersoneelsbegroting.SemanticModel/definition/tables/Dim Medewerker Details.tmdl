@@ -332,6 +332,12 @@ table 'Dim Medewerker Details'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Mdw ID + Voornaam' = 'Dim Medewerker Details'[Medewerker ID] & " " & "-" & " " & 'Dim Medewerker Details'[Voornaam]
+		lineageTag: 1b42076c-7936-433a-8898-bbd49f2e914d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Medewerker Details' = m
 		mode: import
 		queryGroup: Model

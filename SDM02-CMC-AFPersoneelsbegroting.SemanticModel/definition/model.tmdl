@@ -44,7 +44,7 @@ annotation PBIDesktopVersion = 2.143.1204.0 (25.05)+23c84aace645781dd62b8a26eb04
 
 annotation PBI_ProTooling = ["DevMode","DaxQueryView_Desktop"]
 
-annotation PBI_QueryOrder = ["Fact Personeels Kosten","Fact Journal Entries","Fact Budget","Fact FormatiePlaats","Dim Medewerkers","Dim Calendar","Dim Period","Dim Looncomponent","Dim Grootboek","Dim Kostenplaats","ROWS","StartYear","Measure Table","FormatiePlaats (Staging)","FormatieBezetting (Staging)","Functies Bezetting (Staging)","Dim Organisatie Eenheid","Dim Formatieplaats","Dim Personeel Type","Dim Dienstbetrekking","Dim SchaalType","Dim Medewerker Details","Dim Generieke Functie","Dim Functie","Dim Cluster/Afdeling Formatieplaats","Dim Cluster/Afdeling Functienveau","Dim Kostenplaats (Budget)","Dim Indexering","DurationHours","GC_FinancialeMutaties (2024 - >10)","GC_FinancialeMutaties (2024 - 1-3)","GC_FinancialeMutaties (2024 - 4-6)","GC_FinancialeMutaties (2024 - 7-9)","GC_FinancialeMutaties (2025 - >10)","GC_FinancialeMutaties (2025 - 1-3)","GC_FinancialeMutaties (2025 - 7-9)","GC_FinancialeMutaties (2025 - 4-6)","GC_FinancialeMutaties (>2026)","Fact Personeels Kosten 2024","Fact Personeels Kosten 2025"]
+annotation PBI_QueryOrder = ["Fact Personeels Kosten","Fact Journal Entries","Fact Budget","Fact FormatiePlaats","Dim Medewerkers","Dim Calendar","Dim Period","Dim Looncomponent","Dim Grootboek","Dim Kostenplaats","ROWS","StartYear","Measure Table","FormatiePlaats (Staging)","FormatieBezetting (Staging)","Functies Bezetting (Staging)","Dim Organisatie Eenheid","Dim Formatieplaats","Dim Personeel Type","Dim Dienstbetrekking","Dim SchaalType","Dim Medewerker Details","Dim Generieke Functie","Dim Functie","Dim Cluster/Afdeling Formatieplaats","Dim Cluster/Afdeling Functienveau","Dim Kostenplaats (Budget)","Dim Indexering","DurationHours","GC_FinancialeMutaties (2024 - >10)","GC_FinancialeMutaties (2024 - 1-3)","GC_FinancialeMutaties (2024 - 4-6)","GC_FinancialeMutaties (2024 - 7-9)","GC_FinancialeMutaties (2025 - >10)","GC_FinancialeMutaties (2025 - 1-3)","GC_FinancialeMutaties (2025 - 7-9)","GC_FinancialeMutaties (2025 - 4-6)","GC_FinancialeMutaties (>2026)","Fact Personeels Kosten 2024","Fact Personeels Kosten 2025","Date Last Refreshed"]
 
 ref table DateTableTemplate_56d0ff38-686f-46af-aca6-f23a61a6d51e
 ref table 'Dim Medewerkers'
@@ -88,6 +88,8 @@ ref table 'Dim Looncomponent'
 ref table 'Dim Grootboek'
 ref table 'Dim Kostenplaats'
 ref table 'Fact Budget'
+ref table 'Date Last Refreshed'
+ref table LocalDateTable_3e04eb1b-5b20-4ca3-b677-af3d5ec8c03d
 
 ref cultureInfo en-US
 

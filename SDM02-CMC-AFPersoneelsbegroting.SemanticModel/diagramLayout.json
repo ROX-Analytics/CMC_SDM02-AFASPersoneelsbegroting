@@ -265,6 +265,16 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Date Last Refreshed",
+          "nodeLineageTag": "8f76f331-2629-48d8-a486-d0f55058d8fd",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -650,7 +660,7 @@
       "ordinal": 5,
       "scrollPosition": {
         "x": 0,
-        "y": 36
+        "y": 85.750481334153164
       },
       "nodes": [
         {

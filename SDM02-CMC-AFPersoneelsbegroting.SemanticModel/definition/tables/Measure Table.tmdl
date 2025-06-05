@@ -141,10 +141,9 @@ table 'Measure Table'
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure '% Verschil' = DIVIDE([Verschil], [Bedrag Personeelskosten PY])
+		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: Personeel
 		lineageTag: 9be0c6c8-3e1d-4fc5-ad9a-ef516f47c3ec
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Actuals (FTE) PY' =
 			
@@ -183,6 +182,231 @@ table 'Measure Table'
 		lineageTag: 65d3b531-8c8b-44c1-942a-6fd4061f5544
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Selected filters' = ```
+			
+			VAR MaxFilters = 25
+			
+			VAR selfilters =
+			IF ( 
+			    ISFILTERED ( 'Dim Calendar'[Year] ), 
+			    VAR ___f = FILTERS ( 'Dim Calendar'[Year] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Calendar'[Year] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Calendar'[Year], ", " )
+			    VAR ___x = "Year: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim calendar'[Year (wk)] ), 
+			    VAR ___f = FILTERS ( 'Dim Calendar'[Year (wk)] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Calendar'[Year (wk)] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Calendar'[Year (wk)], ", " )
+			    VAR ___x = "Year: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Calendar'[Month name (short)] ), 
+			    VAR ___f = FILTERS ( 'Dim Calendar'[Month name (short)] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Calendar'[Month name (short)] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Calendar'[Month name (short)], ", " )
+			    VAR ___x = "Month: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim calendar'[Month no.] ), 
+			    VAR ___f = FILTERS ( 'Dim Calendar'[Month no.] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Calendar'[Month no.] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Calendar'[Month no.], ", " )
+			    VAR ___x = "Month no: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim calendar'[Week no.] ), 
+			    VAR ___f = FILTERS ( 'Dim Calendar'[Week no.] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Calendar'[Week no.] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Calendar'[Week no.], ", " )
+			    VAR ___x = "Week no: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Cluster/Afdeling Formatieplaats'[Cluster/Afdeling Formatieplaatsniveau]), 
+			    VAR ___f = FILTERS ( 'Dim Cluster/Afdeling Formatieplaats'[Cluster/Afdeling Formatieplaatsniveau] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Cluster/Afdeling Formatieplaats'[Cluster/Afdeling Formatieplaatsniveau] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Cluster/Afdeling Formatieplaats'[Cluster/Afdeling Formatieplaatsniveau], ", " )
+			    VAR ___x = "Cluster/Afdeling Formatieplaatsniveau: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Cluster/Afdeling Functienveau'[Cluster/Afdeling Functienveau]), 
+			    VAR ___f = FILTERS ( 'Dim Cluster/Afdeling Functienveau'[Cluster/Afdeling Functienveau] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Cluster/Afdeling Functienveau'[Cluster/Afdeling Functienveau] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Cluster/Afdeling Functienveau'[Cluster/Afdeling Functienveau], ", " )
+			    VAR ___x = "Cluster/Afdeling Functieniveau: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Dienstbetrekking'[Dienstbetrekking]), 
+			    VAR ___f = FILTERS ( 'Dim Dienstbetrekking'[Dienstbetrekking] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Dienstbetrekking'[Dienstbetrekking] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Dienstbetrekking'[Dienstbetrekking], ", " )
+			    VAR ___x = "Dienstbetrekking: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Formatieplaats'[Formatieplaats + Omschrijving]), 
+			    VAR ___f = FILTERS ( 'Dim Formatieplaats'[Formatieplaats + Omschrijving] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Formatieplaats'[Formatieplaats + Omschrijving])
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Formatieplaats'[Formatieplaats + Omschrijving], ", " )
+			    VAR ___x = "Formatieplaats: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Functie'[Functiecode + Omschrijving]), 
+			    VAR ___f = FILTERS ( 'Dim Functie'[Functiecode + Omschrijving]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Functie'[Functiecode + Omschrijving] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Functie'[Functiecode + Omschrijving], ", " )
+			    VAR ___x = "Functie: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Grootboek'[Code GB + Omschrijving]), 
+			    VAR ___f = FILTERS ( 'Dim Grootboek'[Code GB + Omschrijving] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Grootboek'[Code GB + Omschrijving])
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Grootboek'[Code GB + Omschrijving], ", " )
+			    VAR ___x = "Grootboek: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Indexering'[Indexering]), 
+			    VAR ___f = FILTERS ( 'Dim Indexering'[Indexering] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Indexering'[Indexering] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Indexering'[Indexering], ", " )
+			    VAR ___x = "indexering: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Kostenplaats'[Kostenplaats Code + Omschrijving]), 
+			    VAR ___f = FILTERS ( 'Dim Kostenplaats'[Kostenplaats Code + Omschrijving] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Kostenplaats'[Kostenplaats Code + Omschrijving] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Kostenplaats'[Kostenplaats Code + Omschrijving], ", " )
+			    VAR ___x = "Kostenplaats: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Looncomponent'[LC Code + Omschrijving]), 
+			    VAR ___f = FILTERS ( 'Dim Looncomponent'[LC Code + Omschrijving] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Looncomponent'[LC Code + Omschrijving] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Looncomponent'[LC Code + Omschrijving], ", " )
+			    VAR ___x = "Looncomponent: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Medewerker Details'[Mdw ID + Voornaam]), 
+			    VAR ___f = FILTERS ( 'Dim Medewerker Details'[Mdw ID + Voornaam] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Medewerker Details'[Mdw ID + Voornaam] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Medewerker Details'[Mdw ID + Voornaam], ", " )
+			    VAR ___x = "Medewerker: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Organisatie Eenheid'[OE Code + Omschrijving]), 
+			    VAR ___f = FILTERS ( 'Dim Organisatie Eenheid'[OE Code + Omschrijving] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Organisatie Eenheid'[OE Code + Omschrijving] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Organisatie Eenheid'[OE Code + Omschrijving], ", " )
+			    VAR ___x = "Organisatie Eenheid: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Organisatie Eenheid'[OE Code + Omschrijving]), 
+			    VAR ___f = FILTERS ( 'Dim Organisatie Eenheid'[OE Code + Omschrijving] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Organisatie Eenheid'[OE Code + Omschrijving] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Organisatie Eenheid'[OE Code + Omschrijving], ", " )
+			    VAR ___x = "Organisatie Eenheid: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Period'[Month name (short)]), 
+			    VAR ___f = FILTERS ( 'Dim Period'[Month name (short)] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Period'[Month name (short)] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Period'[Month name (short)], ", " )
+			    VAR ___x = "Maand: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Personeel Type'[Type Personeel]), 
+			    VAR ___f = FILTERS ( 'Dim Personeel Type'[Type Personeel] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Personeel Type'[Type Personeel] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Personeel Type'[Type Personeel], ", " )
+			    VAR ___x = "Type Personeel: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim SchaalType'[SchaalType]), 
+			    VAR ___f = FILTERS ( 'Dim SchaalType'[SchaalType] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim SchaalType'[SchaalType])
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim SchaalType'[SchaalType], ", " )
+			    VAR ___x = "Type Schaal: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			RETURN
+			IF(
+			    LEN(selfilters)>0,
+			    REPLACE(selfilters, LEN(selfilters)-2,3,""),
+			    ""
+			)
+			```
+		displayFolder: Filter Measures
+		lineageTag: f996eb5d-1526-4e2c-8238-25d9ac1702c1
+
+	measure 'Verschil Budget' = [Bedrag Budget] - [Bedrag Budget PY]
+		displayFolder: Budget
+		lineageTag: 1b6fb24a-eede-4d51-aee9-8b9c35fb43be
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Verschil Budget' = DIVIDE([Verschil Budget], [Bedrag Budget PY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Budget
+		lineageTag: 38b73d5a-4269-46d7-9401-c42f9b8afc84
 
 	partition 'Measure Table' = m
 		mode: import

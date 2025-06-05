@@ -202,3 +202,8 @@ relationship 99a108bc-b6b1-c34b-7ff2-f57d6d6f21d3
 	fromColumn: 'Fact Personeels Kosten'.'Medewerker ID'
 	toColumn: 'Dim Medewerker Details'.'Medewerker ID'
 
+relationship 5f0947ad-7d8d-42eb-9c72-d1210af4437d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Date Last Refreshed'.'Date Last Refreshed'
+	toColumn: LocalDateTable_3e04eb1b-5b20-4ca3-b677-af3d5ec8c03d.Date
+

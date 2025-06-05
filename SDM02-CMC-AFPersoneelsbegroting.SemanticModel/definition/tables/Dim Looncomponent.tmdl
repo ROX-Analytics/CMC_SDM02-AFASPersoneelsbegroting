@@ -17,6 +17,12 @@ table 'Dim Looncomponent'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'LC Code + Omschrijving' = 'Dim Looncomponent'[LC] & " " & "-" & " " & 'Dim Looncomponent'[Omschrijving LC]
+		lineageTag: ce8fc3b6-ae44-4100-bc47-202694d0d365
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Looncomponent' = m
 		mode: import
 		queryGroup: Model

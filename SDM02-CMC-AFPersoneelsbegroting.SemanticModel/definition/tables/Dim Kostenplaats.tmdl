@@ -17,6 +17,12 @@ table 'Dim Kostenplaats'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Kostenplaats Code + Omschrijving' = 'Dim Kostenplaats'[Kostenplaats] & " " & "-" & " " & 'Dim Kostenplaats'[Kostenplaats_omschrijving]
+		lineageTag: ef8acfea-9e0f-487d-aba6-aa1ebdc92020
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Kostenplaats' = m
 		mode: import
 		queryGroup: Model
