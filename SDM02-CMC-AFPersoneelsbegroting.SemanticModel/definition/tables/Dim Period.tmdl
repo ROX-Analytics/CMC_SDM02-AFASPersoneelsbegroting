@@ -56,10 +56,10 @@ table 'Dim Period'
 		dataType: int64
 		formatString: 0
 		lineageTag: 50f25806-11bf-4993-9fb1-43ba18ef4b3f
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Year
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column 'Month no.'
 		dataType: int64

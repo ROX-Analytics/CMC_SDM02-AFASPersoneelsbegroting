@@ -8,7 +8,7 @@ table 'Measure Table'
 
 		annotation PBI_FormatHint = {"isDecimal":true}
 
-	measure 'Bedrag Personeel' = SUM('Fact Personeels Kosten'[Waarde])
+	measure 'Bedrag Personeelskosten' = SUM('Fact Personeels Kosten'[Waarde])
 		formatString: #,0.00
 		displayFolder: Personeel
 		lineageTag: d0a22982-f1a7-4121-bcc3-6a22f4dee6e6
@@ -30,7 +30,8 @@ table 'Measure Table'
 			SUMX(
 			    SUMMARIZE(
 			        'Fact Personeels Kosten',
-			        'Fact Personeels Kosten'[Medewerker ID]
+			        'Fact Personeels Kosten'[Medewerker ID],
+			        'Fact Personeels Kosten'[Boeking Year/Period]
 			    ),
 			    MAX('Fact Personeels Kosten'[FTE])
 			)
@@ -120,9 +121,68 @@ table 'Measure Table'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Actuals (FTE) 2'
+	measure 'Bedrag Personeelskosten PY' =
+			
+			VAR selectedyear = SELECTEDVALUE('Dim Period'[Year])
+			RETURN
+			CALCULATE(
+			    [Bedrag Personeelskosten],
+			    'Dim Period'[Year] = selectedyear - 1
+			)
 		displayFolder: Personeel
-		lineageTag: 9eee6c56-5bef-44d6-bc69-c68f4f0d4be9
+		lineageTag: c18a9bfb-0c5e-4c9b-b484-a51e14e87e01
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Verschil = [Bedrag Personeelskosten] - [Bedrag Personeelskosten PY]
+		displayFolder: Personeel
+		lineageTag: 9cc5bf29-998d-4f30-9d1c-fd6ca9bb4609
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Verschil' = DIVIDE([Verschil], [Bedrag Personeelskosten PY])
+		displayFolder: Personeel
+		lineageTag: 9be0c6c8-3e1d-4fc5-ad9a-ef516f47c3ec
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Actuals (FTE) PY' =
+			
+			VAR selectedyear = SELECTEDVALUE('Dim Period'[Year])
+			RETURN
+			CALCULATE(
+			    [Actuals (FTE)],
+			    'Dim Period'[Year] = selectedyear - 1
+			)
+		displayFolder: Personeel
+		lineageTag: 45bdb5ee-fb26-4514-984b-84e5a0ae01c2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Verschil Actuals (FTE)' = [Actuals (FTE)] - [Actuals (FTE) PY]
+		displayFolder: Personeel
+		lineageTag: b2d93d27-5458-4625-9142-2573984c73e7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Verschil Actuals (FTE)' = DIVIDE([Verschil Actuals (FTE)], [Actuals (FTE) PY])
+		displayFolder: Personeel
+		lineageTag: aaadfed1-8966-4ff9-aa80-f20b0492a7b9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Bedrag Budget PY' =
+			
+			VAR selectedyear = SELECTEDVALUE('Dim Period'[Year])
+			RETURN
+			CALCULATE(
+			    [Bedrag Budget],
+			    'Dim Period'[Year] = selectedyear - 1
+			)
+		displayFolder: Budget
+		lineageTag: 65d3b531-8c8b-44c1-942a-6fd4061f5544
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition 'Measure Table' = m
 		mode: import
