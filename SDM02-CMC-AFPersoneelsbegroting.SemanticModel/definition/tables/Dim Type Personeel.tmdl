@@ -1,0 +1,53 @@
+table 'Dim Type Personeel'
+	lineageTag: 7f9fae9f-34ed-4f62-87ae-099bfcf37447
+
+	column Soort_functie
+		dataType: string
+		lineageTag: 7db9b022-7e6d-477b-adf8-0a754fcf1e1e
+		summarizeBy: none
+		sourceColumn: Soort_functie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Type Zorg Functie'
+		dataType: string
+		lineageTag: 59b66dd6-cde2-4b16-b6a5-d5484e6ac177
+		summarizeBy: none
+		sourceColumn: Type Zorg Functie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Staf of Zorg'
+		dataType: string
+		lineageTag: ee644ee0-0b9f-44f3-82d8-2247654b46ae
+		summarizeBy: none
+		sourceColumn: Staf of Zorg
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Type Personeel ID'
+		dataType: string
+		lineageTag: fd0196e6-e9b4-4125-9b78-cf9572ec3ed1
+		summarizeBy: none
+		sourceColumn: Type Personeel ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Type Personeel' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.Combine({#"Dim Medici Type Personeel Zorg", #"Dim Medewerker Type Personeel Zorg", #"Dim Management Echelon 2 Type Personeel Zorg", #"Dim Management Echelon 3 Type Personeel Zorg", #"Dim Management Echelon 4 Type Personeel Zorg"}),
+				    #"Added Custom" = Table.AddColumn(Source, "Staf of Zorg", each "Zorg"),
+				    #"Added Index" = Table.AddIndexColumn(#"Added Custom", "Index", 1, 1, Int64.Type),
+				    #"Added Custom1" = Table.AddColumn(#"Added Index", "Type Personeel ID", each "Z" & "_" & Text.From([Index])),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Added Custom1",{"Soort_functie", "Type Zorg Functie", "Staf of Zorg", "Type Personeel ID"}),
+				    #"Appended Query" = Table.Combine({#"Removed Other Columns", #"Dim Staf Type Personeel"})
+				in
+				    #"Appended Query"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

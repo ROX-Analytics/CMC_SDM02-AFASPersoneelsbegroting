@@ -1,0 +1,48 @@
+table 'Dim Gratificatie Jubileum'
+	lineageTag: 6d406869-82a8-45c2-9877-d4fb8d30619c
+
+	column Dienstjubileum
+		dataType: double
+		lineageTag: 8c3efcd9-50fb-4e30-939b-c3849ae4e854
+		summarizeBy: sum
+		sourceColumn: Dienstjubileum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Percentage v. Basissalaris'
+		dataType: double
+		lineageTag: d93489e4-2d90-4937-bb34-0e920b822325
+		summarizeBy: sum
+		sourceColumn: Percentage v. Basissalaris
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 19ab121f-70d0-459e-983d-5487903cdf10
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Gratificatie Jubileum' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMjTSM1XSUTJUitWJVjICMY3ATGMwEygH4pgYADnGSrGxAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Dienstjubileum = _t, #"Percentage v. Basissalaris" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Dienstjubileum", type number}, {"Percentage v. Basissalaris", type number}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Changed Type", "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "ID"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
