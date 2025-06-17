@@ -44,6 +44,9 @@ table 'Dim Grootboek'
 	column 'Code GB + Omschrijving' = 'Dim Grootboek'[Code Grootboek] & " " & "-" & " " & 'Dim Grootboek'[Omschrijving]
 		lineageTag: ada4dc22-8134-4f67-bf05-7c089399369e
 		summarizeBy: none
+		sortByColumn: 'Code Grootboek'
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -58,7 +61,7 @@ table 'Dim Grootboek'
 				    #"Sorted Rows" = Table.Sort(#"Removed Duplicates",{{"Rekeningnummer_2", Order.Ascending}}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Sorted Rows",{{"Rekeningnummer_2", "Code Grootboek"}}),
 				    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns",{"Rapportagecockpit", "Rapportagecockpit_omschrijving", "Code Grootboek", "Omschrijving", "Type_rekening"}),
-				    #"Filtered Rows" = Table.SelectRows(#"Reordered Columns", each ([Rapportagecockpit_omschrijving] <> ""))
+				    #"Filtered Rows" = Table.SelectRows(#"Reordered Columns", each ([Rapportagecockpit_omschrijving] <> "") and ([Code Grootboek] <> "4113000"))
 				in
 				    #"Filtered Rows"
 

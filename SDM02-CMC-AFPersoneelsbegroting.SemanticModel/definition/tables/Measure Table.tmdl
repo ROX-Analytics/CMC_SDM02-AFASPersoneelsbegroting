@@ -2,13 +2,11 @@ table 'Measure Table'
 	lineageTag: 5d5105e0-68a1-4e70-8319-2121d5adb71a
 
 	measure 'Bedrag Journal Entries' = SUM('Fact Journal Entries'[Bedrag in LC])
-		formatString: #,0
+		formatString: #,0.00
 		displayFolder: Journal Entries
 		lineageTag: 6f3fc62e-be49-4ec8-a2b2-6829313e94fe
 
-		annotation PBI_FormatHint = {"isDecimal":true}
-
-	measure 'Bedrag Personeelskosten' = SUM('Fact Personeels Kosten'[Waarde])
+	measure 'Bedrag Personeelskosten' = SUM('Fact Personeels Kosten'[Bedrag])
 		formatString: #,0.00
 		displayFolder: Personeel
 		lineageTag: d0a22982-f1a7-4121-bcc3-6a22f4dee6e6
@@ -19,31 +17,41 @@ table 'Measure Table'
 		lineageTag: 5a3ee8c8-dfc9-4899-aea7-f4c5b30d4204
 
 	measure 'Begroot (FTE)' = SUM('Fact FormatiePlaats'[FTE_Begroot])
+		formatString: #,0.00
 		displayFolder: Formatie Plaats
 		lineageTag: d9fa012b-2b8b-4c11-8bf3-0f8275666e7b
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	measure 'Actuals (FTE)' =
+	measure 'Actuals (FTE)' = ```
 			
+			VAR selectedperiod = SELECTEDVALUE('Dim Period'[Month no.])
+			VAR selectedyear = SELECTEDVALUE('Dim Period'[Year])
 			
-			SUMX(
-			    SUMMARIZE(
-			        'Fact Personeels Kosten',
-			        'Fact Personeels Kosten'[Medewerker ID],
-			        'Fact Personeels Kosten'[Boeking Year/Period]
-			    ),
-			    MAX('Fact Personeels Kosten'[FTE])
+			VAR maxperiod = 
+			CALCULATE(
+			    MAX('Fact Actuals FTE'[Boeking Year/Period]),
+			    'Dim Period'[Year] = selectedyear
 			)
-		formatString: 0.00
+			RETURN
+			IF(
+			    selectedperiod,
+			    CALCULATE(
+			        SUM('Fact Actuals FTE'[FTE]),
+			        'Dim Period'[Month no.] = selectedperiod
+			    ),
+			    CALCULATE(
+			        SUM('Fact Actuals FTE'[FTE]),
+			        'Dim Period'[Year/Period] = maxperiod
+			    )
+			)
+			```
+		formatString: #,0.00
 		displayFolder: Personeel
 		lineageTag: 9dfdd747-b722-4dab-aa0a-f7bef93f6627
 
 	measure 'Verschil (FTE)' = SUM('Fact FormatiePlaats'[Verschil (excl)])
+		formatString: #,0.00
 		displayFolder: Formatie Plaats
 		lineageTag: 9cdd3a6a-3537-4663-97b4-df1417b6b9f4
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Mederwerkers (FTE)' =
 			
@@ -65,10 +73,9 @@ table 'Measure Table'
 			        'Dim Calendar'[Date] >= StartDate && 'Dim Calendar'[Date] <= EndDate
 			    )
 			)
+		formatString: #,0.00
 		displayFolder: Formatie Plaats
 		lineageTag: 438b1594-9f32-427f-8a33-3265b0f54b35
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Medewerkers 2 (FTE)' = ```
 			
@@ -80,33 +87,49 @@ table 'Measure Table'
 			    DATESBETWEEN('Dim Calendar'[Date], MIN('Dim Calendar'[Date]), MAX('Dim Calendar'[Date]))
 			)
 			```
+		formatString: #,0.00
 		displayFolder: Formatie Plaats
 		lineageTag: e3ae9388-6ae7-45ee-87cf-988a9ad8b48c
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	measure SelectedDaysCount =
+	measure SelectedDaysCount = ```
 			
-			COUNTROWS(
-			    VALUES('Dim Calendar'[Date])
-			)
+			VAR selectedyear = SELECTEDVALUE('Dim Period'[Year])
+			VAR selectedmonth = SELECTEDVALUE('Dim Period'[Month name (short)])
+			RETURN
+			    CALCULATE(
+			        COUNTROWS(
+			            VALUES('Dim Calendar'[Date])
+			        ),
+			        ALL('Dim Period'[Year/Period]),
+			        ALL('Dim Period'[Month name (short)]),
+			        ALL('Dim Period'[Month no.]),
+			        'Dim Calendar'[Year] = selectedyear
+			    )
+			
+			```
 		formatString: 0
 		displayFolder: Formatie Plaats
 		lineageTag: c51e88a9-2636-4229-802b-3fce27e40ac0
 
-	measure 'Begroot (FTE) Total' = DIVIDE([Begroot (FTE)], [SelectedDaysCount])
+	measure 'Begroot (FTE) Total' = ```
+			
+			    CALCULATE(
+			        DIVIDE([Begroot (FTE)], [SelectedDaysCount]),
+			        ALL('Dim Period'[Month name (short)]),
+			        ALL('Dim Period'[Year/Period])
+			    )
+			
+			```
+		formatString: #,0.00
 		displayFolder: Formatie Plaats
 		lineageTag: 25b9d069-154d-4515-abd4-559425062078
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Formatie Verschil' =
 			
 			[Begroot (FTE) Total] - [Medewerkers 2 (FTE)]
+		formatString: #,0.00
 		displayFolder: Formatie Plaats
 		lineageTag: 2c4c3898-b84a-4730-adc4-619bb299c958
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Formatieverschil Vacatures' =
 			
@@ -116,10 +139,9 @@ table 'Measure Table'
 			        IF([Formatie Verschil] > 0, [Formatie Verschil], 0)
 			    )
 			)
+		formatString: #,0.00
 		displayFolder: Formatie Plaats
 		lineageTag: 212b50cc-e21f-469b-a562-539347fd2d17
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Bedrag Personeelskosten PY' =
 			
@@ -134,13 +156,12 @@ table 'Measure Table'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure Verschil = [Bedrag Personeelskosten] - [Bedrag Personeelskosten PY]
+	measure 'Verschil Personeelskoten' = [Bedrag Personeelskosten] - [Bedrag Personeelskosten PY]
+		formatString: #,0.00
 		displayFolder: Personeel
 		lineageTag: 9cc5bf29-998d-4f30-9d1c-fd6ca9bb4609
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	measure '% Verschil' = DIVIDE([Verschil], [Bedrag Personeelskosten PY])
+	measure '% Verschil Personeelskosten' = DIVIDE([Verschil Personeelskoten], [Bedrag Personeelskosten PY])
 		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: Personeel
 		lineageTag: 9be0c6c8-3e1d-4fc5-ad9a-ef516f47c3ec
@@ -153,22 +174,19 @@ table 'Measure Table'
 			    [Actuals (FTE)],
 			    'Dim Period'[Year] = selectedyear - 1
 			)
+		formatString: #,0.00
 		displayFolder: Personeel
 		lineageTag: 45bdb5ee-fb26-4514-984b-84e5a0ae01c2
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	measure 'Verschil Actuals (FTE)' = [Actuals (FTE)] - [Actuals (FTE) PY]
+		formatString: #,0.00
 		displayFolder: Personeel
 		lineageTag: b2d93d27-5458-4625-9142-2573984c73e7
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	measure '% Verschil Actuals (FTE)' = DIVIDE([Verschil Actuals (FTE)], [Actuals (FTE) PY])
+		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: Personeel
 		lineageTag: aaadfed1-8966-4ff9-aa80-f20b0492a7b9
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Bedrag Budget PY' =
 			
@@ -178,10 +196,9 @@ table 'Measure Table'
 			    [Bedrag Budget],
 			    'Dim Period'[Year] = selectedyear - 1
 			)
+		formatString: #,0.00
 		displayFolder: Budget
 		lineageTag: 65d3b531-8c8b-44c1-942a-6fd4061f5544
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Selected filters' = ```
 			
@@ -235,6 +252,16 @@ table 'Measure Table'
 			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Calendar'[Week no.] )
 			    VAR ___d = CONCATENATEX ( ___t, 'Dim Calendar'[Week no.], ", " )
 			    VAR ___x = "Week no: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    RETURN REPLACE(___x, LEN(___x),1," | ")
+			)
+			&
+			IF ( 
+			    ISFILTERED ( 'Dim Period'[Year] ), 
+			    VAR ___f = FILTERS ( 'Dim Period'[Year] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Period'[Year] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Period'[Year], ", " )
+			    VAR ___x = "Jaar: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
 			    RETURN REPLACE(___x, LEN(___x),1," | ")
 			)
 			&
@@ -329,11 +356,11 @@ table 'Measure Table'
 			)
 			&
 			IF ( 
-			    ISFILTERED ( 'Dim Medewerker Details'[Mdw ID + Voornaam]), 
-			    VAR ___f = FILTERS ( 'Dim Medewerker Details'[Mdw ID + Voornaam] ) 
+			    ISFILTERED ( 'Dim Medewerker Details'[Volledige Naam]), 
+			    VAR ___f = FILTERS ( 'Dim Medewerker Details'[Volledige Naam] ) 
 			    VAR ___r = COUNTROWS ( ___f ) 
-			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Medewerker Details'[Mdw ID + Voornaam] )
-			    VAR ___d = CONCATENATEX ( ___t, 'Dim Medewerker Details'[Mdw ID + Voornaam], ", " )
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Medewerker Details'[Volledige Naam] )
+			    VAR ___d = CONCATENATEX ( ___t, 'Dim Medewerker Details'[Volledige Naam], ", " )
 			    VAR ___x = "Medewerker: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
 			    RETURN REPLACE(___x, LEN(___x),1," | ")
 			)
@@ -354,7 +381,7 @@ table 'Measure Table'
 			    VAR ___r = COUNTROWS ( ___f ) 
 			    VAR ___t = TOPN ( MaxFilters, ___f, 'Dim Organisatie Eenheid'[OE Code + Omschrijving] )
 			    VAR ___d = CONCATENATEX ( ___t, 'Dim Organisatie Eenheid'[OE Code + Omschrijving], ", " )
-			    VAR ___x = "Organisatie Eenheid: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
+			    VAR ___x = "Organisatorische Eenheid: " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " items selected]") & " " 
 			    RETURN REPLACE(___x, LEN(___x),1," | ")
 			)
 			&
@@ -398,15 +425,139 @@ table 'Measure Table'
 		lineageTag: f996eb5d-1526-4e2c-8238-25d9ac1702c1
 
 	measure 'Verschil Budget' = [Bedrag Budget] - [Bedrag Budget PY]
+		formatString: #,0.00
 		displayFolder: Budget
 		lineageTag: 1b6fb24a-eede-4d51-aee9-8b9c35fb43be
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure '% Verschil Budget' = DIVIDE([Verschil Budget], [Bedrag Budget PY])
 		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: Budget
 		lineageTag: 38b73d5a-4269-46d7-9401-c42f9b8afc84
+
+	measure 'Cascade Filter (Slicer) Personeelskosten' =
+			
+			// Insert Fact Table in place of the dim calendar. Can add multiple fact tables with || operator
+			INT(NOT ISEMPTY('Fact Budget') || NOT ISEMPTY('Fact FormatiePlaats') || NOT ISEMPTY('Fact Personeels Kosten') || NOT ISEMPTY('Fact Actuals FTE'))
+		formatString: 0
+		displayFolder: Filter Measures
+		lineageTag: 8aaeee28-d9a7-4165-b618-f5158368db88
+
+	measure 'Begroot (FTE) PY' =
+			
+			VAR selectedyear = SELECTEDVALUE('Dim Period'[Year])
+			
+			RETURN
+			CALCULATE(
+			    [Begroot (FTE) Total],
+			    'Dim Period'[Year] = selectedyear - 1
+			)
+		formatString: #,0.00
+		displayFolder: Formatie Plaats
+		lineageTag: e2485594-fc73-4780-980f-424747df26df
+
+	measure 'Vacatures (FTE)' = [Actuals (FTE)] - [Begroot (FTE) Total]
+		displayFolder: Formatie Plaats
+		lineageTag: d1b88188-af9f-422d-8950-ace37985517a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Totaal FTE''s' = [Actuals (FTE)] + [Vacatures (FTE)]
+		displayFolder: Formatie Plaats
+		lineageTag: 37ec9ae4-a8a2-4c9f-9606-977cf8f53136
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Vacatures (FTE) PY'
+		displayFolder: Formatie Plaats
+		lineageTag: 6df5098d-26e1-4a2f-8b95-bc82a4c3cbc7
+
+	measure 'Totaal FTE''s PY' = ```
+			
+			VAR selectedyear = SELECTEDVALUE('Dim Period'[Year])
+			
+			RETURN
+			CALCULATE(
+			    [Totaal FTE's],
+			    'Dim Period'[Year] = selectedyear - 1
+			)
+			
+			```
+		displayFolder: Formatie Plaats
+		lineageTag: c0d56846-da79-4085-8c92-5840fb58e110
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Bedrag Journal Entries PY' =
+			
+			VAR selectedyear = SELECTEDVALUE('Dim Period'[Year])
+			RETURN
+			CALCULATE(
+			    [Bedrag Journal Entries],
+			    'Dim Period'[Year] = selectedyear - 1
+			)
+		displayFolder: Journal Entries
+		lineageTag: 460ce481-a40a-4c6b-95ad-381e16b1ee73
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Debit Journal Entries' = SUM('Fact Journal Entries'[Bedrag_debet])
+		displayFolder: Journal Entries
+		lineageTag: 65e2adba-cb1f-4d32-b0b4-e03578d4f612
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Credit Journal Entries' = SUM('Fact Journal Entries'[Bedrag_credit])
+		displayFolder: Journal Entries
+		lineageTag: d29d619e-8018-40a2-b46f-830526ebca5e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Credit Personeelskosten' = SUM('Fact Personeels Kosten'[Bedrag_credit])
+		displayFolder: Personeel
+		lineageTag: fc287e1c-cf66-4141-a9aa-7f3942c21fee
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Waarde Personeelskosten' = SUM('Fact Personeels Kosten'[Waarde])
+		displayFolder: Personeel
+		lineageTag: a5f5365d-09df-4c0b-a6f2-63bf61f33335
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Saldo Personeelskosten' = SUM('Fact Personeels Kosten'[Saldo])
+		displayFolder: Personeel
+		lineageTag: a71c0575-916c-43aa-b811-c0c247f658b4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Verschil Journal Entries (CY-PY)' = [Bedrag Journal Entries] - [Bedrag Journal Entries PY]
+		formatString: #,0.00
+		displayFolder: Journal Entries
+		lineageTag: 0aa28fee-c34c-4cc1-be3c-aac706f4854c
+
+	measure '% Verschil Journal Entries (CY-PY)' = DIVIDE([Verschil Journal Entries (CY-PY)], [Bedrag Journal Entries PY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Journal Entries
+		lineageTag: 521fcffd-8ee6-47b9-82af-7c6580db94aa
+
+	measure 'Cascade Filter (Slicer) Journal Entries' =
+			
+			// Insert Fact Table in place of the dim calendar. Can add multiple fact tables with || operator
+			INT(NOT ISEMPTY('Fact Budget') || NOT ISEMPTY('Fact Journal Entries'))
+		formatString: 0
+		displayFolder: Filter Measures
+		lineageTag: 0541c33b-8c8c-4696-99f5-2ae47d5ba748
+
+	measure 'Verschil Journal Entries (CY-BU)' = [Bedrag Journal Entries] - [Bedrag Budget]
+		displayFolder: Journal Entries
+		lineageTag: aac74748-46a8-4aa2-8ce7-13512b25408f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Verschil Journal Entries (CY-BU)' = DIVIDE([Verschil Journal Entries (CY-BU)], [Bedrag Budget])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Journal Entries
+		lineageTag: a56f1191-6e08-4b18-bfa5-9f36d13bfe30
 
 	partition 'Measure Table' = m
 		mode: import

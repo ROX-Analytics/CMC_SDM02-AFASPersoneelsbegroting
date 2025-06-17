@@ -12,7 +12,6 @@ table 'Dim Indexering'
 
 	partition 'Dim Indexering' = m
 		mode: import
-		queryGroup: Model
 		source =
 				let
 				    Source = List.Generate(

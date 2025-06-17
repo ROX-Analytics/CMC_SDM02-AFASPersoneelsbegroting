@@ -211,12 +211,39 @@ table 'Fact Personeels Kosten'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: 57b84ecb-17b9-4947-93fc-01567c1e07b7
+		summarizeBy: sum
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Line ID'
+		dataType: string
+		lineageTag: 38fe0286-8499-43cd-859f-f7bf12674e92
+		summarizeBy: none
+		sourceColumn: Line ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Saldo
+		dataType: double
+		lineageTag: 37cd833b-aaf4-46a1-a1ac-a71f4088f70b
+		summarizeBy: sum
+		sourceColumn: Saldo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition 'Fact Personeels Kosten' = m
 		mode: import
 		queryGroup: Model
 		source =
 				let
-				    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025"}),
+				    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025", #"Fact Personeels Kosten 2021", #"Fact Personeels Kosten 2023", #"Fact Personeels Kosten 2022"}),
 				    #"Renamed Columns" = Table.RenameColumns(Source,{{"Omschrijving_klant", "Omschrijving LC"}}),
 				    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Boeking Periode (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0")),
 				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Salaris Periode (leading zeros)", each Text.PadStart(Text.From([Salarisperiode]),2,"0")),
@@ -229,9 +256,15 @@ table 'Fact Personeels Kosten'
 				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns1",{{"FTE Original", type number}}),
 				    #"Added Custom5" = Table.AddColumn(#"Changed Type", "FTE", each [FTE Original] / 100),
 				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom5",{{"FTE", type number}}),
-				    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type3",{{"Medewerker", "Medewerker ID"}})
+				    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type3",{{"Medewerker", "Medewerker ID"}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Renamed Columns2", "Index", 1, 1, Int64.Type),
+				    #"Added Custom6" = Table.AddColumn(#"Added Index", "Line ID", each Text.From([Medewerker ID]) & "_" & Text.From([Grootboekrekening]) & "_" & Text.From([Index])),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Added Custom6",{{"Line ID", type text}}),
+				    #"Added Custom7" = Table.AddColumn(#"Changed Type4", "Saldo", each ([Waarde] * [FTE]) - [Bedrag_credit]),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"Added Custom7",{{"Saldo", type number}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type5",{{"Grootboekrekening", Text.Trim, type text}})
 				in
-				    #"Renamed Columns2"
+				    #"Trimmed Text"
 
 	annotation PBI_NavigationStepName = Navigation
 

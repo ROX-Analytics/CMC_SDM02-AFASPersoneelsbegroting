@@ -56,6 +56,9 @@ table 'Dim Calendar'
 		lineageTag: 96f12460-e64a-413b-87f1-aa22f5440576
 		summarizeBy: none
 		sourceColumn: Month name (short)
+		sortByColumn: 'Month no.'
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 

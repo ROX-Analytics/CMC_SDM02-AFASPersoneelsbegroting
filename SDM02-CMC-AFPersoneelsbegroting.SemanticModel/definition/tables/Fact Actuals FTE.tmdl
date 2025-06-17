@@ -1,0 +1,108 @@
+table 'Fact Actuals FTE'
+	lineageTag: 3657a3f8-3326-4d2b-b375-d6d974a98225
+
+	column Jaar
+		dataType: string
+		lineageTag: eb6fad41-4b1a-4455-8860-9202facf090e
+		summarizeBy: none
+		sourceColumn: Jaar
+
+		annotation SummarizationSetBy = Automatic
+
+	column Boekingsperiode
+		dataType: string
+		lineageTag: c23430fc-f5eb-4160-b2da-b18285a59b09
+		summarizeBy: none
+		sourceColumn: Boekingsperiode
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Medewerker ID'
+		dataType: string
+		lineageTag: 04c79b14-a293-43b7-b71d-55423952b9ec
+		summarizeBy: none
+		sourceColumn: Medewerker ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostenplaats
+		dataType: string
+		lineageTag: fb4dc941-6f35-4f9f-b6a1-ef643d8eb88a
+		summarizeBy: none
+		sourceColumn: Kostenplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostenplaats_omschrijving
+		dataType: string
+		lineageTag: 4261102d-619b-42c6-808d-d08760138ca6
+		summarizeBy: none
+		sourceColumn: Kostenplaats_omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Boeking Periode (leading zeros)'
+		dataType: string
+		lineageTag: ae576dac-8122-49e9-b563-06e8f7c940a7
+		summarizeBy: none
+		sourceColumn: Boeking Periode (leading zeros)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Boeking Year/Period'
+		dataType: string
+		lineageTag: 9b3e8102-9798-4d43-91fb-97a8e974d225
+		summarizeBy: none
+		sourceColumn: Boeking Year/Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column FTE
+		dataType: double
+		lineageTag: 472c2583-f2ee-4f09-b4ee-bee5ff27a9e1
+		summarizeBy: sum
+		sourceColumn: FTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Line ID'
+		dataType: string
+		lineageTag: 9a289f77-96d0-4f61-b594-782b38acd8f0
+		summarizeBy: none
+		sourceColumn: Line ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Actuals FTE' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025"}),
+				    #"Renamed Columns" = Table.RenameColumns(Source,{{"Omschrijving_klant", "Omschrijving LC"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Boeking Periode (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0")),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Salaris Periode (leading zeros)", each Text.PadStart(Text.From([Salarisperiode]),2,"0")),
+				    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Boeking Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Boeking Periode (leading zeros)"])),
+				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Salaris Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Salaris Periode (leading zeros)"])),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom3",{{"Waarde", type number}, {"Bedrag_credit", type number}}),
+				    #"Added Custom4" = Table.AddColumn(#"Changed Type1", "Bedrag", each [Waarde] - [Bedrag_credit]),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom4",{{"Bedrag", type number}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type2",{{"FTE", "FTE Original"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns1",{{"FTE Original", type number}}),
+				    #"Added Custom5" = Table.AddColumn(#"Changed Type", "FTE", each [FTE Original] / 100),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom5",{{"FTE", type number}}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type3",{{"Medewerker", "Medewerker ID"}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Renamed Columns2", "Index", 1, 1, Int64.Type),
+				    #"Added Custom6" = Table.AddColumn(#"Added Index", "Line ID", each Text.From([Medewerker ID]) & "_" & Text.From([Grootboekrekening]) & "_" & Text.From([Index])),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Added Custom6",{{"Line ID", type text}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type4",{"Jaar", "Boekingsperiode", "Medewerker ID", "Kostenplaats", "Kostenplaats_omschrijving", "Boeking Periode (leading zeros)", "Boeking Year/Period", "FTE", "Line ID"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns", {"Medewerker ID", "Boeking Year/Period"})
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -75,7 +75,7 @@ table 'Dim Period'
 		queryGroup: Model
 		source = ```
 				let
-				    StartDate = #date(Date.Year(DateTime.LocalNow())-3, 1, 1),
+				    StartDate = #date(Date.Year(DateTime.LocalNow())-4, 1, 1),
 				    EndDate = Date.AddYears(Date.From(DateTime.LocalNow()), 1),
 				    NumberOfDays = Duration.Days( EndDate - StartDate ),
 				    Dates = List.Dates(StartDate, NumberOfDays+1, #duration(1,0,0,0)),

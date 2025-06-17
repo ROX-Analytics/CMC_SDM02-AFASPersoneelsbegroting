@@ -332,9 +332,33 @@ table 'Dim Medewerker Details'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Mdw ID + Voornaam' = 'Dim Medewerker Details'[Medewerker ID] & " " & "-" & " " & 'Dim Medewerker Details'[Voornaam]
+	column 'Volledige Naam' = 'Dim Medewerker Details'[Achternaam] & " " & "," & " " & 'Dim Medewerker Details'[Voorletters] & " " & "(" & 'Dim Medewerker Details'[Voornaam] & ")"
 		lineageTag: 1b42076c-7936-433a-8898-bbd49f2e914d
 		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Voorletters
+		dataType: string
+		lineageTag: 2339b9ca-18b9-4537-af73-531aec11d50f
+		summarizeBy: none
+		sourceColumn: Voorletters
+
+		annotation SummarizationSetBy = Automatic
+
+	column Voorvoegsel
+		dataType: string
+		lineageTag: 41afc439-27b0-485f-a41e-7cf5622be78a
+		summarizeBy: none
+		sourceColumn: Voorvoegsel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Naam_werkgever
+		dataType: string
+		lineageTag: bac42867-8567-4e7b-87a6-1a5b19f61541
+		summarizeBy: none
+		sourceColumn: Naam_werkgever
 
 		annotation SummarizationSetBy = Automatic
 
@@ -347,7 +371,8 @@ table 'Dim Medewerker Details'
 				    rows = Source[rows],
 				    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
 				    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
-				    #"Removed Other Columns" = Table.SelectColumns(#"Expanded Column1",{"Medewerker", "Voornaam", "Achternaam", "Geboortenaam", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Aantal_FTE", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "In_opleiding", "Cluster_Afdeling_2", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats_2", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Soort_medewerker", "Type_contract"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Expanded Column1", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"Medewerker", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "In_opleiding", "Cluster_Afdeling_2", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats_2", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Soort_medewerker", "Type_contract"}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Medewerker", "Medewerker ID"}}),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Begindatum_salaris", type datetime}, {"Einddatum_salaris", type datetime}, {"Begindatum_functie", type datetime}}),
 				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Begindatum_salaris", type date}, {"Einddatum_salaris", type date}, {"Begindatum_functie", type date}, {"Datum_in_dienst", type datetime}, {"Datum_uit_dienst", type datetime}}),
@@ -363,7 +388,7 @@ table 'Dim Medewerker Details'
 				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries1", "Dim SchaalType", {"Schaal ID"}, {"Schaal ID"}),
 				    #"Merged Queries2" = Table.NestedJoin(#"Expanded Dim SchaalType", {"Dienstbetrekking"}, #"Dim Dienstbetrekking", {"Dienstbetrekking"}, "Dim Dienstbetrekking", JoinKind.LeftOuter),
 				    #"Expanded Dim Dienstbetrekking" = Table.ExpandTableColumn(#"Merged Queries2", "Dim Dienstbetrekking", {"Dienstbetrekking ID"}, {"Dienstbetrekking ID"}),
-				    #"Removed Other Columns1" = Table.SelectColumns(#"Expanded Dim Dienstbetrekking",{"Medewerker ID", "Voornaam", "Achternaam", "Geboortenaam", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster_Afdeling_2", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Cluster/Afdeling", "OE Code", "Soort_medewerker", "Type_contract", "Type Personeel ID", "Schaal ID", "Dienstbetrekking ID"}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Expanded Dim Dienstbetrekking",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster_Afdeling_2", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Cluster/Afdeling", "OE Code", "Soort_medewerker", "Type_contract", "Type Personeel ID", "Schaal ID", "Dienstbetrekking ID"}),
 				    #"Changed Type5" = Table.TransformColumnTypes(#"Removed Other Columns1",{{"Salaris", type number}}),
 				    #"Renamed Columns3" = Table.RenameColumns(#"Changed Type5",{{"Cluster/Afdeling", "Cluster/Afdeling Formatieplaats"}, {"Cluster_Afdeling_2", "Cluster/Afdeling Functie"}}),
 				    #"Merged Queries3" = Table.NestedJoin(#"Renamed Columns3", {"Cluster/Afdeling Formatieplaats"}, #"Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Formatieplaatsniveau"}, "Dim Cluster/Afdeling Formatieplaats", JoinKind.LeftOuter),
