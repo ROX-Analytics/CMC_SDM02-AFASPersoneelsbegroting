@@ -1,0 +1,34 @@
+table 'Dim Staf of Zorg'
+	lineageTag: 0e28ed5c-0781-4744-98c0-3b9f257316f8
+
+	column 'Staf of Zorg'
+		dataType: string
+		lineageTag: e7325ed5-7573-4a32-87ae-c9345c5c8f86
+		summarizeBy: none
+		sourceColumn: Staf of Zorg
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 0cbff453-ad6b-4f2f-938f-e7b603ca34eb
+		summarizeBy: none
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Staf of Zorg' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCi5JTFPSUTJUitWJVorKL0oHcoyUYmMB", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Staf of Zorg" = _t, ID = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Staf of Zorg", type text}, {"ID", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

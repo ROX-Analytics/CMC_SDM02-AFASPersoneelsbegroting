@@ -106,10 +106,6 @@ relationship 86d94682-0fb1-ce87-7e58-9d05005eebd2
 	fromColumn: 'Dim Medewerker Details'.'C/A Formatie ID'
 	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'C/A Formatie ID'
 
-relationship bdaae862-7d40-2ac7-09b1-0f613f1659e3
-	fromColumn: 'Dim Medewerker Details'.'Type Personeel ID'
-	toColumn: 'Dim Personeel Type'.'Type Personeel ID'
-
 relationship b9e49d54-3146-c7f7-a799-d6389896b459
 	fromColumn: 'Dim Medewerker Details'.'Formatieplaats Code'
 	toColumn: 'Dim Formatieplaats'.Formatieplaats
@@ -154,10 +150,6 @@ relationship 90322fef-938c-4cd8-8ff5-d76fd01f7bf2
 	fromColumn: 'Fact FormatiePlaats'.Formatieplaats
 	toColumn: 'Dim Formatieplaats'.Formatieplaats
 
-relationship ba35de26-9f50-3fce-7b9f-04739e9fac77
-	fromColumn: 'Fact FormatiePlaats'.'Type Personeel ID'
-	toColumn: 'Dim Personeel Type'.'Type Personeel ID'
-
 relationship AutoDetected_e3730b58-083d-4daa-a17f-df547e73052b
 	fromColumn: 'Fact Budget'.Year/Period
 	toColumn: 'Dim Period'.Year/Period
@@ -198,4 +190,12 @@ relationship b90de1f7-6512-eedf-b106-08cd7ca87b5d
 relationship dd697d52-c9ee-e63d-6c1c-636088823374
 	fromColumn: 'Fact Personeels Kosten'.'Boeking Year/Period'
 	toColumn: 'Dim Period'.Year/Period
+
+relationship cd46c493-20cc-0ac1-ab9a-847f22313205
+	fromColumn: 'Dim Medewerker Details'.'Type Personeel ID'
+	toColumn: 'Dim Type Personeel'.'Type Personeel ID'
+
+relationship dd80d9a8-860a-a349-e154-26b5265f8de9
+	fromColumn: 'Dim Medewerker Details'.'Staf of Zorg'
+	toColumn: 'Dim Staf of Zorg'.'Staf of Zorg'
 

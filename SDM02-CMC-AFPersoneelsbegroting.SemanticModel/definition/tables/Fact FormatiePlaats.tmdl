@@ -343,7 +343,7 @@ table 'Fact FormatiePlaats'
 		dataType: int64
 		formatString: 0
 		lineageTag: 4f9545b9-7000-4478-baee-336b23ba0b2c
-		summarizeBy: none
+		summarizeBy: count
 		sourceColumn: Type Personeel ID
 
 		annotation SummarizationSetBy = Automatic
@@ -394,7 +394,7 @@ table 'Fact FormatiePlaats'
 				    #"Expanded Dim Calendar" = Table.ExpandTableColumn(#"Merged Queries", "Dim Calendar", {"Date", "Month no. (leading zeros)"}, {"Date", "Month no. (leading zeros)"}),
 				    #"Renamed Columns4" = Table.RenameColumns(#"Expanded Dim Calendar",{{"Aantal_FTE", "Werkelijk"}, {"Aantal_FTE_2", "Instroom"}, {"Aantal_FTE_3", "FTE uitstroom (zonder bepaalde tijd)"}, {"Verschil", "Verschil (excl)"}, {"Aantal_FTE_4", "Verschil"}, {"Organisatorische_eenheid", "OE"}, {"Month no. (leading zeros)", "Periode"}}),
 				    #"Added Custom3" = Table.AddColumn(#"Renamed Columns4", "Year/Period", each Text.From([Year]) & "/" & Text.From([#"Periode"])),
-				    #"Merged Queries1" = Table.NestedJoin(#"Added Custom3", {"Soort_functie"}, #"Dim Personeel Type", {"Type Personeel"}, "Dim Personeel Type", JoinKind.LeftOuter),
+				    #"Merged Queries1" = Table.NestedJoin(#"Added Custom3", {"Soort_functie"}, #"Dim Personeel Type OLD", {"Type Personeel"}, "Dim Personeel Type", JoinKind.LeftOuter),
 				    #"Expanded Dim Personeel Type" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Personeel Type", {"Type Personeel ID"}, {"Type Personeel ID"}),
 				    #"Merged Queries2" = Table.NestedJoin(#"Expanded Dim Personeel Type", {"Cluster_Afdeling"}, #"Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Formatieplaatsniveau"}, "Dim Cluster/Afdeling Formatieplaats", JoinKind.LeftOuter),
 				    #"Expanded Dim Cluster/Afdeling Formatieplaats" = Table.ExpandTableColumn(#"Merged Queries2", "Dim Cluster/Afdeling Formatieplaats", {"C/A Formatie ID"}, {"C/A Formatie ID"})
