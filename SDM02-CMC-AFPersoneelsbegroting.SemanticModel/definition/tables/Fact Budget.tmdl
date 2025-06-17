@@ -1,0 +1,145 @@
+table 'Fact Budget'
+	lineageTag: ad72d618-4e49-475a-823d-f88c4f707dec
+
+	column Administratiecode
+		dataType: string
+		lineageTag: 421ca289-12b7-42fe-8eb0-196f62fbd725
+		summarizeBy: none
+		sourceColumn: Administratiecode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Administratie
+		dataType: string
+		lineageTag: 2f4e6fb1-7358-4fec-b7d9-c5bb235d4b70
+		summarizeBy: none
+		sourceColumn: Administratie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboekrekeningnummer
+		dataType: string
+		lineageTag: 33f6170b-5de0-41fa-b5c1-3f55bb7a6c80
+		summarizeBy: none
+		sourceColumn: Grootboekrekeningnummer
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboekrekening
+		dataType: string
+		lineageTag: ea26f667-f09e-423e-9e55-364afe083bd4
+		summarizeBy: none
+		sourceColumn: Grootboekrekening
+
+		annotation SummarizationSetBy = Automatic
+
+	column Jaar
+		dataType: string
+		lineageTag: af9a8715-1ccf-4777-9108-16e3a35478ea
+		summarizeBy: none
+		sourceColumn: Jaar
+
+		annotation SummarizationSetBy = Automatic
+
+	column Periode
+		dataType: string
+		lineageTag: ba74bdeb-766f-4abb-a55d-515a2bef24d2
+		summarizeBy: none
+		sourceColumn: Periode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostenplaatscode
+		dataType: string
+		lineageTag: da339ff4-baac-47e4-a8c2-e28c4eb3e8f6
+		summarizeBy: none
+		sourceColumn: Kostenplaatscode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostenplaats
+		dataType: string
+		lineageTag: 65e4e2db-d53d-4df6-bae1-ab5ae6b5566e
+		summarizeBy: none
+		sourceColumn: Kostenplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column Oorspronkelijk_bedrag
+		dataType: double
+		lineageTag: b429433e-1240-4962-894f-5eebd26e6b09
+		summarizeBy: sum
+		sourceColumn: Oorspronkelijk_bedrag
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Aantal_budget
+		dataType: double
+		lineageTag: 54ac99ba-b66c-4372-b49d-11ae5ae7af18
+		summarizeBy: sum
+		sourceColumn: Aantal_budget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Rapportagecockpit
+		dataType: string
+		lineageTag: 6c184209-4a79-4a04-b7db-6abe454dd7fd
+		summarizeBy: none
+		sourceColumn: Rapportagecockpit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bedrag
+		dataType: double
+		lineageTag: a0c84b59-aa77-40df-87c7-0e1d0b0c1ada
+		summarizeBy: sum
+		sourceColumn: Bedrag
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Period (leading zeros)'
+		dataType: string
+		lineageTag: cf2eb09a-8781-4457-a928-e65bf92063f0
+		summarizeBy: none
+		sourceColumn: Period (leading zeros)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year/Period
+		dataType: string
+		lineageTag: 5bc8597d-6c47-46d4-bfbb-2b3f5be601a4
+		summarizeBy: none
+		sourceColumn: Year/Period
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Budget' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+				    #"4368f476-cecc-4cc0-a1c3-a2310f589b0a" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4368f476-cecc-4cc0-a1c3-a2310f589b0a"]}[Data],
+				    #"Fact Budget_" = #"4368f476-cecc-4cc0-a1c3-a2310f589b0a"{[entity="Fact Budget",version=""]}[Data],
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Fact Budget_",{{"Aantal_budget", type number}, {"Oorspronkelijk_bedrag", type number}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type1", "Bedrag", each [Oorspronkelijk_bedrag] * [Aantal_budget]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"Bedrag", type number}, {"Aantal_budget", type number}, {"Oorspronkelijk_bedrag", type number}}),
+				    #"Added Custom1" = Table.AddColumn(#"Changed Type", "Period (leading zeros)", each Text.PadStart(Text.From([Periode]),2,"0")),
+				    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Period (leading zeros)"])),
+				    #"Filtered Rows" = Table.SelectRows(#"Added Custom2", each ([Administratie] = "Curacao Medical Center Exploitatie")),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"Administratiecode", "Administratie", "Grootboekrekeningnummer", "Grootboekrekening", "Jaar", "Periode", "Kostenplaatscode", "Kostenplaats", "Oorspronkelijk_bedrag", "Aantal_budget", "Rapportagecockpit", "Bedrag", "Period (leading zeros)", "Year/Period"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

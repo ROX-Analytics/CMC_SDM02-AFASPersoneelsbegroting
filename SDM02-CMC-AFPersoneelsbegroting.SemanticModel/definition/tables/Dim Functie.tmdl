@@ -1,0 +1,44 @@
+table 'Dim Functie'
+	lineageTag: ee3d1dd8-72a5-4cd8-b499-4d452ad4c546
+
+	column Functiecode
+		dataType: string
+		lineageTag: b69dc96b-3147-49f6-a8b2-def696f9b4df
+		summarizeBy: none
+		sourceColumn: Functiecode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Functie
+		dataType: string
+		lineageTag: 4293aa4d-b88a-4b19-9646-ac0755bf32fb
+		summarizeBy: none
+		sourceColumn: Functie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Functiecode + Omschrijving' = 'Dim Functie'[Functiecode] & " " & "-" & " " & 'Dim Functie'[Functie]
+		lineageTag: ced757f1-f24e-480e-a76f-ee617f74f53c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Functie' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = #"FormatiePlaats (Staging)",
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Functie", "Omschrijving_3"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Functie", "Functiecode"}, {"Omschrijving_3", "Functie"}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns"),
+				    #"Filtered Rows1" = Table.SelectRows(#"Removed Duplicates", each ([Functiecode] <> null)),
+				    #"Appended Query" = Table.Combine({#"Filtered Rows1", #"Functies Bezetting (Staging)"}),
+				    #"Removed Duplicates1" = Table.Distinct(#"Appended Query", {"Functiecode"})
+				in
+				    #"Removed Duplicates1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

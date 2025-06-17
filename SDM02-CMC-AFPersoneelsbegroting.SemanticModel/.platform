@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "SDM02-CMC-AFPersoneelsbegroting"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "310b1ea4-93f0-4eb4-9164-88c2b36d1c0e"
+  }
+}

@@ -1,0 +1,272 @@
+table 'Fact Personeels Kosten'
+	lineageTag: 52f2eda9-d73c-41b5-94c0-cf8f5d1dcc49
+
+	column Jaar
+		dataType: string
+		lineageTag: 9870ef79-68d1-4a56-8e4f-579e91f9d700
+		summarizeBy: none
+		sourceColumn: Jaar
+
+		annotation SummarizationSetBy = Automatic
+
+	column Salarisperiode
+		dataType: string
+		lineageTag: c36ee609-68e4-4b33-84e0-f07e2d7da765
+		summarizeBy: none
+		sourceColumn: Salarisperiode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Boekingsperiode
+		dataType: string
+		lineageTag: 5490636c-4329-4c05-8ee6-734dcda183d3
+		summarizeBy: none
+		sourceColumn: Boekingsperiode
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Medewerker ID'
+		dataType: string
+		lineageTag: 600f26fe-9c83-4a47-9a81-2482be75ff43
+		summarizeBy: none
+		sourceColumn: Medewerker ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dienstverband
+		dataType: string
+		lineageTag: bfabed9c-b27a-41f8-9c30-2af773c42313
+		summarizeBy: none
+		sourceColumn: Dienstverband
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostensoort
+		dataType: string
+		lineageTag: afa37dfd-4127-4851-9956-e0960fedc462
+		summarizeBy: none
+		sourceColumn: Kostensoort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostenplaats
+		dataType: string
+		lineageTag: 274d83d2-4020-475d-a851-8c3ba0a1672b
+		summarizeBy: none
+		sourceColumn: Kostenplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column CAO
+		dataType: string
+		lineageTag: 36222319-1230-4acf-ba33-558a734ca92e
+		summarizeBy: none
+		sourceColumn: CAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column LC
+		dataType: string
+		lineageTag: 7ee3255d-aa72-4034-ae0c-25ca1ffbc31a
+		summarizeBy: none
+		sourceColumn: LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Omschrijving LC'
+		dataType: string
+		lineageTag: 83d1a3d4-917c-4f50-af34-d3fada234135
+		summarizeBy: none
+		sourceColumn: Omschrijving LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Waarde
+		dataType: double
+		lineageTag: b0c29fdc-5ca7-4a14-b798-753f07dd8be9
+		summarizeBy: sum
+		sourceColumn: Waarde
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Bedrag_credit
+		dataType: double
+		lineageTag: 3bda6780-286a-4cad-9ac0-f5f64fcfa2b1
+		summarizeBy: sum
+		sourceColumn: Bedrag_credit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Stamnummer
+		dataType: string
+		lineageTag: a3207d98-c57b-4746-aafe-fc1827f7dda3
+		summarizeBy: none
+		sourceColumn: Stamnummer
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboekrekening
+		dataType: string
+		lineageTag: fe0c19d6-5a55-4cf6-8077-baca4bf97c65
+		summarizeBy: none
+		sourceColumn: Grootboekrekening
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboekrekening_omschrijving
+		dataType: string
+		lineageTag: a1e0ace3-ea61-4b15-a5aa-5bc768872f4c
+		summarizeBy: none
+		sourceColumn: Grootboekrekening_omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboek_vervangend
+		dataType: string
+		lineageTag: 412176a7-e3bb-4a09-b31b-9e45ad960fdd
+		summarizeBy: none
+		sourceColumn: Grootboek_vervangend
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostenplaats_omschrijving
+		dataType: string
+		lineageTag: 8dcaf7b1-53a8-40fd-bb8b-04f4856aa935
+		summarizeBy: none
+		sourceColumn: Kostenplaats_omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status_verwerking
+		dataType: string
+		lineageTag: d868e2ce-7f11-4297-8d50-1fdf27403cb5
+		summarizeBy: none
+		sourceColumn: Status_verwerking
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FTE Original'
+		dataType: double
+		lineageTag: e549b927-47ec-42c3-ba07-8b5d1a684511
+		summarizeBy: sum
+		sourceColumn: FTE Original
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Boeking Periode (leading zeros)'
+		dataType: string
+		lineageTag: b17092c7-231f-4912-bcb3-d8db4879c5fb
+		summarizeBy: none
+		sourceColumn: Boeking Periode (leading zeros)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Salaris Periode (leading zeros)'
+		dataType: string
+		lineageTag: f5414884-1757-4082-826a-dd3e5602babc
+		summarizeBy: none
+		sourceColumn: Salaris Periode (leading zeros)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Boeking Year/Period'
+		dataType: string
+		lineageTag: dbd28592-4ea5-4b02-b77e-cdcc2baa58d6
+		summarizeBy: none
+		sourceColumn: Boeking Year/Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Salaris Year/Period'
+		dataType: string
+		lineageTag: 96b51d37-7f3a-4efb-b65a-3865364e7f46
+		summarizeBy: none
+		sourceColumn: Salaris Year/Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bedrag
+		dataType: double
+		lineageTag: 26397f74-eaba-4a7a-b70d-fbc05ff23953
+		summarizeBy: sum
+		sourceColumn: Bedrag
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FTE
+		dataType: double
+		lineageTag: 93ba7327-62bc-4e61-a558-d91b31d49f60
+		summarizeBy: sum
+		sourceColumn: FTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: 57b84ecb-17b9-4947-93fc-01567c1e07b7
+		summarizeBy: sum
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Line ID'
+		dataType: string
+		lineageTag: 38fe0286-8499-43cd-859f-f7bf12674e92
+		summarizeBy: none
+		sourceColumn: Line ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Saldo
+		dataType: double
+		lineageTag: 37cd833b-aaf4-46a1-a1ac-a71f4088f70b
+		summarizeBy: sum
+		sourceColumn: Saldo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Fact Personeels Kosten' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025", #"Fact Personeels Kosten 2021", #"Fact Personeels Kosten 2023", #"Fact Personeels Kosten 2022"}),
+				    #"Renamed Columns" = Table.RenameColumns(Source,{{"Omschrijving_klant", "Omschrijving LC"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Boeking Periode (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0")),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Salaris Periode (leading zeros)", each Text.PadStart(Text.From([Salarisperiode]),2,"0")),
+				    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Boeking Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Boeking Periode (leading zeros)"])),
+				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Salaris Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Salaris Periode (leading zeros)"])),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom3",{{"Waarde", type number}, {"Bedrag_credit", type number}}),
+				    #"Added Custom4" = Table.AddColumn(#"Changed Type1", "Bedrag", each [Waarde] - [Bedrag_credit]),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom4",{{"Bedrag", type number}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type2",{{"FTE", "FTE Original"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns1",{{"FTE Original", type number}}),
+				    #"Added Custom5" = Table.AddColumn(#"Changed Type", "FTE", each [FTE Original] / 100),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom5",{{"FTE", type number}}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type3",{{"Medewerker", "Medewerker ID"}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Renamed Columns2", "Index", 1, 1, Int64.Type),
+				    #"Added Custom6" = Table.AddColumn(#"Added Index", "Line ID", each Text.From([Medewerker ID]) & "_" & Text.From([Grootboekrekening]) & "_" & Text.From([Index])),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Added Custom6",{{"Line ID", type text}}),
+				    #"Added Custom7" = Table.AddColumn(#"Changed Type4", "Saldo", each ([Waarde] * [FTE]) - [Bedrag_credit]),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"Added Custom7",{{"Saldo", type number}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type5",{{"Grootboekrekening", Text.Trim, type text}})
+				in
+				    #"Trimmed Text"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

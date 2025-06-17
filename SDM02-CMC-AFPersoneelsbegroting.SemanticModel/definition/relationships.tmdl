@@ -1,0 +1,201 @@
+relationship 968b7272-25f6-4bce-9659-09bd9bc08790
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Calendar'.Date
+	toColumn: LocalDateTable_ad3891fd-19ab-4639-8353-00240143c7b3.Date
+
+relationship 5de80d7c-2fd9-4ef4-84ad-551ed8060543
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Calendar'.'Start date year'
+	toColumn: LocalDateTable_17d15d23-9858-43a8-83a2-65bffd42729d.Date
+
+relationship 1bb49979-e528-40f2-9797-216ef70a4191
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Period'.'Start of Month'
+	toColumn: LocalDateTable_b34c3d61-d546-40ce-a5bd-7e5591742761.Date
+
+relationship 0ec8b527-25b1-4985-8d90-f00159f67ef5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Period'.'Start date year'
+	toColumn: LocalDateTable_01929f72-a80b-407a-8777-f6a042f8cbec.Date
+
+relationship af0ae359-8051-4c8f-8e7b-9556229a1768
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Medewerker Details'.Geboortedatum
+	toColumn: LocalDateTable_34f1b705-fae0-4db0-ba69-dc3ad200a7e3.Date
+
+relationship 70058c35-4278-4132-bf5a-36fc527d722d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Medewerker Details'.Datum_in_dienst
+	toColumn: LocalDateTable_7179e43a-e07b-4353-ad18-05456413521c.Date
+
+relationship b15b4e5f-dd8d-402d-a0d3-16f0eb171abb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Medewerker Details'.Datum_uit_dienst
+	toColumn: LocalDateTable_5f12439e-ea17-4015-b112-d0b0ea49a114.Date
+
+relationship ee060fd5-3406-47d7-a29a-5ce35876a3eb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Medewerker Details'.Begindatum_salaris
+	toColumn: LocalDateTable_a05a6d95-eba5-4957-a2a5-100deadbc7e5.Date
+
+relationship 37ded886-c002-4c53-90f7-68356261ba2d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Medewerker Details'.Einddatum_salaris
+	toColumn: LocalDateTable_c14b01a2-ce33-42b3-897e-a59aeebc8f72.Date
+
+relationship 9ea96603-4370-46b1-83e8-b9092b8726d4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Medewerker Details'.Begindatum_functie
+	toColumn: LocalDateTable_d6929cb5-d1ee-4883-8a1f-f035cb711259.Date
+
+relationship 369bf740-7b40-487e-9c1e-de77d96ae3b4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact FormatiePlaats'.'Begin Datum'
+	toColumn: LocalDateTable_ff0b6a01-a3a6-42f7-906d-39e53520f9c0.Date
+
+relationship 66a7ea94-9b8e-4d77-86a9-70c6f3c4ac7a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact FormatiePlaats'.'Eind Datum'
+	toColumn: LocalDateTable_446649bc-0a8a-4f7b-a7a4-374345c30b17.Date
+
+relationship 76de0eee-6d1c-4672-ae17-5e64da9a91a0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact FormatiePlaats'.'Datum Gewijzigd'
+	toColumn: LocalDateTable_440d5084-fae8-4d5f-8be9-307106ab9e02.Date
+
+relationship a1059d3f-812b-46d2-88d4-273673fdc8d6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Journal Entries'.Boekstukdatum
+	toColumn: LocalDateTable_66df9115-5a45-40e8-bedd-3749737c0232.Date
+
+relationship 3cb421e9-5477-4d19-aebe-8dbdcaacf0c0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Journal Entries'.Datum_toegevoegd
+	toColumn: LocalDateTable_756b7e71-d8c2-4c27-a515-49334cad0cc6.Date
+
+relationship 0785e4f0-143f-4b0c-a649-1cdafd8c750b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Journal Entries'.Datum_gewijzigd
+	toColumn: LocalDateTable_83f54064-336c-402b-902f-703c7a5a3ef0.Date
+
+relationship 81d60563-320e-be6a-3727-22557191c4e3
+	fromColumn: 'Fact Journal Entries'.Year/Period
+	toColumn: 'Dim Period'.Year/Period
+
+relationship ae00d747-acf8-9eaf-4a82-049ca5e5345f
+	fromColumn: 'Fact Journal Entries'.Rekeningnummer_2
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
+
+relationship 1878a66d-2e67-0b38-1927-72a8ba30cfe5
+	fromColumn: 'Fact Journal Entries'.Datum_boeking
+	toColumn: 'Dim Calendar'.Date
+
+relationship e4808b5c-6939-44a4-fa04-310b7f921927
+	fromColumn: 'Fact Personeels Kosten'.Kostenplaats
+	toColumn: 'Dim Kostenplaats'.Kostenplaats
+
+relationship d1d707e5-7d55-2ba6-3977-e3ffe2f998d2
+	fromColumn: 'Fact Personeels Kosten'.LC
+	toColumn: 'Dim Looncomponent'.LC
+
+relationship 0d23e91f-5fdd-8131-9975-89b26e2b7e3f
+	fromColumn: 'Dim Medewerker Details'.'Schaal ID'
+	toColumn: 'Dim SchaalType'.'Schaal ID'
+
+relationship 86d94682-0fb1-ce87-7e58-9d05005eebd2
+	fromColumn: 'Dim Medewerker Details'.'C/A Formatie ID'
+	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'C/A Formatie ID'
+
+relationship bdaae862-7d40-2ac7-09b1-0f613f1659e3
+	fromColumn: 'Dim Medewerker Details'.'Type Personeel ID'
+	toColumn: 'Dim Personeel Type'.'Type Personeel ID'
+
+relationship b9e49d54-3146-c7f7-a799-d6389896b459
+	fromColumn: 'Dim Medewerker Details'.'Formatieplaats Code'
+	toColumn: 'Dim Formatieplaats'.Formatieplaats
+
+relationship 7795454c-2699-b52b-9fae-830594788d8a
+	fromColumn: 'Dim Medewerker Details'.'C/A Functie ID'
+	toColumn: 'Dim Cluster/Afdeling Functienveau'.'C/A Functie ID'
+
+relationship e1d17527-e5a7-2070-3f1b-e39df722c5a1
+	fromColumn: 'Dim Medewerker Details'.'OE Code'
+	toColumn: 'Dim Organisatie Eenheid'.OE
+
+relationship fb0be67d-92a2-c6ac-7e68-03a8d330016b
+	fromColumn: 'Dim Medewerker Details'.'Functie Code'
+	toColumn: 'Dim Functie'.Functiecode
+
+relationship 87cb8753-b475-9ba6-f24d-f8f16c2024bf
+	fromColumn: 'Dim Medewerker Details'.'Dienstbetrekking ID'
+	toColumn: 'Dim Dienstbetrekking'.'Dienstbetrekking ID'
+
+relationship 3bf83bef-6588-f092-9f43-1cfe2fe44bc3
+	fromColumn: 'Fact FormatiePlaats'.Kostenplaats
+	toColumn: 'Dim Kostenplaats'.Kostenplaats
+
+relationship 7c467852-1190-b452-009f-5d54dfd3ab2d
+	fromColumn: 'Fact FormatiePlaats'.OE
+	toColumn: 'Dim Organisatie Eenheid'.OE
+
+relationship 255f9166-43b8-39f8-8fd8-a446ecfec64f
+	fromColumn: 'Fact FormatiePlaats'.Year/Period
+	toColumn: 'Dim Period'.Year/Period
+
+relationship 57e67000-a1a1-0a9f-3891-ef39d6fcacfe
+	fromColumn: 'Fact FormatiePlaats'.Date
+	toColumn: 'Dim Calendar'.Date
+
+relationship 56c6ac01-2834-8c9b-51ec-d3cf309f2a55
+	fromColumn: 'Fact FormatiePlaats'.'C/A Formatie ID'
+	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'C/A Formatie ID'
+
+relationship 90322fef-938c-4cd8-8ff5-d76fd01f7bf2
+	fromColumn: 'Fact FormatiePlaats'.Formatieplaats
+	toColumn: 'Dim Formatieplaats'.Formatieplaats
+
+relationship ba35de26-9f50-3fce-7b9f-04739e9fac77
+	fromColumn: 'Fact FormatiePlaats'.'Type Personeel ID'
+	toColumn: 'Dim Personeel Type'.'Type Personeel ID'
+
+relationship AutoDetected_e3730b58-083d-4daa-a17f-df547e73052b
+	fromColumn: 'Fact Budget'.Year/Period
+	toColumn: 'Dim Period'.Year/Period
+
+relationship 1654c9d0-0e1d-d36a-8eba-8d2471603469
+	fromColumn: 'Fact Budget'.Kostenplaatscode
+	toColumn: 'Dim Kostenplaats'.Kostenplaats
+
+relationship 56a76d92-4931-8dbc-5921-0f246d46887e
+	fromColumn: 'Fact Budget'.Grootboekrekeningnummer
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
+
+relationship 99a108bc-b6b1-c34b-7ff2-f57d6d6f21d3
+	fromColumn: 'Fact Personeels Kosten'.'Medewerker ID'
+	toColumn: 'Dim Medewerker Details'.'Medewerker ID'
+
+relationship 5f0947ad-7d8d-42eb-9c72-d1210af4437d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Date Last Refreshed'.'Date Last Refreshed'
+	toColumn: LocalDateTable_3e04eb1b-5b20-4ca3-b677-af3d5ec8c03d.Date
+
+relationship 815725a2-2b00-bc16-ab75-99218e41e26f
+	fromColumn: 'Fact Actuals FTE'.'Boeking Year/Period'
+	toColumn: 'Dim Period'.Year/Period
+
+relationship e8fca446-58f0-fcdd-fce0-3255b3f9efe0
+	fromColumn: 'Fact Actuals FTE'.'Medewerker ID'
+	toColumn: 'Dim Medewerker Details'.'Medewerker ID'
+
+relationship 9e926a9b-953e-3462-40f1-0697901e04ff
+	fromColumn: 'Fact Actuals FTE'.Kostenplaats
+	toColumn: 'Dim Kostenplaats'.Kostenplaats
+
+relationship b90de1f7-6512-eedf-b106-08cd7ca87b5d
+	fromColumn: 'Fact Personeels Kosten'.Grootboekrekening
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
+
+relationship dd697d52-c9ee-e63d-6c1c-636088823374
+	fromColumn: 'Fact Personeels Kosten'.'Boeking Year/Period'
+	toColumn: 'Dim Period'.Year/Period
+

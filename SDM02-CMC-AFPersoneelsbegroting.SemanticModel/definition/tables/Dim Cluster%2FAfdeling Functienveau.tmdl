@@ -1,0 +1,44 @@
+table 'Dim Cluster/Afdeling Functienveau'
+	lineageTag: 42a66b18-8ec1-4920-8cfd-c2892a7c8ea3
+
+	column 'Cluster/Afdeling Functienveau'
+		dataType: string
+		lineageTag: 9c958de2-a043-4c6d-9a46-fd12c1b1809e
+		summarizeBy: none
+		sourceColumn: Cluster/Afdeling Functienveau
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'C/A Functie ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 221a014b-b9d0-42d5-8dd4-e8be740c2498
+		summarizeBy: none
+		sourceColumn: C/A Functie ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Cluster/Afdeling Functienveau' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+				    rows = Source[rows],
+				    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Expanded Column1", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
+				    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows1",{{"Medewerker", "Medewerker ID"}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Cluster_Afdeling_2"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Other Columns",{{"Cluster_Afdeling_2", "Cluster/Afdeling Functienveau"}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns1"),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Duplicates", each ([#"Cluster/Afdeling Functienveau"] <> null)),
+				    #"Added Index" = Table.AddIndexColumn(#"Filtered Rows", "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Added Index",{{"Index", "C/A Functie ID"}})
+				in
+				    #"Renamed Columns2"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

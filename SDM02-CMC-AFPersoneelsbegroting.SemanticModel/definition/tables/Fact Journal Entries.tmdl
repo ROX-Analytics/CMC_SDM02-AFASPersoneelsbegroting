@@ -1,0 +1,382 @@
+table 'Fact Journal Entries'
+	lineageTag: a9118325-dce6-4504-a7d8-cb2bfa9ab844
+
+	column Beheerder
+		dataType: string
+		lineageTag: 311fc521-19ce-4564-b9f8-fd2e4cd962f0
+		summarizeBy: none
+		sourceColumn: Beheerder
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type_rekening
+		dataType: string
+		lineageTag: 03bbe4b0-fad7-45ae-985a-eca9c6f95268
+		summarizeBy: none
+		sourceColumn: Type_rekening
+
+		annotation SummarizationSetBy = Automatic
+
+	column Administratie
+		dataType: string
+		lineageTag: 92c83047-ef02-4c0a-ad03-6c64b6ea6b1d
+		summarizeBy: none
+		sourceColumn: Administratie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Naam_administratie
+		dataType: string
+		lineageTag: 30dd7adf-5a1d-429d-83dc-4e18f8f702a1
+		summarizeBy: none
+		sourceColumn: Naam_administratie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Jaar
+		dataType: string
+		lineageTag: 4d3da580-33c0-4f3b-b5df-2f60efa644d0
+		summarizeBy: none
+		sourceColumn: Jaar
+
+		annotation SummarizationSetBy = Automatic
+
+	column Periode
+		dataType: string
+		lineageTag: 2c019acd-058f-494b-b230-5b90e88bc5a0
+		summarizeBy: none
+		sourceColumn: Periode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Boekstukdatum
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b8fd4164-cb6f-4b39-8608-afba2e2c2480
+		summarizeBy: none
+		sourceColumn: Boekstukdatum
+
+		variation Variation
+			isDefault
+			relationship: a1059d3f-812b-46d2-88d4-273673fdc8d6
+			defaultHierarchy: LocalDateTable_66df9115-5a45-40e8-bedd-3749737c0232.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Datum_boeking
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e8b2a8b0-a315-4d2c-a4ab-dd6a41582715
+		summarizeBy: none
+		sourceColumn: Datum_boeking
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Nummer_journaalpost
+		dataType: string
+		lineageTag: 326717e4-0ce2-4d57-ab73-03a83ce17594
+		summarizeBy: none
+		sourceColumn: Nummer_journaalpost
+
+		annotation SummarizationSetBy = Automatic
+
+	column Volgnummer_journaalpost
+		dataType: string
+		lineageTag: 863281dd-6691-491f-bd66-83c249d50192
+		summarizeBy: none
+		sourceColumn: Volgnummer_journaalpost
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rapportagecockpit_omschrijving
+		dataType: string
+		lineageTag: daf516d0-74dd-42ff-8659-c8d2cd95de7e
+		summarizeBy: none
+		sourceColumn: Rapportagecockpit_omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column Verzamelen_op
+		dataType: string
+		lineageTag: f7f19e3e-92a3-491c-a1e7-cf58b59c03b7
+		summarizeBy: none
+		sourceColumn: Verzamelen_op
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rekeningnummer_2
+		dataType: string
+		lineageTag: 69eeed2c-d7c9-4ddd-a68f-f87768f7b0d8
+		summarizeBy: none
+		sourceColumn: Rekeningnummer_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Omschrijving
+		dataType: string
+		lineageTag: 9095282e-72fb-46d2-8cae-35bea684c6cd
+		summarizeBy: none
+		sourceColumn: Omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column Boekstuknummer
+		dataType: string
+		lineageTag: 4ebc6932-d310-4c42-b387-ac76d786a635
+		summarizeBy: none
+		sourceColumn: Boekstuknummer
+
+		annotation SummarizationSetBy = Automatic
+
+	column Factuurnummer
+		dataType: string
+		lineageTag: 05abfb93-0f55-4f9f-9716-f3a2c85b0e44
+		summarizeBy: none
+		sourceColumn: Factuurnummer
+
+		annotation SummarizationSetBy = Automatic
+
+	column Omschrijving_2
+		dataType: string
+		lineageTag: db234122-c925-4381-810c-d1409d8ae4cb
+		summarizeBy: none
+		sourceColumn: Omschrijving_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Omschrijving_boeking
+		dataType: string
+		lineageTag: 630b8cfb-7bda-4fd2-979d-7a457a8a3418
+		summarizeBy: none
+		sourceColumn: Omschrijving_boeking
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bedrag_debet
+		dataType: double
+		lineageTag: 6208c0c0-f98a-42e5-aa77-eeda79289ed4
+		summarizeBy: sum
+		sourceColumn: Bedrag_debet
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Bedrag_credit
+		dataType: double
+		lineageTag: 1df9d1d5-35ae-4b91-9e3b-5fca4aad5a2f
+		summarizeBy: sum
+		sourceColumn: Bedrag_credit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Saldo
+		dataType: double
+		lineageTag: 9a6464f1-8005-4485-a162-c581f881ed1c
+		summarizeBy: sum
+		sourceColumn: Saldo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Valuta
+		dataType: string
+		lineageTag: a49cbce4-81e6-4bb2-b4d4-6537ed828405
+		summarizeBy: none
+		sourceColumn: Valuta
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valutabedrag_debet
+		dataType: double
+		lineageTag: 7b1370e2-6a88-4bf3-83fc-74b2a08ffc23
+		summarizeBy: sum
+		sourceColumn: Valutabedrag_debet
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Valutabedrag_credit
+		dataType: double
+		lineageTag: 93126745-8eee-44ad-9ae1-15b7b5725efb
+		summarizeBy: sum
+		sourceColumn: Valutabedrag_credit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Code_dagboek
+		dataType: string
+		lineageTag: e2eea493-4fbe-4878-8960-75c47531f4b1
+		summarizeBy: none
+		sourceColumn: Code_dagboek
+
+		annotation SummarizationSetBy = Automatic
+
+	column Omschrijving_3
+		dataType: string
+		lineageTag: dc3ebf1a-236f-4968-8dd4-1f7c7c6be1b8
+		summarizeBy: none
+		sourceColumn: Omschrijving_3
+
+		annotation SummarizationSetBy = Automatic
+
+	column Code_verbijzonderingsas_1
+		dataType: string
+		lineageTag: 8a58a69b-b8e4-402d-8481-078b6d9b8b42
+		summarizeBy: none
+		sourceColumn: Code_verbijzonderingsas_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Omschrijving_4
+		dataType: string
+		lineageTag: e39bbf60-7b9f-4597-97eb-2d54d38896a6
+		summarizeBy: none
+		sourceColumn: Omschrijving_4
+
+		annotation SummarizationSetBy = Automatic
+
+	column Code_verbijzonderingsas_2
+		dataType: string
+		lineageTag: 24e896bf-96f7-4255-a9d7-713a6ad8aea4
+		summarizeBy: none
+		sourceColumn: Code_verbijzonderingsas_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Transitorische_post
+		dataType: string
+		lineageTag: 2f9d52e6-bba8-4a68-a470-ead613f62a10
+		summarizeBy: none
+		sourceColumn: Transitorische_post
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Admin._rek.-courantboeking'
+		dataType: string
+		lineageTag: a28f59c8-a8c4-40ea-988c-cbfe1ac8e148
+		summarizeBy: none
+		sourceColumn: Admin._rek.-courantboeking
+
+		annotation SummarizationSetBy = Automatic
+
+	column Datum_toegevoegd
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2d483fe4-923c-4164-ad31-15788517b98b
+		summarizeBy: none
+		sourceColumn: Datum_toegevoegd
+
+		variation Variation
+			isDefault
+			relationship: 3cb421e9-5477-4d19-aebe-8dbdcaacf0c0
+			defaultHierarchy: LocalDateTable_756b7e71-d8c2-4c27-a515-49334cad0cc6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Toegevoegd_door
+		dataType: string
+		lineageTag: 7ad20667-b06b-44b7-89a7-3131908d5316
+		summarizeBy: none
+		sourceColumn: Toegevoegd_door
+
+		annotation SummarizationSetBy = Automatic
+
+	column Datum_gewijzigd
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5199db51-1181-4c40-b9b3-0ca67ed1fe9c
+		summarizeBy: none
+		sourceColumn: Datum_gewijzigd
+
+		variation Variation
+			isDefault
+			relationship: 0785e4f0-143f-4b0c-a649-1cdafd8c750b
+			defaultHierarchy: LocalDateTable_83f54064-336c-402b-902f-703c7a5a3ef0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Gewijzigd_door
+		dataType: string
+		lineageTag: 985f0653-ae9f-4ac6-b84e-487a25f8f3ad
+		summarizeBy: none
+		sourceColumn: Gewijzigd_door
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type_rekening_2
+		dataType: string
+		lineageTag: dfaee938-f87c-4d04-8986-b36cc1287798
+		summarizeBy: none
+		sourceColumn: Type_rekening_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rapportagecockpit
+		dataType: string
+		lineageTag: 9cbc6a4b-4816-47de-b84f-d28fd038f041
+		summarizeBy: none
+		sourceColumn: Rapportagecockpit
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Period (leading zeros)'
+		dataType: string
+		lineageTag: a826ec7f-3b6e-4266-b00f-26dad200a7be
+		summarizeBy: none
+		sourceColumn: Period (leading zeros)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year/Period
+		dataType: string
+		lineageTag: 1350ace9-6661-4e0c-a677-b9993f7edca2
+		summarizeBy: none
+		sourceColumn: Year/Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bedrag in LC'
+		dataType: double
+		lineageTag: ebf032fd-7cb1-496b-9740-815cfa5a114f
+		summarizeBy: sum
+		sourceColumn: Bedrag in LC
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Fact Journal Entries' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.Combine({#"GC_FinancialeMutaties (2024 - 1-3)", #"GC_FinancialeMutaties (2024 - >10)", #"GC_FinancialeMutaties (2024 - 4-6)", #"GC_FinancialeMutaties (2024 - 7-9)", #"GC_FinancialeMutaties (2025 - >10)", #"GC_FinancialeMutaties (2025 - 1-3)", #"GC_FinancialeMutaties (2025 - 7-9)", #"GC_FinancialeMutaties (2025 - 4-6)", #"GC_FinancialeMutaties (>2026)", #"GC_FinancialeMutaties (2023 - >10)", #"GC_FinancialeMutaties (2023 - 1-3)", #"GC_FinancialeMutaties (2023 - 4-6)", #"GC_FinancialeMutaties (2023 - 7-9)", #"GC_FinancialeMutaties (2022- >10)", #"GC_FinancialeMutaties (2022- 1-3)", #"GC_FinancialeMutaties (2022- 4-6)", #"GC_FinancialeMutaties (2022- 7-9)", #"GC_FinancialeMutaties (2021 - >10)", #"GC_FinancialeMutaties (2021 - 1-3)", #"GC_FinancialeMutaties (2021 - 4-6)", #"GC_FinancialeMutaties (2021 - 7-9)"}),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Boekstukdatum", type datetime}, {"Datum_boeking", type datetime}, {"Datum_toegevoegd", type datetime}, {"Datum_gewijzigd", type datetime}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Boekstukdatum", type date}, {"Datum_boeking", type date}, {"Datum_toegevoegd", type date}, {"Datum_gewijzigd", type date}, {"Bedrag_debet", type number}, {"Bedrag_credit", type number}, {"Saldo", type number}, {"Valutabedrag_debet", type number}, {"Valutabedrag_credit", type number}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type1", "Period (leading zeros)", each Text.PadStart(Text.From([Periode]),2,"0")),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Period (leading zeros)"])),
+				    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Bedrag in LC", each [Saldo]),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom2",{{"Bedrag in LC", type number}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type2",{"Beheerder", "Type_rekening", "Administratie", "Naam_administratie", "Jaar", "Periode", "Boekstukdatum", "Datum_boeking", "Nummer_journaalpost", "Volgnummer_journaalpost", "Rapportagecockpit_omschrijving", "Verzamelen_op", "Rekeningnummer_2", "Omschrijving", "Boekstuknummer", "Factuurnummer", "Omschrijving_2", "Omschrijving_boeking", "Bedrag_debet", "Bedrag_credit", "Saldo", "Valuta", "Valutabedrag_debet", "Valutabedrag_credit", "Code_dagboek", "Omschrijving_3", "Code_verbijzonderingsas_1", "Omschrijving_4", "Code_verbijzonderingsas_2", "Transitorische_post", "Admin._rek.-courantboeking", "Datum_toegevoegd", "Toegevoegd_door", "Datum_gewijzigd", "Gewijzigd_door", "Type_rekening_2", "Rapportagecockpit", "Period (leading zeros)", "Year/Period", "Bedrag in LC"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

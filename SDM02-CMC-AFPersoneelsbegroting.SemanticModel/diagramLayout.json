@@ -1,0 +1,832 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 943,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 4750.7046639882083,
+            "y": 201.45839233843492
+          },
+          "nodeIndex": "Dim Calendar",
+          "nodeLineageTag": "a883d342-a4f1-4794-be15-d8996c371305",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5034.7046639882083,
+            "y": 275.45839233843492
+          },
+          "nodeIndex": "Dim Grootboek",
+          "nodeLineageTag": "08e44252-bbbe-49e8-b6d7-d782bf441fd0",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4516.7046639882083,
+            "y": 206.04348796871227
+          },
+          "nodeIndex": "Dim Looncomponent",
+          "nodeLineageTag": "cfabfe0a-cc51-467d-9dfe-4bf5764d58b5",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3380.1401251520065,
+            "y": 151.45839233843492
+          },
+          "nodeIndex": "Fact Journal Entries",
+          "nodeLineageTag": "25a66382-963c-4f53-8d08-dd593fcca125",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1441.9385639588213,
+            "y": 205.32859117364964
+          },
+          "nodeIndex": "Dim Kostenplaats",
+          "nodeLineageTag": "f884c78b-a4ed-49f5-aa45-a07291aa61a5",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1157.7570751373128,
+            "y": 152.17328913349641
+          },
+          "nodeIndex": "Fact Budget",
+          "nodeLineageTag": "38a58db4-e0b1-4327-bb02-716f6b70cae3",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 873.5555139441276,
+            "y": 223.3137019532507
+          },
+          "nodeIndex": "Dim Period",
+          "nodeLineageTag": "359771a9-e570-4c97-8981-e43407ccad44",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1675.9385639588213,
+            "y": 300.17328913349638
+          },
+          "nodeIndex": "Measure Table",
+          "nodeLineageTag": "5d5105e0-68a1-4e70-8319-2121d5adb71a",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 482.76879649842078
+          },
+          "nodeIndex": "Dim Dienstbetrekking",
+          "nodeLineageTag": "008b4704-71ee-45fd-b284-a79ca01516d2",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 62.223165353848572,
+            "y": -50
+          },
+          "nodeIndex": "Dim Formatieplaats",
+          "nodeLineageTag": "10d06fa1-5849-41e1-a468-653228f72526",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 560.24658717081934,
+            "y": 526.34657826699276
+          },
+          "nodeIndex": "Dim Functie",
+          "nodeLineageTag": "ee3d1dd8-72a5-4cd8-b499-4d452ad4c546",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 334.17328322702622,
+            "y": 176.17244642707965
+          },
+          "nodeIndex": "Dim Medewerker Details",
+          "nodeLineageTag": "704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2243.9385639588213,
+            "y": 288.17328913349638
+          },
+          "nodeIndex": "Dim Organisatie Eenheid",
+          "nodeLineageTag": "81c24bbf-9ac2-48f5-9b10-a06d2f097f34",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2527.9385639588213,
+            "y": 288.17328913349638
+          },
+          "nodeIndex": "Dim Personeel Type",
+          "nodeLineageTag": "f2843fa2-d36b-460e-bd59-be9a15632472",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2811.9385639588213,
+            "y": 276.17328913349638
+          },
+          "nodeIndex": "Dim SchaalType",
+          "nodeLineageTag": "db30c2e8-7814-41c3-9c68-cc68616837b3",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Dim Cluster/Afdeling Formatieplaats",
+          "nodeLineageTag": "f8bb1cbf-67b7-4305-842a-7efd5247f772",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Dim Cluster/Afdeling Functienveau",
+          "nodeLineageTag": "42a66b18-8ec1-4920-8cfd-c2892a7c8ea3",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Dim Indexering",
+          "nodeLineageTag": "a47ea6da-670e-4553-ae3a-e7e0b311e998",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Fact FormatiePlaats",
+          "nodeLineageTag": "ec9687a2-fef3-4536-a4e3-c6ba243a62dc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Fact Personeels Kosten",
+          "nodeLineageTag": "52f2eda9-d73c-41b5-94c0-cf8f5d1dcc49",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Date Last Refreshed",
+          "nodeLineageTag": "8f76f331-2629-48d8-a486-d0f55058d8fd",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Fact Actuals FTE",
+          "nodeLineageTag": "3657a3f8-3326-4d2b-b375-d6d974a98225",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 446,
+            "y": 35
+          },
+          "nodeIndex": "Fact Journal Entries",
+          "nodeLineageTag": "25a66382-963c-4f53-8d08-dd593fcca125",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 804,
+            "y": 205
+          },
+          "nodeIndex": "Dim Calendar",
+          "nodeLineageTag": "a883d342-a4f1-4794-be15-d8996c371305",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 408,
+            "y": 460
+          },
+          "nodeIndex": "Dim Grootboek",
+          "nodeLineageTag": "08e44252-bbbe-49e8-b6d7-d782bf441fd0",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 33
+          },
+          "nodeIndex": "Dim Period",
+          "nodeLineageTag": "359771a9-e570-4c97-8981-e43407ccad44",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Fact Journal Entries",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 2,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 883,
+            "y": 272
+          },
+          "nodeIndex": "Dim Period",
+          "nodeLineageTag": "359771a9-e570-4c97-8981-e43407ccad44",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 370,
+            "y": 489
+          },
+          "nodeIndex": "Dim Looncomponent",
+          "nodeLineageTag": "cfabfe0a-cc51-467d-9dfe-4bf5764d58b5",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 851,
+            "y": 29
+          },
+          "nodeIndex": "Dim Kostenplaats",
+          "nodeLineageTag": "f884c78b-a4ed-49f5-aa45-a07291aa61a5",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 864,
+            "y": 499
+          },
+          "nodeIndex": "Dim Grootboek",
+          "nodeLineageTag": "08e44252-bbbe-49e8-b6d7-d782bf441fd0",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 508,
+            "y": 95
+          },
+          "nodeIndex": "Fact Personeels Kosten",
+          "nodeLineageTag": "52f2eda9-d73c-41b5-94c0-cf8f5d1dcc49",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 31,
+            "y": 118
+          },
+          "nodeIndex": "Dim Medewerker Details",
+          "nodeLineageTag": "704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Fact Personeelskosten",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 3,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 396,
+            "y": 39
+          },
+          "nodeIndex": "Fact Budget",
+          "nodeLineageTag": "38a58db4-e0b1-4327-bb02-716f6b70cae3",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 755,
+            "y": 53
+          },
+          "nodeIndex": "Dim Grootboek",
+          "nodeLineageTag": "08e44252-bbbe-49e8-b6d7-d782bf441fd0",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 173,
+            "y": 462
+          },
+          "nodeIndex": "Dim Kostenplaats",
+          "nodeLineageTag": "f884c78b-a4ed-49f5-aa45-a07291aa61a5",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 819,
+            "y": 353
+          },
+          "nodeIndex": "Dim Period",
+          "nodeLineageTag": "359771a9-e570-4c97-8981-e43407ccad44",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 1
+        }
+      ],
+      "name": "Fact Budget",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 4,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 463,
+            "y": 163
+          },
+          "nodeIndex": "Dim Medewerker Details",
+          "nodeLineageTag": "704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 27,
+            "y": 209
+          },
+          "nodeIndex": "Dim Organisatie Eenheid",
+          "nodeLineageTag": "81c24bbf-9ac2-48f5-9b10-a06d2f097f34",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 853,
+            "y": 42
+          },
+          "nodeIndex": "Dim SchaalType",
+          "nodeLineageTag": "db30c2e8-7814-41c3-9c68-cc68616837b3",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 195,
+            "y": 0
+          },
+          "nodeIndex": "Dim Functie",
+          "nodeLineageTag": "ee3d1dd8-72a5-4cd8-b499-4d452ad4c546",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 135,
+            "y": 498
+          },
+          "nodeIndex": "Dim Formatieplaats",
+          "nodeLineageTag": "10d06fa1-5849-41e1-a468-653228f72526",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 479,
+            "y": 563
+          },
+          "nodeIndex": "Dim Personeel Type",
+          "nodeLineageTag": "f2843fa2-d36b-460e-bd59-be9a15632472",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 585,
+            "y": -8
+          },
+          "nodeIndex": "Dim Dienstbetrekking",
+          "nodeLineageTag": "008b4704-71ee-45fd-b284-a79ca01516d2",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -86,
+            "y": 382
+          },
+          "nodeIndex": "Dim Cluster/Afdeling Functienveau",
+          "nodeLineageTag": "42a66b18-8ec1-4920-8cfd-c2892a7c8ea3",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 706,
+            "y": 481
+          },
+          "nodeIndex": "Dim Cluster/Afdeling Formatieplaats",
+          "nodeLineageTag": "f8bb1cbf-67b7-4305-842a-7efd5247f772",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Medewerker",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 5,
+      "scrollPosition": {
+        "x": 0,
+        "y": 75
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 385.73573288047942,
+            "y": 300.23818193439087
+          },
+          "nodeIndex": "Fact FormatiePlaats",
+          "nodeLineageTag": "ec9687a2-fef3-4536-a4e3-c6ba243a62dc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 385.73452971847013,
+            "y": 734.75048133415316
+          },
+          "nodeIndex": "Dim Kostenplaats",
+          "nodeLineageTag": "f884c78b-a4ed-49f5-aa45-a07291aa61a5",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 238.83147086085609,
+            "y": 25.995805011262746
+          },
+          "nodeIndex": "Dim Period",
+          "nodeLineageTag": "359771a9-e570-4c97-8981-e43407ccad44",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 101.53486147214653,
+            "y": 584.48219810626881
+          },
+          "nodeIndex": "Dim Organisatie Eenheid",
+          "nodeLineageTag": "81c24bbf-9ac2-48f5-9b10-a06d2f097f34",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 669.94168891206914,
+            "y": 581.34082063843221
+          },
+          "nodeIndex": "Dim Formatieplaats",
+          "nodeLineageTag": "10d06fa1-5849-41e1-a468-653228f72526",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 567.480290976828,
+            "y": 0
+          },
+          "nodeIndex": "Dim Calendar",
+          "nodeLineageTag": "a883d342-a4f1-4794-be15-d8996c371305",
+          "size": {
+            "height": 256,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 50.000000000000014,
+            "y": 300.17299229286073
+          },
+          "nodeIndex": "Dim Personeel Type",
+          "nodeLineageTag": "f2843fa2-d36b-460e-bd59-be9a15632472",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 839.37080488612241,
+            "y": 242.18178875840982
+          },
+          "nodeIndex": "Dim Cluster/Afdeling Formatieplaats",
+          "nodeLineageTag": "f8bb1cbf-67b7-4305-842a-7efd5247f772",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Fact Formatie",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 6,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 361.20446647709042,
+            "y": 0
+          },
+          "nodeIndex": "Fact Actuals FTE",
+          "nodeLineageTag": "3657a3f8-3326-4d2b-b375-d6d974a98225",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 404.047210003005,
+            "y": 421.36228053701689
+          },
+          "nodeIndex": "Dim Medewerker Details",
+          "nodeLineageTag": "704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 306.86462944823063
+          },
+          "nodeIndex": "Dim Kostenplaats",
+          "nodeLineageTag": "234d6e66-dc75-435c-abfa-85f472e752a3",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 816,
+            "y": 361
+          },
+          "nodeIndex": "Dim Period",
+          "nodeLineageTag": "359771a9-e570-4c97-8981-e43407ccad44",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 1",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Fact Journal Entries",
+  "defaultDiagram": "All tables"
+}

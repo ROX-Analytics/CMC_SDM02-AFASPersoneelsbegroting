@@ -1,0 +1,79 @@
+{
+  "config": "{\"version\":\"5.59\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU10\",\"version\":\"5.63\",\"type\":2}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"isPersistentUserStateDisabled\":false,\"hideVisualContainerHeader\":false,\"useStylableVisualContainerHeader\":true,\"exportDataMode\":1,\"useNewFilterPaneExperience\":true,\"optOutNewFilterPaneExperience\":false,\"defaultFilterActionIsDataFilter\":true,\"useCrossReportDrillthrough\":false,\"allowChangeFilterTypes\":true,\"allowInlineExploration\":false,\"disableFilterPaneSearch\":false,\"enableDeveloperMode\":false,\"useEnhancedTooltips\":true,\"useScaledTooltips\":false,\"useDefaultAggregateDisplayName\":true,\"queryLimitOption\":6,\"customMemoryLimit\":\"1048576\",\"customTimeoutLimit\":\"225\"},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}",
+  "filters": "[]",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU10",
+            "path": "BaseThemes/CY24SU10.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{\"objects\":{\"outspacePane\":[{\"properties\":{\"width\":{\"expr\":{\"Literal\":{\"Value\":\"266L\"}}}}}]}}",
+      "displayName": "Page 1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "d0916d32eaaec00a9a4b",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"1d35efaa96a3e613d604\",\"layouts\":[{\"id\":0,\"position\":{\"x\":988.7425149700598,\"y\":37.2284003421728,\"z\":0,\"width\":286.8776732249786,\"height\":72.26689478186483,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"},\"Name\":\"Dim Period.Year\",\"NativeReferenceName\":\"Year\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"2025L\"}}]]}}}]}}}}]}}}",
+          "filters": "[{\"name\":\"90c04de65d2945b4f9f5\",\"expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Measure Table\"}},\"Property\":\"Cascade Filter (Slicer) Journal Entries\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Cascade Filter (Slicer) Journal Entries\"}},\"Right\":{\"Literal\":{\"Value\":\"1L\"}}}}}]},\"type\":\"Advanced\",\"howCreated\":1}]",
+          "height": 72.27,
+          "width": 286.88,
+          "x": 988.74,
+          "y": 37.23,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"328af3c19f6aa9417d28\",\"layouts\":[{\"id\":0,\"position\":{\"x\":56.73130193905817,\"y\":268.29178208679593,\"z\":2000,\"width\":1211.4496768236381,\"height\":451.4866112650046,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Grootboek.Rapportagecockpit_omschrijving\"},{\"queryRef\":\"Dim Grootboek.Code GB + Omschrijving\"},{\"queryRef\":\"Measure Table.Bedrag Journal Entries\"},{\"queryRef\":\"Measure Table.Bedrag Budget\"},{\"queryRef\":\"Measure Table.Verschil Journal Entries (CY-BU)\"},{\"queryRef\":\"Measure Table.% Verschil Journal Entries (CY-BU)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Bedrag Journal Entries\"},\"Name\":\"Measure Table.Bedrag Journal Entries\",\"NativeReferenceName\":\"Bedrag Journal Entries\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Rapportagecockpit_omschrijving\"},\"Name\":\"Dim Grootboek.Rapportagecockpit_omschrijving\",\"NativeReferenceName\":\"Rapportagecockpit_omschrijving\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Code GB + Omschrijving\"},\"Name\":\"Dim Grootboek.Code GB + Omschrijving\",\"NativeReferenceName\":\"Code GB + Omschrijving\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Verschil Journal Entries (CY-BU)\"},\"Name\":\"Measure Table.Verschil Journal Entries (CY-BU)\",\"NativeReferenceName\":\"Verschil Journal Entries (CY-BU)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Bedrag Budget\"},\"Name\":\"Measure Table.Bedrag Budget\",\"NativeReferenceName\":\"Bedrag Budget\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"% Verschil Journal Entries (CY-BU)\"},\"Name\":\"Measure Table.% Verschil Journal Entries (CY-BU)\",\"NativeReferenceName\":\"% Verschil Journal Entries (CY-BU)\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"130.114095754322D\"}}}},\"selector\":{\"metadata\":\"Measure Table.Verschil Journal Entries (CY-BU)\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"122.29767115520058D\"}}}},\"selector\":{\"metadata\":\"Measure Table.% Verschil Journal Entries (CY-BU)\"}}]}}}",
+          "filters": "[{\"name\":\"90a3a0b1f774f3fced39\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Grootboek\"}},\"Property\":\"Rapportagecockpit_omschrijving\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Rapportagecockpit_omschrijving\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'19 Lonen en salarissen'\"}}],[{\"Literal\":{\"Value\":\"'20 Sociale lasten'\"}}],[{\"Literal\":{\"Value\":\"'21 Overige personeelskosten'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{},\"isHiddenInViewMode\":false},{\"name\":\"a1515b077669a405ad42\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Grootboek\"}},\"Property\":\"Code GB + Omschrijving\"}},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false},{\"name\":\"fcb88e98da72da9afa9b\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Medewerker Details\"}},\"Property\":\"Naam_werkgever\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker Details\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Naam_werkgever\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Curacao Medical Center Exploitatie'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{}},{\"name\":\"cc1d934a2cb977438dfb\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Kostenplaats\"}},\"Property\":\"Kostenplaats Code + Omschrijving\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Kostenplaats\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Kostenplaats Code + Omschrijving\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}],[{\"Literal\":{\"Value\":\"'***** - Transactiemanagement'\"}}],[{\"Literal\":{\"Value\":\"'0100 - Holding'\"}}],[{\"Literal\":{\"Value\":\"'0300 - Vastgoed & Beheer NV'\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}},{\"name\":\"3d1c8203d43bfb6960ce\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Fact Journal Entries\"}},\"Property\":\"Omschrijving_3\"}},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{}}]",
+          "height": 451.49,
+          "width": 1211.45,
+          "x": 56.73,
+          "y": 268.29,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"44567fa59c613628e64a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":988.7425149700598,\"y\":220.08554319931565,\"z\":4000,\"width\":291.2574850299401,\"height\":67.88708297690333,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Looncomponent.LC Code + Omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Looncomponent\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"LC Code + Omschrijving\"},\"Name\":\"Dim Looncomponent.LC Code + Omschrijving\",\"NativeReferenceName\":\"LC Code + Omschrijving\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 67.89,
+          "width": 291.26,
+          "x": 988.74,
+          "y": 220.09,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"c7256f4ee61338d7a2b9\",\"layouts\":[{\"id\":0,\"position\":{\"x\":625.2262234533703,\"y\":94.5521698984303,\"z\":3000,\"width\":290.74792243767314,\"height\":72.0960295475531,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Grootboek.Rapportagecockpit_omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Rapportagecockpit_omschrijving\"},\"Name\":\"Dim Grootboek.Rapportagecockpit_omschrijving\",\"NativeReferenceName\":\"Rapportagecockpit_omschrijving\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[{\"name\":\"38fbb2e14c1e42d46ebb\",\"expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Measure Table\"}},\"Property\":\"Cascade Filter (Slicer) Personeelskosten\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Cascade Filter (Slicer) Personeelskosten\"}},\"Right\":{\"Literal\":{\"Value\":\"1L\"}}}}}]},\"type\":\"Advanced\",\"howCreated\":1}]",
+          "height": 72.10,
+          "width": 290.75,
+          "x": 625.23,
+          "y": 94.55,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"df102ce34b65364b6e98\",\"layouts\":[{\"id\":0,\"position\":{\"x\":989.184,\"y\":125.952,\"z\":1000,\"width\":290.816,\"height\":80.896,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Month name (short)\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month name (short)\"},\"Name\":\"Dim Period.Month name (short)\",\"NativeReferenceName\":\"Month name (short)\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[{\"name\":\"6978ffd64dac21e23441\",\"expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Measure Table\"}},\"Property\":\"Cascade Filter (Slicer) Personeelskosten\"}},\"type\":\"Advanced\",\"howCreated\":1},{\"name\":\"71dbb7f471a727bdf023\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Period\"}},\"Property\":\"Month name (short)\"}},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 80.90,
+          "width": 290.82,
+          "x": 989.18,
+          "y": 125.95,
+          "z": 1000.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

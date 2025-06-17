@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "SDM02-CMC-AFPersoneelsbegroting"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "62bebe9d-4d88-4409-9d14-ba0660a8b79f"
+  }
+}

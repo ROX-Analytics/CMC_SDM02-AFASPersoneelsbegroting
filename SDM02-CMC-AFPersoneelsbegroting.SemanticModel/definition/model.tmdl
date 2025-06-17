@@ -1,0 +1,103 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Model
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup Parameters
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup Staging
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup Staging\Formatie
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Staging\Journal Entries'
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup 'Staging\Journal Entries\2024'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Staging\Journal Entries\2025'
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup 'Staging\Personeels Kosten'
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 'Staging\Journal Entries\2023'
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 'Staging\Journal Entries\2022'
+
+	annotation PBI_QueryGroupOrder = 3
+
+queryGroup 'Staging\Journal Entries\2021'
+
+	annotation PBI_QueryGroupOrder = 4
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.144.679.0 (25.06)+ef40146207b86a826d1c72a7727a743ee37450e9
+
+annotation PBI_ProTooling = ["DevMode","DaxQueryView_Desktop"]
+
+annotation PBI_QueryOrder = ["Fact Personeels Kosten","Fact Actuals FTE","Fact Journal Entries","Fact Budget","Fact FormatiePlaats","Dim Calendar","Dim Period","Dim Looncomponent","Dim Grootboek","Dim Kostenplaats","ROWS","StartYear","Measure Table","FormatiePlaats (Staging)","FormatieBezetting (Staging)","Functies Bezetting (Staging)","Dim Organisatie Eenheid","Dim Formatieplaats","Dim Personeel Type","Dim Dienstbetrekking","Dim SchaalType","Dim Medewerker Details","Dim Generieke Functie","Dim Medewerkers","Dim Functie","Dim Cluster/Afdeling Formatieplaats","Dim Cluster/Afdeling Functienveau","Dim Kostenplaats (Budget)","Dim Indexering","DurationHours","GC_FinancialeMutaties (2024 - >10)","GC_FinancialeMutaties (2024 - 1-3)","GC_FinancialeMutaties (2024 - 4-6)","GC_FinancialeMutaties (2024 - 7-9)","GC_FinancialeMutaties (2025 - >10)","GC_FinancialeMutaties (2025 - 1-3)","GC_FinancialeMutaties (2025 - 7-9)","GC_FinancialeMutaties (2025 - 4-6)","GC_FinancialeMutaties (>2026)","Fact Personeels Kosten 2024","Fact Personeels Kosten 2025","Date Last Refreshed","Dim Cluster/Afdeling Formatieplaats (2)","Dim Cluster/Afdeling Functienveau (2)","GC_FinancialeMutaties (2023 - >10)","GC_FinancialeMutaties (2023 - 1-3)","GC_FinancialeMutaties (2023 - 4-6)","GC_FinancialeMutaties (2023 - 7-9)","GC_FinancialeMutaties (2022- >10)","GC_FinancialeMutaties (2022- 1-3)","GC_FinancialeMutaties (2022- 4-6)","GC_FinancialeMutaties (2022- 7-9)","GC_FinancialeMutaties (2021 - >10)","GC_FinancialeMutaties (2021 - 1-3)","GC_FinancialeMutaties (2021 - 4-6)","GC_FinancialeMutaties (2021 - 7-9)","Fact Personeels Kosten 2021","Fact Personeels Kosten 2023","Fact Personeels Kosten 2022"]
+
+ref table DateTableTemplate_56d0ff38-686f-46af-aca6-f23a61a6d51e
+ref table 'Dim Calendar'
+ref table LocalDateTable_ad3891fd-19ab-4639-8353-00240143c7b3
+ref table LocalDateTable_17d15d23-9858-43a8-83a2-65bffd42729d
+ref table 'Dim Period'
+ref table LocalDateTable_b34c3d61-d546-40ce-a5bd-7e5591742761
+ref table LocalDateTable_01929f72-a80b-407a-8777-f6a042f8cbec
+ref table 'Measure Table'
+ref table 'Dim Organisatie Eenheid'
+ref table 'Dim Formatieplaats'
+ref table 'Dim Personeel Type'
+ref table 'Dim Dienstbetrekking'
+ref table 'Dim SchaalType'
+ref table 'Dim Medewerker Details'
+ref table LocalDateTable_34f1b705-fae0-4db0-ba69-dc3ad200a7e3
+ref table LocalDateTable_7179e43a-e07b-4353-ad18-05456413521c
+ref table LocalDateTable_5f12439e-ea17-4015-b112-d0b0ea49a114
+ref table LocalDateTable_a05a6d95-eba5-4957-a2a5-100deadbc7e5
+ref table LocalDateTable_c14b01a2-ce33-42b3-897e-a59aeebc8f72
+ref table LocalDateTable_d6929cb5-d1ee-4883-8a1f-f035cb711259
+ref table 'Dim Functie'
+ref table 'Dim Cluster/Afdeling Formatieplaats'
+ref table 'Dim Cluster/Afdeling Functienveau'
+ref table 'Dim Indexering'
+ref table 'Fact FormatiePlaats'
+ref table LocalDateTable_ff0b6a01-a3a6-42f7-906d-39e53520f9c0
+ref table LocalDateTable_446649bc-0a8a-4f7b-a7a4-374345c30b17
+ref table LocalDateTable_440d5084-fae8-4d5f-8be9-307106ab9e02
+ref table 'Fact Personeels Kosten'
+ref table 'Fact Journal Entries'
+ref table LocalDateTable_66df9115-5a45-40e8-bedd-3749737c0232
+ref table LocalDateTable_756b7e71-d8c2-4c27-a515-49334cad0cc6
+ref table LocalDateTable_83f54064-336c-402b-902f-703c7a5a3ef0
+ref table 'Dim Looncomponent'
+ref table 'Dim Grootboek'
+ref table 'Dim Kostenplaats'
+ref table 'Fact Budget'
+ref table 'Date Last Refreshed'
+ref table LocalDateTable_3e04eb1b-5b20-4ca3-b677-af3d5ec8c03d
+ref table 'Fact Actuals FTE'
+
+ref cultureInfo en-US
+

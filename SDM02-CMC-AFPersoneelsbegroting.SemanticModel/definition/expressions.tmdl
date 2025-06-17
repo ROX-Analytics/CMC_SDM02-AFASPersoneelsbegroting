@@ -1,0 +1,614 @@
+expression ROWS = "200000" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: bd5cd678-d6f8-475c-bcdf-00fc38ac7159
+	queryGroup: Parameters
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression StartYear = "2024" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 2bb4be4c-6749-4e89-982c-c90c8643a98f
+	queryGroup: Parameters
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression 'FormatiePlaats (Staging)' =
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_Formatieplaats" & "?skip=-1&take=-1", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Formatieplaats", "Omschrijving"}, {"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Formatieplaats", "Omschrijving"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Column1",{{"Geblokkeerd", type logical}, {"Naam_werkgever", type text}, {"Patientgebonden_functies", type text}, {"Soort_functie", type text}, {"Declarerend_Niet-declarerend", type text}, {"Service_Lines", type text}, {"Cluster_Afdeling", type text}, {"Omschrijving", type text}, {"Formatieplaats", type text}, {"Kostenplaats", Int64.Type}, {"Organisatorische_eenheid", type text}, {"Omschrijving_2", type text}, {"Functie", type text}, {"Omschrijving_3", type text}, {"Generieke_functienaam", type text}, {"Gebruiker", type text}, {"Type_functie", type text}, {"Naam", type text}}),
+		    #"Inserted Text Before Delimiter" = Table.AddColumn(#"Changed Type", "Text Before Delimiter", each Text.BeforeDelimiter([Einddatum], "T"), type text),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Inserted Text Before Delimiter",{{"Text Before Delimiter", type date}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type1",{{"Text Before Delimiter", "Eind Datum"}}),
+		    #"Inserted Text Before Delimiter1" = Table.AddColumn(#"Renamed Columns", "Text Before Delimiter", each Text.BeforeDelimiter([Begindatum], "T"), type text),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Inserted Text Before Delimiter1",{{"Text Before Delimiter", "Begin Datum"}}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Begin Datum", type date}}),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type2",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum"}),
+		    #"Inserted Text Before Delimiter2" = Table.AddColumn(#"Reordered Columns", "Text Before Delimiter", each Text.BeforeDelimiter([Gewijzigd], "T"), type text),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Inserted Text Before Delimiter2",{{"Text Before Delimiter", "Datum Gewijzigd"}}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns2",{{"Datum Gewijzigd", type date}}),
+		    #"Inserted Text After Delimiter" = Table.AddColumn(#"Changed Type3", "Text After Delimiter", each Text.AfterDelimiter([Gewijzigd], "T"), type text),
+		    #"Extracted Text Before Delimiter" = Table.TransformColumns(#"Inserted Text After Delimiter", {{"Text After Delimiter", each Text.BeforeDelimiter(_, "Z"), type text}}),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Extracted Text Before Delimiter",{{"Text After Delimiter", "Tijd Gewijzigd"}}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Renamed Columns3",{{"Tijd Gewijzigd", type time}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type4",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum", "Datum Gewijzigd", "Tijd Gewijzigd"}),
+		    #"Changed Type5" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Aantal_FTE_2", type number}, {"Aantal_FTE", type number}, {"Aantal_FTE_3", type number}, {"Aantal_FTE_4", type number}, {"Verschil", type number}, {"FTE_Begroot", type number}}),
+		    #"Added Custom" = Table.AddColumn(#"Changed Type5", "Uren_Begroot", each [FTE_Begroot] * 8),
+		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Uren_Werkelijk", each [Aantal_FTE] * 8),
+		    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Uren_Verschil", each [Verschil] * 8),
+		    #"Changed Type6" = Table.TransformColumnTypes(#"Added Custom2",{{"Uren_Begroot", type number}, {"Uren_Werkelijk", type number}, {"Uren_Verschil", type number}})
+		in
+		    #"Changed Type6"
+	lineageTag: a5defb5e-e6a1-47dc-94d1-17cd182ba28b
+	queryGroup: Staging\Formatie
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'FormatieBezetting (Staging)' =
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_Formatiebezetting" & "?skip=-1&take=-1", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_"}),
+		    #"Inserted Text Range" = Table.AddColumn(#"Expanded Column1", "DtmInDienst", each Text.Middle([Datum_in_dienst], 0, 10), type text),
+		    #"Inserted Text Range1" = Table.AddColumn(#"Inserted Text Range", "DtmUitDienst", each Text.Middle([Datum_uit_dienst], 0, 10), type text),
+		    #"Inserted Text Range2" = Table.AddColumn(#"Inserted Text Range1", "Geboortedtm", each Text.Middle([Geboortedatum], 0, 10), type text),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Inserted Text Range2",{"Medewerker", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Organisatorische_eenheid", "Functie", "Geboorteplaats", "Geslacht", "Leeftijd", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "DtmInDienst", "DtmUitDienst", "Geboortedtm"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Organisatorische_eenheid", "OE"}, {"Functie", "Functiecode"}}),
+		    #"Inserted Text Range3" = Table.AddColumn(#"Renamed Columns", "DtmInDienstSehos", each Text.Middle([In_dienst__i.v.m._dienstjaren_], 0, 10), type text)
+		in
+		    #"Inserted Text Range3"
+	lineageTag: 30dcd502-fcde-498e-b9cf-ceadc79501d5
+	queryGroup: Staging\Formatie
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Functies Bezetting (Staging)' =
+		let
+		    Source = #"FormatieBezetting (Staging)",
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"Functie_2", "Omschrijving_4"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Functie_2", "Functiecode"}, {"Omschrijving_4", "Functie"}}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Functie", type text}, {"Functiecode", type text}}),
+		    #"Removed Duplicates" = Table.Distinct(#"Changed Type")
+		in
+		    #"Removed Duplicates"
+	lineageTag: 0d5f67d9-403a-4f91-b4cf-3b0517eb1dc4
+	queryGroup: Staging\Formatie
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Generieke Functie' =
+		let
+		    Source = #"FormatiePlaats (Staging)",
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"Generieke_functienaam"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Removed Other Columns", each ([Generieke_functienaam] <> null)),
+		    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows"),
+		    #"Added Index" = Table.AddIndexColumn(#"Removed Duplicates", "GF-ID", 1, 1, Int64.Type)
+		in
+		    #"Added Index"
+	lineageTag: d9de452c-5d6a-49e6-b9f4-6c6acf0f8323
+	queryGroup: Staging\Formatie
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Kostenplaats (Budget)' = ```
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_Finance_Budget" & "?filterfieldids=Jaar&filtervalues=" & StartYear & "&operatortypes=2&skip=0&take=" & ROWS, [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Administratiecode", "Administratie", "Grootboekrekeningnummer", "Grootboekrekening", "Jaar", "Periode", "Kostenplaatscode", "Kostenplaats", "Oorspronkelijk_bedrag", "Aantal_budget", "Rapportagecockpit"}, {"Administratiecode", "Administratie", "Grootboekrekeningnummer", "Grootboekrekening", "Jaar", "Periode", "Kostenplaatscode", "Kostenplaats", "Oorspronkelijk_bedrag", "Aantal_budget", "Rapportagecockpit"}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Expanded Column1",{"Kostenplaatscode", "Kostenplaats"}),
+		    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns", {"Kostenplaatscode"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Duplicates",{{"Kostenplaats", "Kostenplaats_omschrijving"}, {"Kostenplaatscode", "Kostenplaats"}})
+		in 
+		    #"Renamed Columns"
+		```
+	lineageTag: aef82bc2-4abf-4144-97a4-fd99d89fbc0b
+	queryGroup: Staging\Formatie
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression DurationHours = 3 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: 8eedaf5b-562d-4545-8646-c3038c71b814
+	queryGroup: Parameters
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Number
+
+expression 'GC_FinancialeMutaties (2024 - >10)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
+		    #"GC_FinancialeMutaties (2024 - >10)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - >10)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2024 - >10)_"
+	lineageTag: b5d3f7fd-ff87-4877-a688-64da361f5649
+	queryGroup: 'Staging\Journal Entries\2024'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2024 - 1-3)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
+		    #"GC_FinancialeMutaties (2024 - 1-3)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - 1-3)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2024 - 1-3)_"
+	lineageTag: 921b18e4-ec76-497d-98b9-9ba4729b3ece
+	queryGroup: 'Staging\Journal Entries\2024'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2024 - 4-6)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
+		    #"GC_FinancialeMutaties (2024 - 4-6)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - 4-6)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2024 - 4-6)_"
+	lineageTag: c93cbcb8-06bc-4ea1-95d6-20afa2146cf2
+	queryGroup: 'Staging\Journal Entries\2024'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2024 - 7-9)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
+		    #"GC_FinancialeMutaties (2024 - 7-9)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - 7-9)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2024 - 7-9)_"
+	lineageTag: b037349c-0332-4293-8de8-314cedd3a0ae
+	queryGroup: 'Staging\Journal Entries\2024'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2025 - >10)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
+		    #"GC_FinancialeMutaties (2025 - >10)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - >10)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2025 - >10)_"
+	lineageTag: 6bdb3c7f-ad60-4b6e-aed5-1993da57cf1e
+	queryGroup: 'Staging\Journal Entries\2025'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2025 - 1-3)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
+		    #"GC_FinancialeMutaties (2025 - 1-3)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 1-3)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2025 - 1-3)_"
+	lineageTag: 90dbcf4b-ccfb-4d8a-a55d-4e13957c9d26
+	queryGroup: 'Staging\Journal Entries\2025'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2025 - 7-9)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
+		    #"GC_FinancialeMutaties (2025 - 7-9)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 7-9)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2025 - 7-9)_"
+	lineageTag: 53f0c683-509f-43d8-bbf4-cb6d1511e67b
+	queryGroup: 'Staging\Journal Entries\2025'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2025 - 4-6)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
+		    #"GC_FinancialeMutaties (2025 - 4-6)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 4-6)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2025 - 4-6)_"
+	lineageTag: 9db5dc30-6d05-43d0-9e05-b9ee556c6ec4
+	queryGroup: 'Staging\Journal Entries\2025'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (>2026)' = ```
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"4b0eac4c-3371-4cd2-90c1-16946c9bb19b" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4b0eac4c-3371-4cd2-90c1-16946c9bb19b"]}[Data],
+		    #"GC_FinancialeMutaties (>2026)_" = #"4b0eac4c-3371-4cd2-90c1-16946c9bb19b"{[entity="GC_FinancialeMutaties (>2026)",version=""]}[Data]
+		in 
+		    #"GC_FinancialeMutaties (>2026)_"
+		```
+	lineageTag: 333afccf-b027-48ab-be0e-67ce369e817a
+	queryGroup: 'Staging\Journal Entries\2025'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Fact Personeels Kosten 2024' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"d15bce74-14fd-4d12-84ca-840d3ed5d89e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="d15bce74-14fd-4d12-84ca-840d3ed5d89e"]}[Data],
+		    #"Fact Personeels Kosten 2024_" = #"d15bce74-14fd-4d12-84ca-840d3ed5d89e"{[entity="Fact Personeels Kosten 2024",version=""]}[Data]
+		in
+		    #"Fact Personeels Kosten 2024_"
+	lineageTag: 22a5be32-d336-416d-84d7-dd81009a9b49
+	queryGroup: 'Staging\Personeels Kosten'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Fact Personeels Kosten 2025' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"d15bce74-14fd-4d12-84ca-840d3ed5d89e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="d15bce74-14fd-4d12-84ca-840d3ed5d89e"]}[Data],
+		    #"Fact Personeels Kosten 2025_" = #"d15bce74-14fd-4d12-84ca-840d3ed5d89e"{[entity="Fact Personeels Kosten 2025",version=""]}[Data]
+		in
+		    #"Fact Personeels Kosten 2025_"
+	lineageTag: ca2e61b1-8f83-45ae-8807-662fee228f1c
+	queryGroup: 'Staging\Personeels Kosten'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Medewerkers' =
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Expanded Column1",{"Medewerker", "Voornaam", "Achternaam", "E-mail_werk", "Geboortedatum", "Geslacht", "Leeftijd", "Status_dienstverband", "Geblokkeerd", "Dienstbetrekking", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Schaal", "Soort_medewerker", "Type_contract"}),
+		    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns", {"Medewerker"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Removed Duplicates", each ([Status_dienstverband] <> "Uit dienst")),
+		    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows",{{"Medewerker", "Medewerker ID"}}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Geboortedatum", type datetime}}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Geboortedatum", type date}, {"Begindatum_salaris", type datetime}, {"Einddatum_salaris", type datetime}, {"Begindatum_functie", type datetime}}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Changed Type1",{{"Begindatum_salaris", type date}, {"Einddatum_salaris", type date}, {"Begindatum_functie", type date}})
+		in
+		    #"Changed Type2"
+	lineageTag: 50fae310-2353-41bd-a36b-3fee9e415faf
+	queryGroup: Staging\Formatie
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Cluster/Afdeling Formatieplaats (2)' =
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Expanded Column1", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows1",{"Formatieplaats_2", "Omschrijving_5", "Cluster_Afdeling_3"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Cluster_Afdeling_3", "Cluster/Afdeling Formatieplaatsniveau"}}),
+		    #"Added Index" = Table.AddIndexColumn(#"Renamed Columns", "Index", 1, 1, Int64.Type),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Added Index",{{"Index", "C/A Formatie ID"}}),
+		    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns1", {"Formatieplaats_2"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Removed Duplicates", each ([Formatieplaats_2] <> null) and ([#"Cluster/Afdeling Formatieplaatsniveau"] = null))
+		in
+		    #"Filtered Rows"
+	lineageTag: e96da408-2ea8-4a70-b857-e58f9c381281
+	queryGroup: Model
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Cluster/Afdeling Functienveau (2)' =
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Expanded Column1", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
+		    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows1",{{"Medewerker", "Medewerker ID"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Functie_2", "Omschrijving_4_2", "Cluster_Afdeling_2"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Removed Other Columns",{{"Cluster_Afdeling_2", "Cluster/Afdeling Functienveau"}}),
+		    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns1", {"Functie_2"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Removed Duplicates", each ([#"Cluster/Afdeling Functienveau"] = null))
+		in
+		    #"Filtered Rows"
+	lineageTag: fc518158-72b2-4c3b-97f9-529031ddbf49
+	queryGroup: Model
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2023 - >10)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
+		    #"GC_FinancialeMutaties (2023 - >10)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - >10)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2023 - >10)_"
+	lineageTag: 110959d5-d3b9-4fcf-a8b5-156f1ac7328e
+	queryGroup: 'Staging\Journal Entries\2023'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2023 - 1-3)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
+		    #"GC_FinancialeMutaties (2023 - 1-3)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - 1-3)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2023 - 1-3)_"
+	lineageTag: fda2aa72-58ab-48c8-aa47-5a207240478e
+	queryGroup: 'Staging\Journal Entries\2023'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2023 - 4-6)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
+		    #"GC_FinancialeMutaties (2023 - 4-6)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - 4-6)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2023 - 4-6)_"
+	lineageTag: aafc56f2-b3e9-47db-9260-26f123a3f3b2
+	queryGroup: 'Staging\Journal Entries\2023'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2023 - 7-9)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
+		    #"GC_FinancialeMutaties (2023 - 7-9)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - 7-9)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2023 - 7-9)_"
+	lineageTag: 4742b5dc-dcea-4996-b1b4-090af66c69e7
+	queryGroup: 'Staging\Journal Entries\2023'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2022- >10)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
+		    #"GC_FinancialeMutaties (2022- >10)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- >10)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2022- >10)_"
+	lineageTag: bf699667-c703-41b8-8405-3b3dada0b102
+	queryGroup: 'Staging\Journal Entries\2022'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2022- 1-3)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
+		    #"GC_FinancialeMutaties (2022- 1-3)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- 1-3)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2022- 1-3)_"
+	lineageTag: bffb9741-e496-45ac-b888-a6025a0d6034
+	queryGroup: 'Staging\Journal Entries\2022'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2022- 4-6)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
+		    #"GC_FinancialeMutaties (2022- 4-6)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- 4-6)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2022- 4-6)_"
+	lineageTag: 2312e68a-b42f-4079-97f7-70588535866a
+	queryGroup: 'Staging\Journal Entries\2022'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2022- 7-9)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
+		    #"GC_FinancialeMutaties (2022- 7-9)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- 7-9)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2022- 7-9)_"
+	lineageTag: 7f54b845-e8d4-4fc5-b2ef-13cb5d9a9592
+	queryGroup: 'Staging\Journal Entries\2022'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2021 - >10)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
+		    #"GC_FinancialeMutaties (2021 - >10)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - >10)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2021 - >10)_"
+	lineageTag: f60b4e93-9aba-4124-8c27-23224a7c8043
+	queryGroup: 'Staging\Journal Entries\2021'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2021 - 1-3)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
+		    #"GC_FinancialeMutaties (2021 - 1-3)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - 1-3)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2021 - 1-3)_"
+	lineageTag: 6611caa6-75dd-4296-ba2d-f96e30ad8119
+	queryGroup: 'Staging\Journal Entries\2021'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2021 - 4-6)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
+		    #"GC_FinancialeMutaties (2021 - 4-6)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - 4-6)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2021 - 4-6)_"
+	lineageTag: bcce7ae2-4afe-42f1-811b-2ad10c2b6172
+	queryGroup: 'Staging\Journal Entries\2021'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'GC_FinancialeMutaties (2021 - 7-9)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
+		    #"GC_FinancialeMutaties (2021 - 7-9)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - 7-9)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2021 - 7-9)_"
+	lineageTag: a1522ea9-5d5a-453a-a127-9a9f3f33f00f
+	queryGroup: 'Staging\Journal Entries\2021'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Fact Personeels Kosten 2021' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"d15bce74-14fd-4d12-84ca-840d3ed5d89e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="d15bce74-14fd-4d12-84ca-840d3ed5d89e"]}[Data],
+		    #"Fact Personeels Kosten 2021_" = #"d15bce74-14fd-4d12-84ca-840d3ed5d89e"{[entity="Fact Personeels Kosten 2021",version=""]}[Data]
+		in
+		    #"Fact Personeels Kosten 2021_"
+	lineageTag: 52dd3e64-e781-4bcc-ba29-d8b482cc4110
+	queryGroup: 'Staging\Personeels Kosten'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Fact Personeels Kosten 2023' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"d15bce74-14fd-4d12-84ca-840d3ed5d89e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="d15bce74-14fd-4d12-84ca-840d3ed5d89e"]}[Data],
+		    #"Fact Personeels Kosten 2023_" = #"d15bce74-14fd-4d12-84ca-840d3ed5d89e"{[entity="Fact Personeels Kosten 2023",version=""]}[Data]
+		in
+		    #"Fact Personeels Kosten 2023_"
+	lineageTag: f4c165f8-a59d-4355-81a0-0cfb9d5667f1
+	queryGroup: 'Staging\Personeels Kosten'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Fact Personeels Kosten 2022' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"d15bce74-14fd-4d12-84ca-840d3ed5d89e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="d15bce74-14fd-4d12-84ca-840d3ed5d89e"]}[Data],
+		    #"Fact Personeels Kosten 2022_" = #"d15bce74-14fd-4d12-84ca-840d3ed5d89e"{[entity="Fact Personeels Kosten 2022",version=""]}[Data]
+		in
+		    #"Fact Personeels Kosten 2022_"
+	lineageTag: 9fe7ee4a-44a3-41e0-a1fe-a0b44e22ebed
+	queryGroup: 'Staging\Personeels Kosten'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
