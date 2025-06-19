@@ -310,6 +310,16 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Fact Forecasting Medewerkers",
+          "nodeLineageTag": "83365ef2-07e7-4f1b-8bc2-6d42683a9127",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -374,6 +384,19 @@
           "nodeLineageTag": "359771a9-e570-4c97-8981-e43407ccad44",
           "size": {
             "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 304
+          },
+          "nodeIndex": "Dim Kostenplaats",
+          "nodeLineageTag": "234d6e66-dc75-435c-abfa-85f472e752a3",
+          "size": {
+            "height": 152,
             "width": 234
           },
           "zIndex": 0
@@ -798,6 +821,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Medewerker",
+  "selectedDiagram": "Fact Journal Entries",
   "defaultDiagram": "All tables"
 }

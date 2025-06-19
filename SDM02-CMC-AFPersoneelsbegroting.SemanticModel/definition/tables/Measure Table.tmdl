@@ -559,6 +559,54 @@ table 'Measure Table'
 		displayFolder: Journal Entries
 		lineageTag: a56f1191-6e08-4b18-bfa5-9f36d13bfe30
 
+	measure '% WG Pensioen Toeslag' = ```
+			
+			VAR brutosalaris = 
+			CALCULATE(
+			    [Bedrag Personeelskosten],
+			    'Dim Grootboek'[Code Grootboek] = "4100000"
+			)
+			
+			VAR WGpensioen = 
+			CALCULATE(
+			    [Bedrag Personeelskosten],
+			    'Dim Grootboek'[Code Grootboek] = "4115000"
+			)
+			
+			RETURN
+			DIVIDE(WGpensioen, brutosalaris)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Forecasting
+		lineageTag: 9988de5a-208d-4b09-aa9e-de25bbb32776
+
+	measure 'Count Medewerkers' = COUNTROWS('Dim Medewerker Details')
+		formatString: 0
+		displayFolder: Forecasting
+		lineageTag: c34b1fbc-2848-4a7d-b55f-569e81b79023
+
+	measure '% Speciale Toelage' = ```
+			
+			VAR brutosalaris =
+			CALCULATE(
+			    [Bedrag Personeelskosten],
+			    'Dim Grootboek'[Code Grootboek] = "4100000",
+			    'Dim Looncomponent'[LC] = "2434"
+			)
+			
+			VAR specialetoelage = 
+			CALCULATE(
+			    [Bedrag Personeelskosten],
+			    'Dim Looncomponent'[LC] = "3027"
+			)
+			
+			RETURN
+			DIVIDE(specialetoelage, brutosalaris)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Forecasting
+		lineageTag: e25a3efd-eef4-4149-bac7-6f79c4a0fc17
+
 	partition 'Measure Table' = m
 		mode: import
 		source =

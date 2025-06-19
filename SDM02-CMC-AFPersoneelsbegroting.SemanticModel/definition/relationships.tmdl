@@ -199,3 +199,26 @@ relationship dd80d9a8-860a-a349-e154-26b5265f8de9
 	fromColumn: 'Dim Medewerker Details'.'Staf of Zorg'
 	toColumn: 'Dim Staf of Zorg'.'Staf of Zorg'
 
+relationship 359988be-f7eb-4ee6-ba5c-318487a4096d
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: 'Dim Medewerker Details'.Schaal
+	toColumn: 'Dim SchaalType'.Schaal
+
+	annotation PBI_IsFromSource = FS
+
+relationship 57e3f7ef-f4a7-4d67-a367-0c4ef65bd2d3
+	isActive: false
+	fromColumn: 'Dim Medewerker Details'.'Cluster/Afdeling Formatieplaats'
+	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'Cluster/Afdeling Formatieplaatsniveau'
+
+	annotation PBI_IsFromSource = FS
+
+relationship 004417a6-902d-4ea8-a2d0-5a9c996a9619
+	isActive: false
+	fromColumn: 'Dim Medewerker Details'.'Cluster/Afdeling Functie'
+	toColumn: 'Dim Cluster/Afdeling Functienveau'.'Cluster/Afdeling Functienveau'
+
+	annotation PBI_IsFromSource = FS
+

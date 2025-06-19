@@ -33,6 +33,14 @@ table 'Dim Type Personeel'
 
 		annotation SummarizationSetBy = Automatic
 
+	column Custom
+		dataType: string
+		lineageTag: 23bdf9dd-ef37-4889-b864-ff0252d109db
+		summarizeBy: none
+		sourceColumn: Custom
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Type Personeel' = m
 		mode: import
 		queryGroup: Model
@@ -43,9 +51,11 @@ table 'Dim Type Personeel'
 				    #"Added Index" = Table.AddIndexColumn(#"Added Custom", "Index", 1, 1, Int64.Type),
 				    #"Added Custom1" = Table.AddColumn(#"Added Index", "Type Personeel ID", each "Z" & "_" & Text.From([Index])),
 				    #"Removed Other Columns" = Table.SelectColumns(#"Added Custom1",{"Soort_functie", "Type Zorg Functie", "Staf of Zorg", "Type Personeel ID"}),
-				    #"Appended Query" = Table.Combine({#"Removed Other Columns", #"Dim Staf Type Personeel"})
+				    #"Appended Query" = Table.Combine({#"Removed Other Columns", #"Dim Staf Type Personeel"}),
+				    #"Appended Query1" = Table.Combine({#"Appended Query", #"Dim Overig Type Personeel"}),
+				    #"Added Custom2" = Table.AddColumn(#"Appended Query1", "Custom", each if [Soort_functie] = "Medici" then [Type Zorg Functie] else if [Soort_functie] = "Medewerker" and [Staf of Zorg] = "Zorg" then [Type Zorg Functie] else (Text.From([Soort_functie]) & " " & "-" & " " & Text.From([Staf of Zorg])))
 				in
-				    #"Appended Query"
+				    #"Added Custom2"
 
 	annotation PBI_NavigationStepName = Navigation
 

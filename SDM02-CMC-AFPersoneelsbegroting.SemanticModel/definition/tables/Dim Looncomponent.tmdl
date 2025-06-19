@@ -31,9 +31,10 @@ table 'Dim Looncomponent'
 				    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025"}),
 				    #"Removed Other Columns" = Table.SelectColumns(Source,{"LC", "Omschrijving_klant"}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Omschrijving_klant", "Omschrijving LC"}}),
-				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns", {"LC"})
+				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns", {"LC"}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Removed Duplicates",{{"LC", Text.Trim, type text}})
 				in 
-				    #"Removed Duplicates"
+				    #"Trimmed Text"
 				```
 
 	annotation PBI_NavigationStepName = Navigation

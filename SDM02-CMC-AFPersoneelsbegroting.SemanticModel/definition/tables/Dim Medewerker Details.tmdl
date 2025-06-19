@@ -377,6 +377,22 @@ table 'Dim Medewerker Details'
 
 		annotation SummarizationSetBy = Automatic
 
+	column Soort_functie
+		dataType: string
+		lineageTag: 514d1d63-bcf4-4310-be70-12e52fad7a1d
+		summarizeBy: none
+		sourceColumn: Soort_functie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dim Zorg.Type Zorg Functie'
+		dataType: string
+		lineageTag: aeafe45b-638e-42ad-824f-2914bdea7411
+		summarizeBy: none
+		sourceColumn: Dim Zorg.Type Zorg Functie
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Medewerker Details' = m
 		mode: import
 		queryGroup: Model
@@ -411,20 +427,16 @@ table 'Dim Medewerker Details'
 				    #"Merged Queries4" = Table.NestedJoin(#"Expanded Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Functie"}, #"Dim Cluster/Afdeling Functienveau", {"Cluster/Afdeling Functienveau"}, "Dim Cluster/Afdeling Functienveau", JoinKind.LeftOuter),
 				    #"Expanded Dim Cluster/Afdeling Functienveau" = Table.ExpandTableColumn(#"Merged Queries4", "Dim Cluster/Afdeling Functienveau", {"C/A Functie ID"}, {"C/A Functie ID"}),
 				    #"Changed Type6" = Table.TransformColumnTypes(#"Expanded Dim Cluster/Afdeling Functienveau",{{"Aantal_FTE", type number}, {"Dienstjaren", type number}}),
-				    #"Merged Queries5" = Table.NestedJoin(#"Changed Type6", {"Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Staf", {"Soort_functie", "Cluster_Afdeling_3"}, "Dim Staf", JoinKind.LeftOuter),
+				    #"Merged Queries5" = Table.NestedJoin(#"Changed Type6", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Staf", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Staf", JoinKind.LeftOuter),
 				    #"Expanded Dim Staf" = Table.ExpandTableColumn(#"Merged Queries5", "Dim Staf", {"Staf of Zorg"}, {"Dim Staf.Staf of Zorg"}),
 				    #"Merged Queries6" = Table.NestedJoin(#"Expanded Dim Staf", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Zorg", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Zorg", JoinKind.LeftOuter),
 				    #"Expanded Dim Zorg" = Table.ExpandTableColumn(#"Merged Queries6", "Dim Zorg", {"Type Zorg Functie", "Staf of Zorg"}, {"Dim Zorg.Type Zorg Functie", "Dim Zorg.Staf of Zorg"}),
 				    #"Merged Columns" = Table.CombineColumns(#"Expanded Dim Zorg",{"Dim Zorg.Staf of Zorg", "Dim Staf.Staf of Zorg"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Staf of Zorg"),
 				    #"Removed Other Columns2" = Table.SelectColumns(#"Merged Columns",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster/Afdeling Functie", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Cluster/Afdeling Formatieplaats", "OE Code", "Soort_medewerker", "Type_contract", "Schaal ID", "Dienstbetrekking ID", "C/A Formatie ID", "C/A Functie ID", "Staf of Zorg", "Dim Zorg.Type Zorg Functie"}),
-				    #"Merged Queries7" = Table.NestedJoin(#"Removed Other Columns2", {"Soort_functie", "Staf of Zorg"}, #"Dim Staf Type Personeel", {"Soort_functie", "Staf of Zorg"}, "Dim Staf Type Personeel", JoinKind.LeftOuter),
-				    #"Expanded Dim Staf Type Personeel" = Table.ExpandTableColumn(#"Merged Queries7", "Dim Staf Type Personeel", {"Type Personeel ID"}, {"Dim Staf Type Personeel.Type Personeel ID"}),
-				    #"Merged Queries8" = Table.NestedJoin(#"Expanded Dim Staf Type Personeel", {"Soort_functie", "Dim Zorg.Type Zorg Functie", "Staf of Zorg"}, #"Dim Type Personeel Zorg", {"Soort_functie", "Type Zorg Functie", "Staf of Zorg"}, "Dim Type Personeel Zorg", JoinKind.LeftOuter),
-				    #"Expanded Dim Type Personeel Zorg" = Table.ExpandTableColumn(#"Merged Queries8", "Dim Type Personeel Zorg", {"Type Personeel ID"}, {"Dim Type Personeel Zorg.Type Personeel ID"}),
-				    #"Merged Columns1" = Table.CombineColumns(#"Expanded Dim Type Personeel Zorg",{"Dim Type Personeel Zorg.Type Personeel ID", "Dim Staf Type Personeel.Type Personeel ID"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Type Personeel ID"),
-				    #"Removed Other Columns3" = Table.SelectColumns(#"Merged Columns1",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster/Afdeling Functie", "Patientgebonden_functies", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Cluster/Afdeling Formatieplaats", "OE Code", "Soort_medewerker", "Type_contract", "Schaal ID", "Dienstbetrekking ID", "C/A Formatie ID", "C/A Functie ID", "Staf of Zorg", "Type Personeel ID"})
+				    #"Merged Queries7" = Table.NestedJoin(#"Removed Other Columns2", {"Soort_functie", "Dim Zorg.Type Zorg Functie", "Staf of Zorg"}, #"Dim Type Personeel", {"Soort_functie", "Type Zorg Functie", "Staf of Zorg"}, "Dim Type Personeel", JoinKind.LeftOuter),
+				    #"Expanded Dim Type Personeel" = Table.ExpandTableColumn(#"Merged Queries7", "Dim Type Personeel", {"Type Personeel ID"}, {"Type Personeel ID"})
 				in
-				    #"Removed Other Columns3"
+				    #"Expanded Dim Type Personeel"
 
 	annotation PBI_NavigationStepName = Navigation
 

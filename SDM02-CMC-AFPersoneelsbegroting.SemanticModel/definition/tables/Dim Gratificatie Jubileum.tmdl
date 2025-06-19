@@ -38,9 +38,10 @@ table 'Dim Gratificatie Jubileum'
 				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMjTSM1XSUTJUitWJVjICMY3ATGMwEygH4pgYADnGSrGxAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Dienstjubileum = _t, #"Percentage v. Basissalaris" = _t]),
 				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Dienstjubileum", type number}, {"Percentage v. Basissalaris", type number}}),
 				    #"Added Index" = Table.AddIndexColumn(#"Changed Type", "Index", 1, 1, Int64.Type),
-				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "ID"}})
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "ID"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns",{{"Percentage v. Basissalaris", Percentage.Type}})
 				in
-				    #"Renamed Columns"
+				    #"Changed Type1"
 
 	annotation PBI_NavigationStepName = Navigation
 

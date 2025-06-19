@@ -1,0 +1,305 @@
+table 'Fact Forecasting Medewerkers'
+	lineageTag: 83365ef2-07e7-4f1b-8bc2-6d42683a9127
+
+	column Jaar
+		dataType: int64
+		formatString: 0
+		lineageTag: 90dcff6c-b103-4096-9043-c38ce44c1b92
+		summarizeBy: sum
+		sourceColumn: Jaar
+
+		annotation SummarizationSetBy = Automatic
+
+	column Boekingsperiode
+		dataType: string
+		lineageTag: 9dde3570-c335-4c38-a2c1-8e142bdabb36
+		summarizeBy: none
+		sourceColumn: Boekingsperiode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Medewerker
+		dataType: string
+		lineageTag: 1513fbd7-6745-41d4-85e8-de3a221324fb
+		summarizeBy: none
+		sourceColumn: Medewerker
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostenplaats
+		dataType: string
+		lineageTag: 02bd96ad-c29a-4e13-9441-8ca0048a3f4b
+		summarizeBy: none
+		sourceColumn: Kostenplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column CAO
+		dataType: string
+		lineageTag: 9169248a-5f9e-4bef-b49d-9afd8b94b1da
+		summarizeBy: none
+		sourceColumn: CAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column LC
+		dataType: string
+		lineageTag: 4b53942c-7c28-45d0-95ec-f3086a983000
+		summarizeBy: none
+		sourceColumn: LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Omschrijving LC'
+		dataType: string
+		lineageTag: 61a0c311-5ecf-4abc-82d2-60f75e0a1f9a
+		summarizeBy: none
+		sourceColumn: Omschrijving LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Waarde
+		dataType: double
+		lineageTag: 04d22264-31b7-4d3c-9424-2d6de882111f
+		summarizeBy: sum
+		sourceColumn: Waarde
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Bedrag_credit
+		dataType: double
+		lineageTag: 75a90ad2-0445-431a-8076-c8b4d51b9ac2
+		summarizeBy: sum
+		sourceColumn: Bedrag_credit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Grootboekrekening
+		dataType: string
+		lineageTag: 4e2ea99d-5f1f-4d0d-96c8-2837cb0789db
+		summarizeBy: none
+		sourceColumn: Grootboekrekening
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboekrekening_omschrijving
+		dataType: string
+		lineageTag: 011ac9a8-afc9-42e4-9a8e-08ab74675cf8
+		summarizeBy: none
+		sourceColumn: Grootboekrekening_omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboek_vervangend
+		dataType: string
+		lineageTag: 6f885342-589f-41de-bdaa-42c557cf5185
+		summarizeBy: none
+		sourceColumn: Grootboek_vervangend
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostenplaats_omschrijving
+		dataType: string
+		lineageTag: e21db99c-5414-457d-8bce-42c9620a1a16
+		summarizeBy: none
+		sourceColumn: Kostenplaats_omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Jaar Forecasting'
+		dataType: string
+		lineageTag: 86b00805-f4b2-4a0d-a586-df6e69b24ddd
+		summarizeBy: none
+		sourceColumn: Jaar Forecasting
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Boekingsperiode (leading zeros)'
+		dataType: string
+		lineageTag: 53f09066-0472-42e7-88e5-10b74ab24b35
+		summarizeBy: none
+		sourceColumn: Boekingsperiode (leading zeros)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year/Period forecasting'
+		dataType: string
+		lineageTag: eaab5595-c4ee-44b3-8a77-e187e974d236
+		summarizeBy: none
+		sourceColumn: Year/Period forecasting
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5d863eed-33ab-4667-87fb-5f34026356d4
+		summarizeBy: count
+		sourceColumn: Schaal ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SchaalType
+		dataType: string
+		lineageTag: 9a4bb964-5a68-4121-bd8c-3f0737c49916
+		summarizeBy: none
+		sourceColumn: SchaalType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dienstjaren
+		dataType: double
+		lineageTag: 94b36453-455c-4dd2-b247-fe18ec33319a
+		summarizeBy: sum
+		sourceColumn: Dienstjaren
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Bruto Salaris'
+		dataType: double
+		lineageTag: 0e899d60-89f9-41b3-ae94-7c9285e9a282
+		summarizeBy: sum
+		sourceColumn: Bruto Salaris
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '3121 - Reservering Vakantiegeld Bedrag'
+		dataType: double
+		lineageTag: 970120a3-e2d9-4084-8c94-a476ca0095ac
+		summarizeBy: sum
+		sourceColumn: 3121 - Reservering Vakantiegeld Bedrag
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '3135 - Vakantietoeslag Med Spec'
+		dataType: double
+		lineageTag: 23d09290-1aff-4993-a31b-262cbd4564f1
+		summarizeBy: sum
+		sourceColumn: 3135 - Vakantietoeslag Med Spec
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '2434 - Salaris '
+		dataType: string
+		lineageTag: c581172c-79dc-45fe-b8b0-b5474b3e5d2e
+		summarizeBy: none
+		sourceColumn: "2434 - Salaris "
+
+		annotation SummarizationSetBy = Automatic
+
+	column '3105 - Pensioen Toeslag (BMP)'
+		dataType: string
+		lineageTag: 018bd66c-eefe-4128-bb9f-8ec5c6ac341f
+		summarizeBy: none
+		sourceColumn: 3105 - Pensioen Toeslag (BMP)
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2545 - Pensioen Toeslag'
+		dataType: string
+		lineageTag: 7b789e61-2586-49da-a806-ab9f3467104d
+		summarizeBy: none
+		sourceColumn: 2545 - Pensioen Toeslag
+
+		annotation SummarizationSetBy = Automatic
+
+	column '3105 - Pensioen Toeslag (BMP) (RvB)'
+		dataType: string
+		lineageTag: 38b7c2ce-72c6-44b9-9cde-c49d7fd30492
+		summarizeBy: none
+		sourceColumn: 3105 - Pensioen Toeslag (BMP) (RvB)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WG Pensioen Toeslag (Andere OVK)'
+		dataType: string
+		lineageTag: 0599bcb0-d737-4642-b921-7f8e42ef2847
+		summarizeBy: none
+		sourceColumn: WG Pensioen Toeslag (Andere OVK)
+
+		annotation SummarizationSetBy = Automatic
+
+	column FTE
+		dataType: string
+		lineageTag: 3c35ef49-7d0c-4e29-9d07-9701dc479916
+		summarizeBy: none
+		sourceColumn: FTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year/Period
+		dataType: string
+		lineageTag: e0220e8e-07f0-4fa1-b734-de796a0ae28d
+		summarizeBy: none
+		sourceColumn: Year/Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column Aantal_FTE
+		dataType: double
+		lineageTag: f95bc672-57a5-4ef2-97c7-d5ef43cd9d2c
+		summarizeBy: sum
+		sourceColumn: Aantal_FTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '3027 - Speciale Toelage'
+		dataType: string
+		lineageTag: 0786877a-0b88-4480-ba16-e7497c202c92
+		summarizeBy: none
+		sourceColumn: 3027 - Speciale Toelage
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Forecasting Medewerkers' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025", #"Fact Personeels Kosten 2021", #"Fact Personeels Kosten 2023", #"Fact Personeels Kosten 2022"}),
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Jaar", "Boekingsperiode", "Medewerker", "Kostenplaats", "CAO", "LC", "Omschrijving_klant", "Waarde", "Bedrag_credit", "Grootboekrekening", "Grootboekrekening_omschrijving", "Grootboek_vervangend", "Kostenplaats_omschrijving", "FTE"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Omschrijving_klant", "Omschrijving LC"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Jaar", Int64.Type}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type", "Jaar Forecasting", each [Jaar] + 1),
+				    #"Filtered Rows" = Table.SelectRows(#"Added Custom", each [Jaar] >= 2025),
+				    #"Added Custom1" = Table.AddColumn(#"Filtered Rows", "Boekingsperiode (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0")),
+				    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Year/Period forecasting", each Text.From([Jaar Forecasting]) & "/" & Text.From([#"Boekingsperiode (leading zeros)"])),
+				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Boekingsperiode (leading zeros)"])),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom3",{{"Waarde", type number}, {"Bedrag_credit", type number}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type1", {"Medewerker"}, #"Dim Medewerker Details", {"Medewerker ID"}, "Dim Medewerker Details", JoinKind.LeftOuter),
+				    #"Expanded Dim Medewerker Details" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker Details", {"Aantal_FTE", "Dienstjaren", "Salaris", "Schaal ID"}, {"Aantal_FTE", "Dienstjaren", "Salaris", "Schaal ID"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Expanded Dim Medewerker Details",{{"Salaris", "Bruto Salaris"}}),
+				    #"Merged Queries1" = Table.NestedJoin(#"Renamed Columns1", {"Schaal ID"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
+				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries1", "Dim SchaalType", {"SchaalType"}, {"SchaalType"}),
+				    #"Added LC 2434 - Salaris" = Table.AddColumn(#"Expanded Dim SchaalType", "2434 - Salaris ", each if [LC] = "2434" then [Bruto Salaris] else null),
+				    #"Added LC 3121" = Table.AddColumn(#"Added LC 2434 - Salaris", "3121 - Reservering Vakantiegeld Bedrag", each if [LC] = "3121" then ([Bruto Salaris] * 0.075) else null),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Added LC 3121",{{"3121 - Reservering Vakantiegeld Bedrag", type number}}),
+				    #"Added LC 3135" = Table.AddColumn(#"Changed Type2", "3135 - Vakantietoeslag Med Spec", each if [LC] = "3135" then ([Bruto Salaris] * 0.075) else null),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Added LC 3135",{{"3135 - Vakantietoeslag Med Spec", type number}}),
+				    #"Added LNT WG Pensioen" = Table.AddColumn(#"Changed Type3", "3105 - Pensioen Toeslag (BMP)", each if [SchaalType] = "LNT" and [LC] = "3105" then [Bruto Salaris] * 0.10 else null),
+				    #"Added CAO WG Pensioen" = Table.AddColumn(#"Added LNT WG Pensioen", "2545 - Pensioen Toeslag", each if [SchaalType] = "CAO" and [LC] = "2545" then ([Bruto Salaris] * 0.09) else null),
+				    #"Added RvB WG Pensioen" = Table.AddColumn(#"Added CAO WG Pensioen", "3105 - Pensioen Toeslag (BMP) (RvB)", each if [LC] = "3105" then (if [Medewerker] = "502029" then ([Bruto Salaris] * 0.15) else if [Medewerker] = "500311" then ([Bruto Salaris] * 0.10) else if [Medewerker] = "500280" then ([Bruto Salaris] * 0.15) else if [Medewerker] = "40831" then ([Bruto Salaris] * 0.10) else null) else null),
+				    #"Added Andere OVK WG Pensioen" = Table.AddColumn(#"Added RvB WG Pensioen", "WG Pensioen Toeslag (Andere OVK)", each if [SchaalType] = "Andere OVK" and [LC] = "2545"
+				then ([Bruto Salaris] * 0.09) else if [SchaalType] = "Andere OVK" and [LC] = "3100" then ([Bruto Salaris] * 0.085) else if [SchaalType] = "Andere OVK" and [LC] = "3105" and [#"3105 - Pensioen Toeslag (BMP) (RvB)"] = null then ([Bruto Salaris] * 0.10) else null),
+				    #"Added LC 3027 Speciale Toelage" = Table.AddColumn(#"Added Andere OVK WG Pensioen", "3027 - Speciale Toelage", each if [LC] = "3027" then ([Bruto Salaris] * 0.057) else null)
+				in
+				    #"Added LC 3027 Speciale Toelage"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
