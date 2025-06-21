@@ -2,25 +2,28 @@ table 'Fact Personeels Kosten'
 	lineageTag: 52f2eda9-d73c-41b5-94c0-cf8f5d1dcc49
 
 	column Jaar
-		dataType: string
+		dataType: int64
+		formatString: 0
 		lineageTag: 9870ef79-68d1-4a56-8e4f-579e91f9d700
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Jaar
 
 		annotation SummarizationSetBy = Automatic
 
 	column Salarisperiode
-		dataType: string
+		dataType: int64
+		formatString: 0
 		lineageTag: c36ee609-68e4-4b33-84e0-f07e2d7da765
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Salarisperiode
 
 		annotation SummarizationSetBy = Automatic
 
 	column Boekingsperiode
-		dataType: string
+		dataType: int64
+		formatString: 0
 		lineageTag: 5490636c-4329-4c05-8ee6-734dcda183d3
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Boekingsperiode
 
 		annotation SummarizationSetBy = Automatic
@@ -262,9 +265,10 @@ table 'Fact Personeels Kosten'
 				    #"Changed Type4" = Table.TransformColumnTypes(#"Added Custom6",{{"Line ID", type text}}),
 				    #"Added Custom7" = Table.AddColumn(#"Changed Type4", "Saldo", each ([Waarde] * [FTE]) - [Bedrag_credit]),
 				    #"Changed Type5" = Table.TransformColumnTypes(#"Added Custom7",{{"Saldo", type number}}),
-				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type5",{{"Grootboekrekening", Text.Trim, type text}})
+				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type5",{{"Grootboekrekening", Text.Trim, type text}}),
+				    #"Changed Type6" = Table.TransformColumnTypes(#"Trimmed Text",{{"Jaar", Int64.Type}, {"Salarisperiode", Int64.Type}, {"Boekingsperiode", Int64.Type}})
 				in
-				    #"Trimmed Text"
+				    #"Changed Type6"
 
 	annotation PBI_NavigationStepName = Navigation
 

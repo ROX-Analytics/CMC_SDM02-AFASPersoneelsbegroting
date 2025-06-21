@@ -357,6 +357,22 @@ table 'Fact FormatiePlaats'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Jaar Forecasting'
+		dataType: string
+		lineageTag: a976c73a-6458-48c0-849b-2e4b4fe4b840
+		summarizeBy: none
+		sourceColumn: Jaar Forecasting
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year/Period Forecasting'
+		dataType: string
+		lineageTag: 85c093f3-3ba9-4e60-a814-73f839e5f149
+		summarizeBy: none
+		sourceColumn: Year/Period Forecasting
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Fact FormatiePlaats' = m
 		mode: import
 		queryGroup: Model
@@ -397,9 +413,11 @@ table 'Fact FormatiePlaats'
 				    #"Merged Queries1" = Table.NestedJoin(#"Added Custom3", {"Soort_functie"}, #"Dim Personeel Type OLD", {"Type Personeel"}, "Dim Personeel Type", JoinKind.LeftOuter),
 				    #"Expanded Dim Personeel Type" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Personeel Type", {"Type Personeel ID"}, {"Type Personeel ID"}),
 				    #"Merged Queries2" = Table.NestedJoin(#"Expanded Dim Personeel Type", {"Cluster_Afdeling"}, #"Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Formatieplaatsniveau"}, "Dim Cluster/Afdeling Formatieplaats", JoinKind.LeftOuter),
-				    #"Expanded Dim Cluster/Afdeling Formatieplaats" = Table.ExpandTableColumn(#"Merged Queries2", "Dim Cluster/Afdeling Formatieplaats", {"C/A Formatie ID"}, {"C/A Formatie ID"})
+				    #"Expanded Dim Cluster/Afdeling Formatieplaats" = Table.ExpandTableColumn(#"Merged Queries2", "Dim Cluster/Afdeling Formatieplaats", {"C/A Formatie ID"}, {"C/A Formatie ID"}),
+				    #"Added Custom4" = Table.AddColumn(#"Expanded Dim Cluster/Afdeling Formatieplaats", "Jaar Forecasting", each [Year] + 1),
+				    #"Added Custom5" = Table.AddColumn(#"Added Custom4", "Year/Period Forecasting", each Text.From([Jaar Forecasting]) & "/" & Text.From([Periode]))
 				in 
-				    #"Expanded Dim Cluster/Afdeling Formatieplaats"
+				    #"Added Custom5"
 				```
 
 	annotation PBI_NavigationStepName = Navigation

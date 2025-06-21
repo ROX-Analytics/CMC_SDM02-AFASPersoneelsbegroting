@@ -25,7 +25,7 @@ relationship af0ae359-8051-4c8f-8e7b-9556229a1768
 
 relationship 70058c35-4278-4132-bf5a-36fc527d722d
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker Details'.Datum_in_dienst
+	fromColumn: 'Dim Medewerker Details'.'Datum_in_dienst Original'
 	toColumn: LocalDateTable_7179e43a-e07b-4353-ad18-05456413521c.Date
 
 relationship b15b4e5f-dd8d-402d-a0d3-16f0eb171abb
@@ -219,6 +219,18 @@ relationship 004417a6-902d-4ea8-a2d0-5a9c996a9619
 	isActive: false
 	fromColumn: 'Dim Medewerker Details'.'Cluster/Afdeling Functie'
 	toColumn: 'Dim Cluster/Afdeling Functienveau'.'Cluster/Afdeling Functienveau'
+
+	annotation PBI_IsFromSource = FS
+
+relationship 207afef6-d84e-4467-81d4-9841d3ad6d58
+	fromColumn: 'Fact Forecasting Medewerkers'.Grootboekrekening
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
+
+	annotation PBI_IsFromSource = FS
+
+relationship ead77af5-1405-4a02-b0ef-355c73b7a16e
+	fromColumn: 'Fact Forecasting Medewerkers'.'Medewerker ID'
+	toColumn: 'Dim Medewerker Details'.'Medewerker ID'
 
 	annotation PBI_IsFromSource = FS
 

@@ -62,7 +62,7 @@ table 'Measure Table'
 			    SUMX(
 			        'Dim Medewerker Details',
 			        IF(
-			            'Dim Medewerker Details'[Datum_in_dienst] <= EndDate &&
+			            'Dim Medewerker Details'[Datum_in_dienst Original] <= EndDate &&
 			            (ISBLANK('Dim Medewerker Details'[Datum_uit_dienst]) || 'Dim Medewerker Details'[Datum_uit_dienst] >= StartDate),
 			            'Dim Medewerker Details'[Aantal_FTE],
 			            0
