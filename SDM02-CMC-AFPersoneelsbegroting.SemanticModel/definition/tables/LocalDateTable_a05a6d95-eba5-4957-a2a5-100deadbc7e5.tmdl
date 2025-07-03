@@ -105,7 +105,7 @@ table LocalDateTable_a05a6d95-eba5-4957-a2a5-100deadbc7e5
 
 	partition LocalDateTable_a05a6d95-eba5-4957-a2a5-100deadbc7e5 = calculated
 		mode: import
-		source = Calendar(Date(Year(MIN('Dim Medewerker Details'[Begindatum_salaris])), 1, 1), Date(Year(MAX('Dim Medewerker Details'[Begindatum_salaris])), 12, 31))
+		source = Calendar(Date(Year(MIN('Dim Medewerker'[Begindatum_salaris])), 1, 1), Date(Year(MAX('Dim Medewerker'[Begindatum_salaris])), 12, 31))
 
 	annotation __PBI_LocalDateTable = true
 

@@ -9,22 +9,6 @@ table 'Dim SchaalType'
 
 		annotation SummarizationSetBy = Automatic
 
-	column SchaalType
-		dataType: string
-		lineageTag: d8a9ebfe-1823-485a-a70a-abbd3ab01889
-		summarizeBy: none
-		sourceColumn: SchaalType
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'SchaalType ID Forecasting'
-		dataType: string
-		lineageTag: a18bc23e-6635-466c-8c50-4044dfbffb0f
-		summarizeBy: none
-		sourceColumn: SchaalType ID Forecasting
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'Schaal ID'
 		dataType: int64
 		formatString: 0
@@ -34,19 +18,60 @@ table 'Dim SchaalType'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Schaaltype Actuals'
+	column Trede
 		dataType: string
-		lineageTag: c1d4c66f-c536-480b-8710-8a64a01ed7a5
+		lineageTag: a472fb8e-72ec-4012-987b-2abbea1af8a6
 		summarizeBy: none
-		sourceColumn: Schaaltype Actuals
+		sourceColumn: Trede
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'SchaalType ID Actuals'
+	column Salaris
 		dataType: string
-		lineageTag: 1db80ae0-fda4-4bb3-b921-b046ff24be4a
+		lineageTag: 67ad25bf-29b2-4afb-b257-e71fce9603b5
 		summarizeBy: none
-		sourceColumn: SchaalType ID Actuals
+		sourceColumn: Salaris
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SchaalType Forecasting'
+		dataType: string
+		lineageTag: 722b9760-44a9-4991-b7e9-aebd7eae96d3
+		summarizeBy: none
+		sourceColumn: SchaalType Forecasting
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'MAX Trede'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 74d08b79-c1fe-4fe3-89d9-3e953d441f3d
+		summarizeBy: none
+		sourceColumn: MAX Trede
+
+		annotation SummarizationSetBy = Automatic
+
+	column SchaalType
+		dataType: string
+		lineageTag: 64ed3b27-c6a3-48e8-b7a0-97c1dc55455c
+		summarizeBy: none
+		sourceColumn: SchaalType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Schaal/Trede
+		dataType: string
+		lineageTag: 0b3518b9-5926-4835-a82d-f559c5028cdd
+		summarizeBy: none
+		sourceColumn: Schaal/Trede
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal Type ID'
+		dataType: string
+		lineageTag: b22ddf09-6151-4358-b7f3-9b6be5dfa4b8
+		summarizeBy: none
+		sourceColumn: Schaal Type ID
 
 		annotation SummarizationSetBy = Automatic
 
@@ -55,20 +80,19 @@ table 'Dim SchaalType'
 		queryGroup: Model
 		source =
 				let
-				    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
-				    rows = Source[rows],
-				    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-				    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
-				    #"Removed Other Columns" = Table.SelectColumns(#"Expanded Column1",{"Schaal"}),
-				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
-				    #"Added Custom" = Table.AddColumn(#"Removed Duplicates", "SchaalType", each if [Schaal] = null then "Andere OVK" else if Text.Contains([Schaal], "BMP") then "LNT" else if Text.Contains([Schaal], "LNT") then "LNT" else "CAO"),
-				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "SchaalType ID", each if [SchaalType] = "CAO" then 1 else if [SchaalType] = "LNT" then 2 else 3),
-				    #"Added Index" = Table.AddIndexColumn(#"Added Custom1", "Index", 1, 1, Int64.Type),
-				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "Schaal ID"}, {"SchaalType ID", "SchaalType ID Forecasting"}}),
-				    #"Added Conditional Column" = Table.AddColumn(#"Renamed Columns", "Schaaltype Actuals", each if [Schaal] = null then "Andere OVK" else if Text.Contains([Schaal], "BMP") then "BMP" else if Text.Contains([Schaal], "LNT") then "LNT" else "CAO"),
-				    #"Added Conditional Column1" = Table.AddColumn(#"Added Conditional Column", "SchaalType ID Actuals", each if Text.Contains([Schaaltype Actuals], "CAO") then 1 else if Text.Contains([Schaaltype Actuals], "LNT") then 2 else if Text.Contains([Schaaltype Actuals], "BMP") then 3 else 4)
+				    Source = Table.Combine({#"CAO Schaal AFAS", #"BMP Schaal AFAS", #"LNT Schaal AFAS"}),
+				    #"Renamed Columns" = Table.RenameColumns(Source,{{"Schaal Type", "SchaalType"}}),
+				    #"Appended Query" = Table.Combine({#"Renamed Columns", #"Dim SchaalType AOVK"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Appended Query",{{"Max Trede Flag", "Schaal/Trede"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns1", "Schaal Type ID", each if [SchaalType] = "CAO" then 1 else if [SchaalType] = "LNT" then 2 else if [SchaalType] = "BMP" then 3 else 4),
+				    #"Added Index" = Table.AddIndexColumn(#"Added Custom", "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Added Index",{{"Index", "Schaal ID"}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Renamed Columns2",null,"Andere OVK",Replacer.ReplaceValue,{"Schaal/Trede"}),
+				    #"Added Custom1" = Table.AddColumn(#"Replaced Value", "MAX Trede", each if Text.Contains([#"Schaal/Trede"], "MAX") then true else false),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom1",{{"MAX Trede", type logical}}),
+				    #"Added Custom2" = Table.AddColumn(#"Changed Type", "SchaalType Forecasting", each if [SchaalType] = "BMP" then "LNT" else [SchaalType])
 				in
-				    #"Added Conditional Column1"
+				    #"Added Custom2"
 
 	annotation PBI_NavigationStepName = Navigation
 

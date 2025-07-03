@@ -1,0 +1,35 @@
+table 'Dim IsExtrapolated'
+	lineageTag: 99142ce3-5455-4aea-9553-3f2ea961e718
+
+	column IsExtrapolated
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 85209087-b373-4084-9180-3ed1b31c9e1c
+		summarizeBy: none
+		sourceColumn: IsExtrapolated
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c4b8b1e-2e4e-4a37-a9d0-02a9ede930e0
+		summarizeBy: none
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim IsExtrapolated' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCgkKdVXSUTJUitWJVnJz9AkG8YyUYmMB", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [IsExtrapolated = _t, ID = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"IsExtrapolated", type logical}, {"ID", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

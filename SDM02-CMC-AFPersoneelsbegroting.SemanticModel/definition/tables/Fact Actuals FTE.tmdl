@@ -75,6 +75,15 @@ table 'Fact Actuals FTE'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Schaal ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8bb597fd-8aa5-4cf2-a303-e81fd070545e
+		summarizeBy: count
+		sourceColumn: Schaal ID
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Fact Actuals FTE' = m
 		mode: import
 		queryGroup: Model
@@ -98,9 +107,11 @@ table 'Fact Actuals FTE'
 				    #"Added Custom6" = Table.AddColumn(#"Added Index", "Line ID", each Text.From([Medewerker ID]) & "_" & Text.From([Grootboekrekening]) & "_" & Text.From([Index])),
 				    #"Changed Type4" = Table.TransformColumnTypes(#"Added Custom6",{{"Line ID", type text}}),
 				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type4",{"Jaar", "Boekingsperiode", "Medewerker ID", "Kostenplaats", "Kostenplaats_omschrijving", "Boeking Periode (leading zeros)", "Boeking Year/Period", "FTE", "Line ID"}),
-				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns", {"Medewerker ID", "Boeking Year/Period"})
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns", {"Medewerker ID", "Boeking Year/Period"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Removed Duplicates", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
+				    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Schaal ID"}, {"Schaal ID"})
 				in
-				    #"Removed Duplicates"
+				    #"Expanded Dim Medewerker"
 
 	annotation PBI_NavigationStepName = Navigation
 

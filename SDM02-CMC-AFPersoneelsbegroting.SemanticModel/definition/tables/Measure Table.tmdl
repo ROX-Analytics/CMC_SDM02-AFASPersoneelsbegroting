@@ -60,11 +60,11 @@ table 'Measure Table'
 			RETURN
 			CALCULATE(
 			    SUMX(
-			        'Dim Medewerker Details',
+			        'Dim Medewerker',
 			        IF(
-			            'Dim Medewerker Details'[Datum_in_dienst Original] <= EndDate &&
-			            (ISBLANK('Dim Medewerker Details'[Datum_uit_dienst]) || 'Dim Medewerker Details'[Datum_uit_dienst] >= StartDate),
-			            'Dim Medewerker Details'[Aantal_FTE],
+			            'Dim Medewerker'[Datum_in_dienst] <= EndDate &&
+			            (ISBLANK('Dim Medewerker'[Datum_uit_dienst]) || 'Dim Medewerker'[Datum_uit_dienst] >= StartDate),
+			            'Dim Medewerker'[Aantal_FTE],
 			            0
 			        )
 			    ),
@@ -580,7 +580,7 @@ table 'Measure Table'
 		displayFolder: Forecasting
 		lineageTag: 9988de5a-208d-4b09-aa9e-de25bbb32776
 
-	measure 'Count Medewerkers' = COUNTROWS('Dim Medewerker Details')
+	measure 'Count Medewerkers' = COUNTROWS('Dim Medewerker')
 		formatString: 0
 		displayFolder: Forecasting
 		lineageTag: c34b1fbc-2848-4a7d-b55f-569e81b79023
@@ -606,6 +606,90 @@ table 'Measure Table'
 		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: Forecasting
 		lineageTag: e25a3efd-eef4-4149-bac7-6f79c4a0fc17
+
+	measure 'Bedrag Forecasting Medewerkers' = SUM('Fact Forecasting Medewerkers'[Bedrag (Tijdelijk)])
+		displayFolder: Forecasting
+		lineageTag: a07edcca-7473-4233-97db-1ad1478b61b7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Indexering Salaris Actuals' = ```
+			
+			VAR indexering = SELECTEDVALUE('Dim Indexering Actuals'[Indexering])
+			VAr selectedmonth = SELECTEDVALUE('Dim Period'[Month no.])
+			VAR increasesalary = (SUM('Fact Salaris Indexering Actuals'[Waarde]) * indexering)
+			VAR actualsalary = SUM('Fact Salaris Indexering Actuals'[Waarde])
+			VAR fullsalary = increasesalary + actualsalary
+			VAR baseset = 
+			SUMMARIZE(
+			    'Fact Salaris Indexering Actuals',
+			    'Fact Salaris Indexering Actuals'[Medewerker ID],
+			    'Fact Salaris Indexering Actuals'[Year/Period Max ]
+			)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    selectedmonth > 3, fullsalary, actualsalary,
+			    ISBLANK(selectedmonth), 
+			        IF(
+			            
+			
+			))
+			```
+		displayFolder: Forecasting
+		lineageTag: 2172bff9-5ba7-4527-9a30-b11af5fbd659
+
+	measure 'Indexering Salaris Actuals (Control)' =
+			
+			
+			VAR actualsalary = SUM('Fact Salaris Indexering Actuals'[Waarde])
+			RETURN
+			
+			    CALCULATE(
+			        actualsalary,
+			        'Fact Salaris Indexering Actuals'[Flag Max Year against Current Year] = "1"
+			    )
+		displayFolder: Forecasting
+		lineageTag: e2972fe7-bae8-423b-9e2f-b459fde54ee4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Bedrag Incl Indexering Actuals' = ```
+			
+			VAR indexeringFactor = SELECTEDVALUE('Dim Indexering Actuals'[Indexering], 1)
+			VAR monthCount = DISTINCTCOUNT('Dim Period'[Month no.])
+			VAR monthValue = SELECTEDVALUE('Dim Period'[Month no.])
+			
+			-- BASE: unfiltered values
+			VAR actualsAmount =
+			    CALCULATE(
+			        SUM('Fact Salaris Indexering Actuals'[Bedrag (New)]),
+			        'Fact Salaris Indexering Actuals'[Boekingsperiode] < 7
+			    )
+			
+			VAR indexeringAmount =
+			    CALCULATE(
+			        SUM('Fact Salaris Indexering Actuals'[Bedrag (New)]) * indexeringFactor +
+			        SUM('Fact Salaris Indexering Actuals'[Bedrag (New)]),
+			        'Fact Salaris Indexering Actuals'[Boekingsperiode] >= 7
+			    )
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    -- exactly one month selected
+			    monthCount = 1 && monthValue < 7, actualsAmount,
+			    monthCount = 1 && monthValue >= 7, indexeringAmount,
+			    -- otherwise (multiple or no months selected)
+			    actualsAmount + indexeringAmount
+			)
+			
+			```
+		displayFolder: Forecasting
+		lineageTag: 4286c08b-a988-4873-9b9c-774899bfe0b7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition 'Measure Table' = m
 		mode: import

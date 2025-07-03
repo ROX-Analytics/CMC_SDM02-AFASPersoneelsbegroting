@@ -241,6 +241,15 @@ table 'Fact Personeels Kosten'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column 'Schaal ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: d4082484-a5d8-4c7b-9535-0f3e002f73be
+		summarizeBy: none
+		sourceColumn: Schaal ID
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Fact Personeels Kosten' = m
 		mode: import
 		queryGroup: Model
@@ -266,9 +275,11 @@ table 'Fact Personeels Kosten'
 				    #"Added Custom7" = Table.AddColumn(#"Changed Type4", "Saldo", each ([Waarde] * [FTE]) - [Bedrag_credit]),
 				    #"Changed Type5" = Table.TransformColumnTypes(#"Added Custom7",{{"Saldo", type number}}),
 				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type5",{{"Grootboekrekening", Text.Trim, type text}}),
-				    #"Changed Type6" = Table.TransformColumnTypes(#"Trimmed Text",{{"Jaar", Int64.Type}, {"Salarisperiode", Int64.Type}, {"Boekingsperiode", Int64.Type}})
+				    #"Changed Type6" = Table.TransformColumnTypes(#"Trimmed Text",{{"Jaar", Int64.Type}, {"Salarisperiode", Int64.Type}, {"Boekingsperiode", Int64.Type}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type6", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
+				    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Schaal ID"}, {"Schaal ID"})
 				in
-				    #"Changed Type6"
+				    #"Expanded Dim Medewerker"
 
 	annotation PBI_NavigationStepName = Navigation
 

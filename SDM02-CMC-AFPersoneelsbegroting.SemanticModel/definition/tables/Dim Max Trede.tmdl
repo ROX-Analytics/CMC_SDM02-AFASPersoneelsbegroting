@@ -1,0 +1,35 @@
+table 'Dim Max Trede'
+	lineageTag: d7c41e1a-46f8-48ba-9698-e83ac060dccc
+
+	column 'MAX Trede'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 14ada9c9-9f95-4fc4-940e-55ff4534d724
+		summarizeBy: none
+		sourceColumn: MAX Trede
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 59593b5c-c94a-43cc-b3bb-ff3a4bbec454
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Max Trede' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCgkKdVXSUTJUitWJVnJz9AkG8YyUYmMB", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"MAX Trede" = _t, ID = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"MAX Trede", type logical}, {"ID", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

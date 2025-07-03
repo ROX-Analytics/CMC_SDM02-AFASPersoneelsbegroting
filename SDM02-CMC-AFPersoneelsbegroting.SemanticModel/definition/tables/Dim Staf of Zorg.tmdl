@@ -13,7 +13,7 @@ table 'Dim Staf of Zorg'
 		dataType: int64
 		formatString: 0
 		lineageTag: 0cbff453-ad6b-4f2f-938f-e7b603ca34eb
-		summarizeBy: none
+		summarizeBy: count
 		sourceColumn: ID
 
 		annotation SummarizationSetBy = Automatic

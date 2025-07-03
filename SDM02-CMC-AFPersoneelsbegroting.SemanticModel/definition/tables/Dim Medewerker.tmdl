@@ -1,4 +1,4 @@
-table 'Dim Medewerker Details'
+table 'Dim Medewerker'
 	lineageTag: 704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c
 
 	column 'Medewerker ID'
@@ -81,12 +81,12 @@ table 'Dim Medewerker Details'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Datum_in_dienst Original'
+	column Datum_in_dienst
 		dataType: dateTime
 		formatString: Long Date
 		lineageTag: 51aafaa1-fb06-478b-8f44-0eea34d66d60
 		summarizeBy: none
-		sourceColumn: Datum_in_dienst Original
+		sourceColumn: Datum_in_dienst
 
 		variation Variation
 			isDefault
@@ -300,7 +300,7 @@ table 'Dim Medewerker Details'
 		dataType: int64
 		formatString: 0
 		lineageTag: d578eaba-0ae6-4e76-bca7-b02da6dd7b94
-		summarizeBy: none
+		summarizeBy: count
 		sourceColumn: Schaal ID
 
 		annotation SummarizationSetBy = Automatic
@@ -326,12 +326,12 @@ table 'Dim Medewerker Details'
 		dataType: int64
 		formatString: 0
 		lineageTag: d3a802f1-1508-48a7-af8c-b5b29c9a0d77
-		summarizeBy: none
+		summarizeBy: count
 		sourceColumn: C/A Functie ID
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Volledige Naam' = 'Dim Medewerker Details'[Achternaam] & " " & "," & " " & 'Dim Medewerker Details'[Voorletters] & " " & "(" & 'Dim Medewerker Details'[Voornaam] & ")"
+	column 'Volledige Naam' = 'Dim Medewerker'[Achternaam] & " " & "," & " " & 'Dim Medewerker'[Voorletters] & " " & "(" & 'Dim Medewerker'[Voornaam] & ")"
 		lineageTag: 1b42076c-7936-433a-8898-bbd49f2e914d
 		summarizeBy: none
 
@@ -393,33 +393,32 @@ table 'Dim Medewerker Details'
 
 		annotation SummarizationSetBy = Automatic
 
-	column Year
-		dataType: int64
-		formatString: 0
-		lineageTag: 0d6bf75b-ded0-4b5d-a072-0acfe2b4d7e4
-		summarizeBy: sum
-		sourceColumn: Year
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Jaar in Dienst'
-		dataType: int64
-		formatString: 0
-		lineageTag: 15154033-ffa3-4509-9320-b6d47af586d2
-		summarizeBy: sum
-		sourceColumn: Jaar in Dienst
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Datum in Dienst'
-		dataType: string
-		lineageTag: 009d579f-96cc-4faa-a9bd-710aa914280c
+	column 'In_dienst__i.v.m._dienstjaren_'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 22dbb561-ce7e-41e0-8330-a33111d0a579
 		summarizeBy: none
-		sourceColumn: Datum in Dienst
+		sourceColumn: In_dienst__i.v.m._dienstjaren_
+
+		variation Variation
+			isDefault
+			relationship: 5375ce7a-e028-4880-be47-6a65fc18ba68
+			defaultHierarchy: LocalDateTable_b0951fab-f7e7-469c-b1c8-e5981f017388.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
-	partition 'Dim Medewerker Details' = m
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Anniversary Month'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4f3021fc-e460-40b9-ac05-9958e8ee7e08
+		summarizeBy: sum
+		sourceColumn: Anniversary Month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Medewerker' = m
 		mode: import
 		queryGroup: Model
 		source =
@@ -441,7 +440,7 @@ table 'Dim Medewerker Details'
 				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns2", {"Medewerker ID"}),
 				    #"Merged Queries" = Table.NestedJoin(#"Removed Duplicates", {"Soort_functie"}, #"Dim Personeel Type OLD", {"Type Personeel"}, "Dim Personeel Type", JoinKind.LeftOuter),
 				    #"Expanded Dim Personeel Type" = Table.ExpandTableColumn(#"Merged Queries", "Dim Personeel Type", {"Type Personeel ID"}, {"Type Personeel ID"}),
-				    #"Merged Queries1" = Table.NestedJoin(#"Expanded Dim Personeel Type", {"Schaal"}, #"Dim SchaalType", {"Schaal"}, "Dim SchaalType", JoinKind.LeftOuter),
+				    #"Merged Queries1" = Table.NestedJoin(#"Expanded Dim Personeel Type", {"Schaal", "Trede"}, #"Dim SchaalType", {"Schaal", "Trede"}, "Dim SchaalType", JoinKind.LeftOuter),
 				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries1", "Dim SchaalType", {"Schaal ID"}, {"Schaal ID"}),
 				    #"Merged Queries2" = Table.NestedJoin(#"Expanded Dim SchaalType", {"Dienstbetrekking"}, #"Dim Dienstbetrekking", {"Dienstbetrekking"}, "Dim Dienstbetrekking", JoinKind.LeftOuter),
 				    #"Expanded Dim Dienstbetrekking" = Table.ExpandTableColumn(#"Merged Queries2", "Dim Dienstbetrekking", {"Dienstbetrekking ID"}, {"Dienstbetrekking ID"}),
@@ -463,14 +462,13 @@ table 'Dim Medewerker Details'
 				    #"Merged Columns" = Table.CombineColumns(Table.TransformColumnTypes(#"Removed Other Columns2", {{"Dim Medewerker Overig.Staf of Zorg", type text}}, "en-US"),{"Dim Staf.Staf of Zorg", "Dim Zorg.Staf of Zorg", "Dim Medewerker Overig.Staf of Zorg"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Staf of Zorg"),
 				    #"Merged Queries7" = Table.NestedJoin(#"Merged Columns", {"Soort_functie", "Dim Zorg.Type Zorg Functie", "Staf of Zorg"}, #"Dim Type Personeel", {"Soort_functie", "Type Zorg Functie", "Staf of Zorg"}, "Dim Type Personeel", JoinKind.LeftOuter),
 				    #"Expanded Dim Type Personeel" = Table.ExpandTableColumn(#"Merged Queries7", "Dim Type Personeel", {"Type Personeel ID"}, {"Type Personeel ID"}),
-				    #"Inserted Year" = Table.AddColumn(#"Expanded Dim Type Personeel", "Year", each Date.Year([Datum_in_dienst]), Int64.Type),
-				    #"Added Custom" = Table.AddColumn(#"Inserted Year", "Jaar in Dienst", each [Year] - [Dienstjaren]),
-				    #"Renamed Columns4" = Table.RenameColumns(#"Added Custom",{{"Datum_in_dienst", "Datum_in_dienst Original"}}),
-				    #"Changed Type7" = Table.TransformColumnTypes(#"Renamed Columns4",{{"Jaar in Dienst", Int64.Type}}),
-				    #"Added Custom1" = Table.AddColumn(#"Changed Type7", "Datum in Dienst", each Date.AddYears([Datum_in_dienst Original], [Jaar in Dienst] - Date.Year([Datum_in_dienst Original]))),
-				    #"Removed Duplicates1" = Table.Distinct(#"Added Custom1", {"Medewerker ID"})
+				    #"Removed Duplicates1" = Table.Distinct(#"Expanded Dim Type Personeel", {"Medewerker ID"}),
+				    #"Merged Queries9" = Table.NestedJoin(#"Removed Duplicates1", {"Medewerker ID"}, #"Dim Medewerker (FormatieBezetting)", {"Medewerker"}, "Dim Medewerker (FormatieBezetting)", JoinKind.LeftOuter),
+				    #"Expanded Dim Medewerker (FormatieBezetting)" = Table.ExpandTableColumn(#"Merged Queries9", "Dim Medewerker (FormatieBezetting)", {"In_dienst__i.v.m._dienstjaren_"}, {"In_dienst__i.v.m._dienstjaren_"}),
+				    #"Inserted Month" = Table.AddColumn(#"Expanded Dim Medewerker (FormatieBezetting)", "Month", each Date.Month([In_dienst__i.v.m._dienstjaren_]), Int64.Type),
+				    #"Renamed Columns4" = Table.RenameColumns(#"Inserted Month",{{"Month", "Anniversary Month"}})
 				in
-				    #"Removed Duplicates1"
+				    #"Renamed Columns4"
 
 	annotation PBI_NavigationStepName = Navigation
 

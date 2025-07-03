@@ -1,10 +1,10 @@
-table 'Fact FormatiePlaats'
-	lineageTag: ec9687a2-fef3-4536-a4e3-c6ba243a62dc
+table 'Fact Forecasting Vacatures'
+	lineageTag: 114278a5-cda5-4b3a-90a9-11a9655cd651
 
 	column Geblokkeerd
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 3a5fe360-50ee-4d29-bfa0-17fb0441bc86
+		lineageTag: 76771010-4e4e-4f52-8667-8466dad9a65c
 		summarizeBy: none
 		sourceColumn: Geblokkeerd
 
@@ -12,7 +12,7 @@ table 'Fact FormatiePlaats'
 
 	column Naam_werkgever
 		dataType: string
-		lineageTag: 69de70e5-2b6a-44a6-a5ea-6fa04cd197c4
+		lineageTag: 59175e64-4d1b-47c6-8c67-d50ef08c6293
 		summarizeBy: none
 		sourceColumn: Naam_werkgever
 
@@ -20,7 +20,7 @@ table 'Fact FormatiePlaats'
 
 	column Patientgebonden_functies
 		dataType: string
-		lineageTag: f4fbadcf-8733-4a82-ba93-21c9bdf73ea4
+		lineageTag: 9de37e6a-6d75-45eb-941b-1fabcb2623d2
 		summarizeBy: none
 		sourceColumn: Patientgebonden_functies
 
@@ -28,7 +28,7 @@ table 'Fact FormatiePlaats'
 
 	column Soort_functie
 		dataType: string
-		lineageTag: 22a53dee-5796-4260-81fa-5cd104b4fd13
+		lineageTag: d850aa91-db98-4b4d-8e91-d50cc2690be8
 		summarizeBy: none
 		sourceColumn: Soort_functie
 
@@ -36,7 +36,7 @@ table 'Fact FormatiePlaats'
 
 	column Declarerend_Niet-declarerend
 		dataType: string
-		lineageTag: 3c0d0ad5-5dbc-4e6c-a062-91a42e118b06
+		lineageTag: a0fe73da-affe-4dc9-b78d-730b1fb2021f
 		summarizeBy: none
 		sourceColumn: Declarerend_Niet-declarerend
 
@@ -44,7 +44,7 @@ table 'Fact FormatiePlaats'
 
 	column Service_Line_Type
 		dataType: string
-		lineageTag: 10a5d7e0-0220-4738-afd2-d7cda9b3b2f6
+		lineageTag: 91d634f5-5288-46be-bbb1-0a828e062f27
 		summarizeBy: none
 		sourceColumn: Service_Line_Type
 
@@ -52,7 +52,7 @@ table 'Fact FormatiePlaats'
 
 	column Service_Lines
 		dataType: string
-		lineageTag: 6954e0a4-4031-4b03-9378-7f0f8004a2b2
+		lineageTag: 8d1cfba9-1c4b-4eb8-909f-6655c41733ed
 		summarizeBy: none
 		sourceColumn: Service_Lines
 
@@ -60,7 +60,7 @@ table 'Fact FormatiePlaats'
 
 	column Cluster_Afdeling
 		dataType: string
-		lineageTag: 40687402-70ca-4254-8a53-6865ede52f33
+		lineageTag: dccb2840-0e64-44dc-8786-de93ea6ba169
 		summarizeBy: none
 		sourceColumn: Cluster_Afdeling
 
@@ -68,7 +68,7 @@ table 'Fact FormatiePlaats'
 
 	column Formatieplaats
 		dataType: string
-		lineageTag: efc1b955-3a31-4415-be5d-dc0581682901
+		lineageTag: 6eb454c5-4054-4464-867d-cf02d80a2137
 		summarizeBy: none
 		sourceColumn: Formatieplaats
 
@@ -76,7 +76,7 @@ table 'Fact FormatiePlaats'
 
 	column Omschrijving
 		dataType: string
-		lineageTag: 82fd86b6-724d-49d6-9602-4e25ecb2075f
+		lineageTag: bac9796f-84d8-4bcf-b597-b5dfd3800cad
 		summarizeBy: none
 		sourceColumn: Omschrijving
 
@@ -84,7 +84,7 @@ table 'Fact FormatiePlaats'
 
 	column Kostenplaats
 		dataType: string
-		lineageTag: 237f0f19-c730-4813-a279-98d3dfbfe599
+		lineageTag: 4c954f83-0c8f-49d7-b11c-2da6ea9f82a2
 		summarizeBy: none
 		sourceColumn: Kostenplaats
 
@@ -92,7 +92,7 @@ table 'Fact FormatiePlaats'
 
 	column OE
 		dataType: string
-		lineageTag: 4007df20-cef1-4e2c-a447-dc82820c2794
+		lineageTag: 61b32662-ff5a-49e9-9769-e874c9ffbbcb
 		summarizeBy: none
 		sourceColumn: OE
 
@@ -100,7 +100,7 @@ table 'Fact FormatiePlaats'
 
 	column Omschrijving_2
 		dataType: string
-		lineageTag: 7f85b32e-7c0a-4dd9-936f-df9f985d08eb
+		lineageTag: a39c1d9a-8fe1-4189-8d58-7816c77a2446
 		summarizeBy: none
 		sourceColumn: Omschrijving_2
 
@@ -108,7 +108,7 @@ table 'Fact FormatiePlaats'
 
 	column Functie
 		dataType: string
-		lineageTag: 25b13fed-b722-4025-8a14-c17ffb5a3060
+		lineageTag: 9ad68a34-6934-41e6-aa82-846096106118
 		summarizeBy: none
 		sourceColumn: Functie
 
@@ -116,7 +116,7 @@ table 'Fact FormatiePlaats'
 
 	column Omschrijving_3
 		dataType: string
-		lineageTag: 7ef837cf-b277-4435-a458-f873f5c969b6
+		lineageTag: 57c0034d-24b9-4453-a509-b9403c5e88d8
 		summarizeBy: none
 		sourceColumn: Omschrijving_3
 
@@ -124,7 +124,7 @@ table 'Fact FormatiePlaats'
 
 	column Generieke_functienaam
 		dataType: string
-		lineageTag: 37b97c35-b333-45ef-99e7-71772673d72c
+		lineageTag: 2b77c7a1-bf81-46c0-aa5b-8bc9f0f1e197
 		summarizeBy: none
 		sourceColumn: Generieke_functienaam
 
@@ -132,7 +132,7 @@ table 'Fact FormatiePlaats'
 
 	column FTE_Begroot
 		dataType: double
-		lineageTag: df038465-0a6f-4600-8494-c05f199fe000
+		lineageTag: 12409285-d7ca-4416-8f8a-636268fdb249
 		summarizeBy: sum
 		sourceColumn: FTE_Begroot
 
@@ -142,7 +142,7 @@ table 'Fact FormatiePlaats'
 
 	column Werkelijk
 		dataType: double
-		lineageTag: 92062f35-544b-4caa-aaeb-0e442e0a4b0b
+		lineageTag: 442c1a20-e68a-4f3a-81dd-e77cbb574428
 		summarizeBy: sum
 		sourceColumn: Werkelijk
 
@@ -152,7 +152,7 @@ table 'Fact FormatiePlaats'
 
 	column Instroom
 		dataType: double
-		lineageTag: 39ffe8ae-cd37-4f6c-b333-03f61e9f7600
+		lineageTag: f7790bc6-8572-42d6-a945-09c1a526059f
 		summarizeBy: sum
 		sourceColumn: Instroom
 
@@ -162,7 +162,7 @@ table 'Fact FormatiePlaats'
 
 	column 'FTE uitstroom (zonder bepaalde tijd)'
 		dataType: double
-		lineageTag: 7b3eb3ec-8d68-4c1c-84ee-f257422e0d04
+		lineageTag: 2081f823-c7e1-4c42-830f-193e6997388d
 		summarizeBy: sum
 		sourceColumn: FTE uitstroom (zonder bepaalde tijd)
 
@@ -172,7 +172,7 @@ table 'Fact FormatiePlaats'
 
 	column Verschil
 		dataType: double
-		lineageTag: 8ccc01c3-ce40-4e56-8ea5-7f88ce4f6e64
+		lineageTag: 235d3332-b588-4a76-b758-8da145ab291a
 		summarizeBy: sum
 		sourceColumn: Verschil
 
@@ -182,7 +182,7 @@ table 'Fact FormatiePlaats'
 
 	column 'Verschil (excl)'
 		dataType: double
-		lineageTag: d96089f2-594b-4bea-8b34-f5318c8a2e79
+		lineageTag: 06dbf6df-b7f0-4f7c-8b1a-a500e7cc548a
 		summarizeBy: sum
 		sourceColumn: Verschil (excl)
 
@@ -192,7 +192,7 @@ table 'Fact FormatiePlaats'
 
 	column Gebruiker
 		dataType: string
-		lineageTag: a717204c-529d-4f23-b97b-fcdf870dbddb
+		lineageTag: be896c72-ad7c-493a-98cc-7d6789f872c3
 		summarizeBy: none
 		sourceColumn: Gebruiker
 
@@ -200,63 +200,23 @@ table 'Fact FormatiePlaats'
 
 	column Type_functie
 		dataType: string
-		lineageTag: ca2518b5-bd82-4516-be3e-b7773d98ff4d
+		lineageTag: 11d8e508-6bd4-4468-b648-a161310754ce
 		summarizeBy: none
 		sourceColumn: Type_functie
 
 		annotation SummarizationSetBy = Automatic
 
-	column Naam
-		dataType: string
-		lineageTag: a77b5e32-2af0-4026-8d88-5974bdf94b83
-		summarizeBy: none
-		sourceColumn: Naam
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Begin Datum'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: de090bd5-820f-4716-9341-f9e246e21939
-		summarizeBy: none
-		sourceColumn: Begin Datum
-
-		variation Variation
-			isDefault
-			relationship: 369bf740-7b40-487e-9c1e-de77d96ae3b4
-			defaultHierarchy: LocalDateTable_ff0b6a01-a3a6-42f7-906d-39e53520f9c0.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column 'Eind Datum'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 9124199f-439b-4192-b57d-d8d1956e6df8
-		summarizeBy: none
-		sourceColumn: Eind Datum
-
-		variation Variation
-			isDefault
-			relationship: 66a7ea94-9b8e-4d77-86a9-70c6f3c4ac7a
-			defaultHierarchy: LocalDateTable_446649bc-0a8a-4f7b-a7a4-374345c30b17.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
 	column 'Datum Gewijzigd'
 		dataType: dateTime
 		formatString: Long Date
-		lineageTag: 6898be62-66f4-4422-87b8-c078c48860aa
+		lineageTag: b8f3d855-2c39-4b17-bd6e-70d0ea1bd966
 		summarizeBy: none
 		sourceColumn: Datum Gewijzigd
 
 		variation Variation
 			isDefault
-			relationship: 76de0eee-6d1c-4672-ae17-5e64da9a91a0
-			defaultHierarchy: LocalDateTable_440d5084-fae8-4d5f-8be9-307106ab9e02.'Date Hierarchy'
+			relationship: c0bc57d4-0f7c-4d72-aa4f-b66e69583786
+			defaultHierarchy: LocalDateTable_2d48c39c-d009-4314-8331-6a126025f12a.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -265,7 +225,7 @@ table 'Fact FormatiePlaats'
 	column 'Tijd Gewijzigd'
 		dataType: dateTime
 		formatString: Long Time
-		lineageTag: 6425dab1-6669-499e-b430-1da28adcc922
+		lineageTag: 4801987c-2d6e-41c2-8ff1-8b00465a3ba6
 		summarizeBy: none
 		sourceColumn: Tijd Gewijzigd
 
@@ -275,7 +235,7 @@ table 'Fact FormatiePlaats'
 
 	column Uren_Begroot
 		dataType: double
-		lineageTag: e1c120e3-f64c-42f6-993c-1a5ee1ac16a8
+		lineageTag: 9d72e6b9-cc01-4064-9067-775e16e832c6
 		summarizeBy: sum
 		sourceColumn: Uren_Begroot
 
@@ -285,7 +245,7 @@ table 'Fact FormatiePlaats'
 
 	column Uren_Werkelijk
 		dataType: double
-		lineageTag: 046da4f4-ee9f-4ec2-855c-0cf238fc9560
+		lineageTag: 6608ff9b-17be-4ae4-a349-33c71dad22b1
 		summarizeBy: sum
 		sourceColumn: Uren_Werkelijk
 
@@ -295,7 +255,7 @@ table 'Fact FormatiePlaats'
 
 	column Uren_Verschil
 		dataType: double
-		lineageTag: 4e6319c9-04a4-4ed3-91a4-521573920741
+		lineageTag: 6900d0f4-b2ad-44c6-bacb-a90649071847
 		summarizeBy: sum
 		sourceColumn: Uren_Verschil
 
@@ -303,29 +263,18 @@ table 'Fact FormatiePlaats'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column Year
+	column 'Medewerker ID'
 		dataType: int64
 		formatString: 0
-		lineageTag: bd51a26b-27d8-4cdf-aadb-1cc85ab1e124
-		summarizeBy: sum
-		sourceColumn: Year
-
-		annotation SummarizationSetBy = Automatic
-
-	column Date
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 05cb4810-da65-4527-b51d-5938ba0ebcf8
+		lineageTag: 9a6836cb-4160-40d2-a2d3-e327711187e6
 		summarizeBy: none
-		sourceColumn: Date
+		sourceColumn: Medewerker ID
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column Periode
 		dataType: string
-		lineageTag: 388cd865-e544-42ff-abde-fe31ba6e0188
+		lineageTag: 6585effc-4d03-4b3e-ad81-ea48139403b7
 		summarizeBy: none
 		sourceColumn: Periode
 
@@ -333,31 +282,70 @@ table 'Fact FormatiePlaats'
 
 	column Year/Period
 		dataType: string
-		lineageTag: 233630ac-5617-4f7b-9111-f0d6a1dc9ff6
+		lineageTag: 0c59f5ab-9955-48d2-964f-7efeda1434c5
 		summarizeBy: none
 		sourceColumn: Year/Period
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Type Personeel ID'
-		dataType: int64
-		formatString: 0
-		lineageTag: 4f9545b9-7000-4478-baee-336b23ba0b2c
-		summarizeBy: count
-		sourceColumn: Type Personeel ID
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'C/A Formatie ID'
-		dataType: int64
-		formatString: 0
-		lineageTag: 9b3b1b84-2c35-4566-9a9a-e1ab975fe413
+	column 'Year Forecasting'
+		dataType: string
+		lineageTag: 4d270d45-3c07-47dc-bfb7-a2674003cd97
 		summarizeBy: none
-		sourceColumn: C/A Formatie ID
+		sourceColumn: Year Forecasting
 
 		annotation SummarizationSetBy = Automatic
 
-	partition 'Fact FormatiePlaats' = m
+	column Schaal/Trede
+		dataType: string
+		lineageTag: 6e23ae47-2278-4ff6-bdd3-0794b04c1d76
+		summarizeBy: none
+		sourceColumn: Schaal/Trede
+
+		annotation SummarizationSetBy = Automatic
+
+	column LC
+		dataType: string
+		lineageTag: 06a4d1c0-7bcf-4e5b-9c11-e8ff9ec73223
+		summarizeBy: none
+		sourceColumn: LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboekrekening
+		dataType: string
+		lineageTag: 82bea722-0ac7-419f-bec0-e6d1ab653790
+		summarizeBy: none
+		sourceColumn: Grootboekrekening
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal/Trede Salaris'
+		dataType: string
+		lineageTag: 35ea5606-a70f-4161-badf-11959d30d59f
+		summarizeBy: none
+		sourceColumn: Schaal/Trede Salaris
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2434 - Salaris'
+		dataType: string
+		lineageTag: 50ff9afa-2962-40d9-a90f-40068b3c361d
+		summarizeBy: none
+		sourceColumn: 2434 - Salaris
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 094613f2-7f58-44b7-885a-7a5f91507069
+		summarizeBy: none
+		sourceColumn: Schaal ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Forecasting Vacatures' = m
 		mode: import
 		queryGroup: Model
 		source =
@@ -389,17 +377,45 @@ table 'Fact FormatiePlaats'
 				    #"Changed Type6" = Table.TransformColumnTypes(#"Added Custom2",{{"Uren_Begroot", type number}, {"Uren_Werkelijk", type number}, {"Uren_Verschil", type number}}),
 				    #"Filtered Rows" = Table.SelectRows(#"Changed Type6", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
 				    #"Changed Type7" = Table.TransformColumnTypes(#"Filtered Rows",{{"Kostenplaats", type text}}),
-				    #"Inserted Year" = Table.AddColumn(#"Changed Type7", "Year", each Date.Year([Begin Datum]), Int64.Type),
-				    #"Merged Queries" = Table.NestedJoin(#"Inserted Year", {"Year"}, #"Dim Calendar", {"Year"}, "Dim Calendar", JoinKind.LeftOuter),
-				    #"Expanded Dim Calendar" = Table.ExpandTableColumn(#"Merged Queries", "Dim Calendar", {"Date", "Month no. (leading zeros)"}, {"Date", "Month no. (leading zeros)"}),
-				    #"Renamed Columns4" = Table.RenameColumns(#"Expanded Dim Calendar",{{"Aantal_FTE", "Werkelijk"}, {"Aantal_FTE_2", "Instroom"}, {"Aantal_FTE_3", "FTE uitstroom (zonder bepaalde tijd)"}, {"Verschil", "Verschil (excl)"}, {"Aantal_FTE_4", "Verschil"}, {"Organisatorische_eenheid", "OE"}, {"Month no. (leading zeros)", "Periode"}}),
-				    #"Added Custom3" = Table.AddColumn(#"Renamed Columns4", "Year/Period", each Text.From([Year]) & "/" & Text.From([#"Periode"])),
-				    #"Merged Queries1" = Table.NestedJoin(#"Added Custom3", {"Soort_functie"}, #"Dim Personeel Type OLD", {"Type Personeel"}, "Dim Personeel Type", JoinKind.LeftOuter),
-				    #"Expanded Dim Personeel Type" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Personeel Type", {"Type Personeel ID"}, {"Type Personeel ID"}),
-				    #"Merged Queries2" = Table.NestedJoin(#"Expanded Dim Personeel Type", {"Cluster_Afdeling"}, #"Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Formatieplaatsniveau"}, "Dim Cluster/Afdeling Formatieplaats", JoinKind.LeftOuter),
-				    #"Expanded Dim Cluster/Afdeling Formatieplaats" = Table.ExpandTableColumn(#"Merged Queries2", "Dim Cluster/Afdeling Formatieplaats", {"C/A Formatie ID"}, {"C/A Formatie ID"})
+				    #"Added Index" = Table.AddIndexColumn(#"Changed Type7", "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns7" = Table.RenameColumns(#"Added Index",{{"Index", "Medewerker ID"}}),
+				    #"Inserted Year" = Table.AddColumn(#"Renamed Columns7", "Year", each Date.Year([Begin Datum]), Int64.Type),
+				    #"Renamed Columns4" = Table.RenameColumns(#"Inserted Year",{{"Aantal_FTE", "Werkelijk"}, {"Aantal_FTE_2", "Instroom"}, {"Aantal_FTE_3", "FTE uitstroom (zonder bepaalde tijd)"}, {"Verschil", "Verschil (excl)"}, {"Aantal_FTE_4", "Verschil"}, {"Organisatorische_eenheid", "OE"}}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Renamed Columns4", each [#"Verschil (excl)"] > 0),
+				    #"Invoked Custom Function" = Table.AddColumn(#"Filtered Rows1", "Year Forecasting", each #"Forecasting Vacature Date Function"([Year])),
+				    #"Expanded Year Forecasting" = Table.ExpandTableColumn(#"Invoked Custom Function", "Year Forecasting", {"Year"}, {"Year.1"}),
+				    #"Renamed Columns9" = Table.RenameColumns(#"Expanded Year Forecasting",{{"Year.1", "Year Forecasting"}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Renamed Columns9", {"Year Forecasting"}, #"Dim Calendar", {"Year"}, "Dim Calendar", JoinKind.LeftOuter),
+				    #"Expanded Dim Calendar" = Table.ExpandTableColumn(#"Merged Queries", "Dim Calendar", {"Month no. (leading zeros)"}, {"Month no. (leading zeros)"}),
+				    #"Renamed Columns8" = Table.RenameColumns(#"Expanded Dim Calendar",{{"Month no. (leading zeros)", "Periode"}}),
+				    #"Added Custom3" = Table.AddColumn(#"Renamed Columns8", "Year/Period", each Text.From([Year Forecasting]) & "/" & Text.From([#"Periode"])),
+				    #"Merged Queries1" = Table.NestedJoin(#"Added Custom3", {"Formatieplaats", "Patientgebonden_functies"}, #"Dim Schaal per Formatieplaats CAO", {"Formatieplaats Code", "Patientgebonden_functies"}, "Dim Schaal per Formatieplaats CAO", JoinKind.LeftOuter),
+				    #"Expanded Dim Schaal per Formatieplaats CAO" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Schaal per Formatieplaats CAO", {"Max Schaal/Trede"}, {"Max Schaal/Trede"}),
+				    #"Renamed Columns5" = Table.RenameColumns(#"Expanded Dim Schaal per Formatieplaats CAO",{{"Max Schaal/Trede", "Max Schaal/Trede CAO"}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Renamed Columns5",{{"Max Schaal/Trede CAO", Text.Trim, type text}}),
+				    #"Merged Queries2" = Table.NestedJoin(#"Trimmed Text", {"Max Schaal/Trede CAO"}, #"CAO Schaal", {"Max Trede Flag"}, "CAO Schaal", JoinKind.LeftOuter),
+				    #"Expanded CAO Schaal" = Table.ExpandTableColumn(#"Merged Queries2", "CAO Schaal", {"Salaris"}, {"Salaris"}),
+				    #"Renamed Columns6" = Table.RenameColumns(#"Expanded CAO Schaal",{{"Salaris", "MAX Salaris CAO"}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns6", {"Formatieplaats", "Periode"}),
+				    #"Merged Queries3" = Table.NestedJoin(#"Removed Duplicates", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats LNT", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats LNT", JoinKind.LeftOuter),
+				    #"Expanded Dim Schaal per Formatieplaats LNT" = Table.ExpandTableColumn(#"Merged Queries3", "Dim Schaal per Formatieplaats LNT", {"Schaal/Trede LNT 386K Vacature Forecasting", "LNT 386K Schaal Vac Forecast Salaris"}, {"Schaal/Trede LNT 386K Vacature Forecasting", "LNT 386K Schaal Vac Forecast Salaris"}),
+				    #"Merged Queries4" = Table.NestedJoin(#"Expanded Dim Schaal per Formatieplaats LNT", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats BMP", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats BMP", JoinKind.LeftOuter),
+				    #"Expanded Dim Schaal per Formatieplaats BMP" = Table.ExpandTableColumn(#"Merged Queries4", "Dim Schaal per Formatieplaats BMP", {"Schaal/Trede LNT 386K Vac Forecasting", "Salari LNT 386K Forecast Vac"}, {"BMP.Schaal/Trede LNT 386K Vac Forecasting", "BMP.Salari LNT 386K Forecast Vac"}),
+				    #"Added Custom4" = Table.AddColumn(#"Expanded Dim Schaal per Formatieplaats BMP", "BMP Schaal/Trede LNT 386K", each if[#"BMP.Schaal/Trede LNT 386K Vac Forecasting"] = [#"Schaal/Trede LNT 386K Vacature Forecasting"] then null else [#"BMP.Schaal/Trede LNT 386K Vac Forecasting"]),
+				    #"Added Custom5" = Table.AddColumn(#"Added Custom4", "BMP Salaris LNT 386K", each if [BMP.Salari LNT 386K Forecast Vac] = [LNT 386K Schaal Vac Forecast Salaris] then null else [BMP.Salari LNT 386K Forecast Vac]),
+				    #"Merged Columns" = Table.CombineColumns(#"Added Custom5",{"BMP Schaal/Trede LNT 386K", "Schaal/Trede LNT 386K Vacature Forecasting", "Max Schaal/Trede CAO"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Schaal/Trede"),
+				    #"Merged Columns1" = Table.CombineColumns(Table.TransformColumnTypes(#"Merged Columns", {{"MAX Salaris CAO", type text}, {"LNT 386K Schaal Vac Forecast Salaris", type text}, {"BMP Salaris LNT 386K", type text}}, "en-US"),{"MAX Salaris CAO", "LNT 386K Schaal Vac Forecast Salaris", "BMP Salaris LNT 386K"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Bruto Salaris"),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Merged Columns1",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Werkelijk", "Instroom", "FTE uitstroom (zonder bepaalde tijd)", "Verschil", "Verschil (excl)", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum", "Datum Gewijzigd", "Tijd Gewijzigd", "Uren_Begroot", "Uren_Werkelijk", "Uren_Verschil", "Medewerker ID", "Year", "Year Forecasting", "Periode", "Year/Period", "Schaal/Trede", "Bruto Salaris"}),
+				    #"Changed Type8" = Table.TransformColumnTypes(#"Removed Other Columns1",{{"Bruto Salaris", type number}}),
+				    #"Merged Queries5" = Table.NestedJoin(#"Changed Type8", {"Formatieplaats"}, #"Fact Formatieplaats per LC Per GB", {"Formatieplaats Code"}, "Fact Formatieplaats per LC Per GB", JoinKind.LeftOuter),
+				    #"Expanded Fact Formatieplaats per LC Per GB" = Table.ExpandTableColumn(#"Merged Queries5", "Fact Formatieplaats per LC Per GB", {"LC", "Grootboekrekening"}, {"LC", "Grootboekrekening"}),
+				    #"Removed Other Columns2" = Table.SelectColumns(#"Expanded Fact Formatieplaats per LC Per GB",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Werkelijk", "Instroom", "FTE uitstroom (zonder bepaalde tijd)", "Verschil", "Verschil (excl)", "Gebruiker", "Type_functie", "Datum Gewijzigd", "Tijd Gewijzigd", "Uren_Begroot", "Uren_Werkelijk", "Uren_Verschil", "Medewerker ID", "Year Forecasting", "Periode", "Year/Period", "Schaal/Trede", "LC", "Grootboekrekening"}),
+				    #"Merged Queries6" = Table.NestedJoin(#"Removed Other Columns2", {"Schaal/Trede"}, #"Dim SchaalType", {"Schaal/Trede"}, "Dim SchaalType", JoinKind.LeftOuter),
+				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries6", "Dim SchaalType", {"Salaris", "Schaal ID"}, {"Salaris", "Schaal ID"}),
+				    #"Renamed Columns10" = Table.RenameColumns(#"Expanded Dim SchaalType",{{"Salaris", "Schaal/Trede Salaris"}}),
+				    #"Added LC 2434 Salaris" = Table.AddColumn(#"Renamed Columns10", "2434 - Salaris", each if [LC] = "2434" then [#"Schaal/Trede Salaris"] else null)
 				in
-				    #"Expanded Dim Cluster/Afdeling Formatieplaats"
+				    #"Added LC 2434 Salaris"
 
 	annotation PBI_NavigationStepName = Navigation
 

@@ -92,11 +92,13 @@ queryGroup 'Staging\Functies & Schaal'
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBIDesktopVersion = 2.144.878.0 (25.06)+9cca29236de5114792f4d7188221f91ad4a5cc50
+annotation PBIDesktopVersion = 2.144.1155.0 (25.06)+46435b07013d2a234d7fd007083a9e70b8e79f1c
 
 annotation PBI_ProTooling = ["DevMode","DaxQueryView_Desktop"]
 
-annotation PBI_QueryOrder = ["Fact Personeels Kosten","Fact Actuals FTE","Fact Journal Entries","Fact Budget","Fact FormatiePlaats","Fact Forecasting Medewerkers","Fact Forecasting Vacatures","Dim Calendar","Dim Period","Dim Looncomponent","Dim Grootboek","Dim Kostenplaats","ROWS","StartYear","Measure Table","FormatiePlaats (Staging)","FormatieBezetting (Staging)","Functies Bezetting (Staging)","Dim Organisatie Eenheid","Dim Formatieplaats","Dim Personeel Type OLD","Dim Type Personeel","Dim Staf of Zorg","Dim Dienstbetrekking","Dim SchaalType","Dim Medewerker Details","Dim Generieke Functie","Dim Medewerkers","Dim Functie","Dim Cluster/Afdeling Formatieplaats","Dim Cluster/Afdeling Functienveau","Dim Kostenplaats (Budget)","Dim Indexering","DurationHours","GC_FinancialeMutaties (2024 - >10)","GC_FinancialeMutaties (2024 - 1-3)","GC_FinancialeMutaties (2024 - 4-6)","GC_FinancialeMutaties (2024 - 7-9)","GC_FinancialeMutaties (2025 - >10)","GC_FinancialeMutaties (2025 - 1-3)","GC_FinancialeMutaties (2025 - 7-9)","GC_FinancialeMutaties (2025 - 4-6)","GC_FinancialeMutaties (>2026)","Fact Personeels Kosten 2024","Fact Personeels Kosten 2025","Date Last Refreshed","Dim Cluster/Afdeling Formatieplaats (2)","Dim Cluster/Afdeling Functienveau (2)","GC_FinancialeMutaties (2023 - >10)","GC_FinancialeMutaties (2023 - 1-3)","GC_FinancialeMutaties (2023 - 4-6)","GC_FinancialeMutaties (2023 - 7-9)","GC_FinancialeMutaties (2022- >10)","GC_FinancialeMutaties (2022- 1-3)","GC_FinancialeMutaties (2022- 4-6)","GC_FinancialeMutaties (2022- 7-9)","GC_FinancialeMutaties (2021 - >10)","GC_FinancialeMutaties (2021 - 1-3)","GC_FinancialeMutaties (2021 - 4-6)","GC_FinancialeMutaties (2021 - 7-9)","Fact Personeels Kosten 2021","Fact Personeels Kosten 2023","Fact Personeels Kosten 2022","Dim Gratificatie Jubileum","Dim Medewerker Staf","Dim Medici Zorg","Dim Medewerker Zorg","Dim Management Echelon 2 Zorg","Dim Management Echelon 3 Zorg","Dim Management Echelon 4 Zorg","Dim Management Echelon 4 Staf","Dim Management Echelon 3 Staf","Dim Management Echelon 2 Staf","Dim Management Echelon 1 Staf","Dim Staf","Dim Zorg","Dim Medewerker Details Test","Dim Medici Type Personeel Zorg","Dim Medewerker Type Personeel Zorg","Dim Management Echelon 2 Type Personeel Zorg","Dim Management Echelon 3 Type Personeel Zorg","Dim Management Echelon 4 Type Personeel Zorg","Dim Type Personeel Zorg","Dim Staf Type Personeel","Dim Medewerker Details OLD","Dim Staf Pat Geb Functies","Dim Overig Type Personeel","Dim Medewerker Overig","Studie Kosten LNT/MedSpec","Fact Vacature Formatieplaats","Dim Schaal per Formatieplaats CAO","Dim Schaal per Formatieplaats LNT 386K/501K","CAO Schaal","LNT 386K Schaal","BMP/LNT 501K Schaal","LNT 386K/LNT 501K Schaal","LNT 501K Schaal","Forecasting Date Function","Fact Forecasting Medewerkers OLD","Fact LC Per GB","Staging Forecsting Medewerker"]
+annotation PBI_QueryOrder = ["Fact Personeels Kosten","Fact Actuals FTE","Fact Journal Entries","Fact Budget","Fact FormatiePlaats","Fact Forecasting Medewerkers","Fact Forecasting Vacatures","Fact Salaris Indexering Actuals","Fact Medewerker MAX Schaal/Trede Actuals","Fact Salaris Indexering Actuals Source","Dim Calendar","Dim Period","Dim Looncomponent","Dim Grootboek","Dim Kostenplaats","ROWS","StartYear","Measure Table","FormatiePlaats (Staging)","FormatieBezetting (Staging)","Functies Bezetting (Staging)","Dim Organisatie Eenheid","Dim Formatieplaats","Dim Personeel Type OLD","Dim Type Personeel","Dim Staf of Zorg","Dim Dienstbetrekking","Dim SchaalType","Dim Medewerker","Dim Vacatures Medewerker","Dim Generieke Functie","Dim Medewerkers","Dim Functie","Dim Cluster/Afdeling Formatieplaats","Dim Cluster/Afdeling Functienveau","Dim Kostenplaats (Budget)","Dim Indexering Forecasting","Dim Indexering Actuals","DurationHours","GC_FinancialeMutaties (2024 - >10)","GC_FinancialeMutaties (2024 - 1-3)","GC_FinancialeMutaties (2024 - 4-6)","GC_FinancialeMutaties (2024 - 7-9)","GC_FinancialeMutaties (2025 - >10)","GC_FinancialeMutaties (2025 - 1-3)","GC_FinancialeMutaties (2025 - 7-9)","GC_FinancialeMutaties (2025 - 4-6)","GC_FinancialeMutaties (>2026)","Fact Personeels Kosten 2024","Fact Personeels Kosten 2025","Date Last Refreshed","GC_FinancialeMutaties (2023 - >10)","GC_FinancialeMutaties (2023 - 1-3)","GC_FinancialeMutaties (2023 - 4-6)","GC_FinancialeMutaties (2023 - 7-9)","GC_FinancialeMutaties (2022- >10)","GC_FinancialeMutaties (2022- 1-3)","GC_FinancialeMutaties (2022- 4-6)","GC_FinancialeMutaties (2022- 7-9)","GC_FinancialeMutaties (2021 - >10)","GC_FinancialeMutaties (2021 - 1-3)","GC_FinancialeMutaties (2021 - 4-6)","GC_FinancialeMutaties (2021 - 7-9)","Fact Personeels Kosten 2021","Fact Personeels Kosten 2023","Fact Personeels Kosten 2022","Dim Gratificatie Jubileum","Dim Medewerker Staf","Dim Medici Zorg","Dim Medewerker Zorg","Dim Management Echelon 2 Zorg","Dim Management Echelon 3 Zorg","Dim Management Echelon 4 Zorg","Dim Management Echelon 4 Staf","Dim Management Echelon 3 Staf","Dim Management Echelon 2 Staf","Dim Management Echelon 1 Staf","Dim Staf","Dim Zorg","Dim Medewerker Details Test","Dim Medici Type Personeel Zorg","Dim Medewerker Type Personeel Zorg","Dim Management Echelon 2 Type Personeel Zorg","Dim Management Echelon 3 Type Personeel Zorg","Dim Management Echelon 4 Type Personeel Zorg","Dim Type Personeel Zorg","Dim Staf Type Personeel","Dim Staf Pat Geb Functies","Dim Overig Type Personeel","Dim Medewerker Overig","Studie Kosten LNT/MedSpec","Dim Schaal per Formatieplaats CAO","Dim MAX CAO Schaal per Formatieplaats","Dim Schaal per Formatieplaats BMP","Dim Schaal per Formatieplaats LNT","CAO Schaal","LNT 386K Schaal","BMP Schaal","LNT 501K Schaal","BMP/LNT  Schaal","LNT 386K/LNT 501K Schaal","Forecasting Medewerker Date Function","Fact Forecasting Medewerkers OLD","Fact Formatieplaats per LC Per GB","Staging Forecsting Medewerker","Forecasting Vacature Date Function","Dim Medewerker (FormatieBezetting)","Extrapolatie Salaris Indexering Actuals","Extrapolatie Salaris Indexering Actuals Test","CAO Schaal AFAS","CAO Schaal Max Schaal/Trede","BMP Schaal AFAS","BMP Schaal Max Schaal/Trede","LNT Schaal AFAS","LNT Schaal Max Schaal/Trede","Dim SchaalType AOVK","Dim IsExtrapolated","Dim Max Trede","Dim Trede Verhoging"]
+
+annotation PBI_RemovedChildren = [{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"ec9687a2-fef3-4536-a4e3-c6ba243a62dc","fromColumnLocalLineageTag":"40687402-70ca-4254-8a53-6865ede52f33","toTableLocalLineageTag":"f8bb1cbf-67b7-4305-842a-7efd5247f772","toColumnLocalLineageTag":"15853001-da21-4885-8d20-748a3825c762"}},"objectType":"Relationship"},{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c","fromColumnLocalLineageTag":"e14fb804-8bb8-4825-9088-51ca2126c57f","toTableLocalLineageTag":"db30c2e8-7814-41c3-9c68-cc68616837b3","toColumnLocalLineageTag":"955eedeb-20ca-4209-b827-c69aa5eb7f35"}},"objectType":"Relationship"},{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c","fromColumnLocalLineageTag":"4e798cbe-1fe6-47fa-9d50-0053f004f277","toTableLocalLineageTag":"f8bb1cbf-67b7-4305-842a-7efd5247f772","toColumnLocalLineageTag":"15853001-da21-4885-8d20-748a3825c762"}},"objectType":"Relationship"}]
 
 ref table DateTableTemplate_56d0ff38-686f-46af-aca6-f23a61a6d51e
 ref table 'Dim Calendar'
@@ -110,7 +112,7 @@ ref table 'Dim Organisatie Eenheid'
 ref table 'Dim Formatieplaats'
 ref table 'Dim Dienstbetrekking'
 ref table 'Dim SchaalType'
-ref table 'Dim Medewerker Details'
+ref table 'Dim Medewerker'
 ref table LocalDateTable_34f1b705-fae0-4db0-ba69-dc3ad200a7e3
 ref table LocalDateTable_7179e43a-e07b-4353-ad18-05456413521c
 ref table LocalDateTable_5f12439e-ea17-4015-b112-d0b0ea49a114
@@ -119,8 +121,7 @@ ref table LocalDateTable_c14b01a2-ce33-42b3-897e-a59aeebc8f72
 ref table LocalDateTable_d6929cb5-d1ee-4883-8a1f-f035cb711259
 ref table 'Dim Functie'
 ref table 'Dim Cluster/Afdeling Formatieplaats'
-ref table 'Dim Cluster/Afdeling Functienveau'
-ref table 'Dim Indexering'
+ref table 'Dim Indexering Forecasting'
 ref table 'Fact FormatiePlaats'
 ref table LocalDateTable_ff0b6a01-a3a6-42f7-906d-39e53520f9c0
 ref table LocalDateTable_446649bc-0a8a-4f7b-a7a4-374345c30b17
@@ -141,6 +142,17 @@ ref table 'Dim Type Personeel'
 ref table 'Dim Staf of Zorg'
 ref table 'Dim Gratificatie Jubileum'
 ref table 'Fact Forecasting Medewerkers'
+ref table 'Dim Vacatures Medewerker'
+ref table LocalDateTable_10b1e95f-df4b-4b17-adb3-71e2077a9514
+ref table LocalDateTable_afb99120-4be0-4e49-9559-55267239d78e
+ref table 'Fact Forecasting Vacatures'
+ref table LocalDateTable_2d48c39c-d009-4314-8331-6a126025f12a
+ref table LocalDateTable_b0951fab-f7e7-469c-b1c8-e5981f017388
+ref table 'Dim Indexering Actuals'
+ref table 'Fact Salaris Indexering Actuals'
+ref table 'Dim IsExtrapolated'
+ref table 'Dim Max Trede'
+ref table 'Dim Trede Verhoging'
 
 ref cultureInfo en-US
 

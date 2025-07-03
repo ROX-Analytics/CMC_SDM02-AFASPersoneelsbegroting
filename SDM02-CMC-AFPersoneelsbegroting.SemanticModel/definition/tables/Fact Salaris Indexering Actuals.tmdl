@@ -1,0 +1,245 @@
+table 'Fact Salaris Indexering Actuals'
+	lineageTag: fbdaa7c8-80bc-4235-afd4-ccd0768b294a
+
+	column Jaar
+		dataType: int64
+		formatString: 0
+		lineageTag: 3188398a-3288-4a9f-b7ee-4fc1745883b4
+		summarizeBy: sum
+		sourceColumn: Jaar
+
+		annotation SummarizationSetBy = Automatic
+
+	column Boekingsperiode
+		dataType: double
+		lineageTag: cddf5104-624c-4a53-8d2c-53fd3e1214f9
+		summarizeBy: sum
+		sourceColumn: Boekingsperiode
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Medewerker ID'
+		dataType: string
+		lineageTag: 47952a56-8ebf-45b0-86ba-bf479809ba49
+		summarizeBy: none
+		sourceColumn: Medewerker ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column LC
+		dataType: string
+		lineageTag: 18d18e83-b97a-452e-a4e9-4fcca13eab88
+		summarizeBy: none
+		sourceColumn: LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Omschrijving LC'
+		dataType: string
+		lineageTag: 4ece0313-2375-4634-ac4e-dd1c5cf6b8cd
+		summarizeBy: none
+		sourceColumn: Omschrijving LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Waarde
+		dataType: double
+		lineageTag: 716fa3b4-0ba3-40e6-8ba3-bae75ea67b97
+		summarizeBy: sum
+		sourceColumn: Waarde
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Bedrag_credit
+		dataType: double
+		lineageTag: c479bca9-8809-49fc-8661-87bb61de63f3
+		summarizeBy: sum
+		sourceColumn: Bedrag_credit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Grootboekrekening
+		dataType: string
+		lineageTag: b73944fa-ffb5-460c-be3c-9c4a2a46bfa6
+		summarizeBy: none
+		sourceColumn: Grootboekrekening
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboekrekening_omschrijving
+		dataType: string
+		lineageTag: 20c75330-8e2c-4a0f-b3e6-311b38c05d75
+		summarizeBy: none
+		sourceColumn: Grootboekrekening_omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsExtrapolated
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: edc48359-6006-4d0b-b081-ba1adcf981a8
+		summarizeBy: none
+		sourceColumn: IsExtrapolated
+
+		annotation SummarizationSetBy = Automatic
+
+	column OriginalBoekingsperiode
+		dataType: int64
+		formatString: 0
+		lineageTag: 88fe4414-40e7-4507-b775-3d112d80baa4
+		summarizeBy: sum
+		sourceColumn: OriginalBoekingsperiode
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Boekingsperiode (leading zeros)'
+		dataType: string
+		lineageTag: 757cf075-2729-4996-8f1c-5bacd0fb24ef
+		summarizeBy: none
+		sourceColumn: Boekingsperiode (leading zeros)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year/Period
+		dataType: string
+		lineageTag: 24ab4631-6766-4b98-b5de-95322b6b6881
+		summarizeBy: none
+		sourceColumn: Year/Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal ID OLD'
+		dataType: int64
+		formatString: 0
+		lineageTag: dbda85c5-3355-4444-9ad4-14e1e6b65f07
+		summarizeBy: sum
+		sourceColumn: Schaal ID OLD
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Anniversary Month'
+		dataType: int64
+		formatString: 0
+		lineageTag: 45f1d12d-c141-4d32-b33d-f081f3d40a0b
+		summarizeBy: sum
+		sourceColumn: Anniversary Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Trede Verhoging'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 2e8625e3-b6bf-4762-889f-f8129f8042e2
+		summarizeBy: none
+		sourceColumn: Trede Verhoging
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal.MAX Trede'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e93f0f82-0a1e-4736-a4da-f83ca937eb33
+		summarizeBy: none
+		sourceColumn: Schaal.MAX Trede
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bedrag (OLD)'
+		dataType: double
+		lineageTag: be19e4d4-5d42-4ba6-a1a9-1b0e2312e160
+		summarizeBy: sum
+		sourceColumn: Bedrag (OLD)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'New Schaal ID (Trede Verhoging)'
+		dataType: double
+		lineageTag: f2d09d6d-2b43-492c-9520-7b26ef7b58a7
+		summarizeBy: none
+		sourceColumn: New Schaal ID (Trede Verhoging)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Salaris New'
+		dataType: string
+		lineageTag: 6ce633a3-1786-4bc1-b8ad-c204bb7baa40
+		summarizeBy: none
+		sourceColumn: Salaris New
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bedrag (New)'
+		dataType: double
+		lineageTag: 3f1f0781-862e-4e43-b021-852a3a35aef4
+		summarizeBy: sum
+		sourceColumn: Bedrag (New)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Kostenplaats
+		dataType: string
+		lineageTag: 18464500-5742-4b68-a24b-3d69e73d8bde
+		summarizeBy: none
+		sourceColumn: Kostenplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal.SchaalType'
+		dataType: string
+		lineageTag: 38aecb05-af09-454e-9316-56be1af66e65
+		summarizeBy: none
+		sourceColumn: Schaal.SchaalType
+
+		annotation SummarizationSetBy = Automatic
+
+	column SchaalType
+		dataType: string
+		lineageTag: e398e3c3-3016-4f20-a3e0-090232663985
+		summarizeBy: none
+		sourceColumn: SchaalType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Salaris Indexering Actuals' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = #"Extrapolatie Salaris Indexering Actuals"(#"Fact Salaris Indexering Actuals Source"),
+				    #"Added Custom" = Table.AddColumn(Source, "Boekingsperiode (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0")),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Boekingsperiode (leading zeros)"])),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom1",{{"IsExtrapolated", type logical}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
+				    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Schaal ID", "Anniversary Month"}, {"Schaal ID", "Anniversary Month"}),
+				    #"Added Custom2" = Table.AddColumn(#"Expanded Dim Medewerker", "Trede Verhoging", each if [Anniversary Month] = [Boekingsperiode] and [LC] = "2434" then true else false),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom2",{{"Trede Verhoging", type logical}}),
+				    #"Merged Queries1" = Table.NestedJoin(#"Changed Type1", {"Schaal ID"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
+				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries1", "Dim SchaalType", {"SchaalType", "MAX Trede"}, {"Schaal.SchaalType", "Schaal.MAX Trede"}),
+				    #"Added Custom3" = Table.AddColumn(#"Expanded Dim SchaalType", "Bedrag (OLD)", each [Waarde] - [Bedrag_credit]),
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Custom3",{{"Schaal ID", "Schaal ID OLD"}}),
+				    #"Added Custom4" = Table.AddColumn(#"Renamed Columns", "New Schaal ID (Trede Verhoging)", each if [Trede Verhoging] = true and [Schaal.MAX Trede] = false and [IsExtrapolated] = true and [Schaal.SchaalType] <> "Andere OVK" then ([Schaal ID OLD] + 1) else [Schaal ID OLD]),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom4",{{"New Schaal ID (Trede Verhoging)", type number}, {"Bedrag (OLD)", type number}}),
+				    #"Merged Queries2" = Table.NestedJoin(#"Changed Type2", {"New Schaal ID (Trede Verhoging)"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
+				    #"Expanded Dim SchaalType1" = Table.ExpandTableColumn(#"Merged Queries2", "Dim SchaalType", {"Salaris", "SchaalType"}, {"Salaris", "SchaalType"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Expanded Dim SchaalType1",{{"Salaris", "Salaris New"}}),
+				    #"Added Custom5" = Table.AddColumn(#"Renamed Columns1", "Bedrag (New)", each if [LC] = "3164" and [IsExtrapolated] = true then [#"Bedrag (OLD)"] else if [IsExtrapolated] = true and [LC] = "2434" and [Trede Verhoging] = true and [Schaal.MAX Trede] = false then [Salaris New] else if [IsExtrapolated] = false then [#"Bedrag (OLD)"] else [#"Bedrag (OLD)"]),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom5",{{"Bedrag (New)", type number}})
+				in
+				    #"Changed Type3"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

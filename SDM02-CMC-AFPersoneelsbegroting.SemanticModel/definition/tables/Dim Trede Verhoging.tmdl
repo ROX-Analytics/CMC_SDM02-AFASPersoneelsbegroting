@@ -1,0 +1,35 @@
+table 'Dim Trede Verhoging'
+	lineageTag: c2326781-2afd-4a8c-a257-4787b509f001
+
+	column 'Trede Verhoging'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e6f1030e-bb2f-4f03-b1b0-e7118c4f2f26
+		summarizeBy: none
+		sourceColumn: Trede Verhoging
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 319d3094-2a3e-4d67-83f6-a5bb2884c3b0
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Trede Verhoging' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCgkKdVXSUTJUitWJVnJz9AkG8YyUYmMB", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Trede Verhoging" = _t, ID = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Trede Verhoging", type logical}, {"ID", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

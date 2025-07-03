@@ -49,22 +49,12 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Bruto Salaris'
-		dataType: double
-		lineageTag: 8982a931-c2fb-4bf7-a796-553c497b5e4b
-		summarizeBy: sum
-		sourceColumn: Bruto Salaris
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Schaal ID'
+	column 'Schaal ID (Dim MdW)'
 		dataType: int64
 		formatString: 0
 		lineageTag: 314e2cb8-eff2-4f03-b264-2c8f81c48bbf
-		summarizeBy: count
-		sourceColumn: Schaal ID
+		summarizeBy: sum
+		sourceColumn: Schaal ID (Dim MdW)
 
 		annotation SummarizationSetBy = Automatic
 
@@ -92,86 +82,6 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation SummarizationSetBy = Automatic
 
-	column '2434 - Salaris '
-		dataType: double
-		lineageTag: 1b6bfe4b-2edf-475f-81bd-4b2e8ddd903b
-		summarizeBy: sum
-		sourceColumn: "2434 - Salaris "
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '3121 - Reservering Vakantiegeld Bedrag'
-		dataType: double
-		lineageTag: 110ff44e-775b-442b-9a5d-b2419f4a1b3e
-		summarizeBy: sum
-		sourceColumn: 3121 - Reservering Vakantiegeld Bedrag
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '3135 - Vakantietoeslag Med Spec'
-		dataType: double
-		lineageTag: 44259d11-1f9f-4a08-a1d1-e94f4718f7a4
-		summarizeBy: sum
-		sourceColumn: 3135 - Vakantietoeslag Med Spec
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '3105 - Pensioen Toeslag (BMP)'
-		dataType: double
-		lineageTag: cd0ef607-aa95-4803-9d8a-442743b133d3
-		summarizeBy: sum
-		sourceColumn: 3105 - Pensioen Toeslag (BMP)
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '2545 - Pensioen Toeslag'
-		dataType: double
-		lineageTag: 839bb296-3cb1-4511-8c38-91bcda6d2408
-		summarizeBy: sum
-		sourceColumn: 2545 - Pensioen Toeslag
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '3105 - Pensioen Toeslag (BMP) (RvB)'
-		dataType: double
-		lineageTag: dd92b523-cec8-4418-a9ec-97ffab4b1ccd
-		summarizeBy: sum
-		sourceColumn: 3105 - Pensioen Toeslag (BMP) (RvB)
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'WG Pensioen Toeslag (Andere OVK)'
-		dataType: double
-		lineageTag: 9a25a1c4-d10b-47cc-8e11-ff007fb88fb4
-		summarizeBy: sum
-		sourceColumn: WG Pensioen Toeslag (Andere OVK)
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '3027 - Speciale Toelage'
-		dataType: double
-		lineageTag: 8804afce-1c69-4462-8e73-75398da5d0c1
-		summarizeBy: sum
-		sourceColumn: 3027 - Speciale Toelage
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column Kostenplaats
 		dataType: string
 		lineageTag: a126f76f-4ae2-400e-a0c3-45197eba1212
@@ -180,11 +90,92 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Bedrag (Tijdelijk)'
-		dataType: double
-		lineageTag: 20a9048d-56de-4841-83dd-d4ae530d0f7b
+	column 'Anniversary Month'
+		dataType: int64
+		formatString: 0
+		lineageTag: 56e4f47d-2be2-4574-b260-9e1006282978
 		summarizeBy: sum
-		sourceColumn: Bedrag (Tijdelijk)
+		sourceColumn: Anniversary Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'New Schaal ID (Trede Verhoging Actuals)'
+		dataType: double
+		lineageTag: e16a7a99-d271-4e63-8f6c-63990d91bfa0
+		summarizeBy: sum
+		sourceColumn: New Schaal ID (Trede Verhoging Actuals)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'MAX Trede Actuals'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 26f41efe-0db5-4ef3-8f2d-4708a31aa049
+		summarizeBy: none
+		sourceColumn: MAX Trede Actuals
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Trede Verhoging Forecasting'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9a3cec0c-18dd-42d8-ac7f-4f229df0466a
+		summarizeBy: none
+		sourceColumn: Trede Verhoging Forecasting
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'New Schaal ID (Trede Verhoging Forecasting)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6e20674b-bddb-4a6b-b88c-f9eab9b2b1ef
+		summarizeBy: none
+		sourceColumn: New Schaal ID (Trede Verhoging Forecasting)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Period Forecasting (leading zeros)'
+		dataType: string
+		lineageTag: 6c2942dd-f896-4687-bd9e-e5d3fa0c9579
+		summarizeBy: none
+		sourceColumn: Period Forecasting (leading zeros)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year/Period Forecasting'
+		dataType: string
+		lineageTag: 25892536-f629-4418-b6a4-4003ae8370bd
+		summarizeBy: none
+		sourceColumn: Year/Period Forecasting
+
+		annotation SummarizationSetBy = Automatic
+
+	column FTE
+		dataType: double
+		lineageTag: 954ad951-e857-4ffd-8881-fb65486f08f2
+		summarizeBy: sum
+		sourceColumn: FTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'MAX Trede Forecasting'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a615fde3-5822-4e2e-b758-1789735fbe0c
+		summarizeBy: none
+		sourceColumn: MAX Trede Forecasting
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FTE Forecasting'
+		dataType: double
+		lineageTag: 3a50b4ea-8d9e-44aa-aa8f-80c59e5e3c1c
+		summarizeBy: sum
+		sourceColumn: FTE Forecasting
 
 		annotation SummarizationSetBy = Automatic
 
@@ -197,33 +188,29 @@ table 'Fact Forecasting Medewerkers'
 				let
 				    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025", #"Fact Personeels Kosten 2021", #"Fact Personeels Kosten 2023", #"Fact Personeels Kosten 2022"}),
 				    #"Renamed Columns" = Table.RenameColumns(Source,{{"Omschrijving_klant", "Omschrijving LC"}, {"Medewerker", "Medewerker ID"}}),
-				    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Medewerker ID", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving"}),
-				    #"Merged Queries" = Table.NestedJoin(#"Removed Other Columns", {"Grootboekrekening"}, #"Dim Grootboek", {"Code Grootboek"}, "Dim Grootboek", JoinKind.LeftOuter),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Medewerker ID", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "FTE"}),
+				    #"Added Custom" = Table.AddColumn(#"Removed Other Columns", "Year Forecasting", each Date.Year(DateTime.LocalNow()) + 1),
+				    #"Invoked Custom Function" = Table.AddColumn(#"Added Custom", "Period Forecasting", each #"Forecasting Medewerker Date Function"([Year Forecasting])),
+				    #"Expanded Period Forecasting" = Table.ExpandTableColumn(#"Invoked Custom Function", "Period Forecasting", {"Period"}, {"Period"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Expanded Period Forecasting", {"Grootboekrekening"}, #"Dim Grootboek", {"Code Grootboek"}, "Dim Grootboek", JoinKind.LeftOuter),
 				    #"Expanded Dim Grootboek" = Table.ExpandTableColumn(#"Merged Queries", "Dim Grootboek", {"Rapportagecockpit_omschrijving"}, {"Rapportagecockpit_omschrijving"}),
 				    #"Filtered Rows" = Table.SelectRows(#"Expanded Dim Grootboek", each ([Rapportagecockpit_omschrijving] = "19 Lonen en salarissen" or [Rapportagecockpit_omschrijving] = "20 Sociale lasten" or [Rapportagecockpit_omschrijving] = "21 Overige personeelskosten")),
-				    #"Merged Queries1" = Table.NestedJoin(#"Filtered Rows", {"Medewerker ID"}, #"Dim Medewerker Details", {"Medewerker ID"}, "Dim Medewerker Details", JoinKind.LeftOuter),
-				    #"Expanded Dim Medewerker Details" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Medewerker Details", {"Kostenplaats", "Salaris", "Schaal ID"}, {"Kostenplaats", "Salaris", "Schaal ID"}),
-				    #"Added Custom" = Table.AddColumn(#"Expanded Dim Medewerker Details", "Year Forecasting", each Date.Year(DateTime.LocalNow()) + 1),
-				    #"Invoked Custom Function" = Table.AddColumn(#"Added Custom", "Period Forecasting", each #"Forecasting Date Function"([Year Forecasting])),
-				    #"Expanded Period Forecasting" = Table.ExpandTableColumn(#"Invoked Custom Function", "Period Forecasting", {"Period"}, {"Period"}),
-				    #"Removed Duplicates" = Table.Distinct(#"Expanded Period Forecasting", {"Medewerker ID", "LC", "Grootboekrekening", "Period"}),
-				    #"Merged Queries2" = Table.NestedJoin(#"Removed Duplicates", {"Schaal ID"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
-				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries2", "Dim SchaalType", {"SchaalType"}, {"SchaalType"}),
-				    #"Renamed Columns1" = Table.RenameColumns(#"Expanded Dim SchaalType",{{"Salaris", "Bruto Salaris"}}),
-				    #"Added LC 2434 - Salaris" = Table.AddColumn(#"Renamed Columns1", "2434 - Salaris ", each if [LC] = "2434" then [Bruto Salaris] else null),
-				    #"Added LC 3121" = Table.AddColumn(#"Added LC 2434 - Salaris", "3121 - Reservering Vakantiegeld Bedrag", each if [LC] = "3121" then ([Bruto Salaris] * 0.075) else null),
-				    #"Changed Type2" = Table.TransformColumnTypes(#"Added LC 3121",{{"3121 - Reservering Vakantiegeld Bedrag", type number}}),
-				    #"Added LC 3135" = Table.AddColumn(#"Changed Type2", "3135 - Vakantietoeslag Med Spec", each if [LC] = "3135" then ([Bruto Salaris] * 0.075) else null),
-				    #"Changed Type3" = Table.TransformColumnTypes(#"Added LC 3135",{{"3135 - Vakantietoeslag Med Spec", type number}}),
-				    #"Added LNT WG Pensioen" = Table.AddColumn(#"Changed Type3", "3105 - Pensioen Toeslag (BMP)", each if [SchaalType] = "LNT" and [LC] = "3105" then [Bruto Salaris] * 0.10 else null),
-				    #"Added CAO WG Pensioen" = Table.AddColumn(#"Added LNT WG Pensioen", "2545 - Pensioen Toeslag", each if [SchaalType] = "CAO" and [LC] = "2545" then ([Bruto Salaris] * 0.09) else null),
-				    #"Added RvB WG Pensioen" = Table.AddColumn(#"Added CAO WG Pensioen", "3105 - Pensioen Toeslag (BMP) (RvB)", each if [LC] = "3105" then (if [Medewerker ID] = "502029" then ([Bruto Salaris] * 0.15) else if [Medewerker ID] = "500311" then ([Bruto Salaris] * 0.10) else if [Medewerker ID] = "500280" then ([Bruto Salaris] * 0.15) else if [Medewerker ID] = "40831" then ([Bruto Salaris] * 0.10) else null) else null),
-				    #"Added Andere OVK WG Pensioen" = Table.AddColumn(#"Added RvB WG Pensioen", "WG Pensioen Toeslag (Andere OVK)", each if [SchaalType] = "Andere OVK" and [LC] = "2545"
-				then ([Bruto Salaris] * 0.09) else if [SchaalType] = "Andere OVK" and [LC] = "3100" then ([Bruto Salaris] * 0.085) else if [SchaalType] = "Andere OVK" and [LC] = "3105" and [#"3105 - Pensioen Toeslag (BMP) (RvB)"] = null then ([Bruto Salaris] * 0.10) else null),
-				    #"Added LC 3027 Speciale Toelage" = Table.AddColumn(#"Added Andere OVK WG Pensioen", "3027 - Speciale Toelage", each if [LC] = "3027" then ([Bruto Salaris] * 0.057) else null),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Added LC 3027 Speciale Toelage",{{"2434 - Salaris ", type number}, {"3121 - Reservering Vakantiegeld Bedrag", type number}, {"3135 - Vakantietoeslag Med Spec", type number}, {"3105 - Pensioen Toeslag (BMP)", type number}, {"2545 - Pensioen Toeslag", type number}, {"3105 - Pensioen Toeslag (BMP) (RvB)", type number}, {"WG Pensioen Toeslag (Andere OVK)", type number}, {"3027 - Speciale Toelage", type number}}),
-				    #"Inserted Merged Column" = Table.AddColumn(#"Changed Type", "Bedrag (Tijdelijk)", each Text.Combine({Text.From([#"2434 - Salaris "], "en-US"), Text.From([#"3121 - Reservering Vakantiegeld Bedrag"], "en-US"), Text.From([#"3135 - Vakantietoeslag Med Spec"], "en-US"), Text.From([#"3105 - Pensioen Toeslag (BMP)"], "en-US"), Text.From([#"2545 - Pensioen Toeslag"], "en-US"), Text.From([#"3105 - Pensioen Toeslag (BMP) (RvB)"], "en-US"), Text.From([#"WG Pensioen Toeslag (Andere OVK)"], "en-US"), Text.From([#"3027 - Speciale Toelage"], "en-US")}, ""), type text),
-				    #"Changed Type1" = Table.TransformColumnTypes(#"Inserted Merged Column",{{"Bedrag (Tijdelijk)", type number}})
+				    #"Merged Queries1" = Table.NestedJoin(#"Filtered Rows", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker Details", JoinKind.LeftOuter),
+				    #"Expanded Dim Medewerker Details" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Medewerker Details", {"Anniversary Month", "Kostenplaats", "Schaal ID"}, {"Anniversary Month", "Kostenplaats", "Schaal ID"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Expanded Dim Medewerker Details",{{"Schaal ID", "Schaal ID (Dim MdW)"}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns1", {"Medewerker ID", "LC", "Grootboekrekening", "Period"}),
+				    #"Merged Queries2" = Table.NestedJoin(#"Removed Duplicates", {"Medewerker ID"}, #"Fact Medewerker MAX Schaal/Trede Actuals", {"Medewerker ID"}, "Fact Medewerker MAX Schaal/Trede Actuals", JoinKind.LeftOuter),
+				    #"Expanded Fact Medewerker MAX Schaal/Trede Actuals" = Table.ExpandTableColumn(#"Merged Queries2", "Fact Medewerker MAX Schaal/Trede Actuals", {"New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals"}, {"New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals"}),
+				    #"Added Custom1" = Table.AddColumn(#"Expanded Fact Medewerker MAX Schaal/Trede Actuals", "Trede Verhoging Forecasting", each if [Anniversary Month] = [Period] then true else false),
+				    #"Merged Queries3" = Table.NestedJoin(#"Added Custom1", {"New Schaal ID (Trede Verhoging Actuals)"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
+				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries3", "Dim SchaalType", {"SchaalType", "MAX Trede"}, {"SchaalType", "MAX Trede"}),
+				    #"Added Custom2" = Table.AddColumn(#"Expanded Dim SchaalType", "New Schaal ID (Trede Verhoging Forecasting)", each if [Trede Verhoging Forecasting] = true and [MAX Trede Actuals] = false and ([SchaalType] = null or [SchaalType] = "Andere OVK") then ([#"New Schaal ID (Trede Verhoging Actuals)"] + 1) else if [#"New Schaal ID (Trede Verhoging Actuals)"] = null then [#"Schaal ID (Dim MdW)"] else [#"New Schaal ID (Trede Verhoging Actuals)"]),
+				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Period Forecasting (leading zeros)", each Text.PadStart(Text.From([Period]),2,"0")),
+				    #"Added Custom4" = Table.AddColumn(#"Added Custom3", "Year/Period Forecasting", each Text.From([Year Forecasting]) & "/" & Text.From([#"Period Forecasting (leading zeros)"])),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Added Custom4",{{"MAX Trede", "MAX Trede Forecasting"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns2",{{"FTE", type number}}),
+				    #"Added Custom5" = Table.AddColumn(#"Changed Type", "FTE Forecasting", each [FTE]/100),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom5",{{"FTE Forecasting", type number}, {"Period Forecasting (leading zeros)", type text}, {"Year/Period Forecasting", type text}, {"SchaalType", type text}, {"Kostenplaats", type text}, {"Trede Verhoging Forecasting", type logical}, {"New Schaal ID (Trede Verhoging Forecasting)", Int64.Type}})
 				in
 				    #"Changed Type1"
 

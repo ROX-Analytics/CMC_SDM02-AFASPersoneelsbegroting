@@ -1,0 +1,80 @@
+table 'Dim Indexering Actuals'
+	lineageTag: 2775c383-b563-4d0e-9e76-c48d6bff275f
+
+	column Indexering
+		dataType: double
+		lineageTag: bfb264f2-8d84-4677-915f-f858e4a2238b
+		summarizeBy: sum
+		sourceColumn: Indexering
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Month no.'
+		dataType: string
+		lineageTag: ffffafa0-89cf-48aa-8534-0a64cd64d7fc
+		summarizeBy: none
+		sourceColumn: Month no.
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Max Year'
+		dataType: double
+		lineageTag: 4bfcf6b0-3591-4839-8fef-53484ffab4a2
+		summarizeBy: sum
+		sourceColumn: Max Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Year/Period
+		dataType: string
+		lineageTag: 78c141bd-88da-4006-8b79-2111b9dd1c0c
+		summarizeBy: none
+		sourceColumn: Year/Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indexering - Copy'
+		dataType: string
+		lineageTag: 7ce85ad7-0158-420a-972f-41a27999383f
+		summarizeBy: none
+		sourceColumn: Indexering - Copy
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Indexering Actuals' = m
+		mode: import
+		source =
+				let
+				    Source = List.Generate(
+				        () => 0.05, each _ > 0, each _ - 0.01
+				    ),
+				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Sorted Rows" = Table.Sort(#"Converted to Table",{{"Column1", Order.Ascending}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Sorted Rows",{{"Column1", "Indexering"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Indexering", type number}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Indexering", Percentage.Type}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type1", "Period", each #"Dim Period"),
+				    #"Expanded Period" = Table.ExpandTableColumn(#"Added Custom", "Period", {"Year", "Month no."}, {"Year", "Month no."}),
+				    #"Added Custom1" = Table.AddColumn(#"Expanded Period", "Current Year", each Date.Year(Date.From(DateTime.LocalNow()))),
+				    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Flag Current Year", each if [Current Year] = [Year] then "1" else "0"),
+				    #"Filtered Rows" = Table.SelectRows(#"Added Custom2", each ([Flag Current Year] = "1")),
+				    #"Grouped Rows" = Table.Group(#"Filtered Rows", {"Indexering", "Month no."}, {{"Max Year", each List.Max([Year]), type number}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Grouped Rows", {"Max Year", "Month no."}, #"Dim Period", {"Year", "Month no."}, "Dim Period", JoinKind.LeftOuter),
+				    #"Expanded Dim Period" = Table.ExpandTableColumn(#"Merged Queries", "Dim Period", {"Year/Period"}, {"Year/Period"}),
+				    #"Sorted Rows1" = Table.Sort(#"Expanded Dim Period",{{"Indexering", Order.Ascending}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Sorted Rows1", "Indexering", "Indexering - Copy"),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Duplicated Column",{{"Indexering - Copy", type text}}),
+				    #"Extracted First Characters" = Table.TransformColumns(#"Changed Type2", {{"Indexering - Copy", each Text.Start(_, 4), type text}}),
+				    #"Extracted Text After Delimiter" = Table.TransformColumns(#"Extracted First Characters", {{"Indexering - Copy", each Text.AfterDelimiter(_, "0", 1), type text}}),
+				    #"Added Suffix" = Table.TransformColumns(#"Extracted Text After Delimiter", {{"Indexering - Copy", each _ & "%", type text}})
+				in
+				    #"Added Suffix"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
