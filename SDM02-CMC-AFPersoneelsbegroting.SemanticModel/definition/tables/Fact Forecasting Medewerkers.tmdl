@@ -181,6 +181,42 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column 'Index Name Actuals'
+		dataType: string
+		lineageTag: a25d23ee-0a2b-4b7e-9287-bd9bd4e625e0
+		summarizeBy: none
+		sourceColumn: Index Name Actuals
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Max Salaris End Actuals'
+		dataType: double
+		lineageTag: 8ce1fbb2-99dc-4060-b50b-aa504f57d2bb
+		summarizeBy: sum
+		sourceColumn: Max Salaris End Actuals
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Indexering Forecasting'
+		dataType: double
+		lineageTag: 2cd498d0-916d-426a-9618-4d8c22861d1e
+		summarizeBy: sum
+		sourceColumn: Indexering Forecasting
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Index Name Forecasting'
+		dataType: string
+		lineageTag: d10dff7f-f03a-4f19-a97f-2f4fa3ad7d87
+		summarizeBy: none
+		sourceColumn: Index Name Forecasting
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Fact Forecasting Medewerkers' = m
 		mode: import
 		queryGroup: Model
@@ -210,9 +246,14 @@ table 'Fact Forecasting Medewerkers'
 				    #"Renamed Columns2" = Table.RenameColumns(#"Added Custom4",{{"MAX Trede", "MAX Trede Forecasting"}}),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns2",{{"FTE", type number}}),
 				    #"Added Custom5" = Table.AddColumn(#"Changed Type", "FTE Forecasting", each [FTE]/100),
-				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom5",{{"FTE Forecasting", type number}, {"Period Forecasting (leading zeros)", type text}, {"Year/Period Forecasting", type text}, {"SchaalType", type text}, {"Kostenplaats", type text}, {"Trede Verhoging Forecasting", type logical}, {"New Schaal ID (Trede Verhoging Forecasting)", Int64.Type}})
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom5",{{"FTE Forecasting", type number}, {"Period Forecasting (leading zeros)", type text}, {"Year/Period Forecasting", type text}, {"SchaalType", type text}, {"Kostenplaats", type text}, {"Trede Verhoging Forecasting", type logical}, {"New Schaal ID (Trede Verhoging Forecasting)", Int64.Type}}),
+				    #"Merged Queries4" = Table.NestedJoin(#"Changed Type1", {"Medewerker ID"}, #"Fact Medewerker MAX Salaris Incl Indexering", {"Medewerker ID"}, "Fact Medewerker MAX Salaris Incl Indexering", JoinKind.LeftOuter),
+				    #"Expanded Fact Medewerker MAX Salaris Incl Indexering" = Table.ExpandTableColumn(#"Merged Queries4", "Fact Medewerker MAX Salaris Incl Indexering", {"Index Name Actuals", "Max Salaris End Actuals"}, {"Index Name Actuals", "Max Salaris End Actuals"}),
+				    #"Merged Queries5" = Table.NestedJoin(#"Expanded Fact Medewerker MAX Salaris Incl Indexering", {"Index Name Actuals"}, #"Dim Indexering Forecasting", {"Index Name"}, "Dim Indexering Forecasting", JoinKind.LeftOuter),
+				    #"Expanded Dim Indexering Forecasting" = Table.ExpandTableColumn(#"Merged Queries5", "Dim Indexering Forecasting", {"Indexering", "Index Name"}, {"Indexering", "Index Name"}),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Expanded Dim Indexering Forecasting",{{"Indexering", "Indexering Forecasting"}, {"Index Name", "Index Name Forecasting"}})
 				in
-				    #"Changed Type1"
+				    #"Renamed Columns3"
 
 	annotation PBI_NavigationStepName = Navigation
 

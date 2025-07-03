@@ -10,43 +10,18 @@ table 'Dim Indexering Forecasting'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Month no.'
+	column 'Index Name'
 		dataType: string
-		lineageTag: 4a4ca915-7381-47d6-aa5b-2b5243fb8b06
+		lineageTag: 399c569b-dc40-4c2b-837d-c16111179b6b
 		summarizeBy: none
-		sourceColumn: Month no.
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Max Year'
-		dataType: double
-		lineageTag: bb17ad25-7149-4060-8017-8e68a0010f9b
-		summarizeBy: sum
-		sourceColumn: Max Year
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column Year/Period
-		dataType: string
-		lineageTag: 01bd47bc-d77f-47cc-a2fa-6b43fabe55ee
-		summarizeBy: none
-		sourceColumn: Year/Period
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Indexering - Copy'
-		dataType: string
-		lineageTag: 9244098d-b82e-42f1-8520-7bac645290e4
-		summarizeBy: none
-		sourceColumn: Indexering - Copy
+		sourceColumn: Index Name
 
 		annotation SummarizationSetBy = Automatic
 
 	partition 'Dim Indexering Forecasting' = m
 		mode: import
-		source =
+		queryGroup: Model
+		source = ```
 				let
 				    Source = List.Generate(
 				        () => 0.05, each _ > 0, each _ - 0.01
@@ -56,19 +31,13 @@ table 'Dim Indexering Forecasting'
 				    #"Renamed Columns" = Table.RenameColumns(#"Sorted Rows",{{"Column1", "Indexering"}}),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Indexering", type number}}),
 				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Indexering", Percentage.Type}}),
-				    #"Added Custom" = Table.AddColumn(#"Changed Type1", "Period", each #"Dim Period"),
-				    #"Expanded Period" = Table.ExpandTableColumn(#"Added Custom", "Period", {"Year", "Month no."}, {"Year", "Month no."}),
-				    #"Grouped Rows" = Table.Group(#"Expanded Period", {"Indexering", "Month no."}, {{"Max Year", each List.Max([Year]), type number}}),
-				    #"Merged Queries" = Table.NestedJoin(#"Grouped Rows", {"Max Year", "Month no."}, #"Dim Period", {"Year", "Month no."}, "Dim Period", JoinKind.LeftOuter),
-				    #"Expanded Dim Period" = Table.ExpandTableColumn(#"Merged Queries", "Dim Period", {"Year/Period"}, {"Year/Period"}),
-				    #"Sorted Rows1" = Table.Sort(#"Expanded Dim Period",{{"Indexering", Order.Ascending}}),
-				    #"Duplicated Column" = Table.DuplicateColumn(#"Sorted Rows1", "Indexering", "Indexering - Copy"),
-				    #"Changed Type2" = Table.TransformColumnTypes(#"Duplicated Column",{{"Indexering - Copy", type text}}),
-				    #"Extracted First Characters" = Table.TransformColumns(#"Changed Type2", {{"Indexering - Copy", each Text.Start(_, 4), type text}}),
-				    #"Extracted Text After Delimiter" = Table.TransformColumns(#"Extracted First Characters", {{"Indexering - Copy", each Text.AfterDelimiter(_, "0", 1), type text}}),
-				    #"Added Suffix" = Table.TransformColumns(#"Extracted Text After Delimiter", {{"Indexering - Copy", each _ & "%", type text}})
-				in
-				    #"Added Suffix"
+				    #"Added Index" = Table.AddIndexColumn(#"Changed Type1", "Index", 1, 1, Int64.Type),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Added Index",{{"Index", type text}}),
+				    #"Added Suffix" = Table.TransformColumns(#"Changed Type2", {{"Index", each _ & "%", type text}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Added Suffix",{{"Index", "Index Name"}})
+				in 
+				    #"Renamed Columns1"
+				```
 
 	annotation PBI_NavigationStepName = Navigation
 

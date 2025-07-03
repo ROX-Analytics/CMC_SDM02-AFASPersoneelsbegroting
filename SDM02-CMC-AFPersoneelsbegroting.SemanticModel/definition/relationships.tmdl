@@ -335,3 +335,8 @@ relationship a228c31c-1ac2-da5d-64ae-07ec35846221
 	fromColumn: 'Fact Forecasting Medewerkers'.'Trede Verhoging Forecasting'
 	toColumn: 'Dim Trede Verhoging'.'Trede Verhoging'
 
+relationship 52756ea5-231f-4019-8945-590b0871e7d6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Forecasting Vacatures'.Date
+	toColumn: LocalDateTable_5684571f-74aa-41bb-af1c-2acf7241407f.Date
+

@@ -328,20 +328,62 @@ table 'Fact Forecasting Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
-	column '2434 - Salaris'
-		dataType: string
-		lineageTag: 50ff9afa-2962-40d9-a90f-40068b3c361d
-		summarizeBy: none
-		sourceColumn: 2434 - Salaris
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'Schaal ID'
 		dataType: int64
 		formatString: 0
 		lineageTag: 094613f2-7f58-44b7-885a-7a5f91507069
 		summarizeBy: none
 		sourceColumn: Schaal ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3fb4f430-44d9-4554-a6fd-879e7ca1f555
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 52756ea5-231f-4019-8945-590b0871e7d6
+			defaultHierarchy: LocalDateTable_5684571f-74aa-41bb-af1c-2acf7241407f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'SchaalType Forecasting'
+		dataType: string
+		lineageTag: 5570c0da-5cfb-4fb5-ae1d-048741ce97dc
+		summarizeBy: none
+		sourceColumn: SchaalType Forecasting
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Percentage Vacature'
+		dataType: double
+		lineageTag: 6560e322-d940-4d7f-8c3c-ee4beed980a6
+		summarizeBy: sum
+		sourceColumn: Percentage Vacature
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Percentage Name'
+		dataType: string
+		lineageTag: 6250d233-6a62-4237-8efd-6e83046e1965
+		summarizeBy: none
+		sourceColumn: Percentage Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Percentage Key'
+		dataType: string
+		lineageTag: 34c9fc81-f59a-4966-902b-6022a1b4648e
+		summarizeBy: none
+		sourceColumn: Percentage Key
 
 		annotation SummarizationSetBy = Automatic
 
@@ -386,7 +428,7 @@ table 'Fact Forecasting Vacatures'
 				    #"Expanded Year Forecasting" = Table.ExpandTableColumn(#"Invoked Custom Function", "Year Forecasting", {"Year"}, {"Year.1"}),
 				    #"Renamed Columns9" = Table.RenameColumns(#"Expanded Year Forecasting",{{"Year.1", "Year Forecasting"}}),
 				    #"Merged Queries" = Table.NestedJoin(#"Renamed Columns9", {"Year Forecasting"}, #"Dim Calendar", {"Year"}, "Dim Calendar", JoinKind.LeftOuter),
-				    #"Expanded Dim Calendar" = Table.ExpandTableColumn(#"Merged Queries", "Dim Calendar", {"Month no. (leading zeros)"}, {"Month no. (leading zeros)"}),
+				    #"Expanded Dim Calendar" = Table.ExpandTableColumn(#"Merged Queries", "Dim Calendar", {"Date", "Month no. (leading zeros)"}, {"Date", "Month no. (leading zeros)"}),
 				    #"Renamed Columns8" = Table.RenameColumns(#"Expanded Dim Calendar",{{"Month no. (leading zeros)", "Periode"}}),
 				    #"Added Custom3" = Table.AddColumn(#"Renamed Columns8", "Year/Period", each Text.From([Year Forecasting]) & "/" & Text.From([#"Periode"])),
 				    #"Merged Queries1" = Table.NestedJoin(#"Added Custom3", {"Formatieplaats", "Patientgebonden_functies"}, #"Dim Schaal per Formatieplaats CAO", {"Formatieplaats Code", "Patientgebonden_functies"}, "Dim Schaal per Formatieplaats CAO", JoinKind.LeftOuter),
@@ -405,17 +447,26 @@ table 'Fact Forecasting Vacatures'
 				    #"Added Custom5" = Table.AddColumn(#"Added Custom4", "BMP Salaris LNT 386K", each if [BMP.Salari LNT 386K Forecast Vac] = [LNT 386K Schaal Vac Forecast Salaris] then null else [BMP.Salari LNT 386K Forecast Vac]),
 				    #"Merged Columns" = Table.CombineColumns(#"Added Custom5",{"BMP Schaal/Trede LNT 386K", "Schaal/Trede LNT 386K Vacature Forecasting", "Max Schaal/Trede CAO"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Schaal/Trede"),
 				    #"Merged Columns1" = Table.CombineColumns(Table.TransformColumnTypes(#"Merged Columns", {{"MAX Salaris CAO", type text}, {"LNT 386K Schaal Vac Forecast Salaris", type text}, {"BMP Salaris LNT 386K", type text}}, "en-US"),{"MAX Salaris CAO", "LNT 386K Schaal Vac Forecast Salaris", "BMP Salaris LNT 386K"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Bruto Salaris"),
-				    #"Removed Other Columns1" = Table.SelectColumns(#"Merged Columns1",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Werkelijk", "Instroom", "FTE uitstroom (zonder bepaalde tijd)", "Verschil", "Verschil (excl)", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum", "Datum Gewijzigd", "Tijd Gewijzigd", "Uren_Begroot", "Uren_Werkelijk", "Uren_Verschil", "Medewerker ID", "Year", "Year Forecasting", "Periode", "Year/Period", "Schaal/Trede", "Bruto Salaris"}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Merged Columns1",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Werkelijk", "Instroom", "FTE uitstroom (zonder bepaalde tijd)", "Verschil", "Verschil (excl)", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum", "Datum Gewijzigd", "Tijd Gewijzigd", "Uren_Begroot", "Uren_Werkelijk", "Uren_Verschil", "Medewerker ID", "Year", "Year Forecasting", "Date", "Periode", "Year/Period", "Schaal/Trede", "Bruto Salaris"}),
 				    #"Changed Type8" = Table.TransformColumnTypes(#"Removed Other Columns1",{{"Bruto Salaris", type number}}),
 				    #"Merged Queries5" = Table.NestedJoin(#"Changed Type8", {"Formatieplaats"}, #"Fact Formatieplaats per LC Per GB", {"Formatieplaats Code"}, "Fact Formatieplaats per LC Per GB", JoinKind.LeftOuter),
 				    #"Expanded Fact Formatieplaats per LC Per GB" = Table.ExpandTableColumn(#"Merged Queries5", "Fact Formatieplaats per LC Per GB", {"LC", "Grootboekrekening"}, {"LC", "Grootboekrekening"}),
-				    #"Removed Other Columns2" = Table.SelectColumns(#"Expanded Fact Formatieplaats per LC Per GB",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Werkelijk", "Instroom", "FTE uitstroom (zonder bepaalde tijd)", "Verschil", "Verschil (excl)", "Gebruiker", "Type_functie", "Datum Gewijzigd", "Tijd Gewijzigd", "Uren_Begroot", "Uren_Werkelijk", "Uren_Verschil", "Medewerker ID", "Year Forecasting", "Periode", "Year/Period", "Schaal/Trede", "LC", "Grootboekrekening"}),
+				    #"Removed Other Columns2" = Table.SelectColumns(#"Expanded Fact Formatieplaats per LC Per GB",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Werkelijk", "Instroom", "FTE uitstroom (zonder bepaalde tijd)", "Verschil", "Verschil (excl)", "Gebruiker", "Type_functie", "Datum Gewijzigd", "Tijd Gewijzigd", "Uren_Begroot", "Uren_Werkelijk", "Uren_Verschil", "Medewerker ID", "Year Forecasting", "Date", "Periode", "Year/Period", "Schaal/Trede", "LC", "Grootboekrekening"}),
 				    #"Merged Queries6" = Table.NestedJoin(#"Removed Other Columns2", {"Schaal/Trede"}, #"Dim SchaalType", {"Schaal/Trede"}, "Dim SchaalType", JoinKind.LeftOuter),
-				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries6", "Dim SchaalType", {"Salaris", "Schaal ID"}, {"Salaris", "Schaal ID"}),
+				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries6", "Dim SchaalType", {"Salaris", "Schaal ID", "SchaalType Forecasting"}, {"Salaris", "Schaal ID", "SchaalType Forecasting"}),
 				    #"Renamed Columns10" = Table.RenameColumns(#"Expanded Dim SchaalType",{{"Salaris", "Schaal/Trede Salaris"}}),
-				    #"Added LC 2434 Salaris" = Table.AddColumn(#"Renamed Columns10", "2434 - Salaris", each if [LC] = "2434" then [#"Schaal/Trede Salaris"] else null)
+				    #"Merged Queries7" = Table.NestedJoin(#"Renamed Columns10", {"SchaalType Forecasting"}, #"Dim Percentage Vacature CAO", {"SchaalType"}, "Dim Percentage Vacature CAO", JoinKind.LeftOuter),
+				    #"Expanded Dim Percentage Vacature CAO" = Table.ExpandTableColumn(#"Merged Queries7", "Dim Percentage Vacature CAO", {"Percentage", "Percentage Name"}, {"Percentage", "Percentage Name"}),
+				    #"Renamed Columns11" = Table.RenameColumns(#"Expanded Dim Percentage Vacature CAO",{{"Percentage", "Percentage CAO"}, {"Percentage Name", "Percentage Name CAO"}}),
+				    #"Merged Queries8" = Table.NestedJoin(#"Renamed Columns11", {"SchaalType Forecasting"}, #"Dim Percentage Vacature LNT", {"SchaalType"}, "Dim Percentage Vacature LNT", JoinKind.LeftOuter),
+				    #"Expanded Dim Percentage Vacature LNT" = Table.ExpandTableColumn(#"Merged Queries8", "Dim Percentage Vacature LNT", {"Percentage", "Percentage Name"}, {"Percentage", "Percentage Name"}),
+				    #"Renamed Columns12" = Table.RenameColumns(#"Expanded Dim Percentage Vacature LNT",{{"Percentage", "Percentage LNT"}, {"Percentage Name", "Percentage Name LNT"}}),
+				    #"Merged Columns2" = Table.CombineColumns(#"Renamed Columns12",{"Percentage Name CAO", "Percentage Name LNT"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Percentage Name"),
+				    #"Added Custom6" = Table.AddColumn(#"Merged Columns2", "Percentage Key", each Text.From([Percentage Name]) & "_" & Text.From([SchaalType Forecasting])),
+				    #"Merged Columns3" = Table.CombineColumns(Table.TransformColumnTypes(#"Added Custom6", {{"Percentage CAO", type text}, {"Percentage LNT", type text}}, "en-US"),{"Percentage CAO", "Percentage LNT"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Percentage Vacature"),
+				    #"Changed Type9" = Table.TransformColumnTypes(#"Merged Columns3",{{"Percentage Vacature", Percentage.Type}, {"Percentage Key", type text}})
 				in
-				    #"Added LC 2434 Salaris"
+				    #"Changed Type9"
 
 	annotation PBI_NavigationStepName = Navigation
 

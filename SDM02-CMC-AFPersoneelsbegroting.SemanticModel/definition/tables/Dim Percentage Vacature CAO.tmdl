@@ -1,0 +1,54 @@
+table 'Dim Percentage Vacature CAO'
+	lineageTag: 43974af5-f811-4e55-ab30-ef656ca80444
+
+	column Percentage
+		dataType: double
+		lineageTag: b1259c27-8b79-4ee2-a989-202bcccbe4bb
+		summarizeBy: sum
+		sourceColumn: Percentage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Percentage Name'
+		dataType: string
+		lineageTag: 32f042e4-a23e-481e-83a4-0d099935a92b
+		summarizeBy: none
+		sourceColumn: Percentage Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column SchaalType
+		dataType: string
+		lineageTag: 536f00c0-c667-43f9-8c43-e4527b5e6def
+		summarizeBy: none
+		sourceColumn: SchaalType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Percentage Key'
+		dataType: string
+		lineageTag: b4e51652-9dc9-4965-98d2-9f9fbf8ee49e
+		summarizeBy: none
+		sourceColumn: Percentage Key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Percentage Vacature CAO' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMtAzVNJRMjRQVYrVAfNMQVxTGNcIxDWCc40NgFxjuGKQpCmcZw7imsPVWoC4FlAuxBKQ0lgA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Percentage = _t, #"Percentage Name" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Percentage", Percentage.Type}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type", "SchaalType", each "CAO"),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Percentage Key", each Text.From([Percentage Name]) & "_" & Text.From([SchaalType])),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom1",{{"Percentage Key", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

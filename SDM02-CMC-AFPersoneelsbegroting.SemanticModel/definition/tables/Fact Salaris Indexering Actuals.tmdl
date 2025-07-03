@@ -212,6 +212,32 @@ table 'Fact Salaris Indexering Actuals'
 
 		annotation SummarizationSetBy = Automatic
 
+	column Indexering
+		dataType: string
+		lineageTag: 9b54797c-e72b-47d3-8988-3b822bbea83d
+		summarizeBy: none
+		sourceColumn: Indexering
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Index Name'
+		dataType: string
+		lineageTag: 545d139b-3d23-4574-aa7e-fdfe092c3ed4
+		summarizeBy: none
+		sourceColumn: Index Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bedrag Incl Indexering'
+		dataType: double
+		lineageTag: 8526b5a3-6936-412e-a4be-3e86ca833833
+		summarizeBy: sum
+		sourceColumn: Bedrag Incl Indexering
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition 'Fact Salaris Indexering Actuals' = m
 		mode: import
 		queryGroup: Model
@@ -235,9 +261,13 @@ table 'Fact Salaris Indexering Actuals'
 				    #"Expanded Dim SchaalType1" = Table.ExpandTableColumn(#"Merged Queries2", "Dim SchaalType", {"Salaris", "SchaalType"}, {"Salaris", "SchaalType"}),
 				    #"Renamed Columns1" = Table.RenameColumns(#"Expanded Dim SchaalType1",{{"Salaris", "Salaris New"}}),
 				    #"Added Custom5" = Table.AddColumn(#"Renamed Columns1", "Bedrag (New)", each if [LC] = "3164" and [IsExtrapolated] = true then [#"Bedrag (OLD)"] else if [IsExtrapolated] = true and [LC] = "2434" and [Trede Verhoging] = true and [Schaal.MAX Trede] = false then [Salaris New] else if [IsExtrapolated] = false then [#"Bedrag (OLD)"] else [#"Bedrag (OLD)"]),
-				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom5",{{"Bedrag (New)", type number}})
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom5",{{"Bedrag (New)", type number}}),
+				    #"Added Custom6" = Table.AddColumn(#"Changed Type3", "Indexering Actuals", each #"Dim Indexering Actuals"),
+				    #"Expanded Indexering Actuals" = Table.ExpandTableColumn(#"Added Custom6", "Indexering Actuals", {"Indexering", "Index Name"}, {"Indexering", "Index Name"}),
+				    #"Added Custom7" = Table.AddColumn(#"Expanded Indexering Actuals", "Bedrag Incl Indexering", each if [Boekingsperiode] < 7 then [#"Bedrag (New)"] else ([#"Bedrag (New)"] * [Indexering]) + [#"Bedrag (New)"]),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Added Custom7",{{"Bedrag Incl Indexering", type number}})
 				in
-				    #"Changed Type3"
+				    #"Changed Type4"
 
 	annotation PBI_NavigationStepName = Navigation
 

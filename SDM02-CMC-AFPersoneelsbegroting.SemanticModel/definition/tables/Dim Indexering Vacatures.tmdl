@@ -1,9 +1,9 @@
-table 'Dim Indexering Actuals'
-	lineageTag: 2775c383-b563-4d0e-9e76-c48d6bff275f
+table 'Dim Indexering Vacatures'
+	lineageTag: a54d225c-4c7e-46a4-b5af-e6e17b920583
 
 	column Indexering
 		dataType: double
-		lineageTag: bfb264f2-8d84-4677-915f-f858e4a2238b
+		lineageTag: 12fa9687-7f4b-470f-b4de-39856152fd94
 		summarizeBy: sum
 		sourceColumn: Indexering
 
@@ -13,13 +13,13 @@ table 'Dim Indexering Actuals'
 
 	column 'Index Name'
 		dataType: string
-		lineageTag: 475e2d43-3789-4fc2-8830-a9c72730c21f
+		lineageTag: d0fed41b-5f80-4d74-98c4-dc8b38d23a64
 		summarizeBy: none
 		sourceColumn: Index Name
 
 		annotation SummarizationSetBy = Automatic
 
-	partition 'Dim Indexering Actuals' = m
+	partition 'Dim Indexering Vacatures' = m
 		mode: import
 		queryGroup: Model
 		source = ```
