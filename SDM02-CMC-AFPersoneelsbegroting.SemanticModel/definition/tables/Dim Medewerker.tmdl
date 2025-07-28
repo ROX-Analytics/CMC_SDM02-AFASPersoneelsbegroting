@@ -418,6 +418,37 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Flag Indexering Forecasting' =
+			
+			IF(
+			    'Dim Medewerker'[Type Personeel ID] = "Z_3" || 'Dim Medewerker'[Type Personeel ID] = "Z_1" || 'Dim Medewerker'[Type Personeel ID] = "Z_15" || 'Dim Medewerker'[Type Personeel ID] = "Z_10" || 'Dim Medewerker'[Dienstbetrekking ID] = 4,
+			    "0",
+			    "1"
+			)
+		lineageTag: 69c029c4-f0f6-4fc8-b852-82697c4bfdd4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Overtime 200%' =
+			
+			IF(
+			    'Dim Medewerker'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"} || CONTAINSSTRING('Dim Medewerker'[Soort_functie], "Echelon 2") || CONTAINSSTRING('Dim Medewerker'[Soort_functie], "Echelon 1"),
+			    "0",
+			    "1"
+			)
+		lineageTag: 8ab862c8-9568-4391-92a4-46d56bb5b8e3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cessantia = 40
+		formatString: 0
+		lineageTag: a6b5a7fa-b714-49af-91de-3131258f6cea
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Medewerker' = m
 		mode: import
 		queryGroup: Model

@@ -114,12 +114,12 @@ table 'Fact Salaris Indexering Actuals'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Schaal ID OLD'
+	column 'Schaal ID'
 		dataType: int64
 		formatString: 0
 		lineageTag: dbda85c5-3355-4444-9ad4-14e1e6b65f07
 		summarizeBy: sum
-		sourceColumn: Schaal ID OLD
+		sourceColumn: Schaal ID
 
 		annotation SummarizationSetBy = Automatic
 
@@ -160,23 +160,15 @@ table 'Fact Salaris Indexering Actuals'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'New Schaal ID (Trede Verhoging)'
+	column 'Salaris (Schaal ID New)'
 		dataType: double
-		lineageTag: f2d09d6d-2b43-492c-9520-7b26ef7b58a7
-		summarizeBy: none
-		sourceColumn: New Schaal ID (Trede Verhoging)
+		lineageTag: 6ce633a3-1786-4bc1-b8ad-c204bb7baa40
+		summarizeBy: sum
+		sourceColumn: Salaris (Schaal ID New)
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Salaris New'
-		dataType: string
-		lineageTag: 6ce633a3-1786-4bc1-b8ad-c204bb7baa40
-		summarizeBy: none
-		sourceColumn: Salaris New
-
-		annotation SummarizationSetBy = Automatic
 
 	column 'Bedrag (New)'
 		dataType: double
@@ -204,21 +196,15 @@ table 'Fact Salaris Indexering Actuals'
 
 		annotation SummarizationSetBy = Automatic
 
-	column SchaalType
-		dataType: string
-		lineageTag: e398e3c3-3016-4f20-a3e0-090232663985
-		summarizeBy: none
-		sourceColumn: SchaalType
-
-		annotation SummarizationSetBy = Automatic
-
 	column Indexering
-		dataType: string
+		dataType: double
 		lineageTag: 9b54797c-e72b-47d3-8988-3b822bbea83d
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Indexering
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column 'Index Name'
 		dataType: string
@@ -238,36 +224,76 @@ table 'Fact Salaris Indexering Actuals'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column 'Type Personeel ID'
+		dataType: string
+		lineageTag: 9fff8e14-bf00-4301-9456-0a61976048a6
+		summarizeBy: none
+		sourceColumn: Type Personeel ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column FTE
+		dataType: double
+		lineageTag: 1fc0b350-765b-4277-b6b8-021caf00d0bc
+		summarizeBy: sum
+		sourceColumn: FTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Naam_werkgever
+		dataType: string
+		lineageTag: fd286e93-9518-4391-8e94-4af7d9ea4977
+		summarizeBy: none
+		sourceColumn: Naam_werkgever
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal ID (New)'
+		dataType: double
+		lineageTag: 68e38b47-7e9d-4b55-aa66-6d05154d1995
+		summarizeBy: sum
+		sourceColumn: Schaal ID (New)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition 'Fact Salaris Indexering Actuals' = m
 		mode: import
 		queryGroup: Model
 		source =
 				let
 				    Source = #"Extrapolatie Salaris Indexering Actuals"(#"Fact Salaris Indexering Actuals Source"),
-				    #"Added Custom" = Table.AddColumn(Source, "Boekingsperiode (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0")),
+				    #"Buffer Query" = Table.Buffer(Source),
+				    #"Added Custom" = Table.AddColumn(#"Buffer Query", "Boekingsperiode (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0")),
 				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Boekingsperiode (leading zeros)"])),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom1",{{"IsExtrapolated", type logical}}),
 				    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
-				    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Schaal ID", "Anniversary Month"}, {"Schaal ID", "Anniversary Month"}),
-				    #"Added Custom2" = Table.AddColumn(#"Expanded Dim Medewerker", "Trede Verhoging", each if [Anniversary Month] = [Boekingsperiode] and [LC] = "2434" then true else false),
-				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom2",{{"Trede Verhoging", type logical}}),
-				    #"Merged Queries1" = Table.NestedJoin(#"Changed Type1", {"Schaal ID"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
+				    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Schaal ID", "Type Personeel ID", "Anniversary Month"}, {"Schaal ID", "Type Personeel ID", "Anniversary Month"}),
+				    #"Merged Queries1" = Table.NestedJoin(#"Expanded Dim Medewerker", {"Schaal ID"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
 				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries1", "Dim SchaalType", {"SchaalType", "MAX Trede"}, {"Schaal.SchaalType", "Schaal.MAX Trede"}),
-				    #"Added Custom3" = Table.AddColumn(#"Expanded Dim SchaalType", "Bedrag (OLD)", each [Waarde] - [Bedrag_credit]),
-				    #"Renamed Columns" = Table.RenameColumns(#"Added Custom3",{{"Schaal ID", "Schaal ID OLD"}}),
-				    #"Added Custom4" = Table.AddColumn(#"Renamed Columns", "New Schaal ID (Trede Verhoging)", each if [Trede Verhoging] = true and [Schaal.MAX Trede] = false and [IsExtrapolated] = true and [Schaal.SchaalType] <> "Andere OVK" then ([Schaal ID OLD] + 1) else [Schaal ID OLD]),
-				    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom4",{{"New Schaal ID (Trede Verhoging)", type number}, {"Bedrag (OLD)", type number}}),
-				    #"Merged Queries2" = Table.NestedJoin(#"Changed Type2", {"New Schaal ID (Trede Verhoging)"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
-				    #"Expanded Dim SchaalType1" = Table.ExpandTableColumn(#"Merged Queries2", "Dim SchaalType", {"Salaris", "SchaalType"}, {"Salaris", "SchaalType"}),
-				    #"Renamed Columns1" = Table.RenameColumns(#"Expanded Dim SchaalType1",{{"Salaris", "Salaris New"}}),
-				    #"Added Custom5" = Table.AddColumn(#"Renamed Columns1", "Bedrag (New)", each if [LC] = "3164" and [IsExtrapolated] = true then [#"Bedrag (OLD)"] else if [IsExtrapolated] = true and [LC] = "2434" and [Trede Verhoging] = true and [Schaal.MAX Trede] = false then [Salaris New] else if [IsExtrapolated] = false then [#"Bedrag (OLD)"] else [#"Bedrag (OLD)"]),
-				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom5",{{"Bedrag (New)", type number}}),
-				    #"Added Custom6" = Table.AddColumn(#"Changed Type3", "Indexering Actuals", each #"Dim Indexering Actuals"),
-				    #"Expanded Indexering Actuals" = Table.ExpandTableColumn(#"Added Custom6", "Indexering Actuals", {"Indexering", "Index Name"}, {"Indexering", "Index Name"}),
-				    #"Added Custom7" = Table.AddColumn(#"Expanded Indexering Actuals", "Bedrag Incl Indexering", each if [Boekingsperiode] < 7 then [#"Bedrag (New)"] else ([#"Bedrag (New)"] * [Indexering]) + [#"Bedrag (New)"]),
-				    #"Changed Type4" = Table.TransformColumnTypes(#"Added Custom7",{{"Bedrag Incl Indexering", type number}})
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Expanded Dim SchaalType",{{"Schaal.SchaalType", type text}}),
+				    #"Added Custom2" = Table.AddColumn(#"Changed Type1", "Trede Verhoging", each if [IsExtrapolated] = false or [Type Personeel ID] = "Z_3" or [#"Schaal.MAX Trede"] = true then false else if ([IsExtrapolated] = true and [Boekingsperiode] >= [Anniversary Month] and [#"Schaal.MAX Trede"] = false) then true else null),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom2",{{"Trede Verhoging", type logical}}),
+				    #"Added Custom3" = Table.AddColumn(#"Changed Type2", "Bedrag (OLD)", each [Waarde] - [Bedrag_credit]),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom3",{{"Bedrag (OLD)", type number}}),
+				    #"Added Custom4" = Table.AddColumn(#"Changed Type3", "Schaal ID (New)", each if [Trede Verhoging] = true and [Type Personeel ID] <> "Z_3" then ([Schaal ID] + 1) else [Schaal ID]),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Added Custom4",{{"Schaal ID (New)", type number}}),
+				    #"Merged Queries2" = Table.NestedJoin(#"Changed Type4", {"Schaal ID (New)"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
+				    #"Expanded Dim SchaalType1" = Table.ExpandTableColumn(#"Merged Queries2", "Dim SchaalType", {"Salaris"}, {"Salaris"}),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"Expanded Dim SchaalType1",{{"Salaris", type number}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type5",{{"Salaris", "Salaris (Schaal ID New)"}}),
+				    #"Added Custom5" = Table.AddColumn(#"Renamed Columns", "Bedrag (New)", each if [Trede Verhoging] = false then [#"Bedrag (OLD)"] else [#"Salaris (Schaal ID New)"]),
+				    #"Changed Type6" = Table.TransformColumnTypes(#"Added Custom5",{{"Bedrag (New)", type number}}),
+				    #"Added Custom6" = Table.AddColumn(#"Changed Type6", "Dim Indexering", each #"Dim Indexering Actuals"),
+				    #"Expanded Indexering Actuals" = Table.ExpandTableColumn(#"Added Custom6", "Dim Indexering", {"Indexering", "Index Name"}, {"Indexering", "Index Name"}),
+				    #"Changed Type7" = Table.TransformColumnTypes(#"Expanded Indexering Actuals",{{"Indexering", type number}}),
+				    #"Added Custom7" = Table.AddColumn(#"Changed Type7", "Bedrag Incl Indexering", each if [Boekingsperiode] >= 7 and ([Type Personeel ID] = "Z_1" or [Type Personeel ID] = "Z_3" or [Type Personeel ID] = "Z_10" or [Type Personeel ID] = "Z_15") or [Schaal.SchaalType] = "Andere OVK" then [#"Bedrag (New)"] else if [Boekingsperiode] < 7 then [#"Bedrag (New)"] else ([#"Bedrag (New)"] * [Indexering]) + [#"Bedrag (New)"]),
+				    #"Changed Type8" = Table.TransformColumnTypes(#"Added Custom7",{{"Bedrag Incl Indexering", type number}, {"Index Name", type text}})
 				in
-				    #"Changed Type4"
+				    #"Changed Type8"
 
 	annotation PBI_NavigationStepName = Navigation
 

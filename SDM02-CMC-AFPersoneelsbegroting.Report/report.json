@@ -1,6 +1,6 @@
 {
-  "config": "{\"version\":\"5.59\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU10\",\"version\":\"5.63\",\"type\":2}},\"activeSectionIndex\":2,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"isPersistentUserStateDisabled\":false,\"hideVisualContainerHeader\":false,\"useStylableVisualContainerHeader\":true,\"exportDataMode\":1,\"useNewFilterPaneExperience\":true,\"optOutNewFilterPaneExperience\":false,\"defaultFilterActionIsDataFilter\":true,\"useCrossReportDrillthrough\":false,\"allowChangeFilterTypes\":true,\"allowInlineExploration\":false,\"disableFilterPaneSearch\":false,\"enableDeveloperMode\":false,\"useEnhancedTooltips\":true,\"useScaledTooltips\":false,\"useDefaultAggregateDisplayName\":true,\"queryLimitOption\":6,\"customMemoryLimit\":\"1048576\",\"customTimeoutLimit\":\"225\"},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}",
-  "filters": "[]",
+  "config": "{\"version\":\"5.59\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU10\",\"type\":2,\"version\":\"5.63\"}},\"activeSectionIndex\":3,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"isPersistentUserStateDisabled\":false,\"hideVisualContainerHeader\":false,\"useStylableVisualContainerHeader\":true,\"exportDataMode\":1,\"useNewFilterPaneExperience\":true,\"optOutNewFilterPaneExperience\":false,\"defaultFilterActionIsDataFilter\":true,\"useCrossReportDrillthrough\":false,\"allowChangeFilterTypes\":true,\"allowInlineExploration\":false,\"disableFilterPaneSearch\":false,\"enableDeveloperMode\":false,\"useEnhancedTooltips\":true,\"useScaledTooltips\":false,\"useDefaultAggregateDisplayName\":true,\"queryLimitOption\":6,\"customMemoryLimit\":\"1048576\",\"customTimeoutLimit\":\"225\"},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}",
+  "filters": "[{\"name\":\"ec699bf7cb961e7796da\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Grootboek\"}},\"Property\":\"Rapportagecockpit_omschrijving\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Rapportagecockpit_omschrijving\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'19 Lonen en salarissen'\"}}],[{\"Literal\":{\"Value\":\"'20 Sociale lasten'\"}}],[{\"Literal\":{\"Value\":\"'21 Overige personeelskosten'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{}},{\"name\":\"479b29c704722bcd285b\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Medewerker\"}},\"Property\":\"Naam_werkgever\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Naam_werkgever\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Curacao Medical Center Exploitatie'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{}},{\"name\":\"66a3214124f53979cdcd\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Fact Forecasting Medewerkers\"}},\"Property\":\"Medewerker ID\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"Fact Forecasting Medewerkers\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Medewerker ID\"}},\"Right\":{\"Literal\":{\"Value\":\"null\"}}}}}}}]},\"type\":\"Advanced\",\"howCreated\":1}]",
   "layoutOptimization": 0,
   "resourcePackages": [
     {
@@ -20,49 +20,85 @@
   ],
   "sections": [
     {
-      "config": "{}",
+      "config": "{\"objects\":{\"outspacePane\":[{\"properties\":{\"width\":{\"expr\":{\"Literal\":{\"Value\":\"181L\"}}}}}]}}",
       "displayName": "Page 3",
       "displayOption": 1,
-      "filters": "[]",
+      "filters": "[{\"name\":\"560d43d20b58a03102ee\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Medewerker\"}},\"Property\":\"Naam_werkgever\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Naam_werkgever\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Curacao Medical Center Exploitatie'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{}},{\"name\":\"d4962e7ab0bab3b35680\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Medewerker\"}},\"Property\":\"Status_dienstverband\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Status_dienstverband\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'In dienst'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{}},{\"name\":\"de4819715058345393a4\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Dienstbetrekking\"}},\"Property\":\"Dienstbetrekking\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Dienstbetrekking\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Dienstbetrekking\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Oproepkracht'\"}}],[{\"Literal\":{\"Value\":\"'Oproepkracht met pensioenrecht'\"}}],[{\"Literal\":{\"Value\":\"null\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}]",
       "height": 720.00,
       "name": "6a598741bd8d5594c445",
       "ordinal": 2,
       "visualContainers": [
         {
-          "config": "{\"name\":\"052121e32b2a7ae81734\",\"layouts\":[{\"id\":0,\"position\":{\"x\":941.4455917394757,\"y\":122.00158856235106,\"z\":0,\"width\":279.5869737887212,\"height\":64.05083399523431,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"slicer\",\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}],\"selection\":[{\"properties\":{\"strictSingleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
+          "config": "{\"name\":\"052121e32b2a7ae81734\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1000,\"y\":111.57894736842105,\"z\":0,\"width\":280,\"height\":64.21052631578948,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Indexering Actuals.Index Name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Actuals\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"},\"Name\":\"Dim Indexering Actuals.Index Name\",\"NativeReferenceName\":\"Indexering Actuals\"}]},\"columnProperties\":{\"Dim Indexering Actuals.Index Name\":{\"displayName\":\"Indexering Actuals\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Actuals\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'1%'\"}}]]}}}]}}}}],\"selection\":[{\"properties\":{\"strictSingleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
           "filters": "[]",
-          "height": 64.05,
-          "width": 279.59,
-          "x": 941.45,
-          "y": 122.00,
+          "height": 64.21,
+          "width": 280.00,
+          "x": 1000.00,
+          "y": 111.58,
           "z": 0.00
         },
         {
-          "config": "{\"name\":\"50f8c2b06a3dee0e4bd0\",\"layouts\":[{\"id\":0,\"position\":{\"x\":100.20984665052461,\"y\":209.71751412429379,\"z\":1000,\"width\":813.042776432607,\"height\":412.20338983050846,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Medewerker.Volledige Naam\"},{\"queryRef\":\"Sum(Fact Salaris Indexering Actuals.Bedrag (New))\"},{\"queryRef\":\"Measure Table.Bedrag Incl Indexering Actuals\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0},{\"Name\":\"f\",\"Entity\":\"Fact Salaris Indexering Actuals\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Volledige Naam\"},\"Name\":\"Dim Medewerker.Volledige Naam\",\"NativeReferenceName\":\"Volledige Naam\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Bedrag (New)\"}},\"Function\":0},\"Name\":\"Sum(Fact Salaris Indexering Actuals.Bedrag (New))\",\"NativeReferenceName\":\"Sum of Bedrag (New)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Bedrag Incl Indexering Actuals\"},\"Name\":\"Measure Table.Bedrag Incl Indexering Actuals\",\"NativeReferenceName\":\"Bedrag Incl Indexering Actuals\"}]},\"drillFilterOtherVisuals\":true}}",
+          "config": "{\"name\":\"1a861a2b62bdb6a60d2c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":658.2308845577211,\"y\":151.60419790104947,\"z\":8000,\"width\":299.3703148425787,\"height\":68.12593703148426,\"tabOrder\":8000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Dienstbetrekking.Dienstbetrekking\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Dienstbetrekking\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Dienstbetrekking\"},\"Name\":\"Dim Dienstbetrekking.Dienstbetrekking\",\"NativeReferenceName\":\"Dienstbetrekking\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
           "filters": "[]",
-          "height": 412.20,
-          "width": 813.04,
-          "x": 100.21,
-          "y": 209.72,
+          "height": 68.13,
+          "width": 299.37,
+          "x": 658.23,
+          "y": 151.60,
+          "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"286e59905da0cbd7ae83\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":225.41592920353983,\"z\":5000,\"width\":509.7345132743363,\"height\":218.61946902654867,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"Dim Medewerker.Volledige Naam\",\"active\":true}],\"Columns\":[{\"queryRef\":\"Dim Period.Month name (short)\",\"active\":true}],\"Values\":[{\"queryRef\":\"Measure Table.(M) LC 2434 - Salaris\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d1\",\"Entity\":\"Dim Medewerker\",\"Type\":0},{\"Name\":\"d3\",\"Entity\":\"Dim Period\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"Volledige Naam\"},\"Name\":\"Dim Medewerker.Volledige Naam\",\"NativeReferenceName\":\"Volledige Naam\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d3\"}},\"Property\":\"Month name (short)\"},\"Name\":\"Dim Period.Month name (short)\",\"NativeReferenceName\":\"Month name (short)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"(M) LC 2434 - Salaris\"},\"Name\":\"Measure Table.(M) LC 2434 - Salaris\",\"NativeReferenceName\":\"(M) LC 2434 - Salaris\"}]},\"expansionStates\":[{\"roles\":[\"Rows\"],\"levels\":[{\"queryRefs\":[\"Dim Medewerker.Volledige Naam\"],\"isCollapsed\":true,\"identityKeys\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Medewerker\"}},\"Property\":\"Volledige Naam\"}}],\"isPinned\":true}],\"root\":{\"identityValues\":null,\"children\":[{\"identityValues\":[{\"Literal\":{\"Value\":\"'Aalbers - de Kanter , C.T.M.M. (Clara)'\"}}],\"isToggled\":true}]}}],\"drillFilterOtherVisuals\":true,\"objects\":{\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"154.3684189969488D\"}}}},\"selector\":{\"metadata\":\"Dim Medewerker.Volledige Naam\"}}]}}}",
+          "filters": "[]",
+          "height": 218.62,
+          "width": 509.73,
+          "x": 0.00,
+          "y": 225.42,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"76e95146ba54ab078c3b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":62.464,\"y\":43.008,\"z\":2000,\"width\":297.984,\"height\":76.8,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Month name (short)\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month name (short)\"},\"Name\":\"Dim Period.Month name (short)\",\"NativeReferenceName\":\"Month name (short)\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 76.80,
+          "width": 297.98,
+          "x": 62.46,
+          "y": 43.01,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"8ea568ccd2036548cd49\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1037.8947368421052,\"y\":8.421052631578947,\"z\":1000,\"width\":242.10526315789474,\"height\":84.21052631578948,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"},\"Name\":\"Dim Period.Year\",\"NativeReferenceName\":\"Year\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"2025L\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 84.21,
+          "width": 242.11,
+          "x": 1037.89,
+          "y": 8.42,
           "z": 1000.00
         },
         {
-          "config": "{\"name\":\"76e95146ba54ab078c3b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":922.1286735504368,\"y\":362.9547259729944,\"z\":3000,\"width\":298.9038919777601,\"height\":76.25099285146942,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Month name (short)\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month name (short)\"},\"Name\":\"Dim Period.Month name (short)\",\"NativeReferenceName\":\"Month name (short)\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "config": "{\"name\":\"97da70275692e9de27a2\",\"layouts\":[{\"id\":0,\"position\":{\"x\":658.2308845577211,\"y\":81.55922038980509,\"z\":7000,\"width\":299.3703148425787,\"height\":68.12593703148426,\"tabOrder\":7000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Type Personeel.Type Zorg Functie\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Type Personeel\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Type Zorg Functie\"},\"Name\":\"Dim Type Personeel.Type Zorg Functie\",\"NativeReferenceName\":\"Type Zorg Functie\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
           "filters": "[]",
-          "height": 76.25,
-          "width": 298.90,
-          "x": 922.13,
-          "y": 362.95,
-          "z": 3000.00
+          "height": 68.13,
+          "width": 299.37,
+          "x": 658.23,
+          "y": 81.56,
+          "z": 7000.00
         },
         {
-          "config": "{\"name\":\"8ea568ccd2036548cd49\",\"layouts\":[{\"id\":0,\"position\":{\"x\":593.3130699088147,\"y\":42.796352583586625,\"z\":2000,\"width\":242.18844984802433,\"height\":86.56534954407296,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"},\"Name\":\"Dim Period.Year\",\"NativeReferenceName\":\"Year\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"2025L\"}}]]}}}]}}}}]}}}",
+          "config": "{\"name\":\"be41af115e5d3d64b3b0\",\"layouts\":[{\"id\":0,\"position\":{\"x\":774.4,\"y\":16,\"z\":6000,\"width\":243.2,\"height\":65.06666666666666,\"tabOrder\":6000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim SchaalType.SchaalType Forecasting\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim SchaalType\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"SchaalType Forecasting\"},\"Name\":\"Dim SchaalType.SchaalType Forecasting\",\"NativeReferenceName\":\"SchaalType Forecasting\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
           "filters": "[]",
-          "height": 86.57,
-          "width": 242.19,
-          "x": 593.31,
-          "y": 42.80,
-          "z": 2000.00
+          "height": 65.07,
+          "width": 243.20,
+          "x": 774.40,
+          "y": 16.00,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"f7c6fd028a8c6e47a906\",\"layouts\":[{\"id\":0,\"position\":{\"x\":53.733133433283356,\"y\":119.94002998500748,\"z\":3000,\"width\":260.9895052473763,\"height\":72.92353823088456,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Indexering Forecasting.Index Name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Forecasting\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"},\"Name\":\"Dim Indexering Forecasting.Index Name\",\"NativeReferenceName\":\"Indexering Forecasting\"}]},\"columnProperties\":{\"Dim Indexering Forecasting.Index Name\":{\"displayName\":\"Indexering Forecasting\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Forecasting\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'1%'\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 72.92,
+          "width": 260.99,
+          "x": 53.73,
+          "y": 119.94,
+          "z": 3000.00
         }
       ],
       "width": 1280.00
@@ -131,7 +167,7 @@
           "z": 3000.00
         },
         {
-          "config": "{\"name\":\"c9caddf638ca2661652e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":332,\"y\":567,\"width\":150,\"height\":150,\"z\":7000,\"tabOrder\":7000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Indexering Forecasting.Indexering - Copy\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Forecasting\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Indexering - Copy\"},\"Name\":\"Dim Indexering Forecasting.Indexering - Copy\",\"NativeReferenceName\":\"Indexering - Copy\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"items\":[{\"properties\":{\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}}}}]}}}",
+          "config": "{\"name\":\"c9caddf638ca2661652e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":332,\"y\":567,\"width\":150,\"height\":150,\"z\":7000,\"tabOrder\":7000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"items\":[{\"properties\":{\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}}}}]}}}",
           "filters": "[]",
           "height": 150.00,
           "width": 150.00,
@@ -147,6 +183,294 @@
           "x": 130.19,
           "y": 128.10,
           "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Page 6",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "a9988a170fa40a3f4e3a",
+      "ordinal": 5,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"00e4e157f5e22ef6fca0\",\"layouts\":[{\"id\":0,\"position\":{\"x\":741.4657842006194,\"y\":0,\"z\":2000,\"width\":278.39941708664765,\"height\":81.14153864836968,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Percentage Vacature CAO.Percentage Name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Percentage Vacature CAO\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Percentage Name\"},\"Name\":\"Dim Percentage Vacature CAO.Percentage Name\",\"NativeReferenceName\":\"Percentage CAO\"}]},\"columnProperties\":{\"Dim Percentage Vacature CAO.Percentage Name\":{\"displayName\":\"Percentage CAO\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 81.14,
+          "width": 278.40,
+          "x": 741.47,
+          "y": 0.00,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"486a6c0a29d96675217e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":10.486162668646477,\"y\":0,\"z\":0,\"width\":278.93192698599626,\"height\":92.27823148408899,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"},\"Name\":\"Dim Period.Year\",\"NativeReferenceName\":\"Year\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"2026L\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 92.28,
+          "width": 278.93,
+          "x": 10.49,
+          "y": 0.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"4cc77d39e3b5b7368cbd\",\"layouts\":[{\"id\":0,\"position\":{\"x\":394.515756876556,\"y\":0,\"z\":1000,\"width\":279.7984091323092,\"height\":69.9496022830773,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Percentage Vacature LNT.Percentage Name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Percentage Vacature LNT\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Percentage Name\"},\"Name\":\"Dim Percentage Vacature LNT.Percentage Name\",\"NativeReferenceName\":\"Percentage LNT\"}]},\"columnProperties\":{\"Dim Percentage Vacature LNT.Percentage Name\":{\"displayName\":\"Percentage LNT\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 69.95,
+          "width": 279.80,
+          "x": 394.52,
+          "y": 0.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"ab9ae6792397e6815eba\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":245.03804227812017,\"z\":3000,\"width\":1279.4603818280368,\"height\":424.2940597835906,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"Dim Vacatures Medewerker.Line ID (MdWID_Formatieplaats)\",\"active\":true}],\"Columns\":[{\"queryRef\":\"Dim Period.Month name (short)\",\"active\":true}],\"Values\":[{\"queryRef\":\"Measure Table.(V) LC 2432 - Salaris\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Vacatures Medewerker\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"Dim Period\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Line ID (MdWID_Formatieplaats)\"},\"Name\":\"Dim Vacatures Medewerker.Line ID (MdWID_Formatieplaats)\",\"NativeReferenceName\":\"Line ID (MdWID_Formatieplaats)\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"Month name (short)\"},\"Name\":\"Dim Period.Month name (short)\",\"NativeReferenceName\":\"Month name (short)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"(V) LC 2432 - Salaris\"},\"Name\":\"Measure Table.(V) LC 2432 - Salaris\",\"NativeReferenceName\":\"(V) LC 2432 - Salaris\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"104.56217703258466D\"}}}},\"selector\":{\"metadata\":\"Dim Vacatures Medewerker.Line ID (MdWID_Formatieplaats)\"}}]}}}",
+          "filters": "[]",
+          "height": 424.29,
+          "width": 1279.46,
+          "x": 0.00,
+          "y": 245.04,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"ec9d95e0ca1887d36c05\",\"layouts\":[{\"id\":0,\"position\":{\"x\":766.8996556923285,\"y\":92.17543938609718,\"z\":4000,\"width\":388.9803542093301,\"height\":79.27087787204357,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Indexering Vacatures.Index Name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Vacatures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"},\"Name\":\"Dim Indexering Vacatures.Index Name\",\"NativeReferenceName\":\"Indexering Vacatures\"}]},\"columnProperties\":{\"Dim Indexering Vacatures.Index Name\":{\"displayName\":\"Indexering Vacatures\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"selection\":[{\"properties\":{\"strictSingleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Vacatures\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'1%'\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 79.27,
+          "width": 388.98,
+          "x": 766.90,
+          "y": 92.18,
+          "z": 4000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"outspacePane\":[{\"properties\":{\"width\":{\"expr\":{\"Literal\":{\"Value\":\"180L\"}}}}}]}}",
+      "displayName": "Page 4",
+      "displayOption": 2,
+      "filters": "[{\"name\":\"3b25268b07093370e6c0\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Medewerker\"}},\"Property\":\"Status_dienstverband\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Status_dienstverband\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'In dienst'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{}}]",
+      "height": 1720.00,
+      "name": "b0929c776d1b210c8566",
+      "ordinal": 3,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"205e2146c6d2d9cce63a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":0,\"z\":8000,\"width\":334.5329905741217,\"height\":72.39074550128535,\"tabOrder\":8000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Series GB 4118000 - Medisch Uitzendkosten.Waarde\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"Series GB 4118000 - Medisch Uitzendkosten\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Waarde\"},\"Name\":\"Series GB 4118000 - Medisch Uitzendkosten.Waarde\",\"NativeReferenceName\":\"GB 4118000 Med Uitz Kost\"}]},\"columnProperties\":{\"Series GB 4118000 - Medisch Uitzendkosten.Waarde\":{\"displayName\":\"GB 4118000 Med Uitz Kost\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"Series GB 4118000 - Medisch Uitzendkosten\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Waarde\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"260000D\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 72.39,
+          "width": 334.53,
+          "x": 0.00,
+          "y": 0.00,
+          "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"45d9cf25046308be6434\",\"layouts\":[{\"id\":0,\"position\":{\"x\":396.7123287671233,\"y\":170.95890410958904,\"z\":2000,\"width\":243.2876712328767,\"height\":63.56164383561644,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Indexering Actuals.Index Name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Actuals\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"},\"Name\":\"Dim Indexering Actuals.Index Name\",\"NativeReferenceName\":\"Indexering Actuals\"}]},\"columnProperties\":{\"Dim Indexering Actuals.Index Name\":{\"displayName\":\"Indexering Actuals\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Actuals\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'1%'\"}}]]}}}]}}}}],\"selection\":[{\"properties\":{\"strictSingleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 63.56,
+          "width": 243.29,
+          "x": 396.71,
+          "y": 170.96,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"4652fd9d829a8be5b897\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":136.92695214105794,\"z\":4000,\"width\":368.16120906801007,\"height\":67.10327455919395,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Grootboek.Code GB + Omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Code GB + Omschrijving\"},\"Name\":\"Dim Grootboek.Code GB + Omschrijving\",\"NativeReferenceName\":\"Code GB + Omschrijving\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"selfFilterEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"selfFilter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Contains\":{\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Code GB + Omschrijving\"}},\"Right\":{\"Literal\":{\"Value\":\"'medi'\"}}}},\"Annotations\":{\"PowerBI.MParameterBehavior\":1}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 67.10,
+          "width": 368.16,
+          "x": 0.00,
+          "y": 136.93,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"58d768e7ae8959621000\",\"layouts\":[{\"id\":0,\"position\":{\"x\":65.75342465753425,\"y\":1185.7534246575342,\"z\":11001,\"width\":728.7671232876712,\"height\":201.64383561643837,\"tabOrder\":11001}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.(M) GB 4116000 - Medische Kosten Eig Risico (CAO)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"(M) GB 4116000 - Medische Kosten Eig Risico (CAO)\"},\"Name\":\"Measure Table.(M) GB 4116000 - Medische Kosten Eig Risico (CAO)\",\"NativeReferenceName\":\"(M) GB 4116000 - Medische Kosten Eig Risico (CAO)\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"(M) GB 4116000 - Medische Kosten Eig Risico (CAO)\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 201.64,
+          "width": 728.77,
+          "x": 65.75,
+          "y": 1185.75,
+          "z": 11001.00
+        },
+        {
+          "config": "{\"name\":\"6fa2169851dc0ef74fea\",\"layouts\":[{\"id\":0,\"position\":{\"x\":13.15068493150685,\"y\":66.84931506849315,\"z\":6000,\"width\":232.3287671232877,\"height\":70.13698630136986,\"tabOrder\":6000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Trede Verhoging.Trede Verhoging\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Trede Verhoging\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Trede Verhoging\"},\"Name\":\"Dim Trede Verhoging.Trede Verhoging\",\"NativeReferenceName\":\"Trede Verhoging\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 70.14,
+          "width": 232.33,
+          "x": 13.15,
+          "y": 66.85,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"7c8368e10d5f177c18e3\",\"layouts\":[{\"id\":0,\"position\":{\"x\":668.4931506849315,\"y\":170.95890410958904,\"z\":9000,\"width\":611.5068493150685,\"height\":638.9041095890411,\"tabOrder\":9000}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"Dim Grootboek.Rapportagecockpit_omschrijving\",\"active\":true},{\"queryRef\":\"Dim Grootboek.Code GB + Omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Code GB + Omschrijving\"},\"Name\":\"Dim Grootboek.Code GB + Omschrijving\",\"NativeReferenceName\":\"Code GB + Omschrijving\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Rapportagecockpit_omschrijving\"},\"Name\":\"Dim Grootboek.Rapportagecockpit_omschrijving\",\"NativeReferenceName\":\"Rapportagecockpit_omschrijving\"}]},\"expansionStates\":[{\"roles\":[\"Rows\"],\"levels\":[{\"queryRefs\":[\"Dim Grootboek.Rapportagecockpit_omschrijving\"],\"identityKeys\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Grootboek\"}},\"Property\":\"Rapportagecockpit_omschrijving\"}}],\"isPinned\":true},{\"queryRefs\":[\"Dim Grootboek.Code GB + Omschrijving\"],\"isCollapsed\":true,\"identityKeys\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Grootboek\"}},\"Property\":\"Code GB + Omschrijving\"}}],\"isPinned\":true}],\"root\":{\"identityValues\":null}}],\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 638.90,
+          "width": 611.51,
+          "x": 668.49,
+          "y": 170.96,
+          "z": 9000.00
+        },
+        {
+          "config": "{\"name\":\"8d92c32cc5694a1882a1\",\"layouts\":[{\"id\":0,\"position\":{\"x\":617.5149957155098,\"y\":100.9083119108826,\"z\":3000,\"width\":261.0454155955441,\"height\":72.39074550128535,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Indexering Forecasting.Index Name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Forecasting\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"},\"Name\":\"Dim Indexering Forecasting.Index Name\",\"NativeReferenceName\":\"Indexering Forecasting\"}]},\"columnProperties\":{\"Dim Indexering Forecasting.Index Name\":{\"displayName\":\"Indexering Forecasting\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Forecasting\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'1%'\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 72.39,
+          "width": 261.05,
+          "x": 617.52,
+          "y": 100.91,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"9208a5ecbb8eed344104\",\"layouts\":[{\"id\":0,\"position\":{\"x\":577.2097209720972,\"y\":14.977497749774978,\"z\":0,\"width\":274.20342034203424,\"height\":67.97479747974798,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Month name (short)\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month name (short)\"},\"Name\":\"Dim Period.Month name (short)\",\"NativeReferenceName\":\"Month name (short)\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 67.97,
+          "width": 274.20,
+          "x": 577.21,
+          "y": 14.98,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"b19121e348074495918b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":909.7810218978103,\"y\":0,\"z\":10000,\"width\":300.1459854014599,\"height\":72.4087591240876,\"tabOrder\":10000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dagkoers EURO/USD.Dagkoers\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dagkoers EURO/USD\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Dagkoers\"},\"Name\":\"Dagkoers EURO/USD.Dagkoers\",\"NativeReferenceName\":\"Dagkoers Erasmus\"}]},\"columnProperties\":{\"Dagkoers EURO/USD.Dagkoers\":{\"displayName\":\"Dagkoers Erasmus\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"selection\":[{\"properties\":{\"strictSingleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dagkoers EURO/USD\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Dagkoers\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"1.7500000000000016D\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 72.41,
+          "width": 300.15,
+          "x": 909.78,
+          "y": 0.00,
+          "z": 10000.00
+        },
+        {
+          "config": "{\"name\":\"e1fa5b9276b6a2d71da5\",\"layouts\":[{\"id\":0,\"position\":{\"x\":360.9068010075566,\"y\":88.86649874055415,\"z\":1000,\"width\":240.30226700251887,\"height\":62.569269521410575,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Looncomponent.LC Code + Omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Looncomponent\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"LC Code + Omschrijving\"},\"Name\":\"Dim Looncomponent.LC Code + Omschrijving\",\"NativeReferenceName\":\"LC Code + Omschrijving\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"selfFilterEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 62.57,
+          "width": 240.30,
+          "x": 360.91,
+          "y": 88.87,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"f049918067257b3f967f\",\"layouts\":[{\"id\":0,\"position\":{\"x\":382.67002518891684,\"y\":14.5088161209068,\"z\":5000,\"width\":196.77581863979847,\"height\":67.10327455919395,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"},\"Name\":\"Dim Period.Year\",\"NativeReferenceName\":\"Year\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"orientation\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}},\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"2026L\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 67.10,
+          "width": 196.78,
+          "x": 382.67,
+          "y": 14.51,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"f63eb1bbc1edbefe24f4\",\"layouts\":[{\"id\":0,\"position\":{\"x\":13.171188026192702,\"y\":249.05519176800746,\"z\":11002,\"width\":910.0093545369504,\"height\":510.08419083255376,\"tabOrder\":11002}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"Dim Medewerker.Volledige Naam\",\"active\":true}],\"Columns\":[{\"queryRef\":\"Dim Grootboek.Code GB + Omschrijving\",\"active\":true},{\"queryRef\":\"Dim Looncomponent.LC Code + Omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"Dim Grootboek\",\"Type\":0},{\"Name\":\"d2\",\"Entity\":\"Dim Looncomponent\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Volledige Naam\"},\"Name\":\"Dim Medewerker.Volledige Naam\",\"NativeReferenceName\":\"Volledige Naam\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"Code GB + Omschrijving\"},\"Name\":\"Dim Grootboek.Code GB + Omschrijving\",\"NativeReferenceName\":\"Code GB + Omschrijving\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d2\"}},\"Property\":\"LC Code + Omschrijving\"},\"Name\":\"Dim Looncomponent.LC Code + Omschrijving\",\"NativeReferenceName\":\"LC Code + Omschrijving\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 510.08,
+          "width": 910.01,
+          "x": 13.17,
+          "y": 249.06,
+          "z": 11002.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Page 5",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "cb3c93965c1003c2c2d5",
+      "ordinal": 4,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"0e7afc60707b2e752076\",\"layouts\":[{\"id\":0,\"position\":{\"x\":526.9888475836432,\"y\":397.3234200743495,\"z\":2000,\"width\":253.3828996282528,\"height\":72.56505576208178,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"},\"Name\":\"Dim Period.Year\",\"NativeReferenceName\":\"Year\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"2024L\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 72.57,
+          "width": 253.38,
+          "x": 526.99,
+          "y": 397.32,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"2319fe2876d9405c8ea1\",\"layouts\":[{\"id\":0,\"position\":{\"x\":55.4828897338403,\"y\":502.26615969581746,\"z\":8000,\"width\":672.6083650190114,\"height\":150.8745247148289,\"tabOrder\":8000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Medewerker.Volledige Naam\"},{\"queryRef\":\"Measure Table.Bedrag Personeelskosten\"},{\"queryRef\":\"Dim Period.Month name (short)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Volledige Naam\"},\"Name\":\"Dim Medewerker.Volledige Naam\",\"NativeReferenceName\":\"Volledige Naam\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Bedrag Personeelskosten\"},\"Name\":\"Measure Table.Bedrag Personeelskosten\",\"NativeReferenceName\":\"Bedrag Personeelskosten\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"Month name (short)\"},\"Name\":\"Dim Period.Month name (short)\",\"NativeReferenceName\":\"Month name (short)\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 150.87,
+          "width": 672.61,
+          "x": 55.48,
+          "y": 502.27,
+          "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"281a4170a1a22503279a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1019.1330798479088,\"y\":571.3764258555133,\"z\":7000,\"width\":253.07984790874525,\"height\":148.9277566539924,\"tabOrder\":7000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Series GB 4118000 - Medisch Uitzendkosten.Waarde\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"Series GB 4118000 - Medisch Uitzendkosten\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Waarde\"},\"Name\":\"Series GB 4118000 - Medisch Uitzendkosten.Waarde\",\"NativeReferenceName\":\"Waarde\"}]},\"autoSelectVisualType\":false,\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Between'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 148.93,
+          "width": 253.08,
+          "x": 1019.13,
+          "y": 571.38,
+          "z": 7000.00
+        },
+        {
+          "config": "{\"name\":\"39920607518a4e1c7b4c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":502.00743494423796,\"y\":0,\"z\":1000,\"width\":689.9628252788104,\"height\":127.28624535315986,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Grootboek.Code GB + Omschrijving\"},{\"queryRef\":\"Measure Table.Bedrag Personeelskosten\"},{\"queryRef\":\"Measure Table.Bedrag Journal Entries\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Code GB + Omschrijving\"},\"Name\":\"Dim Grootboek.Code GB + Omschrijving\",\"NativeReferenceName\":\"Code GB + Omschrijving\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Bedrag Personeelskosten\"},\"Name\":\"Measure Table.Bedrag Personeelskosten\",\"NativeReferenceName\":\"Bedrag Personeelskosten\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Bedrag Journal Entries\"},\"Name\":\"Measure Table.Bedrag Journal Entries\",\"NativeReferenceName\":\"Bedrag Journal Entries\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 127.29,
+          "width": 689.96,
+          "x": 502.01,
+          "y": 0.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"76b2f2514217bb9293cd\",\"layouts\":[{\"id\":0,\"position\":{\"x\":640,\"y\":645.9479553903346,\"z\":5000,\"width\":354.49814126394057,\"height\":71.37546468401487,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Looncomponent.LC Code + Omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Looncomponent\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"LC Code + Omschrijving\"},\"Name\":\"Dim Looncomponent.LC Code + Omschrijving\",\"NativeReferenceName\":\"LC Code + Omschrijving\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"selfFilterEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"selfFilter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Looncomponent\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Contains\":{\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"LC Code + Omschrijving\"}},\"Right\":{\"Literal\":{\"Value\":\"'3091'\"}}}},\"Annotations\":{\"PowerBI.MParameterBehavior\":1}}]}},\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Looncomponent\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"LC Code + Omschrijving\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'3091 - Ziektekosten WG bijdrage'\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 71.38,
+          "width": 354.50,
+          "x": 640.00,
+          "y": 645.95,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"800d4d84e43c09da0ce1\",\"layouts\":[{\"id\":0,\"position\":{\"x\":780.3717472118959,\"y\":393.7546468401487,\"z\":0,\"width\":450.85501858736063,\"height\":151.07806691449815,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Looncomponent.LC Code + Omschrijving\"},{\"queryRef\":\"Measure Table.Bedrag Personeelskosten\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Looncomponent\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"LC Code + Omschrijving\"},\"Name\":\"Dim Looncomponent.LC Code + Omschrijving\",\"NativeReferenceName\":\"LC Code + Omschrijving\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Bedrag Personeelskosten\"},\"Name\":\"Measure Table.Bedrag Personeelskosten\",\"NativeReferenceName\":\"Bedrag Personeelskosten\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[{\"name\":\"c1933e934806bd03c7d9\",\"expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Measure Table\"}},\"Property\":\"Cascade Filter (Slicer) Personeelskosten\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Cascade Filter (Slicer) Personeelskosten\"}},\"Right\":{\"Literal\":{\"Value\":\"1L\"}}}}}]},\"type\":\"Advanced\",\"howCreated\":1}]",
+          "height": 151.08,
+          "width": 450.86,
+          "x": 780.37,
+          "y": 393.75,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"996ef504191d89a6755b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":653.6170212765958,\"y\":200.44255319148937,\"z\":4000,\"width\":521.804255319149,\"height\":185.19148936170214,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim SchaalType.SchaalType Forecasting\"},{\"queryRef\":\"Measure Table.Bedrag Personeelskosten\"},{\"queryRef\":\"Measure Table.Bedrag Journal Entries\"},{\"queryRef\":\"Measure Table.Bedrag Budget\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim SchaalType\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"SchaalType Forecasting\"},\"Name\":\"Dim SchaalType.SchaalType Forecasting\",\"NativeReferenceName\":\"SchaalType Forecasting\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Bedrag Personeelskosten\"},\"Name\":\"Measure Table.Bedrag Personeelskosten\",\"NativeReferenceName\":\"Bedrag Personeelskosten\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Bedrag Journal Entries\"},\"Name\":\"Measure Table.Bedrag Journal Entries\",\"NativeReferenceName\":\"Bedrag Journal Entries\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Bedrag Budget\"},\"Name\":\"Measure Table.Bedrag Budget\",\"NativeReferenceName\":\"Bedrag Budget\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 185.19,
+          "width": 521.80,
+          "x": 653.62,
+          "y": 200.44,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"b1810617f518ef376fd6\",\"layouts\":[{\"id\":0,\"position\":{\"x\":597.6577946768061,\"y\":127.51330798479087,\"z\":9000,\"width\":298.82889733840307,\"height\":73.00380228136882,\"tabOrder\":9000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Kostenplaats.Kostenplaats Code + Omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Kostenplaats\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Kostenplaats Code + Omschrijving\"},\"Name\":\"Dim Kostenplaats.Kostenplaats Code + Omschrijving\",\"NativeReferenceName\":\"Kostenplaats Code + Omschrijving\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"selfFilterEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"selfFilter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Kostenplaats\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Contains\":{\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Kostenplaats Code + Omschrijving\"}},\"Right\":{\"Literal\":{\"Value\":\"'rvb'\"}}}},\"Annotations\":{\"PowerBI.MParameterBehavior\":1}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 73.00,
+          "width": 298.83,
+          "x": 597.66,
+          "y": 127.51,
+          "z": 9000.00
+        },
+        {
+          "config": "{\"name\":\"cb3ba97dea0bb50e7693\",\"layouts\":[{\"id\":0,\"position\":{\"x\":75.92395437262357,\"y\":388.3802281368821,\"z\":6000,\"width\":354.31178707224336,\"height\":78.84410646387833,\"tabOrder\":6000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Grootboek.Code GB + Omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Code GB + Omschrijving\"},\"Name\":\"Dim Grootboek.Code GB + Omschrijving\",\"NativeReferenceName\":\"Code GB + Omschrijving\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"selfFilterEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"selfFilter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Contains\":{\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Code GB + Omschrijving\"}},\"Right\":{\"Literal\":{\"Value\":\"'medi'\"}}}},\"Annotations\":{\"PowerBI.MParameterBehavior\":1}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 78.84,
+          "width": 354.31,
+          "x": 75.92,
+          "y": 388.38,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"e8258432718c14b3dab3\",\"layouts\":[{\"id\":0,\"position\":{\"x\":857.7820174368303,\"y\":212.62816957650244,\"z\":9001,\"width\":412.53499567406885,\"height\":181.7334782705149,\"tabOrder\":9001}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.(A) GB 4125100 - Personeel niet in Loondienst\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"(A) GB 4125100 - Personeel niet in Loondienst\"},\"Name\":\"Measure Table.(A) GB 4125100 - Personeel niet in Loondienst\",\"NativeReferenceName\":\"(A) GB 4125100 - Personeel niet in Loondienst\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"(A) GB 4125100 - Personeel niet in Loondienst\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 181.73,
+          "width": 412.54,
+          "x": 857.78,
+          "y": 212.63,
+          "z": 9001.00
+        },
+        {
+          "config": "{\"name\":\"f7069f2ce41090a9497c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":106.75744680851064,\"z\":3000,\"width\":640.5446808510638,\"height\":290.8595744680851,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Medewerker.Medewerker ID\"},{\"queryRef\":\"Dim Medewerker.Volledige Naam\"},{\"queryRef\":\"Measure Table.Bedrag Personeelskosten\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Medewerker ID\"},\"Name\":\"Dim Medewerker.Medewerker ID\",\"NativeReferenceName\":\"Medewerker ID\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Bedrag Personeelskosten\"},\"Name\":\"Measure Table.Bedrag Personeelskosten\",\"NativeReferenceName\":\"Bedrag Personeelskosten\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Volledige Naam\"},\"Name\":\"Dim Medewerker.Volledige Naam\",\"NativeReferenceName\":\"Volledige Naam\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 290.86,
+          "width": 640.54,
+          "x": 0.00,
+          "y": 106.76,
+          "z": 3000.00
         }
       ],
       "width": 1280.00
@@ -196,12 +520,12 @@
           "z": 12000.00
         },
         {
-          "config": "{\"name\":\"44567fa59c613628e64a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":31.273996509598604,\"y\":6.701570680628272,\"z\":3000,\"width\":291.5183246073299,\"height\":67.01570680628272,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Looncomponent.LC Code + Omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Looncomponent\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"LC Code + Omschrijving\"},\"Name\":\"Dim Looncomponent.LC Code + Omschrijving\",\"NativeReferenceName\":\"LC Code + Omschrijving\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"selfFilterEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"selfFilter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Looncomponent\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Contains\":{\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"LC Code + Omschrijving\"}},\"Right\":{\"Literal\":{\"Value\":\"'2434'\"}}}},\"Annotations\":{\"PowerBI.MParameterBehavior\":1}}]}},\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Looncomponent\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"LC Code + Omschrijving\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'3164 - Softlanding'\"}}],[{\"Literal\":{\"Value\":\"'2434 - Salaris'\"}}]]}}}]}}}}]}}}",
+          "config": "{\"name\":\"44567fa59c613628e64a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":955.6756756756756,\"y\":438.9189189189189,\"z\":3000,\"width\":291.8918918918919,\"height\":67.02702702702702,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Looncomponent.LC Code + Omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Looncomponent\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"LC Code + Omschrijving\"},\"Name\":\"Dim Looncomponent.LC Code + Omschrijving\",\"NativeReferenceName\":\"LC Code + Omschrijving\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"selfFilterEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
           "filters": "[]",
-          "height": 67.02,
-          "width": 291.52,
-          "x": 31.27,
-          "y": 6.70,
+          "height": 67.03,
+          "width": 291.89,
+          "x": 955.68,
+          "y": 438.92,
           "z": 3000.00
         },
         {
@@ -250,7 +574,7 @@
           "z": 2000.00
         },
         {
-          "config": "{\"name\":\"c8004373b427b3126d08\",\"layouts\":[{\"id\":0,\"position\":{\"x\":331.7277486910995,\"y\":10.052356020942408,\"z\":7000,\"width\":201.04712041884818,\"height\":59.197207678883075,\"tabOrder\":7000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Month name (short)\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month name (short)\"},\"Name\":\"Dim Period.Month name (short)\",\"NativeReferenceName\":\"Month name (short)\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month name (short)\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Apr'\"}}]]}}}]}}}}]}}}",
+          "config": "{\"name\":\"c8004373b427b3126d08\",\"layouts\":[{\"id\":0,\"position\":{\"x\":331.7277486910995,\"y\":10.052356020942408,\"z\":7000,\"width\":201.04712041884818,\"height\":59.197207678883075,\"tabOrder\":7000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Period.Month name (short)\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month name (short)\"},\"Name\":\"Dim Period.Month name (short)\",\"NativeReferenceName\":\"Month name (short)\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
           "filters": "[]",
           "height": 59.20,
           "width": 201.05,

@@ -250,6 +250,32 @@ table 'Fact Personeels Kosten'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Flag Feesturen' =
+			
+			IF(
+			    'Fact Personeels Kosten'[LC] IN {"3010", "3011", "3012"},
+			    "1",
+			    "0"
+			)
+		lineageTag: c4401416-33c3-4501-9593-7426bf10310e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'LC - 3086 Feesturen' =
+			
+			IF(
+			    'Fact Personeels Kosten'[LC] = "3086",
+			    'Fact Personeels Kosten'[Bedrag],
+			    BLANK()
+			)
+		lineageTag: d890cf14-5115-41a0-b795-581644e1e972
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition 'Fact Personeels Kosten' = m
 		mode: import
 		queryGroup: Model

@@ -1,47 +1,43 @@
-table 'Fact Forecasting Medewerkers'
-	lineageTag: d91f9453-ed3e-4d00-948b-c8d73cf3731a
+table 'Fact Forecasting MdW LC Overig per GB'
+	lineageTag: a8e5b345-9cb6-4500-a3b0-9de2e84bb0f9
 
 	column 'Medewerker ID'
 		dataType: string
-		lineageTag: b1aa7e17-f76d-4be2-bc23-b14ad7c747e5
+		lineageTag: 881c0eee-9ad8-4662-a904-ec73e038f8cd
 		summarizeBy: none
 		sourceColumn: Medewerker ID
 
 		annotation SummarizationSetBy = Automatic
 
 	column FTE
-		dataType: double
-		lineageTag: 9061ea51-713d-4f8a-b752-d910732ef30a
-		summarizeBy: sum
+		dataType: string
+		lineageTag: b237ef2c-9114-4f55-bc12-42675e4937dc
+		summarizeBy: none
 		sourceColumn: FTE
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column 'Year Forecasting'
 		dataType: int64
 		formatString: 0
-		lineageTag: 72645f14-f6cf-4bfe-946f-35dc8c091168
+		lineageTag: c1c1e72d-b79a-45b0-b3fb-d1c47655ed39
 		summarizeBy: sum
 		sourceColumn: Year Forecasting
 
 		annotation SummarizationSetBy = Automatic
 
 	column Period
-		dataType: double
-		lineageTag: d416d39d-acca-4725-834e-5a11ba01878c
-		summarizeBy: sum
+		dataType: string
+		lineageTag: 0df66cf6-fe56-495e-a208-ea8cf213138d
+		summarizeBy: none
 		sourceColumn: Period
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column 'Anniversary Month'
 		dataType: int64
 		formatString: 0
-		lineageTag: 9df6a7d4-6404-4810-9879-d6fbf9efa319
+		lineageTag: e5ed0b8b-21d7-45f6-9a3b-8a848841c1fd
 		summarizeBy: sum
 		sourceColumn: Anniversary Month
 
@@ -49,7 +45,7 @@ table 'Fact Forecasting Medewerkers'
 
 	column Kostenplaats
 		dataType: string
-		lineageTag: 478ab20d-58a8-4699-af62-b105f204e2de
+		lineageTag: c2bdd897-f4ae-4dcb-8907-40ecb72560d3
 		summarizeBy: none
 		sourceColumn: Kostenplaats
 
@@ -58,7 +54,7 @@ table 'Fact Forecasting Medewerkers'
 	column 'Schaal ID'
 		dataType: int64
 		formatString: 0
-		lineageTag: b4c54f77-25a0-440a-bb3c-999fd267b55d
+		lineageTag: c32838ef-566b-43e8-919f-65f04e85ea8c
 		summarizeBy: count
 		sourceColumn: Schaal ID
 
@@ -66,7 +62,7 @@ table 'Fact Forecasting Medewerkers'
 
 	column 'Type Personeel ID'
 		dataType: string
-		lineageTag: 81bfb8aa-017d-4ece-a9c0-64da2ce9b52a
+		lineageTag: c5a35266-9d9b-4f91-90da-1ff13fc26f0d
 		summarizeBy: none
 		sourceColumn: Type Personeel ID
 
@@ -74,7 +70,7 @@ table 'Fact Forecasting Medewerkers'
 
 	column 'Period (leading zeros)'
 		dataType: string
-		lineageTag: 5ad9ab2a-31dd-4b26-9105-ee97550ec275
+		lineageTag: ab120d42-571c-403e-a5a8-bae7807b3964
 		summarizeBy: none
 		sourceColumn: Period (leading zeros)
 
@@ -82,7 +78,7 @@ table 'Fact Forecasting Medewerkers'
 
 	column Year/Period
 		dataType: string
-		lineageTag: 71a3a7bd-29ac-4717-9d21-6243039fb6bd
+		lineageTag: 968244db-c0d2-4db8-9794-84845776a662
 		summarizeBy: none
 		sourceColumn: Year/Period
 
@@ -90,7 +86,7 @@ table 'Fact Forecasting Medewerkers'
 
 	column 'Index Name Actuals'
 		dataType: string
-		lineageTag: b9c2fd88-c5c7-4986-95ed-75ceb41329a3
+		lineageTag: 4aa3eb60-0f60-4f1e-bc75-0514650b2d23
 		summarizeBy: none
 		sourceColumn: Index Name Actuals
 
@@ -98,7 +94,7 @@ table 'Fact Forecasting Medewerkers'
 
 	column 'Max Salaris End Actuals'
 		dataType: double
-		lineageTag: 93e9eb01-28aa-4f08-8e8b-4bfa65e7461f
+		lineageTag: 9e5e99b6-a876-43bc-b4a4-50742b7a5cbe
 		summarizeBy: sum
 		sourceColumn: Max Salaris End Actuals
 
@@ -108,7 +104,7 @@ table 'Fact Forecasting Medewerkers'
 
 	column 'New Schaal ID (Trede Verhoging Actuals)'
 		dataType: double
-		lineageTag: 5b7f90bb-65cd-4bc8-bd27-aa532730c943
+		lineageTag: 66bd18fb-ef1a-4cbe-8c24-2114b436cda7
 		summarizeBy: sum
 		sourceColumn: New Schaal ID (Trede Verhoging Actuals)
 
@@ -119,7 +115,7 @@ table 'Fact Forecasting Medewerkers'
 	column 'MAX Trede Actuals'
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 35cec671-ff4d-4942-bb4d-ef350b960428
+		lineageTag: 7f4c3b52-4057-4349-86a4-293e236b99f9
 		summarizeBy: none
 		sourceColumn: MAX Trede Actuals
 
@@ -127,7 +123,7 @@ table 'Fact Forecasting Medewerkers'
 
 	column 'SchaalType Forecasting'
 		dataType: string
-		lineageTag: 148ebacf-4d6b-4743-8efc-6bdc7af18381
+		lineageTag: 7ddd3cd1-accd-4059-9ad1-5c50ee3798cc
 		summarizeBy: none
 		sourceColumn: SchaalType Forecasting
 
@@ -136,7 +132,7 @@ table 'Fact Forecasting Medewerkers'
 	column 'Trede Verhoging (Forecasting)'
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: cbcf7064-612a-419d-89b6-e4869f3c16c0
+		lineageTag: 81613511-e005-4ce2-ba7e-b6bde5282768
 		summarizeBy: none
 		sourceColumn: Trede Verhoging (Forecasting)
 
@@ -145,7 +141,7 @@ table 'Fact Forecasting Medewerkers'
 	column 'New Schaal ID (Forecasting)'
 		dataType: int64
 		formatString: 0
-		lineageTag: ce1f3166-354b-450d-81d9-266de47ea018
+		lineageTag: 964fe0c8-f4fa-4f97-968f-282b1dc206ba
 		summarizeBy: none
 		sourceColumn: New Schaal ID (Forecasting)
 
@@ -153,7 +149,7 @@ table 'Fact Forecasting Medewerkers'
 
 	column 'Salaris New Forecasting'
 		dataType: double
-		lineageTag: 954d044b-8072-46f7-bd19-289a02f7d2cf
+		lineageTag: 5fa09cfa-ead8-498d-983a-ac6aae46aee8
 		summarizeBy: sum
 		sourceColumn: Salaris New Forecasting
 
@@ -163,7 +159,7 @@ table 'Fact Forecasting Medewerkers'
 
 	column 'Salaris Base Forecasting Original'
 		dataType: double
-		lineageTag: e7227cee-ee26-4e43-b375-b934eced54c2
+		lineageTag: ccd6a5ba-d404-4808-80f4-91cd8c55c109
 		summarizeBy: sum
 		sourceColumn: Salaris Base Forecasting Original
 
@@ -173,7 +169,7 @@ table 'Fact Forecasting Medewerkers'
 
 	column 'Salaris per Mnd'
 		dataType: double
-		lineageTag: a512bd6a-99f7-4e26-92ae-9aafa0f9fcae
+		lineageTag: c457d220-4ad2-4931-adcc-13640792f7b9
 		summarizeBy: sum
 		sourceColumn: Salaris per Mnd
 
@@ -183,7 +179,7 @@ table 'Fact Forecasting Medewerkers'
 
 	column 'Salaris Base Forecasting'
 		dataType: double
-		lineageTag: 113d46c2-2950-4a8f-81b1-a5e3f1da0102
+		lineageTag: 9d2e6e14-ec8a-4bb2-9913-a20212d0f77c
 		summarizeBy: sum
 		sourceColumn: Salaris Base Forecasting
 
@@ -191,73 +187,36 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'Softlanding per Maand'
-		dataType: double
-		lineageTag: 48600060-79e8-497e-8d12-b9afdce24b62
-		summarizeBy: sum
-		sourceColumn: Softlanding per Maand
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column LC
 		dataType: string
-		lineageTag: 294f0e08-9348-44fb-8e78-f5d9a4b0af81
+		lineageTag: 2ddeaa25-70a7-43ad-9932-7dffde283d21
 		summarizeBy: none
 		sourceColumn: LC
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Omschrijving LC'
-		dataType: string
-		lineageTag: 26039a9c-8cf4-4552-b242-770ad6a7770e
-		summarizeBy: none
-		sourceColumn: Omschrijving LC
-
-		annotation SummarizationSetBy = Automatic
-
 	column Grootboekrekening
 		dataType: string
-		lineageTag: a999c2fd-ee22-48c2-a8e8-9e4b6a08f5eb
+		lineageTag: 3472c923-2760-44a1-b407-c37ac1aef0b8
 		summarizeBy: none
 		sourceColumn: Grootboekrekening
 
 		annotation SummarizationSetBy = Automatic
 
-	column Grootboekrekening_omschrijving
-		dataType: string
-		lineageTag: df286845-faf6-4962-9e28-f84b66ffbcbd
-		summarizeBy: none
-		sourceColumn: Grootboekrekening_omschrijving
-
-		annotation SummarizationSetBy = Automatic
-
-	column Rapportagecockpit_omschrijving
-		dataType: string
-		lineageTag: 8de5d5e4-ac64-4ac8-97d3-5f31765d8c3c
-		summarizeBy: none
-		sourceColumn: Rapportagecockpit_omschrijving
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'FTE (Divided by 100)' = DIVIDE('Fact Forecasting Medewerkers'[FTE], 100, BLANK())
-		lineageTag: 66ece7f7-e15a-43b3-8f3d-998e58053720
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	partition 'Fact Forecasting Medewerkers' = m
+	partition 'Fact Forecasting MdW LC Overig per GB' = m
 		mode: import
 		queryGroup: Model
 		source =
 				let
 				    Source = #"Buffered Fact Forecasting Medewerkers",
-				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Period", type number}, {"FTE", type number}})
+				    #"Removed Other Columns1" = Table.SelectColumns(Source, {"Medewerker ID", "FTE", "Year Forecasting", "Period", "Anniversary Month", "Kostenplaats", "Schaal ID", "Type Personeel ID", "Period (leading zeros)", "Year/Period", "Index Name Actuals", "Max Salaris End Actuals", "New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals", "SchaalType Forecasting", "Trede Verhoging (Forecasting)", "New Schaal ID (Forecasting)", "Salaris New Forecasting", "Salaris Base Forecasting Original", "Salaris per Mnd", "Salaris Base Forecasting"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns1", {"Medewerker ID", "Period", "Index Name Actuals", "MAX Trede Actuals", "Trede Verhoging (Forecasting)", "New Schaal ID (Forecasting)", "Salaris Base Forecasting", "Kostenplaats"}),
+				    #"Added Custom" = Table.AddColumn(#"Removed Duplicates", "LC 0001 Overig", each #"LC Overig"),
+				    #"Expanded Column1" = Table.ExpandTableColumn(#"Added Custom", "LC 0001 Overig", {"LC"}, {"LC"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Expanded Column1", {"LC"}, #"Dim KPT LC per GB", {"LC"}, "Dim KPT LC per GB", JoinKind.LeftOuter),
+				    #"Expanded Dim KPT LC per GB" = Table.ExpandTableColumn(#"Merged Queries", "Dim KPT LC per GB", {"Grootboekrekening"}, {"Grootboekrekening"})
 				in
-				    #"Changed Type"
+				    #"Expanded Dim KPT LC per GB"
 
 	annotation PBI_NavigationStepName = Navigation
 

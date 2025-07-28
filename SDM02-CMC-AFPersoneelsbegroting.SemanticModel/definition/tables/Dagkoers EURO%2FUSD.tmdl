@@ -1,0 +1,51 @@
+table 'Dagkoers EURO/USD'
+	lineageTag: a3e81842-8587-4308-9a78-c8322a911386
+
+	column Dagkoers
+		dataType: double
+		formatString: 0.00
+		lineageTag: 35f9915b-a101-40d2-bb22-e8fc587798f6
+		summarizeBy: sum
+		sourceColumn: Dagkoers
+
+		annotation SummarizationSetBy = Automatic
+
+	column GB
+		dataType: string
+		lineageTag: 10dac507-a814-4a7b-9ee7-38a79c8ca6fd
+		summarizeBy: none
+		sourceColumn: GB
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bedrag Erasmus in XCG'
+		dataType: double
+		formatString: 0.00
+		lineageTag: 91687bef-7a99-4e5d-83d1-778a7213badd
+		summarizeBy: sum
+		sourceColumn: Bedrag Erasmus in XCG
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dagkoers EURO/USD' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = List.Generate(
+				        () => 2.50, each _ >= 1.75, each _ - 0.05
+				    ),
+				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Renamed Columns" = Table.RenameColumns(#"Converted to Table",{{"Column1", "Dagkoers"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Dagkoers", type number}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type", "GB", each "4125100"),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"GB", type text}}),
+				    #"Added Custom1" = Table.AddColumn(#"Changed Type1", "Bedrag Erasmus in XCG", each [Dagkoers] * 117000),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom1",{{"Bedrag Erasmus in XCG", type number}})
+				in
+				    #"Changed Type2"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

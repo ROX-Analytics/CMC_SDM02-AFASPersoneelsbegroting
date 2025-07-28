@@ -1,10 +1,10 @@
 table 'Dim Percentage Vacature LNT'
-	lineageTag: 642d7bf6-55da-426b-bd76-76462be95653
+	lineageTag: 72d41e5f-c6d4-457a-bbec-7f608ae5c7e5
 
 	column Percentage
 		dataType: double
-		lineageTag: 99b6c00b-deb3-42ca-986c-155d9b3b719d
-		summarizeBy: sum
+		lineageTag: e6791c81-a617-4408-a86a-2f956f46a3bc
+		summarizeBy: none
 		sourceColumn: Percentage
 
 		annotation SummarizationSetBy = Automatic
@@ -13,15 +13,18 @@ table 'Dim Percentage Vacature LNT'
 
 	column 'Percentage Name'
 		dataType: string
-		lineageTag: 22a387fa-b99b-410d-9c59-f96cca6b23d4
+		lineageTag: 66e16979-d414-4755-9254-91779fdd5fec
 		summarizeBy: none
 		sourceColumn: Percentage Name
+		sortByColumn: Percentage
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
 	column SchaalType
 		dataType: string
-		lineageTag: c5feeabf-93a0-4ca0-8832-dd05a940e9d1
+		lineageTag: 02a016d6-8d15-4f73-8eef-598df6d78521
 		summarizeBy: none
 		sourceColumn: SchaalType
 
@@ -29,7 +32,7 @@ table 'Dim Percentage Vacature LNT'
 
 	column 'Percentage Key'
 		dataType: string
-		lineageTag: 827d5ffc-1dc3-483c-966d-5860ec774328
+		lineageTag: a43b6af0-da09-4736-a31d-ecf9ae92e1e5
 		summarizeBy: none
 		sourceColumn: Percentage Key
 

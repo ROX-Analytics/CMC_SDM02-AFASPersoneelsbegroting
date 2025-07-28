@@ -361,31 +361,132 @@ table 'Fact Forecasting Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Percentage Vacature'
+	column 'Percentage Name CAO'
+		dataType: string
+		lineageTag: 6250d233-6a62-4237-8efd-6e83046e1965
+		summarizeBy: none
+		sourceColumn: Percentage Name CAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Percentage CAO'
 		dataType: double
-		lineageTag: 6560e322-d940-4d7f-8c3c-ee4beed980a6
+		lineageTag: 37487df9-0399-4368-89f8-f62bfbba1e68
 		summarizeBy: sum
-		sourceColumn: Percentage Vacature
+		sourceColumn: Percentage CAO
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'Percentage Name'
-		dataType: string
-		lineageTag: 6250d233-6a62-4237-8efd-6e83046e1965
-		summarizeBy: none
-		sourceColumn: Percentage Name
+	column 'Percentage LNT'
+		dataType: double
+		lineageTag: f1045f5e-5fad-4bb1-9903-d0fbd1945522
+		summarizeBy: sum
+		sourceColumn: Percentage LNT
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Percentage Key'
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Percentage Name LNT'
 		dataType: string
-		lineageTag: 34c9fc81-f59a-4966-902b-6022a1b4648e
+		lineageTag: 6d8d04c0-3486-49fd-8a78-850c7e746dda
 		summarizeBy: none
-		sourceColumn: Percentage Key
+		sourceColumn: Percentage Name LNT
 
 		annotation SummarizationSetBy = Automatic
+
+	column 'Percentage Key CAO'
+		dataType: string
+		lineageTag: 6aed953b-319d-44e5-8939-94585c776956
+		summarizeBy: none
+		sourceColumn: Percentage Key CAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Percentage Key LNT'
+		dataType: string
+		lineageTag: db11636a-706f-48ae-a85f-6a060db770b9
+		summarizeBy: none
+		sourceColumn: Percentage Key LNT
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indexering
+		dataType: double
+		lineageTag: e0935788-90d6-4c65-adcc-9e17eed59901
+		summarizeBy: sum
+		sourceColumn: Indexering
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Index Name'
+		dataType: string
+		lineageTag: 3cc90095-c5ae-409e-bf8c-da69e41bf373
+		summarizeBy: none
+		sourceColumn: Index Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Type Personeel ID'
+		dataType: string
+		lineageTag: 28d2ad2c-8923-4126-96a1-7c81caa22284
+		summarizeBy: none
+		sourceColumn: Type Personeel ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 5993273f-daf5-4321-8aa1-5b0e788a3728
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Salary (incl %) CAO'
+		dataType: double
+		lineageTag: bf46f37a-c41f-4a04-a9ce-b55edaa27367
+		summarizeBy: sum
+		sourceColumn: Salary (incl %) CAO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Salary (incl %) LNT'
+		dataType: double
+		lineageTag: 22509c31-00c5-475e-b046-a4b81dd50b39
+		summarizeBy: sum
+		sourceColumn: Salary (incl %) LNT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Salaris Incl Indexering LNT'
+		dataType: double
+		lineageTag: 7f790347-6650-4148-832b-0ced1a843b9a
+		summarizeBy: sum
+		sourceColumn: Salaris Incl Indexering LNT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Salaris Incl Indexering CAO'
+		dataType: double
+		lineageTag: 75087ece-cdd0-4373-a70d-cc506f9ebdd1
+		summarizeBy: sum
+		sourceColumn: Salaris Incl Indexering CAO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition 'Fact Forecasting Vacatures' = m
 		mode: import
@@ -461,12 +562,21 @@ table 'Fact Forecasting Vacatures'
 				    #"Merged Queries8" = Table.NestedJoin(#"Renamed Columns11", {"SchaalType Forecasting"}, #"Dim Percentage Vacature LNT", {"SchaalType"}, "Dim Percentage Vacature LNT", JoinKind.LeftOuter),
 				    #"Expanded Dim Percentage Vacature LNT" = Table.ExpandTableColumn(#"Merged Queries8", "Dim Percentage Vacature LNT", {"Percentage", "Percentage Name"}, {"Percentage", "Percentage Name"}),
 				    #"Renamed Columns12" = Table.RenameColumns(#"Expanded Dim Percentage Vacature LNT",{{"Percentage", "Percentage LNT"}, {"Percentage Name", "Percentage Name LNT"}}),
-				    #"Merged Columns2" = Table.CombineColumns(#"Renamed Columns12",{"Percentage Name CAO", "Percentage Name LNT"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Percentage Name"),
-				    #"Added Custom6" = Table.AddColumn(#"Merged Columns2", "Percentage Key", each Text.From([Percentage Name]) & "_" & Text.From([SchaalType Forecasting])),
-				    #"Merged Columns3" = Table.CombineColumns(Table.TransformColumnTypes(#"Added Custom6", {{"Percentage CAO", type text}, {"Percentage LNT", type text}}, "en-US"),{"Percentage CAO", "Percentage LNT"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Percentage Vacature"),
-				    #"Changed Type9" = Table.TransformColumnTypes(#"Merged Columns3",{{"Percentage Vacature", Percentage.Type}, {"Percentage Key", type text}})
+				    #"Added Custom6" = Table.AddColumn(#"Renamed Columns12", "Percentage Key CAO", each if [SchaalType Forecasting] = "CAO" then Text.From([Percentage Name CAO]) & "_" & Text.From([SchaalType Forecasting]) else null),
+				    #"Added Custom7" = Table.AddColumn(#"Added Custom6", "Percentage Key LNT", each if [SchaalType Forecasting] = "LNT" then Text.From([Percentage Name LNT]) & "_" & Text.From([SchaalType Forecasting]) else null),
+				    #"Changed Type9" = Table.TransformColumnTypes(#"Added Custom7",{{"Percentage Key CAO", type text}, {"Percentage Key LNT", type text}}),
+				    #"Added Custom8" = Table.AddColumn(#"Changed Type9", "Salary (incl %) CAO", each if [SchaalType Forecasting] = "CAO" then ([Percentage CAO] * [#"Schaal/Trede Salaris"]) else null),
+				    #"Added Custom11" = Table.AddColumn(#"Added Custom8", "Salary (incl %) LNT", each if [SchaalType Forecasting] = "LNT" then ([Percentage LNT] * [#"Schaal/Trede Salaris"]) else null),
+				    #"Added Custom9" = Table.AddColumn(#"Added Custom11", "Indexering Vacatures", each #"Dim Indexering Vacatures"),
+				    #"Expanded Indexering Vacatures" = Table.ExpandTableColumn(#"Added Custom9", "Indexering Vacatures", {"Indexering", "Index Name"}, {"Indexering", "Index Name"}),
+				    #"Merged Queries9" = Table.NestedJoin(#"Expanded Indexering Vacatures", {"Medewerker ID"}, #"Dim Vacatures Medewerker", {"Medewerker ID"}, "Dim Vacatures Medewerker", JoinKind.LeftOuter),
+				    #"Expanded Dim Vacatures Medewerker" = Table.ExpandTableColumn(#"Merged Queries9", "Dim Vacatures Medewerker", {"Type Personeel ID"}, {"Type Personeel ID"}),
+				    #"Inserted Month" = Table.AddColumn(#"Expanded Dim Vacatures Medewerker", "Month", each Date.Month([Date]), Int64.Type),
+				    #"Added Custom10" = Table.AddColumn(#"Inserted Month", "Salaris Incl Indexering LNT", each if [Month] >= 7 and ([Type Personeel ID] = "Z_1" or [Type Personeel ID] = "Z_3" or [Type Personeel ID] = "Z_10" or [Type Personeel ID] = "Z_15") then [#"Salary (incl %) LNT"] else if [Month] < 7 then [#"Salary (incl %) LNT"] else ([#"Salary (incl %) LNT"] + ([#"Salary (incl %) LNT"] * [Indexering]))),
+				    #"Added Custom12" = Table.AddColumn(#"Added Custom10", "Salaris Incl Indexering CAO", each if [Month] < 7 then [#"Salary (incl %) CAO"] else ([#"Salary (incl %) CAO"] + ([#"Salary (incl %) CAO"] * [Indexering]))),
+				    #"Changed Type10" = Table.TransformColumnTypes(#"Added Custom12",{{"Salaris Incl Indexering LNT", type number}, {"Salaris Incl Indexering CAO", type number}, {"Salary (incl %) LNT", type number}, {"Salary (incl %) CAO", type number}, {"Indexering", type number}})
 				in
-				    #"Changed Type9"
+				    #"Changed Type10"
 
 	annotation PBI_NavigationStepName = Navigation
 

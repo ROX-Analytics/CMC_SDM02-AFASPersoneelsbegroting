@@ -3,7 +3,7 @@ table 'Dim Indexering Forecasting'
 
 	column Indexering
 		dataType: double
-		formatString: 0.000
+		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: f4ffa6e9-6ec0-4ff1-872b-da261a3d5e9d
 		summarizeBy: sum
 		sourceColumn: Indexering

@@ -1,0 +1,41 @@
+table 'Series GB 4118000 - Medisch Uitzendkosten'
+	lineageTag: e7e11928-0d1a-4175-9a2c-3cf0f40ad835
+
+	column Waarde
+		dataType: double
+		lineageTag: 9650a6c9-85f7-4d09-85d8-ee26e3e0e013
+		summarizeBy: sum
+		sourceColumn: Waarde
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'GB Code'
+		dataType: string
+		lineageTag: 762b2ca1-4ac2-405d-98e8-19e66da4acb0
+		summarizeBy: none
+		sourceColumn: GB Code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Series GB 4118000 - Medisch Uitzendkosten' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = List.Generate(
+				        () => 400000, each _ >= 100000, each _ - 10000
+				    ),
+				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Renamed Columns" = Table.RenameColumns(#"Converted to Table",{{"Column1", "Waarde"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Waarde", type number}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type", "GB Code", each "4118000"),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"GB Code", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

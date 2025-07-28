@@ -32,9 +32,10 @@ table 'Dim Looncomponent'
 				    #"Removed Other Columns" = Table.SelectColumns(Source,{"LC", "Omschrijving_klant"}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Omschrijving_klant", "Omschrijving LC"}}),
 				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns", {"LC"}),
-				    #"Trimmed Text" = Table.TransformColumns(#"Removed Duplicates",{{"LC", Text.Trim, type text}})
+				    #"Trimmed Text" = Table.TransformColumns(#"Removed Duplicates",{{"LC", Text.Trim, type text}}),
+				    #"Appended Query" = Table.Combine({#"Trimmed Text", #"LC Overig"})
 				in 
-				    #"Trimmed Text"
+				    #"Appended Query"
 				```
 
 	annotation PBI_NavigationStepName = Navigation

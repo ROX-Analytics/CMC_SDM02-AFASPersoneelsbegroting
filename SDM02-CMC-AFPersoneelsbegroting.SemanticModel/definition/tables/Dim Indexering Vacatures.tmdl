@@ -4,7 +4,7 @@ table 'Dim Indexering Vacatures'
 	column Indexering
 		dataType: double
 		lineageTag: 12fa9687-7f4b-470f-b4de-39856152fd94
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Indexering
 
 		annotation SummarizationSetBy = Automatic

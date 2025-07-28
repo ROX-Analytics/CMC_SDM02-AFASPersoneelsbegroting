@@ -3,13 +3,12 @@ table 'Dim Indexering Actuals'
 
 	column Indexering
 		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: bfb264f2-8d84-4677-915f-f858e4a2238b
 		summarizeBy: sum
 		sourceColumn: Indexering
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column 'Index Name'
 		dataType: string

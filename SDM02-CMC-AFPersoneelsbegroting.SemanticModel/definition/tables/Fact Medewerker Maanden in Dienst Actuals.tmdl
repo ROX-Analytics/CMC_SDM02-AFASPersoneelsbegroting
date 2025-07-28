@@ -1,0 +1,37 @@
+table 'Fact Medewerker Maanden in Dienst Actuals'
+	lineageTag: 184a40ed-8eb1-4331-bbc8-aba2ad534a7f
+
+	column 'Medewerker ID'
+		dataType: string
+		lineageTag: 25847d36-0129-4705-8823-c8bbd7ba3d68
+		summarizeBy: none
+		sourceColumn: Medewerker ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Maanden in Dienst'
+		dataType: int64
+		formatString: 0
+		lineageTag: 779a309e-32e2-4b81-a84d-29a885eea185
+		summarizeBy: sum
+		sourceColumn: Maanden in Dienst
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Medewerker Maanden in Dienst Actuals' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = #"Buffered Fact Salaris Indexering Actuals",
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Boekingsperiode", "Medewerker ID"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
+				    #"Grouped Rows" = Table.Group(#"Removed Duplicates", {"Medewerker ID"}, {{"Count", each Table.RowCount(Table.Distinct(_)), Int64.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Grouped Rows",{{"Count", "Maanden in Dienst"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

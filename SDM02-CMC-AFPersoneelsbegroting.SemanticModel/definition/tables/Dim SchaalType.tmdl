@@ -88,7 +88,7 @@ table 'Dim SchaalType'
 				    #"Added Index" = Table.AddIndexColumn(#"Added Custom", "Index", 1, 1, Int64.Type),
 				    #"Renamed Columns2" = Table.RenameColumns(#"Added Index",{{"Index", "Schaal ID"}}),
 				    #"Replaced Value" = Table.ReplaceValue(#"Renamed Columns2",null,"Andere OVK",Replacer.ReplaceValue,{"Schaal/Trede"}),
-				    #"Added Custom1" = Table.AddColumn(#"Replaced Value", "MAX Trede", each if Text.Contains([#"Schaal/Trede"], "MAX") then true else false),
+				    #"Added Custom1" = Table.AddColumn(#"Replaced Value", "MAX Trede", each if Text.Contains([#"Schaal/Trede"], "MAX") or [#"Schaal ID"] = 180 then true else false),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom1",{{"MAX Trede", type logical}}),
 				    #"Added Custom2" = Table.AddColumn(#"Changed Type", "SchaalType Forecasting", each if [SchaalType] = "BMP" then "LNT" else [SchaalType])
 				in

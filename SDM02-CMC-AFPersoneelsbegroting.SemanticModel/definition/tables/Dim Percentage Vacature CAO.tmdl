@@ -4,7 +4,7 @@ table 'Dim Percentage Vacature CAO'
 	column Percentage
 		dataType: double
 		lineageTag: b1259c27-8b79-4ee2-a989-202bcccbe4bb
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Percentage
 
 		annotation SummarizationSetBy = Automatic
@@ -16,6 +16,9 @@ table 'Dim Percentage Vacature CAO'
 		lineageTag: 32f042e4-a23e-481e-83a4-0d099935a92b
 		summarizeBy: none
 		sourceColumn: Percentage Name
+		sortByColumn: Percentage
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
