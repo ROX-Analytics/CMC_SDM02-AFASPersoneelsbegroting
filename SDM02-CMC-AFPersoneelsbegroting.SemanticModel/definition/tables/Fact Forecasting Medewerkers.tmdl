@@ -249,6 +249,22 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column 'Dienstjaren Medewerker Actuals' = RELATED('Dim Medewerker'[Dienstjaren])
+		lineageTag: 4861f936-2aff-45d4-adb0-50242aa6e1a5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Dienstjaren Medewerker Forecasting' = 'Fact Forecasting Medewerkers'[Dienstjaren Medewerker Actuals] + 1
+		lineageTag: 163d8755-35a6-446a-8767-095a8e4482fe
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition 'Fact Forecasting Medewerkers' = m
 		mode: import
 		queryGroup: Model

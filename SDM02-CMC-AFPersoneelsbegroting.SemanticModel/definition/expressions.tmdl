@@ -2986,3 +2986,19 @@ expression 'Fact Forecasting Medewerkers Source' = ```
 
 	annotation PBI_ResultType = Table
 
+expression 'GC_FinancialeMutaties (2023 - >12)' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
+		    #"GC_FinancialeMutaties (2023 - 7-9)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - >12)",version=""]}[Data]
+		in
+		    #"GC_FinancialeMutaties (2023 - 7-9)_"
+	lineageTag: 2046d314-23ca-4eb5-be57-9d2091b0bfea
+	queryGroup: 'Staging\Journal Entries\2023'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

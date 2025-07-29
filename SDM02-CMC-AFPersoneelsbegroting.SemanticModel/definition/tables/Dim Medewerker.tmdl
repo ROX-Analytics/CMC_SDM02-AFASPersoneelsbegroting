@@ -149,13 +149,12 @@ table 'Dim Medewerker'
 
 	column Dienstjaren
 		dataType: double
+		formatString: 0.0
 		lineageTag: 773e4fd0-6e62-4814-aabe-0490093182e0
 		summarizeBy: sum
 		sourceColumn: Dienstjaren
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column In_opleiding
 		dataType: string
@@ -430,7 +429,7 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Flag Overtime 200%' =
+	column 'Flag Overtime 200% and 300% Type Personeel' =
 			
 			IF(
 			    'Dim Medewerker'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"} || CONTAINSSTRING('Dim Medewerker'[Soort_functie], "Echelon 2") || CONTAINSSTRING('Dim Medewerker'[Soort_functie], "Echelon 1"),
@@ -445,6 +444,180 @@ table 'Dim Medewerker'
 	column Cessantia = 40
 		formatString: 0
 		lineageTag: a6b5a7fa-b714-49af-91de-3131258f6cea
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Maaltijdvergoeding' =
+			
+			IF(
+			    'Dim Medewerker'[Type Personeel ID] <> "Z_1" ||
+			    'Dim Medewerker'[Type Personeel ID] <> "Z_10" ||
+			    'Dim Medewerker'[Type Personeel ID] <> "Z_15" ||
+			    'Dim Medewerker'[Type Personeel ID] <> "S_4" ||
+			    'Dim Medewerker'[Type Personeel ID] <> "S_5" ||
+			    'Dim Medewerker'[Type Personeel ID] <> "O_4",
+			    "1",
+			    "0"
+			)
+		lineageTag: c9482b14-ab21-46db-b279-cce1922cceb8
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Medewerkers in Fact Forecasting' =
+			
+			IF(
+			    NOT ISBLANK(
+			        LOOKUPVALUE(
+			            'Fact Forecasting Medewerkers'[Medewerker ID],
+			            'Fact Forecasting Medewerkers'[Medewerker ID],
+			            'Dim Medewerker'[Medewerker ID]
+			        )
+			    ),
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 7ac878e8-a62b-470c-83b8-49fa5124ac3c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Feesturen flag' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3010", "3011", "3012" },
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 40a7d7aa-2677-4a3b-bbf6-e64a31e880b1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Overwerk 200%' =
+			
+			IF(
+			    'Dim Medewerker'[Flag Overtime 200% and 300% Type Personeel] = "1" &&
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "2622"},
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: f6afd0ef-c113-458f-a0f1-657f72385318
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Overwerk 300%' =
+			
+			IF(
+			    'Dim Medewerker'[Flag Overtime 200% and 300% Type Personeel] = "1" &&
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3075"},
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 8db0e5fd-c42f-48bb-a11e-0a07340c0fbc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag LC 3027 - Speciale Toelage' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] = "3027",
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 32f4226d-3bed-49c8-a949-3fa3faef510e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag LC 3021 - Instructievergoeding' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] = "3021",
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 388641bb-2f06-40da-ae86-406e61bf44ca
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag 4105000 - Gratificaties' =
+			
+			// 'Dim Medewerker'[Dienstjaren] IN {12.5, 25, 35, 40}
+			IF(
+			    'Dim Medewerker'[Dienstjaren Forecasting] = 12.5 || 'Dim Medewerker'[Dienstjaren Forecasting] = 25 || 'Dim Medewerker'[Dienstjaren Forecasting] = 35 || 'Dim Medewerker'[Dienstjaren Forecasting] = 40,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 4b45244e-be21-4146-8388-3bf118d525b8
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dienstjaren Forecasting' = 'Dim Medewerker'[Dienstjaren] + 1
+		formatString: 0.0
+		lineageTag: ef1817a6-126b-4628-8d35-c59fbc705816
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag GB 4116000 - Medische Kosten Eig Risico' = ```
+			
+			LOOKUPVALUE(
+			    'Dim SchaalType'[SchaalType Forecasting],
+			    'Dim SchaalType'[Schaal ID], 'Dim Medewerker'[Schaal ID]
+			)
+			
+			```
+		lineageTag: b20d3af8-7e58-4c42-8f29-abc8d4cc45a9
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag LC 3164 - Softlanding' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3164"},
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 9bf2f6c0-24cf-45a7-847e-8e165033dfa2
 		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic

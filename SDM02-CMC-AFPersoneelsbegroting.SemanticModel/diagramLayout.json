@@ -757,7 +757,7 @@
       "ordinal": 4,
       "scrollPosition": {
         "x": 0,
-        "y": 200
+        "y": 0
       },
       "nodes": [
         {
@@ -788,8 +788,8 @@
         },
         {
           "location": {
-            "x": 135,
-            "y": 498
+            "x": 355,
+            "y": 522
           },
           "nodeIndex": "Dim Formatieplaats",
           "nodeLineageTag": "10d06fa1-5849-41e1-a468-653228f72526",
@@ -859,6 +859,19 @@
           "nodeIndex": "Dim Medewerker",
           "size": {
             "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 64.333332061767578,
+            "y": 385
+          },
+          "nodeIndex": "Dim Gratificatie Jubileum",
+          "nodeLineageTag": "6d406869-82a8-45c2-9877-d4fb8d30619c",
+          "size": {
+            "height": 152,
             "width": 234
           },
           "zIndex": 0
@@ -1710,13 +1723,13 @@
       "ordinal": 13,
       "scrollPosition": {
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "nodes": [
         {
           "location": {
-            "x": 621,
-            "y": 157
+            "x": 957,
+            "y": 38
           },
           "nodeIndex": "Dagkoers EURO/USD",
           "nodeLineageTag": "a3e81842-8587-4308-9a78-c8322a911386",
@@ -1735,6 +1748,58 @@
           "nodeLineageTag": "c37ad517-c7bd-4de4-bb24-808a9070814f",
           "size": {
             "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 576,
+            "y": 440
+          },
+          "nodeIndex": "Dim Gratificatie Jubileum",
+          "nodeLineageTag": "6d406869-82a8-45c2-9877-d4fb8d30619c",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 102,
+            "y": 391
+          },
+          "nodeIndex": "Dim Medewerker",
+          "nodeLineageTag": "704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 351,
+            "y": -7
+          },
+          "nodeIndex": "Dim SchaalType",
+          "nodeLineageTag": "db30c2e8-7814-41c3-9c68-cc68616837b3",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 682,
+            "y": 166
+          },
+          "nodeIndex": "Fact Forecasting Medewerkers",
+          "nodeLineageTag": "d91f9453-ed3e-4d00-948b-c8d73cf3731a",
+          "size": {
+            "height": 300,
             "width": 234
           },
           "zIndex": 0
@@ -1921,6 +1986,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Layout 2",
+  "selectedDiagram": "Layout 1",
   "defaultDiagram": "All tables"
 }

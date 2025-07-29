@@ -24078,7 +24078,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "Measure Table",
-			          "ConceptualProperty": "(M) LC 3105 - Pensioen Toeslag (BMP)"
+			          "ConceptualProperty": "(M) LC 3105 - Pensioen Toeslag (BMP & RVB)"
 			        }
 			      },
 			      "State": "Generated",
@@ -24140,34 +24140,6 @@ cultureInfo en-US
 			        },
 			        {
 			          "(m) LC 3135 vakantietoeslag med spec": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        }
-			      ]
-			    },
-			    "measure_table.m_LC_3105__pensioen_toeslag_RvB": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "Measure Table",
-			          "ConceptualProperty": "(M) LC 3105 - Pensioen Toeslag (RvB)"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "(m) LC 3105 - pensioen toeslag (RvB)": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "(m) LC 3105 - pensioen toeslag": {
-			            "State": "Generated",
-			            "Weight": 0.75
-			          }
-			        },
-			        {
-			          "(m) LC 3105 pensioen toeslag (RvB)": {
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
@@ -24772,7 +24744,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "Dim Medewerker",
-			          "ConceptualProperty": "Flag Overtime 200%"
+			          "ConceptualProperty": "Flag Overtime 200% and 300% Type Personeel"
 			        }
 			      },
 			      "State": "Generated",

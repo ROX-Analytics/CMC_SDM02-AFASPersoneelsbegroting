@@ -33,6 +33,19 @@ table 'Dim Type Personeel'
 
 		annotation SummarizationSetBy = Automatic
 
+	column Custom = ```
+			
+			 IF(
+			    ISBLANK('Dim Type Personeel'[Type Zorg Functie]),
+			    'Dim Type Personeel'[Soort_functie] & " " & "-" & " " & 'Dim Type Personeel'[Staf of Zorg],
+			    'Dim Type Personeel'[Soort_functie] & " " & "-" & " " & 'Dim Type Personeel'[Type Zorg Functie]
+			 )
+			```
+		lineageTag: 52c37e40-ee6e-4cd8-afe1-52ced0d09836
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Type Personeel' = m
 		mode: import
 		queryGroup: Model

@@ -3,4 +3,10 @@
 
 // Select "Run" to try this sample DAX query.
 EVALUATE
-    VALUES('Fact Forecasting Medewerkers'[Medewerker ID])
+FILTER(
+    'Dim Medewerker',
+    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1 && 
+    'Dim Medewerker'[Flag 4105000 - Gratificaties] = 1 && 
+    'Dim Medewerker'[Status_dienstverband] = "In dienst" && 
+    'Dim Medewerker'[Dienstjaren Forecasting] = 25
+)

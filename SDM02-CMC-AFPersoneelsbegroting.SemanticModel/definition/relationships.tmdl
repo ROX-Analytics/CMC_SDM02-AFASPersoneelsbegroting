@@ -402,3 +402,13 @@ relationship ba05a77a-859d-1fa9-d9fe-2b010b14c294
 	fromColumn: 'Fact Forecasting MdW LC Overig per GB'.LC
 	toColumn: 'Dim Looncomponent'.LC
 
+relationship e1348498-4970-c0ed-0548-36149356b7ba
+	fromColumn: 'Dim Medewerker'.'Dienstjaren Forecasting'
+	toColumn: 'Dim Gratificatie Jubileum'.Dienstjubileum
+
+relationship 511745f7-5cd8-6139-dc6d-4a492aa65a62
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Dim Medewerker'.'Schaal ID'
+	toColumn: 'Dim SchaalType'.'Schaal ID'
+
