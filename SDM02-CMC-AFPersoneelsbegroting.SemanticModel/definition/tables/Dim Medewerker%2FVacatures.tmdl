@@ -1,0 +1,733 @@
+table 'Dim Medewerker/Vacatures'
+	lineageTag: c0315acf-c11b-4c39-a9b6-1947573e966b
+
+	column 'Medewerker ID'
+		dataType: string
+		lineageTag: 0e28ffcd-77f8-4c66-92b9-67ebeeed4cc2
+		summarizeBy: none
+		sourceColumn: Medewerker ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Voornaam
+		dataType: string
+		lineageTag: fb169a2f-94c5-4090-bac0-ca5a8ec5b4f8
+		summarizeBy: none
+		sourceColumn: Voornaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column Voorletters
+		dataType: string
+		lineageTag: aac3c9dc-3904-43a8-9c51-3dfd34ff14af
+		summarizeBy: none
+		sourceColumn: Voorletters
+
+		annotation SummarizationSetBy = Automatic
+
+	column Achternaam
+		dataType: string
+		lineageTag: 426e59b2-1194-4483-b411-3fac8f2b85e2
+		summarizeBy: none
+		sourceColumn: Achternaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geboortenaam
+		dataType: string
+		lineageTag: 8a7c131a-4f12-48a6-aa7f-7937cfdb8706
+		summarizeBy: none
+		sourceColumn: Geboortenaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column Voorvoegsel
+		dataType: string
+		lineageTag: ddd338a5-033a-4a21-b78c-caac9b530c49
+		summarizeBy: none
+		sourceColumn: Voorvoegsel
+
+		annotation SummarizationSetBy = Automatic
+
+	column E-mail_werk
+		dataType: string
+		lineageTag: 93bf95a4-abb2-4553-bca3-bda1c69023ef
+		summarizeBy: none
+		sourceColumn: E-mail_werk
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geboortedatum
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8204d9ef-e49f-4407-aa36-3b6458098307
+		summarizeBy: none
+		sourceColumn: Geboortedatum
+
+		variation Variation
+			isDefault
+			relationship: e1355301-5622-40a3-937d-b92c5d4d523a
+			defaultHierarchy: LocalDateTable_cad87efc-2d83-4962-8028-119a11bfd5a0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Geslacht
+		dataType: string
+		lineageTag: 2c105c2e-79a6-44d6-b647-a35816688927
+		summarizeBy: none
+		sourceColumn: Geslacht
+
+		annotation SummarizationSetBy = Automatic
+
+	column Leeftijd
+		dataType: string
+		lineageTag: f857ede9-b7b5-4088-9879-dbd869429bde
+		summarizeBy: none
+		sourceColumn: Leeftijd
+
+		annotation SummarizationSetBy = Automatic
+
+	column Datum_in_dienst
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1917a7d8-1eae-428d-b466-fcdc0382b046
+		summarizeBy: none
+		sourceColumn: Datum_in_dienst
+
+		variation Variation
+			isDefault
+			relationship: d050a910-5411-48b6-83df-ad2b088ac9fd
+			defaultHierarchy: LocalDateTable_029a4dfd-497c-495a-b6c9-c9d6b1c6c6d9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Datum_uit_dienst
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6dc05435-4342-4154-8622-e00a3334b05f
+		summarizeBy: none
+		sourceColumn: Datum_uit_dienst
+
+		variation Variation
+			isDefault
+			relationship: 2fdab6e7-ebdc-4bca-b693-e8198c43f05a
+			defaultHierarchy: LocalDateTable_95d0b49b-9f57-4438-b781-5bfaf35a2a5b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Status_dienstverband
+		dataType: string
+		lineageTag: b0e3b750-4705-4358-bcb4-4f21fe60efac
+		summarizeBy: none
+		sourceColumn: Status_dienstverband
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostenplaats
+		dataType: string
+		lineageTag: c127dd9b-f43e-47d1-a2fb-4e98771584f2
+		summarizeBy: none
+		sourceColumn: Kostenplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geblokkeerd
+		dataType: string
+		lineageTag: bfedc475-2920-4782-b4c3-38da88316057
+		summarizeBy: none
+		sourceColumn: Geblokkeerd
+
+		annotation SummarizationSetBy = Automatic
+
+	column Naam_werkgever
+		dataType: string
+		lineageTag: 0833389e-a142-4123-b71b-b0408e5b0811
+		summarizeBy: none
+		sourceColumn: Naam_werkgever
+
+		annotation SummarizationSetBy = Automatic
+
+	column Aantal_FTE
+		dataType: double
+		lineageTag: 163c11a6-91b9-49da-8a55-c818fa8d4460
+		summarizeBy: sum
+		sourceColumn: Aantal_FTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Dienstjaren
+		dataType: double
+		lineageTag: e70d58c9-fd92-40ea-bc99-d97487eccc48
+		summarizeBy: sum
+		sourceColumn: Dienstjaren
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column In_opleiding
+		dataType: string
+		lineageTag: 9c986516-7e0c-4a82-b051-62a3b65436b5
+		summarizeBy: none
+		sourceColumn: In_opleiding
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cluster/Afdeling Functie'
+		dataType: string
+		lineageTag: ec0aab72-03f5-4da8-b64b-08af3713ec72
+		summarizeBy: none
+		sourceColumn: Cluster/Afdeling Functie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Patientgebonden_functies
+		dataType: string
+		lineageTag: d4ec7533-a2e9-4d94-8540-83252858fdc1
+		summarizeBy: none
+		sourceColumn: Patientgebonden_functies
+
+		annotation SummarizationSetBy = Automatic
+
+	column Soort_functie
+		dataType: string
+		lineageTag: 85629fbf-ba1b-4624-85e4-05304edf83e5
+		summarizeBy: none
+		sourceColumn: Soort_functie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Salaris
+		dataType: double
+		lineageTag: b02f5e6d-47c1-43ca-a677-6bb939ec2ef0
+		summarizeBy: sum
+		sourceColumn: Salaris
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Begindatum_salaris
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9eff4c64-ff78-402d-9ee5-2ab9a71ee4a0
+		summarizeBy: none
+		sourceColumn: Begindatum_salaris
+
+		variation Variation
+			isDefault
+			relationship: a900e187-bd33-46ef-ad60-42d9dfa96a1a
+			defaultHierarchy: LocalDateTable_ce9a54a0-9432-4419-bf44-0ad38a964670.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Einddatum_salaris
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a3a3d855-8bd4-41b8-94e1-8fa974fe0259
+		summarizeBy: none
+		sourceColumn: Einddatum_salaris
+
+		variation Variation
+			isDefault
+			relationship: 707f78e1-897d-4217-a3d7-3bdeb80d120c
+			defaultHierarchy: LocalDateTable_48e92ca7-36dc-453a-abdf-f72699e93d0a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Begindatum_functie
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 508e65a8-b321-4ffc-9a74-cf1ddb47cacb
+		summarizeBy: none
+		sourceColumn: Begindatum_functie
+
+		variation Variation
+			isDefault
+			relationship: dc8dfa76-ff6f-4ec2-8d23-ba1943aa8213
+			defaultHierarchy: LocalDateTable_d3269c37-72d3-449f-87cd-7918c4883570.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'OE Code'
+		dataType: string
+		lineageTag: c84d7ed6-3ad5-417c-b402-43f339519371
+		summarizeBy: none
+		sourceColumn: OE Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Soort_medewerker
+		dataType: string
+		lineageTag: 4d9786af-72f8-48d7-9ba3-82df76490530
+		summarizeBy: none
+		sourceColumn: Soort_medewerker
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type_contract
+		dataType: string
+		lineageTag: 8d8c206a-55be-49c9-b725-22c6444b17aa
+		summarizeBy: none
+		sourceColumn: Type_contract
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ed60bbb-bc42-4e7b-9446-f11980a55c47
+		summarizeBy: count
+		sourceColumn: Schaal ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dienstbetrekking ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: dcf5f9e9-8898-4e46-8bad-668548167f4f
+		summarizeBy: count
+		sourceColumn: Dienstbetrekking ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'C/A Formatie ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 713ae68f-9540-4d91-9855-4be3e5450528
+		summarizeBy: count
+		sourceColumn: C/A Formatie ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'C/A Functie ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 82ad5af1-36a6-44dc-998d-a97800af3a23
+		summarizeBy: count
+		sourceColumn: C/A Functie ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dim Zorg.Type Zorg Functie'
+		dataType: string
+		lineageTag: 178ac30e-3588-45ea-b742-d3b3e52fee1c
+		summarizeBy: none
+		sourceColumn: Dim Zorg.Type Zorg Functie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Staf of Zorg'
+		dataType: string
+		lineageTag: 54b54ef5-1f06-4e42-aac9-8c36d15c5bce
+		summarizeBy: none
+		sourceColumn: Staf of Zorg
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Type Personeel ID'
+		dataType: string
+		lineageTag: dc7c423c-00aa-4c98-ba61-6ab91282dd45
+		summarizeBy: none
+		sourceColumn: Type Personeel ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'In_dienst__i.v.m._dienstjaren_'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b721f981-f15f-49b8-8eed-487589f8de73
+		summarizeBy: none
+		sourceColumn: In_dienst__i.v.m._dienstjaren_
+
+		variation Variation
+			isDefault
+			relationship: 87e6bdd5-7222-4962-9882-4075f7f0d3b0
+			defaultHierarchy: LocalDateTable_2d5f3b71-7389-428f-a0e5-05bc893ec546.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Anniversary Month'
+		dataType: int64
+		formatString: 0
+		lineageTag: c3b911cf-46e5-401a-b7ff-eda58135c60a
+		summarizeBy: sum
+		sourceColumn: Anniversary Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Medewerker'
+		dataType: double
+		lineageTag: 56e9f977-cffd-4daf-88b2-a133611474ba
+		summarizeBy: sum
+		sourceColumn: Flag Medewerker
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Formatieplaats
+		dataType: string
+		lineageTag: d24872eb-7d95-48f8-8fde-9df73d53de48
+		summarizeBy: none
+		sourceColumn: Formatieplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column Functie
+		dataType: string
+		lineageTag: 24da356e-c03d-4301-8802-1399c798eea6
+		summarizeBy: none
+		sourceColumn: Functie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Schaal/Trede
+		dataType: string
+		lineageTag: 8e413cb5-1049-4822-9d0c-a75b6bc74e91
+		summarizeBy: none
+		sourceColumn: Schaal/Trede
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Formatieplaats Omschrijving'
+		dataType: string
+		lineageTag: 1a01cc9b-bf69-45d7-a5e1-8c8b3ce62bed
+		summarizeBy: none
+		sourceColumn: Formatieplaats Omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cluster_Afdeling Formatieplaats'
+		dataType: string
+		lineageTag: 1a7f17f2-1270-48bb-9fe8-ea927ef90013
+		summarizeBy: none
+		sourceColumn: Cluster_Afdeling Formatieplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column FTE
+		dataType: double
+		lineageTag: 70319609-4370-4bc8-a452-d08a8c06eff7
+		summarizeBy: sum
+		sourceColumn: FTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Volledige Naam' =
+			
+			IF(
+			    'Dim Medewerker/Vacatures'[Flag Medewerker] = 1,
+			    'Dim Medewerker/Vacatures'[Achternaam] & " " & "," & " " & 'Dim Medewerker/Vacatures'[Voorletters] & " " & "(" & 'Dim Medewerker/Vacatures'[Voornaam] & ")",
+			    'Dim Medewerker/Vacatures'[Voornaam]
+			)
+		lineageTag: 557d46d5-0401-46af-a62e-29d06f1a3448
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Medewerkers in Fact Forecasting' =
+			
+			SWITCH(
+			    TRUE(),
+			    NOT ISBLANK(
+			        LOOKUPVALUE(
+			            'Fact Forecasting Medewerkers'[Medewerker ID],
+			            'Fact Forecasting Medewerkers'[Medewerker ID],
+			            'Dim Medewerker/Vacatures'[Medewerker ID]
+			        )
+			    ),1,
+			    'Dim Medewerker/Vacatures'[Medewerker ID] IN {"0001", "0002"}, 1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 999478e7-ca67-4a5f-94d0-b4fca5eb1639
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cessantia = 40
+		formatString: 0
+		lineageTag: 75e0eeed-fd2f-4a59-af91-f5e468fbe9b3
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Indexering Forecasting' =
+			
+			IF(
+			    'Dim Medewerker/Vacatures'[Type Personeel ID] = "Z_3" || 'Dim Medewerker/Vacatures'[Type Personeel ID] = "Z_1" || 'Dim Medewerker/Vacatures'[Type Personeel ID] = "Z_15" || 'Dim Medewerker/Vacatures'[Type Personeel ID] = "Z_10" || 'Dim Medewerker/Vacatures'[Dienstbetrekking ID] = 4,
+			    "0",
+			    "1"
+			)
+		lineageTag: 488ada8d-697f-4852-8226-dcbc62216e44
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Feesturen flag' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3010", "3011", "3012" },
+			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0 || 'Dim Medewerker/Vacatures'[Flag Medewerker] = 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: c69b03f9-c156-40c9-83a7-4ba3feddf339
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dienstjaren Forecasting' = 'Dim Medewerker/Vacatures'[Dienstjaren] + 1
+		lineageTag: 712083bf-fbe9-4134-80c5-f514a748f545
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Flag 4105000 - Gratificaties' =
+			
+			// 'Dim Medewerker'[Dienstjaren] IN {12.5, 25, 35, 40}
+			IF(
+			    'Dim Medewerker/Vacatures'[Dienstjaren Forecasting] = 12.5 || 'Dim Medewerker/Vacatures'[Dienstjaren Forecasting] = 25 || 'Dim Medewerker/Vacatures'[Dienstjaren Forecasting] = 35 || 'Dim Medewerker/Vacatures'[Dienstjaren Forecasting] = 40,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 145f5ba4-b896-4ddc-b1b4-0eed0fdc6aa4
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Maaltijdvergoeding' =
+			
+			IF(
+			    'Dim Medewerker/Vacatures'[Type Personeel ID] = "Z_1" ||
+			    'Dim Medewerker/Vacatures'[Type Personeel ID] = "Z_10" ||
+			    'Dim Medewerker/Vacatures'[Type Personeel ID] = "Z_15" ||
+			    'Dim Medewerker/Vacatures'[Type Personeel ID] = "S_4" ||
+			    'Dim Medewerker/Vacatures'[Type Personeel ID] = "S_5" ||
+			    'Dim Medewerker/Vacatures'[Type Personeel ID] = "O_4",
+			    0,
+			    1
+			)
+		formatString: 0
+		lineageTag: 8b6685b8-eff2-4577-91a0-9253c9f5a892
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Overtime 200% and 300% Type Personeel' =
+			
+			IF(
+			    ('Dim Medewerker/Vacatures'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"} || CONTAINSSTRING('Dim Medewerker/Vacatures'[Soort_functie], "Echelon 2") || CONTAINSSTRING('Dim Medewerker/Vacatures'[Soort_functie], "Echelon 1")) && 'Dim Medewerker/Vacatures'[Flag Maaltijdvergoeding] = 0,
+			    0,
+			    1
+			)
+		formatString: 0
+		lineageTag: 5e2ebd9d-516a-4c41-a04e-11b1604ff577
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag LC 3164 - Softlanding' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3164"},
+			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: e51ac56d-e97a-435f-8e3c-8a675e87783c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column
+		type: calculated
+		lineageTag: f42a7bc1-3c3b-4b12-a9a1-babdf7c7aad5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	column 'Flag Overwerk 200%' =
+			
+			IF(
+			    'Dim Medewerker/Vacatures'[Flag Overtime 200% and 300% Type Personeel] = 1 &&
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "2622"},
+			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: a5e8d4f8-82e4-44aa-8572-71eaac0e45c5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag GB 4116000 - Medische Kosten Eig Risico' = ```
+			
+			LOOKUPVALUE(
+			    'Dim SchaalType'[SchaalType Forecasting],
+			    'Dim SchaalType'[Schaal ID], 'Dim Medewerker/Vacatures'[Schaal ID]
+			)
+			
+			```
+		lineageTag: 82cbc6c9-e912-4423-ae12-9b0e945fb6cf
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag LC 3021 - Instructievergoeding' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] = "3021",
+			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 209be682-49f5-4a65-98bf-8dec215ccaa5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag LC 3027 - Speciale Toelage' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] = "3027",
+			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 5512db06-5a8d-4d65-b584-24803bcde2ed
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FLag LC 3095 - Vergunning' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3095"},
+			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: b4e2c63f-f8bd-4ae4-b292-de332152d620
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag LC - 3091 Ziektekosten WG bijdrage' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3091"},
+			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1,
+			        'Dim Type Personeel'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"}
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: d35d8e1d-ce32-47c1-b3ec-11e47bc2215c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag LC 3142 - Medische Kosten Eig Risico (Eigen Personeel)' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1,
+			        'Dim Medewerker/Vacatures'[Flag LC - 3091 Ziektekosten WG bijdrage] = 0,
+			        FILTER(
+			            ALL('Dim Type Personeel'),
+			            'Dim Type Personeel'[Type Personeel ID] <> "Z_1" || 'Dim Type Personeel'[Type Personeel ID] <> "Z_10" || 'Dim Type Personeel'[Type Personeel ID] <> "Z_15"
+			        )
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: f7a7ea69-fd81-485c-aaff-b809365aeb35
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Overwerk 300%' =
+			
+			IF(
+			    'Dim Medewerker/Vacatures'[Flag Overtime 200% and 300% Type Personeel] = 1 &&
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3075"},
+			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 2f6c28a4-0a92-4aba-bf18-dc34491a370c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Medewerker/Vacatures' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.Combine({#"Dim Medewerker", #"Dim Vacatures Medewerker"})
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

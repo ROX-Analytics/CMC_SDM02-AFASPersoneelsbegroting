@@ -1,0 +1,72 @@
+table 'Dim Percentage Vacature'
+	lineageTag: 4a2f08f8-5297-4c45-89b5-e010905c6658
+
+	column Percentage
+		dataType: double
+		formatString: 0.00
+		lineageTag: dd92e690-9b5f-4c05-b03e-6cc874921d73
+		summarizeBy: none
+		sourceColumn: Percentage
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Percentage Name'
+		dataType: string
+		lineageTag: 05bbaebb-2040-40b5-8d05-145075bdab0c
+		summarizeBy: none
+		sourceColumn: Percentage Name
+		sortByColumn: Percentage
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column SchaalType
+		dataType: string
+		lineageTag: ccb061f8-1c07-4e2e-9b5d-668c0a3df881
+		summarizeBy: none
+		sourceColumn: SchaalType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Percentage Key'
+		dataType: string
+		lineageTag: 9daa3b75-4150-44b7-9289-2ee9a6b1eb18
+		summarizeBy: none
+		sourceColumn: Percentage Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Percentage van Schaal Type' = 'Dim Percentage Vacature'[Percentage Name] & " " & "van" & " " & 'Dim Percentage Vacature'[SchaalType]
+		lineageTag: bee2d940-b728-42df-980b-1796ef35f8ed
+		summarizeBy: none
+		sortByColumn: Order
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order
+		dataType: int64
+		formatString: 0
+		lineageTag: 1534e439-6823-4be9-a7ab-9c091d6e7714
+		summarizeBy: none
+		sourceColumn: Order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Percentage Vacature' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.Combine({#"Dim Percentage Vacature CAO", #"Dim Percentage Vacature LNT"}),
+				    #"Added Index" = Table.AddIndexColumn(Source, "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "Order"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,42 @@
+table 'Dim Kosten Stagaires'
+	lineageTag: 1e569c65-d613-4296-ade6-0349ec4285cc
+
+	column 'Stagaire ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ac52c10-62e8-4198-a918-ca69d15bbe73
+		summarizeBy: count
+		sourceColumn: Stagaire ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kosten
+		dataType: double
+		lineageTag: 3cdffd27-b9e3-40b9-88d2-bc74656255a5
+		summarizeBy: sum
+		sourceColumn: Kosten
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Dim Kosten Stagaires' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = List.Generate(
+				        () => 30, each _ >= 1, each _ - 1
+				    ),
+				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Renamed Columns" = Table.RenameColumns(#"Converted to Table",{{"Column1", "Stagaire ID"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Stagaire ID", Int64.Type}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type", "Kosten", each if [Stagaire ID] >= 1 and [Stagaire ID] <= 10 then 500 else 300),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"Kosten", type number}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

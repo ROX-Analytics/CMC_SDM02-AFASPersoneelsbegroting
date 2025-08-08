@@ -118,7 +118,7 @@ table 'Fact Salaris Indexering Actuals'
 		dataType: int64
 		formatString: 0
 		lineageTag: dbda85c5-3355-4444-9ad4-14e1e6b65f07
-		summarizeBy: sum
+		summarizeBy: count
 		sourceColumn: Schaal ID
 
 		annotation SummarizationSetBy = Automatic

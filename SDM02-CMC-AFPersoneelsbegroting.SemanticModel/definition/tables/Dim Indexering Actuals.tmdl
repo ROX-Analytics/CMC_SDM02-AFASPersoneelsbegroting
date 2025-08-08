@@ -5,14 +5,14 @@ table 'Dim Indexering Actuals'
 		dataType: double
 		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: bfb264f2-8d84-4677-915f-f858e4a2238b
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Indexering
 
 		annotation SummarizationSetBy = Automatic
 
 	column 'Index Name'
 		dataType: string
-		lineageTag: 475e2d43-3789-4fc2-8830-a9c72730c21f
+		lineageTag: 69ef15b1-afe9-410a-8f69-0b8d0dfbbdf9
 		summarizeBy: none
 		sourceColumn: Index Name
 
@@ -23,20 +23,22 @@ table 'Dim Indexering Actuals'
 		queryGroup: Model
 		source = ```
 				let
-				    Source = List.Generate(
-				        () => 0.05, each _ > 0, each _ - 0.01
-				    ),
-				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-				    #"Sorted Rows" = Table.Sort(#"Converted to Table",{{"Column1", Order.Ascending}}),
-				    #"Renamed Columns" = Table.RenameColumns(#"Sorted Rows",{{"Column1", "Indexering"}}),
+				    Source = List.Numbers(0, 6, 1),  // generates 0 to 5 inclusive
+				    Descending = List.Reverse(Source),  // 5 to 0
+				    PercentageList = List.Transform(Descending, each _ * 0.01),
+				
+				    // Convert to table
+				    #"Converted to Table" = Table.FromList(PercentageList, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Renamed Columns" = Table.RenameColumns(#"Converted to Table",{{"Column1", "Indexering"}}),
+				    
+				    // Ensure correct type
 				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Indexering", type number}}),
 				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Indexering", Percentage.Type}}),
-				    #"Added Index" = Table.AddIndexColumn(#"Changed Type1", "Index", 1, 1, Int64.Type),
-				    #"Changed Type2" = Table.TransformColumnTypes(#"Added Index",{{"Index", type text}}),
-				    #"Added Suffix" = Table.TransformColumns(#"Changed Type2", {{"Index", each _ & "%", type text}}),
-				    #"Renamed Columns1" = Table.RenameColumns(#"Added Suffix",{{"Index", "Index Name"}})
-				in 
-				    #"Renamed Columns1"
+				    
+				    // Format index name as percentage with two decimals
+				    #"Added Index Name" = Table.AddColumn(#"Changed Type1", "Index Name", each Number.ToText([Indexering], "0.00%"), type text)
+				in
+				    #"Added Index Name"
 				```
 
 	annotation PBI_NavigationStepName = Navigation

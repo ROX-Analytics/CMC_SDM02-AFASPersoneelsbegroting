@@ -1,0 +1,63 @@
+table 'Dim LC per GL'
+	lineageTag: 9e5d0f8c-bdfd-4538-a273-ef530818d255
+
+	column LC
+		dataType: string
+		lineageTag: 410449ec-96ab-4116-8a84-0e16c50cd90a
+		summarizeBy: none
+		sourceColumn: LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Omschrijving LC'
+		dataType: string
+		lineageTag: 3adc9172-158d-4b14-9dc3-45719576a84c
+		summarizeBy: none
+		sourceColumn: Omschrijving LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboekrekening
+		dataType: string
+		lineageTag: 1755ae2c-0997-43c5-8a27-3fa67ae0b9ea
+		summarizeBy: none
+		sourceColumn: Grootboekrekening
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboekrekening_omschrijving
+		dataType: string
+		lineageTag: 318c55ca-b976-43b9-8519-9ffa2e9da4ac
+		summarizeBy: none
+		sourceColumn: Grootboekrekening_omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rapportagecockpit_omschrijving
+		dataType: string
+		lineageTag: 58d039e7-e8ca-4ffd-839a-c8afc10b7f45
+		summarizeBy: none
+		sourceColumn: Rapportagecockpit_omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim LC per GL' = m
+		mode: import
+		queryGroup: Model
+		source = ```
+				let
+				    Source = Table.Combine({#"Fact Personeels Kosten 2025", #"Fact Personeels Kosten 2024"}),
+				    #"Renamed Columns" = Table.RenameColumns(Source,{{"Omschrijving_klant", "Omschrijving LC"}, {"Medewerker", "Medewerker ID"}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Removed Other Columns", {"Grootboekrekening"}, #"Dim Grootboek", {"Code Grootboek"}, "Dim Grootboek", JoinKind.LeftOuter),
+				    #"Expanded Dim Grootboek" = Table.ExpandTableColumn(#"Merged Queries", "Dim Grootboek", {"Rapportagecockpit_omschrijving"}, {"Rapportagecockpit_omschrijving"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Expanded Dim Grootboek", each ([Rapportagecockpit_omschrijving] = "19 Lonen en salarissen" or [Rapportagecockpit_omschrijving] = "20 Sociale lasten" or [Rapportagecockpit_omschrijving] = "21 Overige personeelskosten")),
+				    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"LC", "Grootboekrekening"})
+				in 
+				    #"Removed Duplicates"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

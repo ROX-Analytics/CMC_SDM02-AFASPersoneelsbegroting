@@ -1,0 +1,157 @@
+table 'Dim Vacature Start of Month'
+	lineageTag: 1fb0a982-3ae8-4181-9fc8-093346c7b210
+
+	column Formatieplaats
+		dataType: string
+		lineageTag: 16ed78e6-83c9-4b1a-80cc-e913b2dd4db2
+		summarizeBy: none
+		sourceColumn: Formatieplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column Omschrijving
+		dataType: string
+		lineageTag: 3262c59f-ced5-460b-bd05-a3bcd6f85064
+		summarizeBy: none
+		sourceColumn: Omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		lineageTag: 41b769c7-6808-40f3-a3d9-a34e0aeccc81
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Start of Month'
+		dataType: double
+		lineageTag: b385e675-ccb3-4b8c-8c88-2e0a152a6f87
+		summarizeBy: sum
+		sourceColumn: Start of Month
+		sortByColumn: Year/Period
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Year/Period
+		dataType: string
+		lineageTag: 4f16407d-ea92-4f70-8cc6-c1e0074f0961
+		summarizeBy: none
+		sourceColumn: Year/Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Forecast Year Filter'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d86a4828-9701-4eb3-b991-e4a4866ca3ae
+		summarizeBy: none
+		sourceColumn: Forecast Year Filter
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Formatieplaats Key'
+		dataType: string
+		lineageTag: 74f8f0d8-a48c-41fd-b80f-f4b8e0335429
+		summarizeBy: none
+		sourceColumn: Formatieplaats Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Code + Omschrijving' = 'Dim Vacature Start of Month'[Formatieplaats] & " " & "-" & " " & 'Dim Vacature Start of Month'[Omschrijving]
+		lineageTag: 710b9c23-7e9c-48ef-b046-1d71f7247a16
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start of Month Name' = RELATED('Dim Period'[Month name (short)])
+		lineageTag: 0ee6d75e-7978-447f-8ffe-b1e81468e277
+		summarizeBy: none
+		sortByColumn: Year/Period
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Verschil (excl)'
+		dataType: double
+		lineageTag: 8f2dee41-c5c7-4307-bd5c-f1141c3628a9
+		summarizeBy: sum
+		sourceColumn: Verschil (excl)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Formatieplaats Verschil ID'
+		dataType: string
+		lineageTag: aa9566e0-9867-4f40-91fb-15d45159491a
+		summarizeBy: none
+		sourceColumn: Formatieplaats Verschil ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Formatieplaats/Period
+		dataType: string
+		lineageTag: 55a046da-e96c-480c-8065-4868bc5d0821
+		summarizeBy: none
+		sourceColumn: Formatieplaats/Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Medewerker ID'
+		dataType: string
+		lineageTag: d3a48993-4135-40e9-ba10-45d30ae65f56
+		summarizeBy: none
+		sourceColumn: Medewerker ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nr van Vacature'
+		dataType: string
+		lineageTag: 5081512e-e060-4743-a546-87a0bb48a97e
+		summarizeBy: none
+		sourceColumn: Nr van Vacature
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Formatieplaats Vacature Nr'
+		dataType: string
+		lineageTag: 3789043f-1df0-43e4-b514-b8b4d327ad95
+		summarizeBy: none
+		sourceColumn: Formatieplaats Vacature Nr
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Vacature Start of Month' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = #"Dim Vacatures Medewerker (STG)",
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Formatieplaats", "Omschrijving"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Removed Other Columns", {"Formatieplaats"}, #"Dim Vacature per Verschil FTE", {"Formatieplaats"}, "Dim Vacature per Verschil FTE", JoinKind.LeftOuter),
+				    #"Expanded Dim Vacature per Verschil FTE" = Table.ExpandTableColumn(#"Merged Queries", "Dim Vacature per Verschil FTE", {"Verschil (excl)", "Medewerker ID", "Formatieplaats Verschil ID", "Nr van Vacature"}, {"Verschil (excl)", "Medewerker ID", "Formatieplaats Verschil ID", "Nr van Vacature"}),
+				    #"Transform Nr Vac" = Table.TransformColumns(#"Expanded Dim Vacature per Verschil FTE", {{"Nr van Vacature", each Text.PadStart(Text.From(_), 2, "0"), type nullable text}}),
+				    #"Added Custom" = Table.AddColumn(#"Transform Nr Vac", "Dim Period", each #"Dim Period"),
+				    #"Exapndedn Columns" = Table.ExpandTableColumn(#"Added Custom", "Dim Period", {"Year", "Month no.", "Year/Period"}, {"Year", "Start of Month", "Year/Period"}),
+				    #"Added Custom1" = Table.AddColumn(#"Exapndedn Columns", "Forecast Year Filter", each if [Year] = Date.Year(DateTime.LocalNow()) + 1 then true else false, type logical),
+				    #"Filtered Rows" = Table.SelectRows(#"Added Custom1", each ([Forecast Year Filter] = true)),
+				    #"Added Custom2" = Table.AddColumn(#"Filtered Rows", "Formatieplaats Key", each Text.From([#"Medewerker ID"]) & "_" & Text.From([Start of Month]), type nullable text),
+				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Formatieplaats/Period", each Text.From([#"Formatieplaats"]) & "_" & Text.From([#"Start of Month"]), type nullable text),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom3",{{"Year", type number}, {"Start of Month", type number}, {"Year/Period", type text}}),
+				    #"Added Custom4" = Table.AddColumn(#"Changed Type", "Formatieplaats Vacature Nr", each [Formatieplaats] & " " & "-" & " " & Text.From([Nr van Vacature]), type nullable text)
+				in
+				    #"Added Custom4"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

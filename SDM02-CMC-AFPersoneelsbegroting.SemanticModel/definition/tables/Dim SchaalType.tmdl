@@ -19,20 +19,24 @@ table 'Dim SchaalType'
 		annotation SummarizationSetBy = Automatic
 
 	column Trede
-		dataType: string
+		dataType: double
 		lineageTag: a472fb8e-72ec-4012-987b-2abbea1af8a6
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Trede
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column Salaris
-		dataType: string
+		dataType: double
 		lineageTag: 67ad25bf-29b2-4afb-b257-e71fce9603b5
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Salaris
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column 'SchaalType Forecasting'
 		dataType: string
@@ -90,9 +94,10 @@ table 'Dim SchaalType'
 				    #"Replaced Value" = Table.ReplaceValue(#"Renamed Columns2",null,"Andere OVK",Replacer.ReplaceValue,{"Schaal/Trede"}),
 				    #"Added Custom1" = Table.AddColumn(#"Replaced Value", "MAX Trede", each if Text.Contains([#"Schaal/Trede"], "MAX") or [#"Schaal ID"] = 180 then true else false),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom1",{{"MAX Trede", type logical}}),
-				    #"Added Custom2" = Table.AddColumn(#"Changed Type", "SchaalType Forecasting", each if [SchaalType] = "BMP" then "LNT" else [SchaalType])
+				    #"Added Custom2" = Table.AddColumn(#"Changed Type", "SchaalType Forecasting", each if [SchaalType] = "BMP" then "LNT" else [SchaalType]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom2",{{"Trede", type number}, {"Salaris", type number}})
 				in
-				    #"Added Custom2"
+				    #"Changed Type1"
 
 	annotation PBI_NavigationStepName = Navigation
 

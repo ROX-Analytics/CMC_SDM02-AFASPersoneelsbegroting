@@ -3002,3 +3002,181 @@ expression 'GC_FinancialeMutaties (2023 - >12)' =
 
 	annotation PBI_ResultType = Table
 
+expression 'Dim Vrijwilleger en Stagair' =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMjAwMFTSUQoryswqz8zJSU1PLQJyPfMUUjJT84pLlGJ1wGqMgILBJYnpiZlo0rEA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Medewerker ID" = _t, Voornaam = _t, Status_dienstverband = _t]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Medewerker ID", type text}, {"Voornaam", type text}})
+		in
+		    #"Changed Type"
+	lineageTag: 98f8a25b-6dac-482f-b298-d9a256723a56
+	queryGroup: Staging\Forecasting
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Vacature per Verschil FTE' = ```
+		let
+		    Source = #"Buffered Dim Vacatures Medewerker (STG)",
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"Formatieplaats", "Omschrijving", "Verschil (excl)"}),
+		    
+		    // ExpandedRows
+		    ExpandedRows = Table.AddColumn(#"Removed Other Columns", "Generated Rows", each
+		        let 
+		            verschil = [#"Verschil (excl)"],
+		            formatieplaats = [#"Formatieplaats"],
+		            count = Number.IntegerDivide(verschil, 1),
+		            remainder = Number.Mod(verschil, 1),
+		            baseList = List.Repeat({1}, count),
+		            finalList = if remainder > 0 then baseList & {remainder} else baseList,
+		            newRows = List.Transform(finalList, each [#"Formatieplaats" = formatieplaats, #"Verschil (excl)" = _])
+		        in 
+		            newRows
+		    ),
+		    #"Removed Other Columns1" = Table.SelectColumns(ExpandedRows,{"Generated Rows"}),
+		    #"Expanded Generated Rows" = Table.ExpandListColumn(#"Removed Other Columns1", "Generated Rows"),
+		    Result = Table.ExpandRecordColumn(#"Expanded Generated Rows", "Generated Rows", {"Formatieplaats", "Verschil (excl)"}),
+		    #"Changed Type" = Table.TransformColumnTypes(Result,{{"Formatieplaats", type text}, {"Verschil (excl)", type number}}),
+		    #"Added Index" = Table.AddIndexColumn(#"Changed Type", "Index", 1, 1, Int64.Type),
+		    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "Medewerker ID"}}),
+		    #"Tranform MdW ID" = Table.TransformColumns(#"Renamed Columns", {{"Medewerker ID", each Text.PadStart(Text.From(_), 5, "0"), type nullable text}}),
+		    #"Add ID" = Table.AddColumn(#"Tranform MdW ID", "Formatieplaats Verschil ID", each Text.From([Formatieplaats]) & "_" & Text.From([#"Medewerker ID"]), type nullable text),
+		    #"Sorted Rows" = Table.Sort(#"Add ID",{{"Formatieplaats", Order.Ascending}}),
+		    #"Added Index1" = Table.AddIndexColumn(#"Sorted Rows", "Index for Merge", 1, 1, Int64.Type),
+		    #"Merged Queries" = Table.NestedJoin(#"Added Index1", {"Formatieplaats", "Index for Merge"}, #"Dim Vacature Conditional Index", {"Formatieplaats", "Index for Merge"}, "Dim Vacature Conditional Index", JoinKind.LeftOuter),
+		    #"Expanded Dim Vacature Conditional Index" = Table.ExpandTableColumn(#"Merged Queries", "Dim Vacature Conditional Index", {"Index.Index"}, {"Index.Index"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Expanded Dim Vacature Conditional Index",{{"Index.Index", "Nr van Vacature"}})
+		in
+		    #"Renamed Columns1"
+		```
+	lineageTag: aab7646f-479d-4ca1-8388-2958e3012505
+	queryGroup: Staging\Forecasting
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Vacatures Medewerker (STG)' =
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_Formatieplaats" & "?skip=-1&take=-1", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Formatieplaats", "Omschrijving"}, {"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Formatieplaats", "Omschrijving"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Column1",{{"Geblokkeerd", type logical}, {"Naam_werkgever", type text}, {"Patientgebonden_functies", type text}, {"Soort_functie", type text}, {"Declarerend_Niet-declarerend", type text}, {"Service_Lines", type text}, {"Cluster_Afdeling", type text}, {"Omschrijving", type text}, {"Formatieplaats", type text}, {"Kostenplaats", Int64.Type}, {"Organisatorische_eenheid", type text}, {"Omschrijving_2", type text}, {"Functie", type text}, {"Omschrijving_3", type text}, {"Generieke_functienaam", type text}, {"Gebruiker", type text}, {"Type_functie", type text}, {"Naam", type text}}),
+		    #"Inserted Text Before Delimiter" = Table.AddColumn(#"Changed Type", "Text Before Delimiter", each Text.BeforeDelimiter([Einddatum], "T"), type text),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Inserted Text Before Delimiter",{{"Text Before Delimiter", type date}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type1",{{"Text Before Delimiter", "Eind Datum"}}),
+		    #"Inserted Text Before Delimiter1" = Table.AddColumn(#"Renamed Columns", "Text Before Delimiter", each Text.BeforeDelimiter([Begindatum], "T"), type text),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Inserted Text Before Delimiter1",{{"Text Before Delimiter", "Begin Datum"}}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Begin Datum", type date}}),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type2",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum"}),
+		    #"Inserted Text Before Delimiter2" = Table.AddColumn(#"Reordered Columns", "Text Before Delimiter", each Text.BeforeDelimiter([Gewijzigd], "T"), type text),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Inserted Text Before Delimiter2",{{"Text Before Delimiter", "Datum Gewijzigd"}}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns2",{{"Datum Gewijzigd", type date}}),
+		    #"Inserted Text After Delimiter" = Table.AddColumn(#"Changed Type3", "Text After Delimiter", each Text.AfterDelimiter([Gewijzigd], "T"), type text),
+		    #"Extracted Text Before Delimiter" = Table.TransformColumns(#"Inserted Text After Delimiter", {{"Text After Delimiter", each Text.BeforeDelimiter(_, "Z"), type text}}),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Extracted Text Before Delimiter",{{"Text After Delimiter", "Tijd Gewijzigd"}}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Renamed Columns3",{{"Tijd Gewijzigd", type time}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type4",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum", "Datum Gewijzigd", "Tijd Gewijzigd"}),
+		    #"Changed Type5" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Aantal_FTE_2", type number}, {"Aantal_FTE", type number}, {"Aantal_FTE_3", type number}, {"Aantal_FTE_4", type number}, {"Verschil", type number}, {"FTE_Begroot", type number}}),
+		    #"Added Custom" = Table.AddColumn(#"Changed Type5", "Uren_Begroot", each [FTE_Begroot] * 8),
+		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Uren_Werkelijk", each [Aantal_FTE] * 8),
+		    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Uren_Verschil", each [Verschil] * 8),
+		    #"Changed Type6" = Table.TransformColumnTypes(#"Added Custom2",{{"Uren_Begroot", type number}, {"Uren_Werkelijk", type number}, {"Uren_Verschil", type number}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type6", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
+		    #"Changed Type7" = Table.TransformColumnTypes(#"Filtered Rows",{{"Kostenplaats", type text}}),
+		    #"Renamed Columns8" = Table.RenameColumns(#"Changed Type7",{{"Aantal_FTE", "Werkelijk"}, {"Aantal_FTE_2", "Instroom"}, {"Aantal_FTE_3", "FTE uitstroom (zonder bepaalde tijd)"}, {"Verschil", "Verschil (excl)"}, {"Aantal_FTE_4", "Verschil"}, {"Organisatorische_eenheid", "OE"}}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Renamed Columns8", each [#"Verschil (excl)"] > 0),
+		    #"Sorted Rows" = Table.Sort(#"Filtered Rows1",{{"Formatieplaats", Order.Ascending}}),
+		    #"Added Index" = Table.AddIndexColumn(#"Sorted Rows", "Index", 1, 1, Int64.Type),
+		    #"Renamed Columns7" = Table.RenameColumns(#"Added Index",{{"Index", "Medewerker ID"}}),
+		    #"Tranform Mdw ID" = Table.TransformColumns(#"Renamed Columns7", {{"Medewerker ID", each Text.PadStart(Text.From(_), 5, "0"), type text}}),
+		    #"Removed Other Columns1" = Table.SelectColumns(#"Tranform Mdw ID",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Werkelijk", "Instroom", "FTE uitstroom (zonder bepaalde tijd)", "Verschil", "Verschil (excl)", "Begin Datum", "Eind Datum", "Uren_Begroot", "Uren_Werkelijk", "Uren_Verschil", "Medewerker ID"}),
+		    #"Merged Queries" = Table.NestedJoin(#"Removed Other Columns1", {"Cluster_Afdeling"}, #"Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Formatieplaatsniveau"}, "Dim Cluster/Afdeling Formatieplaats", JoinKind.LeftOuter),
+		    #"Expanded Dim Cluster/Afdeling Formatieplaats" = Table.ExpandTableColumn(#"Merged Queries", "Dim Cluster/Afdeling Formatieplaats", {"C/A Formatie ID"}, {"C/A Formatie ID"}),
+		    #"Merged Queries1" = Table.NestedJoin(#"Expanded Dim Cluster/Afdeling Formatieplaats", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling"}, #"Dim Staf", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Staf", JoinKind.LeftOuter),
+		    #"Expanded Dim Staf" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Staf", {"Staf of Zorg"}, {"Dim Staf.Staf of Zorg"}),
+		    #"Merged Queries2" = Table.NestedJoin(#"Expanded Dim Staf", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling"}, #"Dim Zorg", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Zorg", JoinKind.LeftOuter),
+		    #"Expanded Dim Zorg" = Table.ExpandTableColumn(#"Merged Queries2", "Dim Zorg", {"Type Zorg Functie", "Staf of Zorg"}, {"Dim Zorg.Type Zorg Functie", "Dim Zorg.Staf of Zorg"}),
+		    #"Merged Queries3" = Table.NestedJoin(#"Expanded Dim Zorg", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling"}, #"Dim Medewerker Overig", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Medewerker Overig", JoinKind.LeftOuter),
+		    #"Expanded Dim Medewerker Overig" = Table.ExpandTableColumn(#"Merged Queries3", "Dim Medewerker Overig", {"Staf of Zorg"}, {"Dim Medewerker Overig.Staf of Zorg"}),
+		    #"Merged Columns" = Table.CombineColumns(Table.TransformColumnTypes(#"Expanded Dim Medewerker Overig", {{"Dim Medewerker Overig.Staf of Zorg", type text}}, "en-US"),{"Dim Staf.Staf of Zorg", "Dim Zorg.Staf of Zorg", "Dim Medewerker Overig.Staf of Zorg"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Staf of Zorg"),
+		    #"Merged Queries4" = Table.NestedJoin(#"Merged Columns", {"Soort_functie", "Dim Zorg.Type Zorg Functie", "Staf of Zorg"}, #"Dim Type Personeel", {"Soort_functie", "Type Zorg Functie", "Staf of Zorg"}, "Dim Type Personeel", JoinKind.LeftOuter),
+		    #"Expanded Dim Type Personeel" = Table.ExpandTableColumn(#"Merged Queries4", "Dim Type Personeel", {"Type Personeel ID"}, {"Type Personeel ID"}),
+		    #"Added Custom3" = Table.AddColumn(#"Expanded Dim Type Personeel", "Line ID (MdWID_Formatieplaats)", each Text.From([Medewerker ID]) & "_" & Text.From([Formatieplaats])),
+		    #"Merged Queries5" = Table.NestedJoin(#"Added Custom3", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats CAO", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats CAO", JoinKind.LeftOuter),
+		    #"Expanded Dim Schaal per Formatieplaats CAO" = Table.ExpandTableColumn(#"Merged Queries5", "Dim Schaal per Formatieplaats CAO", {"Max Schaal/Trede"}, {"Max Schaal/Trede"}),
+		    #"Merged Queries6" = Table.NestedJoin(#"Expanded Dim Schaal per Formatieplaats CAO", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats LNT", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats LNT", JoinKind.LeftOuter),
+		    #"Expanded Dim Schaal per Formatieplaats LNT" = Table.ExpandTableColumn(#"Merged Queries6", "Dim Schaal per Formatieplaats LNT", {"Schaal/Trede LNT 386K Vacature Forecasting"}, {"Schaal/Trede LNT 386K Vacature Forecasting"}),
+		    #"Merged Queries7" = Table.NestedJoin(#"Expanded Dim Schaal per Formatieplaats LNT", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats BMP", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats BMP", JoinKind.LeftOuter),
+		    #"Expanded Dim Schaal per Formatieplaats BMP" = Table.ExpandTableColumn(#"Merged Queries7", "Dim Schaal per Formatieplaats BMP", {"Schaal/Trede BMP Forecast Vac"}, {"Schaal/Trede BMP Forecast Vac"}),
+		    #"Renamed Columns4" = Table.RenameColumns(#"Expanded Dim Schaal per Formatieplaats BMP",{{"Schaal/Trede BMP Forecast Vac", "Schaal/Trede BMP Forecast Vac Original"}}),
+		    #"Added Custom4" = Table.AddColumn(#"Renamed Columns4", "Schaal/Trede BMP Forecast Vac", each if [#"Schaal/Trede LNT 386K Vacature Forecasting"] <> null and [#"Schaal/Trede BMP Forecast Vac Original"] <> null then null else [#"Schaal/Trede BMP Forecast Vac Original"]),
+		    #"Merged Columns1" = Table.CombineColumns(#"Added Custom4",{"Max Schaal/Trede", "Schaal/Trede LNT 386K Vacature Forecasting", "Schaal/Trede BMP Forecast Vac"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Schaal/Trede"),
+		    #"Extracted Text Before Delimiter1" = Table.TransformColumns(#"Merged Columns1", {{"Schaal/Trede", each Text.BeforeDelimiter(_, "-"), type text}}),
+		    #"Added Suffix" = Table.TransformColumns(#"Extracted Text Before Delimiter1", {{"Schaal/Trede", each _ & "-MAX", type text}}),
+		    #"Replaced Value" = Table.ReplaceValue(#"Added Suffix","-MAX",null,Replacer.ReplaceValue,{"Schaal/Trede"}),
+		    #"Removed Other Columns2" = Table.SelectColumns(#"Replaced Value",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Werkelijk", "Instroom", "FTE uitstroom (zonder bepaalde tijd)", "Verschil", "Verschil (excl)", "Begin Datum", "Eind Datum", "Uren_Begroot", "Uren_Werkelijk", "Uren_Verschil", "Medewerker ID", "C/A Formatie ID", "Dim Zorg.Type Zorg Functie", "Staf of Zorg", "Type Personeel ID", "Line ID (MdWID_Formatieplaats)", "Schaal/Trede"}),
+		    #"Merged Queries8" = Table.NestedJoin(#"Removed Other Columns2", {"Schaal/Trede"}, #"Dim SchaalType", {"Schaal/Trede"}, "Dim SchaalType", JoinKind.LeftOuter),
+		    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries8", "Dim SchaalType", {"Schaal ID"}, {"Schaal ID"})
+		in
+		    #"Expanded Dim SchaalType"
+	lineageTag: 9e741f18-dc17-40e1-8ec0-5ab58405dc02
+	queryGroup: Staging\Forecasting
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Buffered Dim Vacatures Medewerker (STG)' =
+		let
+		    Source = #"Dim Vacatures Medewerker (STG)",
+		    Buffered = Table.Buffer(Source)
+		in
+		    Buffered
+	lineageTag: d65209ba-e774-431b-8902-0d5bb3eb522b
+	queryGroup: 'Staging\Forecasting\Buffer Queries'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Vacature Conditional Index' = ```
+		let
+		    Source = #"Buffered Dim Vacatures Medewerker (STG)",
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"Formatieplaats", "Omschrijving", "Verschil (excl)"}),
+		    
+		    // ExpandedRows
+		    ExpandedRows = Table.AddColumn(#"Removed Other Columns", "Generated Rows", each
+		        let 
+		            verschil = [#"Verschil (excl)"],
+		            formatieplaats = [#"Formatieplaats"],
+		            count = Number.IntegerDivide(verschil, 1),
+		            remainder = Number.Mod(verschil, 1),
+		            baseList = List.Repeat({1}, count),
+		            finalList = if remainder > 0 then baseList & {remainder} else baseList,
+		            newRows = List.Transform(finalList, each [#"Formatieplaats" = formatieplaats, #"Verschil (excl)" = _])
+		        in 
+		            newRows
+		    ),
+		    #"Removed Other Columns1" = Table.SelectColumns(ExpandedRows,{"Generated Rows"}),
+		    #"Expanded Generated Rows" = Table.ExpandListColumn(#"Removed Other Columns1", "Generated Rows"),
+		    Result = Table.ExpandRecordColumn(#"Expanded Generated Rows", "Generated Rows", {"Formatieplaats", "Verschil (excl)"}),
+		    #"Changed Type" = Table.TransformColumnTypes(Result,{{"Formatieplaats", type text}, {"Verschil (excl)", type number}}),
+		    #"Added Index" = Table.AddIndexColumn(#"Changed Type", "Index", 1, 1, Int64.Type),
+		    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "Medewerker ID"}}),
+		    #"Tranform MdW ID" = Table.TransformColumns(#"Renamed Columns", {{"Medewerker ID", each Text.PadStart(Text.From(_), 5, "0"), type nullable text}}),
+		    #"Grouped Rows" = Table.Group(#"Tranform MdW ID", {"Formatieplaats"}, {{"Index", each Table.AddIndexColumn(_, "Index", 1, 1, Int64.Type)}}),
+		    #"Expanded Columns" = Table.ExpandTableColumn(#"Grouped Rows", "Index", {"Index"}, {"Index.Index"}),
+		    #"Sorted Rows" = Table.Sort(#"Expanded Columns",{{"Formatieplaats", Order.Ascending}}),
+		    #"Added Index1" = Table.AddIndexColumn(#"Sorted Rows", "Index for Merge", 1, 1, Int64.Type)
+		in
+		    #"Added Index1"
+		```
+	lineageTag: ed8b5a68-8aaa-4955-912a-335dcc39b5b7
+	queryGroup: Staging\Forecasting
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

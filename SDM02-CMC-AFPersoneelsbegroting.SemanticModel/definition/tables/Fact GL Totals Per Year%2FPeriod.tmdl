@@ -1,0 +1,153 @@
+table 'Fact GL Totals Per Year/Period'
+	lineageTag: d5fb48a0-4085-4980-ad51-4a40facf230e
+
+	column Rekeningnummer_2
+		dataType: string
+		lineageTag: 39e15b22-0cba-4a4c-9095-2bf006cf3a61
+		summarizeBy: none
+		sourceColumn: Rekeningnummer_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Jaar
+		dataType: double
+		lineageTag: 2f7f81d4-5e5d-4f87-9e73-11fa338761ad
+		summarizeBy: none
+		sourceColumn: Jaar
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Omschrijving
+		dataType: string
+		lineageTag: 692616b1-8f97-4462-bff9-b2d01082ecf4
+		summarizeBy: none
+		sourceColumn: Omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rapportagecockpit_omschrijving
+		dataType: string
+		lineageTag: 4e5296a2-69f1-4597-8aaf-ce7952177623
+		summarizeBy: none
+		sourceColumn: Rapportagecockpit_omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(SD) GB 4101500 - Feesturen'
+		type: calculated
+		lineageTag: 9b0ea0be-6517-4db9-9dd9-b192758d576c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column StdDevAmount
+		dataType: double
+		formatString: 0.00000
+		lineageTag: 8618b209-3ce8-416e-8bda-9ccda830f9b8
+		summarizeBy: sum
+		sourceColumn: StdDevAmount
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Weights (w)'
+		dataType: double
+		lineageTag: da8ee725-cd95-4125-899b-f71e9bb2b38e
+		summarizeBy: sum
+		sourceColumn: Weights (w)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'u * w'
+		dataType: double
+		lineageTag: 40704e2b-065d-4a25-84b9-2d8ed7a14241
+		summarizeBy: sum
+		sourceColumn: u * w
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Variance (σ2)'
+		dataType: double
+		lineageTag: e7d1dcf4-6d63-4b0e-8b27-dd8c6d517944
+		summarizeBy: sum
+		sourceColumn: Variance (σ2)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Weights Var (σ2)'
+		dataType: double
+		lineageTag: 222a19f7-33c8-4855-876d-ce0a28025dee
+		summarizeBy: sum
+		sourceColumn: Weights Var (σ2)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'u * w (σ2)'
+		dataType: double
+		lineageTag: f67a922f-bf11-4bb0-ab16-ec1d6c063737
+		summarizeBy: sum
+		sourceColumn: u * w (σ2)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Total
+		dataType: double
+		lineageTag: 5eebee3e-5e8b-479b-866f-5f382bd4ac1e
+		summarizeBy: sum
+		sourceColumn: Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Fact GL Totals Per Year/Period' = m
+		mode: import
+		queryGroup: Model
+		source = ```
+				let
+				    Source = #"Fact Journal Entries",
+				    #"Filtered Rows" = Table.SelectRows(Source, each ([Rapportagecockpit_omschrijving] = "19 Lonen en salarissen" or [Rapportagecockpit_omschrijving] = "20 Sociale lasten" or [Rapportagecockpit_omschrijving] = "21 Overige personeelskosten")),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"Jaar", type number}}),
+				
+				    CurrentYear = Date.Year(DateTime.LocalNow()),
+				
+				    #"FilteredYears" = Table.SelectRows(#"Changed Type", each [Jaar] >= (CurrentYear - 4) and [Jaar] <=(CurrentYear - 1)),
+				
+				    GroupedRowsTotal = Table.Group(#"FilteredYears", {"Rekeningnummer_2", "Omschrijving", "Rapportagecockpit_omschrijving", "Jaar"}, {{"Total", each List.Sum([Bedrag in LC]), type nullable number}}),
+				
+				    GroupedRowsStdDev = Table.Group(#"FilteredYears", {"Rekeningnummer_2", "Omschrijving", "Rapportagecockpit_omschrijving", "Jaar"}, {{"StdDevAmount", each List.StandardDeviation([Bedrag in LC]), type nullable number}}),
+				
+				    GroupedRowsAverage = Table.Group(#"FilteredYears", {"Rekeningnummer_2", "Omschrijving", "Rapportagecockpit_omschrijving", "Jaar"}, {
+				        {"Average", each List.Average([Bedrag in LC]), type nullable number}}),
+				    
+				    #"SelectGB" = Table.SelectColumns(#"FilteredYears", {"Rekeningnummer_2", "Omschrijving", "Rapportagecockpit_omschrijving", "Jaar"}),
+				    #"Removed Duplicates" = Table.Distinct(#"SelectGB", {"Rekeningnummer_2", "Jaar"}),
+				
+				    #"Merge GroupedRows Total" = Table.NestedJoin(#"Removed Duplicates", {"Rekeningnummer_2", "Jaar"}, GroupedRowsTotal, {"Rekeningnummer_2", "Jaar"}, "Grouped Total", JoinKind.LeftOuter),
+				    #"Expanded Grouped Total" = Table.ExpandTableColumn(#"Merge GroupedRows Total", "Grouped Total", {"Total"}, {"Total"}),
+				    #"Merge StdDev" = Table.NestedJoin(#"Expanded Grouped Total", {"Rekeningnummer_2", "Jaar"}, GroupedRowsStdDev, {"Rekeningnummer_2", "Jaar"}, "Std", JoinKind.LeftOuter),
+				    #"Expanded Std" = Table.ExpandTableColumn(#"Merge StdDev", "Std", {"StdDevAmount"}, {"StdDevAmount"}),
+				    #"Added Custom" = Table.AddColumn(#"Expanded Std", "Weights (w)", each if [StdDevAmount] = 0 then 0 else (1/[StdDevAmount]), type nullable number),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "u * w", each [Total] * [#"Weights (w)"], type nullable number),
+				    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Variance (σ2)", each Number.Power([StdDevAmount], 2), type nullable number),
+				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Weights Var (σ2)", each if [#"Variance (σ2)"] = 0 then 0 else (1/[#"Variance (σ2)"]), type nullable number),
+				    #"Added Custom4" = Table.AddColumn(#"Added Custom3", "u * w (σ2)", each [Total] * [#"Weights Var (σ2)"], type nullable number)
+				in 
+				    #"Added Custom4"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -505,6 +505,65 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Dim Kosten Stagaires",
+          "nodeLineageTag": "1e569c65-d613-4296-ade6-0349ec4285cc",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Fact GL Totals Per Year/Period",
+          "nodeLineageTag": "d5fb48a0-4085-4980-ad51-4a40facf230e",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Dim Percentage Vacature",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Dim LC per GL",
+          "nodeLineageTag": "9e5d0f8c-bdfd-4538-a273-ef530818d255",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Dim Vacature Start of Month",
+          "nodeLineageTag": "1fb0a982-3ae8-4181-9fc8-093346c7b210",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Dim Medewerker/Vacatures",
+          "nodeLineageTag": "c0315acf-c11b-4c39-a9b6-1947573e966b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -536,8 +595,8 @@
         },
         {
           "location": {
-            "x": 804,
-            "y": 205
+            "x": 766,
+            "y": 271
           },
           "nodeIndex": "Dim Calendar",
           "nodeLineageTag": "a883d342-a4f1-4794-be15-d8996c371305",
@@ -572,6 +631,19 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 856,
+            "y": -2
+          },
+          "nodeIndex": "Dim Kostenplaats",
+          "nodeLineageTag": "234d6e66-dc75-435c-abfa-85f472e752a3",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "Fact Journal Entries",
@@ -585,7 +657,7 @@
       "ordinal": 2,
       "scrollPosition": {
         "x": 0,
-        "y": 0
+        "y": 32
       },
       "nodes": [
         {
@@ -599,20 +671,20 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 3
         },
         {
           "location": {
-            "x": 370,
-            "y": 489
+            "x": 344,
+            "y": 488
           },
           "nodeIndex": "Dim Looncomponent",
-          "nodeLineageTag": "cfabfe0a-cc51-467d-9dfe-4bf5764d58b5",
+          "nodeLineageTag": "d770a55b-3487-4bef-9fec-796f32eb4041",
           "size": {
             "height": 128,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 4
         },
         {
           "location": {
@@ -625,7 +697,7 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 5
         },
         {
           "location": {
@@ -638,12 +710,12 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 6
         },
         {
           "location": {
-            "x": 508,
-            "y": 95
+            "x": 541,
+            "y": 118
           },
           "nodeIndex": "Fact Personeels Kosten",
           "nodeLineageTag": "52f2eda9-d73c-41b5-94c0-cf8f5d1dcc49",
@@ -651,19 +723,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 1
-        },
-        {
-          "location": {
-            "x": 31,
-            "y": 118
-          },
-          "nodeIndex": "Dim Medewerker",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 0
+          "zIndex": 7
         },
         {
           "location": {
@@ -676,7 +736,20 @@
             "height": 296,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 96,
+            "y": 30
+          },
+          "nodeIndex": "Dim Medewerker/Vacatures",
+          "nodeLineageTag": "c0315acf-c11b-4c39-a9b6-1947573e966b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
         }
       ],
       "name": "Fact Personeelskosten",
@@ -757,7 +830,7 @@
       "ordinal": 4,
       "scrollPosition": {
         "x": 0,
-        "y": 0
+        "y": 47
       },
       "nodes": [
         {
@@ -993,8 +1066,8 @@
     {
       "ordinal": 6,
       "scrollPosition": {
-        "x": 0,
-        "y": 25
+        "x": 104,
+        "y": 72
       },
       "nodes": [
         {
@@ -1008,7 +1081,7 @@
             "height": 491,
             "width": 302
           },
-          "zIndex": 11
+          "zIndex": 8
         },
         {
           "location": {
@@ -1021,7 +1094,7 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 10
+          "zIndex": 7
         },
         {
           "location": {
@@ -1064,8 +1137,8 @@
         },
         {
           "location": {
-            "x": 915,
-            "y": 308
+            "x": 1172,
+            "y": 355
           },
           "nodeIndex": "Dim Medewerker",
           "nodeLineageTag": "704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c",
@@ -1073,7 +1146,7 @@
             "height": 145,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 4
         },
         {
           "location": {
@@ -1086,12 +1159,12 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 9
+          "zIndex": 6
         },
         {
           "location": {
-            "x": 763,
-            "y": 512
+            "x": 1001,
+            "y": 577
           },
           "nodeIndex": "Dim SchaalType",
           "nodeLineageTag": "db30c2e8-7814-41c3-9c68-cc68616837b3",
@@ -1099,7 +1172,7 @@
             "height": 221,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 9
         },
         {
           "location": {
@@ -1112,20 +1185,7 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 8
-        },
-        {
-          "location": {
-            "x": 1116,
-            "y": 500
-          },
-          "nodeIndex": "Dim Indexering Forecasting",
-          "nodeLineageTag": "a47ea6da-670e-4553-ae3a-e7e0b311e998",
-          "size": {
-            "height": 174,
-            "width": 265
-          },
-          "zIndex": 7
+          "zIndex": 11
         },
         {
           "location": {
@@ -1138,7 +1198,20 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 6
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 718,
+            "y": 419
+          },
+          "nodeIndex": "Dim Medewerker/Vacatures",
+          "nodeLineageTag": "c0315acf-c11b-4c39-a9b6-1947573e966b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 10
         }
       ],
       "name": "Fact Forecasting MdW",
@@ -1152,26 +1225,26 @@
       "ordinal": 7,
       "scrollPosition": {
         "x": 0,
-        "y": 0
+        "y": 29.913385826771655
       },
       "nodes": [
         {
           "location": {
-            "x": 340,
-            "y": 0
+            "x": 559.7086614173229,
+            "y": 190.87401574803147
           },
           "nodeIndex": "Fact Forecasting Vacatures",
           "nodeLineageTag": "114278a5-cda5-4b3a-90a9-11a9655cd651",
           "size": {
-            "height": 438,
+            "height": 374,
             "width": 252
           },
-          "zIndex": 6
+          "zIndex": 9
         },
         {
           "location": {
-            "x": 912,
-            "y": 0
+            "x": 1264.7716535433067,
+            "y": 10.314960629921259
           },
           "nodeIndex": "Dim Vacatures Medewerker",
           "nodeLineageTag": "c23cc87a-8633-4e3b-99e9-15d2ef927a19",
@@ -1179,12 +1252,12 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 12
         },
         {
           "location": {
-            "x": 4,
-            "y": 5
+            "x": 0,
+            "y": 66.88976377952757
           },
           "nodeIndex": "Dim Period",
           "nodeLineageTag": "359771a9-e570-4c97-8981-e43407ccad44",
@@ -1192,12 +1265,12 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 6
         },
         {
           "location": {
-            "x": 522,
-            "y": 540
+            "x": 316.40157480314963,
+            "y": 657.5275590551181
           },
           "nodeIndex": "Dim Grootboek",
           "nodeLineageTag": "c37ad517-c7bd-4de4-bb24-808a9070814f",
@@ -1205,7 +1278,7 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 7
         },
         {
           "location": {
@@ -1218,11 +1291,11 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 8
         },
         {
           "location": {
-            "x": 72,
+            "x": 26.614173228346459,
             "y": 524
           },
           "nodeIndex": "Dim SchaalType",
@@ -1231,12 +1304,12 @@
             "height": 296,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 5
         },
         {
           "location": {
-            "x": 845,
-            "y": 299
+            "x": 1132.464566929134,
+            "y": 335.78740157480314
           },
           "nodeIndex": "Dim Percentage Vacature CAO",
           "nodeLineageTag": "43974af5-f811-4e55-ab30-ef656ca80444",
@@ -1244,12 +1317,12 @@
             "height": 176,
             "width": 312
           },
-          "zIndex": 0
+          "zIndex": 10
         },
         {
           "location": {
-            "x": 639.33333206176758,
-            "y": 4
+            "x": 616.33333206176758,
+            "y": 0
           },
           "nodeIndex": "Dim Indexering Vacatures",
           "nodeLineageTag": "a54d225c-4c7e-46a4-b5af-e6e17b920583",
@@ -1257,12 +1330,12 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 3
         },
         {
           "location": {
-            "x": 592.33333206176758,
-            "y": 318
+            "x": 1121.2309698570432,
+            "y": 578.64566929133866
           },
           "nodeIndex": "Dim Percentage Vacature LNT",
           "nodeLineageTag": "72d41e5f-c6d4-457a-bbec-7f608ae5c7e5",
@@ -1270,11 +1343,63 @@
             "height": 176,
             "width": 234
           },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 853.04724409448818,
+            "y": 656.44094488188978
+          },
+          "nodeIndex": "Dim Percentage Vacature",
+          "nodeLineageTag": "4a2f08f8-5297-4c45-89b5-e010905c6658",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 285.92650787473667,
+            "y": -54.771653543307082
+          },
+          "nodeIndex": "Dim Vacature Start of Month",
+          "nodeLineageTag": "1fb0a982-3ae8-4181-9fc8-093346c7b210",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 889.00787401574814,
+            "y": 29.811023622047237
+          },
+          "nodeIndex": "Dim Medewerker/Vacatures",
+          "nodeLineageTag": "c0315acf-c11b-4c39-a9b6-1947573e966b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 583.68503937007881,
+            "y": 705.44094488188978
+          },
+          "nodeIndex": "Dim Kostenplaats",
+          "nodeLineageTag": "234d6e66-dc75-435c-abfa-85f472e752a3",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
           "zIndex": 0
         }
       ],
       "name": "Fact Forecasting Vacature",
-      "zoomValue": 100,
+      "zoomValue": 96.946564885496173,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
@@ -1283,19 +1408,19 @@
     {
       "ordinal": 8,
       "scrollPosition": {
-        "x": 0,
-        "y": 0
+        "x": 151,
+        "y": 10
       },
       "nodes": [
         {
           "location": {
-            "x": 609,
-            "y": 220.54232153202679
+            "x": 524,
+            "y": 264.54232153202679
           },
           "nodeIndex": "Dim Vacatures Medewerker",
           "nodeLineageTag": "c23cc87a-8633-4e3b-99e9-15d2ef927a19",
           "size": {
-            "height": 418,
+            "height": 335,
             "width": 245
           },
           "zIndex": 0
@@ -1403,7 +1528,7 @@
       "ordinal": 9,
       "scrollPosition": {
         "x": 0,
-        "y": 4
+        "y": 0
       },
       "nodes": [
         {
@@ -1723,7 +1848,7 @@
       "ordinal": 13,
       "scrollPosition": {
         "x": 0,
-        "y": 1
+        "y": 0
       },
       "nodes": [
         {
@@ -1754,8 +1879,8 @@
         },
         {
           "location": {
-            "x": 576,
-            "y": 440
+            "x": 477,
+            "y": 491
           },
           "nodeIndex": "Dim Gratificatie Jubileum",
           "nodeLineageTag": "6d406869-82a8-45c2-9877-d4fb8d30619c",
@@ -1870,7 +1995,7 @@
       "ordinal": 15,
       "scrollPosition": {
         "x": 0,
-        "y": 101
+        "y": 101.33333587646484
       },
       "nodes": [
         {
@@ -1984,8 +2109,129 @@
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
       "tablesLocked": false
+    },
+    {
+      "ordinal": 16,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 639,
+            "y": 158
+          },
+          "nodeIndex": "Dim Medewerker/Vacatures",
+          "nodeLineageTag": "c0315acf-c11b-4c39-a9b6-1947573e966b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1104,
+            "y": 146
+          },
+          "nodeIndex": "Dim Dienstbetrekking",
+          "nodeLineageTag": "008b4704-71ee-45fd-b284-a79ca01516d2",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 3",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 17,
+      "scrollPosition": {
+        "x": 0,
+        "y": 241.33332824707031
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 528.33333206176758,
+            "y": 347.66667175292969
+          },
+          "nodeIndex": "Dim Vacature Start of Month",
+          "nodeLineageTag": "1fb0a982-3ae8-4181-9fc8-093346c7b210",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 119
+          },
+          "nodeIndex": "Fact Forecasting Vacatures",
+          "nodeLineageTag": "114278a5-cda5-4b3a-90a9-11a9655cd651",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 387.33333206176758,
+            "y": 0
+          },
+          "nodeIndex": "Dim Vacatures Medewerker",
+          "nodeLineageTag": "c23cc87a-8633-4e3b-99e9-15d2ef927a19",
+          "size": {
+            "height": 252,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 671.33333206176758,
+            "y": 32
+          },
+          "nodeIndex": "Dim Period",
+          "nodeLineageTag": "359771a9-e570-4c97-8981-e43407ccad44",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 236.33333206176758,
+            "y": 461.66667175292969
+          },
+          "nodeIndex": "Dim Formatieplaats",
+          "nodeLineageTag": "10d06fa1-5849-41e1-a468-653228f72526",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 4",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Layout 1",
+  "selectedDiagram": "Fact Forecasting MdW",
   "defaultDiagram": "All tables"
 }
