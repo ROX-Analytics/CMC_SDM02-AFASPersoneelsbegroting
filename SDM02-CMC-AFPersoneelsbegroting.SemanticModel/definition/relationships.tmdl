@@ -272,10 +272,6 @@ relationship 7541c6cf-a54f-8228-1a1d-2b7db3775d35
 	fromColumn: 'Fact Forecasting Vacatures'.'Index Name'
 	toColumn: 'Dim Indexering Vacatures'.'Index Name'
 
-relationship 6f3ea435-4fc1-0bab-c09a-cc5753405f3d
-	fromColumn: 'Fact Forecasting Vacatures'.'Percentage Key CAO'
-	toColumn: 'Dim Percentage Vacature CAO'.'Percentage Key'
-
 relationship c52baeff-ad4f-51ea-4f21-176802403c34
 	fromColumn: 'Fact Forecasting Vacatures'.'Percentage Key LNT'
 	toColumn: 'Dim Percentage Vacature LNT'.'Percentage Key'
@@ -427,10 +423,6 @@ relationship e6cb4c9f-bb54-077d-ab47-5658f4631f6e
 	fromColumn: 'Fact Forecasting Vacatures'.'Medewerker ID'
 	toColumn: 'Dim Medewerker/Vacatures'.'Medewerker ID'
 
-relationship faf6bfc8-4a72-7076-1134-f4494a9aac24
-	fromColumn: 'Fact Forecasting Medewerkers'.'Medewerker ID'
-	toColumn: 'Dim Medewerker/Vacatures'.'Medewerker ID'
-
 relationship 4f548d75-0d7d-7796-56f9-f61fd0e90ed2
 	fromColumn: 'Fact Forecasting Vacatures'.Kostenplaats
 	toColumn: 'Dim Kostenplaats'.Kostenplaats
@@ -438,4 +430,12 @@ relationship 4f548d75-0d7d-7796-56f9-f61fd0e90ed2
 relationship be646cb4-8258-4326-d2fc-7ec5259f50f5
 	fromColumn: 'Fact Personeels Kosten'.'Medewerker ID'
 	toColumn: 'Dim Medewerker/Vacatures'.'Medewerker ID'
+
+relationship 5733d9c6-4700-f537-90eb-0a0eb638d80d
+	fromColumn: 'Fact Forecasting Medewerkers'.'Medewerker ID'
+	toColumn: 'Dim Medewerker'.'Medewerker ID'
+
+relationship 97d5d345-c629-9c4c-e0fd-ce18e1faf578
+	fromColumn: 'Fact Forecasting Vacatures'.'Medewerker ID'
+	toColumn: 'Dim Vacatures Medewerker'.'Medewerker ID'
 

@@ -4,7 +4,7 @@ table 'Dim Percentage Vacature CAO'
 	column Percentage
 		dataType: double
 		lineageTag: b1259c27-8b79-4ee2-a989-202bcccbe4bb
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Percentage
 
 		annotation SummarizationSetBy = Automatic

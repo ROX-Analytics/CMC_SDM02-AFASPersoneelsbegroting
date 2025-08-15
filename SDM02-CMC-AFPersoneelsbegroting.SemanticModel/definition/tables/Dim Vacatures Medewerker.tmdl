@@ -203,7 +203,7 @@ table 'Dim Vacatures Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Formatieplaats Coded + Omschrijving' = 'Dim Vacatures Medewerker'[Formatieplaats] & " " & "-" & " " & 'Dim Vacatures Medewerker'[Formatieplaats Omschrijving]
+	column 'Formatieplaats Coded + Omschrijving' = 'Dim Vacatures Medewerker'[Formatieplaats] & " " & "-" & " " & 'Dim Vacatures Medewerker'[Formatieplaats Omschrijving] & " " & "-" & " " & 'Dim Vacatures Medewerker'[Nr van Vacature]
 		lineageTag: e976d3bf-a885-41f8-97ed-61e28738c5a9
 		summarizeBy: none
 
@@ -271,6 +271,28 @@ table 'Dim Vacatures Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Nr van Vacature'
+		dataType: string
+		lineageTag: 65a32f68-b2ad-43a9-bafb-999e7784f799
+		summarizeBy: none
+		sourceColumn: Nr van Vacature
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Formatieplaats Vacature Nr'
+		dataType: string
+		lineageTag: c5e05841-6af1-44d3-b6b6-fad7beb58092
+		summarizeBy: none
+		sourceColumn: Formatieplaats Vacature Nr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Naam en Nr Vacature' = 'Dim Vacatures Medewerker'[Voornaam] & " " & "-" & " " & 'Dim Vacatures Medewerker'[Nr van Vacature]
+		lineageTag: f48c8e2d-d498-4d6a-a8f8-185dbb662416
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Vacatures Medewerker' = m
 		mode: import
 		queryGroup: Model
@@ -279,7 +301,7 @@ table 'Dim Vacatures Medewerker'
 				    Source = #"Buffered Dim Vacatures Medewerker (STG)",
 				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Functie", "C/A Formatie ID", "Dim Zorg.Type Zorg Functie", "Staf of Zorg", "Type Personeel ID", "Schaal/Trede", "Schaal ID"}),
 				    #"Merged Queries" = Table.NestedJoin(#"Removed Other Columns", {"Formatieplaats"}, #"Dim Vacature per Verschil FTE", {"Formatieplaats"}, "Dim Vacature per Verschil FTE", JoinKind.LeftOuter),
-				    #"Expanded Dim Vacature per Verschil FTE" = Table.ExpandTableColumn(#"Merged Queries", "Dim Vacature per Verschil FTE", {"Verschil (excl)", "Medewerker ID"}, {"Verschil (excl)", "Medewerker ID"}),
+				    #"Expanded Dim Vacature per Verschil FTE" = Table.ExpandTableColumn(#"Merged Queries", "Dim Vacature per Verschil FTE", {"Verschil (excl)", "Medewerker ID", "Nr van Vacature"}, {"Verschil (excl)", "Medewerker ID", "Nr van Vacature"}),
 				    #"Added Custom" = Table.AddColumn(#"Expanded Dim Vacature per Verschil FTE", "Flag Medewerker", each 0, type nullable number),
 				    #"Renamed Columns" = Table.RenameColumns(#"Added Custom",{{"OE", "OE Code"}, {"Omschrijving", "Formatieplaats Omschrijving"}, {"Cluster_Afdeling", "Cluster_Afdeling Formatieplaats"}}),
 				    #"Added Custom1" = Table.AddColumn(#"Renamed Columns", "Voornaam", each "Vacature" & " " & [Formatieplaats Omschrijving], type nullable text),
@@ -287,10 +309,12 @@ table 'Dim Vacatures Medewerker'
 				    #"Merged Queries1" = Table.NestedJoin(#"Renamed Columns1", {"Schaal ID"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
 				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries1", "Dim SchaalType", {"Salaris"}, {"Salaris Original"}),
 				    #"Added Custom2" = Table.AddColumn(#"Expanded Dim SchaalType", "Salaris", each [Salaris Original] * [FTE], type nullable number),
-				    #"Removed Other Columns1" = Table.SelectColumns(#"Added Custom2",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling Formatieplaats", "Formatieplaats", "Formatieplaats Omschrijving", "Kostenplaats", "OE Code", "Functie", "C/A Formatie ID", "Dim Zorg.Type Zorg Functie", "Staf of Zorg", "Type Personeel ID", "Schaal/Trede", "Schaal ID", "FTE", "Medewerker ID", "Flag Medewerker", "Voornaam", "Salaris"}),
-				    #"Added Custom3" = Table.AddColumn(#"Removed Other Columns1", "Status_dienstverband", each "In dienst", type nullable text)
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Added Custom2",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling Formatieplaats", "Formatieplaats", "Formatieplaats Omschrijving", "Kostenplaats", "OE Code", "Functie", "C/A Formatie ID", "Dim Zorg.Type Zorg Functie", "Staf of Zorg", "Type Personeel ID", "Schaal/Trede", "Schaal ID", "FTE", "Medewerker ID", "Nr van Vacature", "Flag Medewerker", "Voornaam", "Salaris"}),
+				    #"Added Custom3" = Table.AddColumn(#"Removed Other Columns1", "Status_dienstverband", each "In dienst", type nullable text),
+				    #"Transform Nr Vac" = Table.TransformColumns(#"Added Custom3", {{"Nr van Vacature", each Text.PadStart(Text.From(_), 2, "0"), type nullable text}}),
+				    #"Added Custom4" = Table.AddColumn(#"Transform Nr Vac", "Formatieplaats Vacature Nr", each [Formatieplaats] & " " & "-" & " " & Text.From([Nr van Vacature]), type nullable text)
 				in
-				    #"Added Custom3"
+				    #"Added Custom4"
 				```
 
 	annotation PBI_NavigationStepName = Navigation

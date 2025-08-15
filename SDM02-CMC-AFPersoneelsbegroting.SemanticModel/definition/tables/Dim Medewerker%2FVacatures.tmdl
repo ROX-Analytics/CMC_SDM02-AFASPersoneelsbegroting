@@ -718,6 +718,22 @@ table 'Dim Medewerker/Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Nr van Vacature'
+		dataType: string
+		lineageTag: 443b3667-55c7-4f0c-baa1-27afab24e483
+		summarizeBy: none
+		sourceColumn: Nr van Vacature
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Formatieplaats Vacature Nr'
+		dataType: string
+		lineageTag: 55e8195a-9ab7-4ff2-ae10-edfa19b0574d
+		summarizeBy: none
+		sourceColumn: Formatieplaats Vacature Nr
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Medewerker/Vacatures' = m
 		mode: import
 		queryGroup: Model

@@ -65,7 +65,7 @@ table 'Dim Vacature Start of Month'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Code + Omschrijving' = 'Dim Vacature Start of Month'[Formatieplaats] & " " & "-" & " " & 'Dim Vacature Start of Month'[Omschrijving]
+	column 'Code + Omschrijving' = 'Dim Vacature Start of Month'[Formatieplaats] & " " & "-" & " " & 'Dim Vacature Start of Month'[Omschrijving] & " " & "-" & " " & 'Dim Vacature Start of Month'[Nr van Vacature]
 		lineageTag: 710b9c23-7e9c-48ef-b046-1d71f7247a16
 		summarizeBy: none
 
@@ -130,6 +130,20 @@ table 'Dim Vacature Start of Month'
 
 		annotation SummarizationSetBy = Automatic
 
+	column Voornaam
+		dataType: string
+		lineageTag: 2d6a89a6-af8f-4002-90f7-7f1a4a2ead40
+		summarizeBy: none
+		sourceColumn: Voornaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Naam en Nr Vacature' = 'Dim Vacature Start of Month'[Voornaam] & " " & "-" & " " & 'Dim Vacature Start of Month'[Nr van Vacature]
+		lineageTag: bf522c84-b89d-4a34-a780-4ce8e840fb7a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Vacature Start of Month' = m
 		mode: import
 		queryGroup: Model
@@ -147,9 +161,10 @@ table 'Dim Vacature Start of Month'
 				    #"Added Custom2" = Table.AddColumn(#"Filtered Rows", "Formatieplaats Key", each Text.From([#"Medewerker ID"]) & "_" & Text.From([Start of Month]), type nullable text),
 				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Formatieplaats/Period", each Text.From([#"Formatieplaats"]) & "_" & Text.From([#"Start of Month"]), type nullable text),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom3",{{"Year", type number}, {"Start of Month", type number}, {"Year/Period", type text}}),
-				    #"Added Custom4" = Table.AddColumn(#"Changed Type", "Formatieplaats Vacature Nr", each [Formatieplaats] & " " & "-" & " " & Text.From([Nr van Vacature]), type nullable text)
+				    #"Added Custom4" = Table.AddColumn(#"Changed Type", "Formatieplaats Vacature Nr", each [Formatieplaats] & " " & "-" & " " & Text.From([Nr van Vacature]), type nullable text),
+				    #"Added Custom5" = Table.AddColumn(#"Added Custom4", "Voornaam", each "Vacature" & " " & [Omschrijving], type nullable text)
 				in
-				    #"Added Custom4"
+				    #"Added Custom5"
 
 	annotation PBI_NavigationStepName = Navigation
 

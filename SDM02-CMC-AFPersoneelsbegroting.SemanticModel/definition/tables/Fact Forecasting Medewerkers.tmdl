@@ -251,7 +251,7 @@ table 'Fact Forecasting Medewerkers'
 
 	column 'Dienstjaren Medewerker Actuals' = RELATED('Dim Medewerker'[Dienstjaren])
 		lineageTag: 4861f936-2aff-45d4-adb0-50242aa6e1a5
-		summarizeBy: sum
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 

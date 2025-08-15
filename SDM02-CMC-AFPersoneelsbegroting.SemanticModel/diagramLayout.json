@@ -1066,8 +1066,8 @@
     {
       "ordinal": 6,
       "scrollPosition": {
-        "x": 104,
-        "y": 72
+        "x": 338,
+        "y": 100
       },
       "nodes": [
         {
@@ -1137,13 +1137,13 @@
         },
         {
           "location": {
-            "x": 1172,
-            "y": 355
+            "x": 950.666675567627,
+            "y": 253
           },
           "nodeIndex": "Dim Medewerker",
           "nodeLineageTag": "704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c",
           "size": {
-            "height": 145,
+            "height": 300,
             "width": 234
           },
           "zIndex": 4
@@ -1224,8 +1224,8 @@
     {
       "ordinal": 7,
       "scrollPosition": {
-        "x": 0,
-        "y": 29.913385826771655
+        "x": 285.92650787473667,
+        "y": 0
       },
       "nodes": [
         {
@@ -1243,16 +1243,16 @@
         },
         {
           "location": {
-            "x": 1264.7716535433067,
-            "y": 10.314960629921259
+            "x": 974.965877953477,
+            "y": 403.21259842519692
           },
           "nodeIndex": "Dim Vacatures Medewerker",
           "nodeLineageTag": "c23cc87a-8633-4e3b-99e9-15d2ef927a19",
           "size": {
-            "height": 300,
+            "height": 247.3937007874016,
             "width": 234
           },
-          "zIndex": 12
+          "zIndex": 11
         },
         {
           "location": {
@@ -1308,8 +1308,8 @@
         },
         {
           "location": {
-            "x": 1132.464566929134,
-            "y": 335.78740157480314
+            "x": 1143.8110236220473,
+            "y": 74.818889768104839
           },
           "nodeIndex": "Dim Percentage Vacature CAO",
           "nodeLineageTag": "43974af5-f811-4e55-ab30-ef656ca80444",
@@ -1317,7 +1317,7 @@
             "height": 176,
             "width": 312
           },
-          "zIndex": 10
+          "zIndex": 12
         },
         {
           "location": {
@@ -1356,7 +1356,7 @@
             "height": 176,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 13
         },
         {
           "location": {
@@ -1369,7 +1369,7 @@
             "height": 296,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 2
         },
         {
           "location": {
@@ -1382,7 +1382,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 11
+          "zIndex": 10
         },
         {
           "location": {
@@ -1395,7 +1395,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         }
       ],
       "name": "Fact Forecasting Vacature",
@@ -2232,6 +2232,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Fact Forecasting MdW",
+  "selectedDiagram": "Fact Forecasting Vacature",
   "defaultDiagram": "All tables"
 }

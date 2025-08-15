@@ -1247,7 +1247,7 @@ table 'Measure Table'
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Totale Bedrag Medewerker Forecasting' = ```
-			CALCULATE(
+			
 			SUMX(
 			    'Dim Grootboek',
 			'Measure Table'[(M) GB 4102200 - Vakantiedagen] + 
@@ -1276,8 +1276,6 @@ table 'Measure Table'
 			'Measure Table'[(M) LC 3164 - Softlanding] + 
 			'Measure Table'[(M) LC 3095 - Vergunning] + 
 			'Measure Table'[(M) LC 3091 - Ziektekosten WG bijdrage (Specialisten)]
-			),
-			'Dim Medewerker/Vacatures'[Flag Medewerker] = 1
 			)
 			```
 		formatString: #,0.00
@@ -2908,7 +2906,7 @@ table 'Measure Table'
 		lineageTag: 09e91cd8-ec96-4e02-9bd7-49f14ec0d5e4
 
 	measure 'Totale Bedrag Vacatures Forecasting' = ```
-			CALCULATE(
+			
 			SUMX(
 			    'Dim Grootboek',
 			    'Measure Table'[(V) GB 4102200 - Vakantiedagen] + 
@@ -2924,8 +2922,6 @@ table 'Measure Table'
 			    'Measure Table'[(V) LC 3121 - Reservering Vakantiegeld] +
 			    'Measure Table'[(V) LC 3135 - Vakantietoeslag Med Spec] +
 			    'Measure Table'[(V) LC 3142 - Medische Kosten Eig Risico (Eigen Personeel)]
-			),
-			'Dim Medewerker/Vacatures'[Flag Medewerker] = 0
 			)
 			```
 		displayFolder: Forecasting\Vacatures
