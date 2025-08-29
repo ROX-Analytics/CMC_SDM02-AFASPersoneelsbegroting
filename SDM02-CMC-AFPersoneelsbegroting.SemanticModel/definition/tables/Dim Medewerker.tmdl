@@ -462,7 +462,7 @@ table 'Dim Medewerker'
 			            'Dim Medewerker'[Medewerker ID]
 			        )
 			    ),1,
-			    'Dim Medewerker'[Medewerker ID] IN {"00001", "00002"}, 1,
+			    'Dim Medewerker'[Medewerker ID] IN {"0001", "0002"}, 1,
 			    0
 			)
 		formatString: 0
@@ -688,6 +688,62 @@ table 'Dim Medewerker'
 		lineageTag: 7cec738f-0ff3-4632-8379-1c7e233cf940
 		summarizeBy: none
 		sourceColumn: Schaal/Trede
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Stagaire' =
+			
+			IF(
+			    'Dim Medewerker'[Medewerker ID] = "0002",
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 3736eb0a-5f4f-48ac-8a32-668e3f6c862c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Vrijwilleger' =
+			
+			IF(
+			    'Dim Medewerker'[Medewerker ID] = "0001",
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: c083650c-1735-4038-861c-2153d450995c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Medische Specialisten' =
+			
+			IF(
+			    RELATED('Dim Type Personeel'[Type Personeel ID]) IN {"Z_1", "Z_10", "Z_15"},
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 7de41ca3-e58d-45ad-bd10-9951234db896
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Overwerk Schemawerk 30%' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3010"},
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 7dac5dfc-c486-4041-9e71-00bf03111b73
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 

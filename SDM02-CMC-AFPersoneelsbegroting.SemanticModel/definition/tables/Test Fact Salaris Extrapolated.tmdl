@@ -1,18 +1,19 @@
-table 'Fact Salaris Indexering Actuals'
-	lineageTag: fbdaa7c8-80bc-4235-afd4-ccd0768b294a
+table 'Test Fact Salaris Extrapolated'
+	lineageTag: 74b808d4-59f9-4669-b126-a9dd390d2318
 
 	column Jaar
 		dataType: double
-		formatString: 0
-		lineageTag: 3188398a-3288-4a9f-b7ee-4fc1745883b4
+		lineageTag: 9b1e05da-bfa1-41a3-95ad-207c2e53ed35
 		summarizeBy: sum
 		sourceColumn: Jaar
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column Boekingsperiode
 		dataType: double
-		lineageTag: cddf5104-624c-4a53-8d2c-53fd3e1214f9
+		lineageTag: 6ee97b7a-d13c-48c6-8b8a-c3fea557c408
 		summarizeBy: sum
 		sourceColumn: Boekingsperiode
 
@@ -22,15 +23,23 @@ table 'Fact Salaris Indexering Actuals'
 
 	column 'Medewerker ID'
 		dataType: string
-		lineageTag: 47952a56-8ebf-45b0-86ba-bf479809ba49
+		lineageTag: 6d15c196-19d4-4c67-b8c4-3485dae944d0
 		summarizeBy: none
 		sourceColumn: Medewerker ID
 
 		annotation SummarizationSetBy = Automatic
 
+	column Kostenplaats
+		dataType: string
+		lineageTag: 047281ba-910b-4d4c-ba2c-ebf02576e5de
+		summarizeBy: none
+		sourceColumn: Kostenplaats
+
+		annotation SummarizationSetBy = Automatic
+
 	column LC
 		dataType: string
-		lineageTag: 18d18e83-b97a-452e-a4e9-4fcca13eab88
+		lineageTag: c5f6185f-d805-4cf7-a2e6-6b77bf97e8bd
 		summarizeBy: none
 		sourceColumn: LC
 
@@ -38,7 +47,7 @@ table 'Fact Salaris Indexering Actuals'
 
 	column 'Omschrijving LC'
 		dataType: string
-		lineageTag: 4ece0313-2375-4634-ac4e-dd1c5cf6b8cd
+		lineageTag: 8a45d75c-6c84-4e1b-846a-2762827ba7e6
 		summarizeBy: none
 		sourceColumn: Omschrijving LC
 
@@ -46,7 +55,7 @@ table 'Fact Salaris Indexering Actuals'
 
 	column Waarde
 		dataType: double
-		lineageTag: 716fa3b4-0ba3-40e6-8ba3-bae75ea67b97
+		lineageTag: 745541d7-3668-4050-ba6c-fe55a18a4ad6
 		summarizeBy: sum
 		sourceColumn: Waarde
 
@@ -56,7 +65,7 @@ table 'Fact Salaris Indexering Actuals'
 
 	column Bedrag_credit
 		dataType: double
-		lineageTag: c479bca9-8809-49fc-8661-87bb61de63f3
+		lineageTag: fdf917b3-d8a6-4efe-a1fb-be5998dccc79
 		summarizeBy: sum
 		sourceColumn: Bedrag_credit
 
@@ -66,7 +75,7 @@ table 'Fact Salaris Indexering Actuals'
 
 	column Grootboekrekening
 		dataType: string
-		lineageTag: b73944fa-ffb5-460c-be3c-9c4a2a46bfa6
+		lineageTag: af609f8c-e524-46db-8f28-5335b9da339a
 		summarizeBy: none
 		sourceColumn: Grootboekrekening
 
@@ -74,167 +83,15 @@ table 'Fact Salaris Indexering Actuals'
 
 	column Grootboekrekening_omschrijving
 		dataType: string
-		lineageTag: 20c75330-8e2c-4a0f-b3e6-311b38c05d75
+		lineageTag: 24b11141-cc1e-4340-a6d9-88fa352f8a5d
 		summarizeBy: none
 		sourceColumn: Grootboekrekening_omschrijving
 
 		annotation SummarizationSetBy = Automatic
 
-	column IsExtrapolated
-		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: edc48359-6006-4d0b-b081-ba1adcf981a8
-		summarizeBy: none
-		sourceColumn: IsExtrapolated
-
-		annotation SummarizationSetBy = Automatic
-
-	column OriginalBoekingsperiode
-		dataType: double
-		formatString: 0
-		lineageTag: 88fe4414-40e7-4507-b775-3d112d80baa4
-		summarizeBy: sum
-		sourceColumn: OriginalBoekingsperiode
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Boekingsperiode (leading zeros)'
-		dataType: string
-		lineageTag: 757cf075-2729-4996-8f1c-5bacd0fb24ef
-		summarizeBy: none
-		sourceColumn: Boekingsperiode (leading zeros)
-
-		annotation SummarizationSetBy = Automatic
-
-	column Year/Period
-		dataType: string
-		lineageTag: 24ab4631-6766-4b98-b5de-95322b6b6881
-		summarizeBy: none
-		sourceColumn: Year/Period
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Schaal ID'
-		dataType: int64
-		formatString: 0
-		lineageTag: dbda85c5-3355-4444-9ad4-14e1e6b65f07
-		summarizeBy: count
-		sourceColumn: Schaal ID
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Anniversary Month'
-		dataType: int64
-		formatString: 0
-		lineageTag: 45f1d12d-c141-4d32-b33d-f081f3d40a0b
-		summarizeBy: sum
-		sourceColumn: Anniversary Month
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Trede Verhoging'
-		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 2e8625e3-b6bf-4762-889f-f8129f8042e2
-		summarizeBy: none
-		sourceColumn: Trede Verhoging
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Schaal.MAX Trede'
-		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: e93f0f82-0a1e-4736-a4da-f83ca937eb33
-		summarizeBy: none
-		sourceColumn: Schaal.MAX Trede
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Bedrag (OLD)'
-		dataType: double
-		lineageTag: be19e4d4-5d42-4ba6-a1a9-1b0e2312e160
-		summarizeBy: sum
-		sourceColumn: Bedrag (OLD)
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Salaris (Schaal ID New)'
-		dataType: double
-		lineageTag: 6ce633a3-1786-4bc1-b8ad-c204bb7baa40
-		summarizeBy: sum
-		sourceColumn: Salaris (Schaal ID New)
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Bedrag (New)'
-		dataType: double
-		lineageTag: 3f1f0781-862e-4e43-b021-852a3a35aef4
-		summarizeBy: sum
-		sourceColumn: Bedrag (New)
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column Kostenplaats
-		dataType: string
-		lineageTag: 18464500-5742-4b68-a24b-3d69e73d8bde
-		summarizeBy: none
-		sourceColumn: Kostenplaats
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Schaal.SchaalType'
-		dataType: string
-		lineageTag: 38aecb05-af09-454e-9316-56be1af66e65
-		summarizeBy: none
-		sourceColumn: Schaal.SchaalType
-
-		annotation SummarizationSetBy = Automatic
-
-	column Indexering
-		dataType: double
-		lineageTag: 9b54797c-e72b-47d3-8988-3b822bbea83d
-		summarizeBy: sum
-		sourceColumn: Indexering
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Index Name'
-		dataType: string
-		lineageTag: 545d139b-3d23-4574-aa7e-fdfe092c3ed4
-		summarizeBy: none
-		sourceColumn: Index Name
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Bedrag Incl Indexering'
-		dataType: double
-		lineageTag: 8526b5a3-6936-412e-a4be-3e86ca833833
-		summarizeBy: sum
-		sourceColumn: Bedrag Incl Indexering
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Type Personeel ID'
-		dataType: string
-		lineageTag: 9fff8e14-bf00-4301-9456-0a61976048a6
-		summarizeBy: none
-		sourceColumn: Type Personeel ID
-
-		annotation SummarizationSetBy = Automatic
-
 	column FTE
 		dataType: double
-		lineageTag: 1fc0b350-765b-4277-b6b8-021caf00d0bc
+		lineageTag: d1192a4c-73b5-4f11-aa5d-a2f6276c1822
 		summarizeBy: sum
 		sourceColumn: FTE
 
@@ -244,15 +101,112 @@ table 'Fact Salaris Indexering Actuals'
 
 	column Naam_werkgever
 		dataType: string
-		lineageTag: fd286e93-9518-4391-8e94-4af7d9ea4977
+		lineageTag: c63f0f37-c907-41ea-a10c-87d86f7f30f1
 		summarizeBy: none
 		sourceColumn: Naam_werkgever
 
 		annotation SummarizationSetBy = Automatic
 
+	column IsExtrapolated
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 807eabbd-b555-4efc-8328-be755d045120
+		summarizeBy: none
+		sourceColumn: IsExtrapolated
+
+		annotation SummarizationSetBy = Automatic
+
+	column OriginalBoekingsperiode
+		dataType: double
+		lineageTag: 9b812408-9add-436a-84c9-5a4ab4f95685
+		summarizeBy: sum
+		sourceColumn: OriginalBoekingsperiode
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Boekingsperiode (leading zeros)'
+		dataType: string
+		lineageTag: 0b88c538-57a8-4fb1-9f23-72998e5be66d
+		summarizeBy: none
+		sourceColumn: Boekingsperiode (leading zeros)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year/Period
+		dataType: string
+		lineageTag: f146aba1-104c-498a-90f3-a3e924a0d1d7
+		summarizeBy: none
+		sourceColumn: Year/Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 22438e20-3e94-4cd4-90fe-731ec3f573b6
+		summarizeBy: count
+		sourceColumn: Schaal ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Type Personeel ID'
+		dataType: string
+		lineageTag: 23a1d429-4368-406a-b9f0-0e574fbbea1e
+		summarizeBy: none
+		sourceColumn: Type Personeel ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Anniversary Month'
+		dataType: int64
+		formatString: 0
+		lineageTag: be00ecf2-8cda-4aa1-b1f0-2832ff72a56e
+		summarizeBy: sum
+		sourceColumn: Anniversary Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal.SchaalType'
+		dataType: string
+		lineageTag: 6f21f96f-2201-4293-a2b8-2c4a0ffe4203
+		summarizeBy: none
+		sourceColumn: Schaal.SchaalType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal.MAX Trede'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 19de6ad6-4cab-4462-9b97-f2ba046da29b
+		summarizeBy: none
+		sourceColumn: Schaal.MAX Trede
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Trede Verhoging'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 3b8feca5-4cf2-4a7e-bea3-ca8da535c46b
+		summarizeBy: none
+		sourceColumn: Trede Verhoging
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bedrag (OLD)'
+		dataType: double
+		lineageTag: a8391429-7b60-4747-b7c6-961fc0425ca9
+		summarizeBy: sum
+		sourceColumn: Bedrag (OLD)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column 'Schaal ID (New)'
 		dataType: double
-		lineageTag: 68e38b47-7e9d-4b55-aa66-6d05154d1995
+		lineageTag: 66e187dd-88ba-458e-9135-8edb998d41c2
 		summarizeBy: sum
 		sourceColumn: Schaal ID (New)
 
@@ -260,14 +214,61 @@ table 'Fact Salaris Indexering Actuals'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	partition 'Fact Salaris Indexering Actuals' = m
+	column 'Salaris (Schaal ID New)'
+		dataType: double
+		lineageTag: 69b807e2-b621-477a-98c9-b605796b4499
+		summarizeBy: sum
+		sourceColumn: Salaris (Schaal ID New)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Bedrag (New)'
+		dataType: double
+		lineageTag: d347a8ba-609a-4050-b3ca-c25945b1fe3e
+		summarizeBy: sum
+		sourceColumn: Bedrag (New)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Indexering
+		dataType: double
+		lineageTag: 9b0ee0e6-281e-4722-b54e-be288ce0efe4
+		summarizeBy: sum
+		sourceColumn: Indexering
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Index Name'
+		dataType: string
+		lineageTag: b8944b18-0568-4cbd-9f4d-8d4b75819310
+		summarizeBy: none
+		sourceColumn: Index Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bedrag Incl Indexering'
+		dataType: double
+		lineageTag: 8bd6ce89-ef73-4843-a627-bf3292b675fd
+		summarizeBy: sum
+		sourceColumn: Bedrag Incl Indexering
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Test Fact Salaris Extrapolated' = m
 		mode: import
 		queryGroup: Model
 		source =
 				let
-				    Source = #"Extrapolatie Salaris Indexering Actuals"(#"Fact Salaris Indexering Actuals Source"),
-				    #"Buffer Query" = Table.Buffer(Source),
-				    #"Changed Type9" = Table.TransformColumnTypes(#"Buffer Query",{{"Jaar", type number}, {"Boekingsperiode", type number}, {"Waarde", type number}, {"Bedrag_credit", type number}, {"FTE", type number}, {"OriginalBoekingsperiode", type number}, {"Kostenplaats", type text}, {"LC", type text}, {"Omschrijving LC", type text}, {"Grootboekrekening", type text}, {"Grootboekrekening_omschrijving", type text}, {"Naam_werkgever", type text}}),
+				    Source = #"Extrapolatie Salaris Indexering Actuals Test"(#"Fact Salaris Indexering Actuals Source (2)"),
+				    #"Changed Type9" = Table.TransformColumnTypes(Source,{{"Boekingsperiode", type number}, {"Jaar", type number}, {"Waarde", type number}, {"Bedrag_credit", type number}, {"FTE", type number}, {"OriginalBoekingsperiode", type number}}),
 				    #"Added Custom" = Table.AddColumn(#"Changed Type9", "Boekingsperiode (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0"), type nullable text),
 				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Boekingsperiode (leading zeros)"]), type nullable text),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom1",{{"IsExtrapolated", type logical}}),
@@ -292,7 +293,7 @@ table 'Fact Salaris Indexering Actuals'
 				    #"Expanded Indexering Actuals" = Table.ExpandTableColumn(#"Added Custom6", "Dim Indexering", {"Indexering", "Index Name"}, {"Indexering", "Index Name"}),
 				    #"Changed Type7" = Table.TransformColumnTypes(#"Expanded Indexering Actuals",{{"Indexering", type number}}),
 				    #"Added Custom7" = Table.AddColumn(#"Changed Type7", "Bedrag Incl Indexering", each if [Boekingsperiode] >= 7 and ([Type Personeel ID] = "Z_1" or [Type Personeel ID] = "Z_3" or [Type Personeel ID] = "Z_10" or [Type Personeel ID] = "Z_15") or [Schaal.SchaalType] = "Andere OVK" then [#"Bedrag (New)"] else if [Boekingsperiode] < 7 then [#"Bedrag (New)"] else ([#"Bedrag (New)"] * [Indexering]) + [#"Bedrag (New)"]),
-				    #"Changed Type8" = Table.TransformColumnTypes(#"Added Custom7",{{"Bedrag Incl Indexering", type number}, {"Index Name", type text}})
+				    #"Changed Type8" = Table.TransformColumnTypes(#"Added Custom7",{{"Bedrag Incl Indexering", type number}, {"Index Name", type text}, {"Medewerker ID", type text}, {"Kostenplaats", type text}, {"LC", type text}, {"Omschrijving LC", type text}, {"Grootboekrekening", type text}, {"Grootboekrekening_omschrijving", type text}, {"Naam_werkgever", type text}})
 				in
 				    #"Changed Type8"
 

@@ -564,6 +564,26 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Test Fact Salaris Extrapolated",
+          "nodeLineageTag": "74b808d4-59f9-4669-b126-a9dd390d2318",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Fact Schemawerk",
+          "nodeLineageTag": "96e53677-86ff-4597-aeee-abc89d272d1d",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -577,7 +597,7 @@
       "ordinal": 1,
       "scrollPosition": {
         "x": 0,
-        "y": 0
+        "y": 253.33332824707031
       },
       "nodes": [
         {
@@ -656,8 +676,8 @@
     {
       "ordinal": 2,
       "scrollPosition": {
-        "x": 0,
-        "y": 32
+        "x": 40.666667938232422,
+        "y": 101.33333587646484
       },
       "nodes": [
         {
@@ -740,8 +760,8 @@
         },
         {
           "location": {
-            "x": 96,
-            "y": 30
+            "x": 0,
+            "y": 32
           },
           "nodeIndex": "Dim Medewerker/Vacatures",
           "nodeLineageTag": "c0315acf-c11b-4c39-a9b6-1947573e966b",
@@ -750,6 +770,19 @@
             "width": 234
           },
           "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 246,
+            "y": 8
+          },
+          "nodeIndex": "Dim Medewerker",
+          "nodeLineageTag": "704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "Fact Personeelskosten",
@@ -829,8 +862,8 @@
     {
       "ordinal": 4,
       "scrollPosition": {
-        "x": 0,
-        "y": 47
+        "x": 171.33332824707031,
+        "y": 47.333332061767578
       },
       "nodes": [
         {
@@ -1066,7 +1099,7 @@
     {
       "ordinal": 6,
       "scrollPosition": {
-        "x": 338,
+        "x": 0,
         "y": 100
       },
       "nodes": [
@@ -1224,8 +1257,8 @@
     {
       "ordinal": 7,
       "scrollPosition": {
-        "x": 286.06825196273684,
-        "y": 0
+        "x": 266.12598425196853,
+        "y": 49.511811023622052
       },
       "nodes": [
         {
@@ -1527,8 +1560,8 @@
     {
       "ordinal": 9,
       "scrollPosition": {
-        "x": 0,
-        "y": 0
+        "x": 354.66665649414063,
+        "y": 57.333332061767578
       },
       "nodes": [
         {
@@ -1572,8 +1605,8 @@
         },
         {
           "location": {
-            "x": 556,
-            "y": 451
+            "x": 403,
+            "y": 456
           },
           "nodeIndex": "Dim Period",
           "nodeLineageTag": "359771a9-e570-4c97-8981-e43407ccad44",
@@ -2232,6 +2265,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Fact Forecasting Vacature",
+  "selectedDiagram": "Fact Journal Entries",
   "defaultDiagram": "All tables"
 }

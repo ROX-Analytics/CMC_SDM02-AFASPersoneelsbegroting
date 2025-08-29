@@ -5,7 +5,7 @@ table 'Dim Indexering Actuals'
 		dataType: double
 		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: bfb264f2-8d84-4677-915f-f858e4a2238b
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Indexering
 
 		annotation SummarizationSetBy = Automatic

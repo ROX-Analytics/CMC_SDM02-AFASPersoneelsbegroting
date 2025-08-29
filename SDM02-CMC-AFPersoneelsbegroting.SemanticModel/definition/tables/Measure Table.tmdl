@@ -704,21 +704,26 @@ table 'Measure Table'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure '(M) LC 2434 - Salaris' =
+	measure '(M) LC 2434 - Salaris' = ```
 			
 			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			
+			VAR salaris = 
+			CALCULATE(
+			    [Bedrag Forecasting Medewerkers],
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC])
+			)
 			
 			RETURN
-			IF(
-			    (ISINSCOPE('Dim Looncomponent'[LC]) && selectedLC = "2434") || ISINSCOPE('Dim Grootboek'[Code Grootboek]),
-			    CALCULATE(
-			        [Bedrag Forecasting Medewerkers],
-			        USERELATIONSHIP('Dim Looncomponent'[LC], 'Fact Forecasting Medewerkers'[LC]),
-			        USERELATIONSHIP('Dim Grootboek'[Code Grootboek], 'Fact Forecasting Medewerkers'[Grootboekrekening]),
-			        'Dim Looncomponent'[LC] = "2434"
-			    ),
+			SWITCH(
+			    TRUE(),
+			    selectedLC = "2434" && selectedGL = "4100000", salaris,
+			    selectedLC = "2434" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), salaris,
+			    selectedGL = "4100000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), salaris,
 			    BLANK()
 			)
+			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 50248bb2-b1b0-4ad2-a16a-0a0cb2b25232
 
@@ -1259,10 +1264,11 @@ table 'Measure Table'
 			'Measure Table'[(M) GB 4121000 - Uitzendkrachten en Tijdelijk] +
 			'Measure Table'[(M) GB 4121500 - Kosten Stagaires] +
 			'Measure Table'[(M) GB 4125100 - Personeel niet in Loondienst] + 
-			'Measure Table'[(M) GB 4125500 - Overige Personeelskosten] + 
 			'Measure Table'[(M) LC 2434 - Salaris] +
 			'Measure Table'[(M) LC 2545 - Pensioen Toeslag] + 
 			'Measure Table'[(M) LC 2622 - Overwerk 200%] +
+			'Measure Table'[(M) LC 3014 - Frequentietoeslag] + 
+			'Measure Table'[(M) LC 3015 - Intensiteitstoeslag] +
 			'Measure Table'[(M) LC 3021 - Instructievergoeding] + 
 			'Measure Table'[(M) LC 3027 - Speciale Toelage] +
 			'Measure Table'[(M) LC 3075 - Overwerk 300%] + 
@@ -1331,26 +1337,29 @@ table 'Measure Table'
 			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
 			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
 			
-			
+			VAR basesetmedewerker = 
+			FILTER(
+			    'Dim Medewerker',
+			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1 
+			)
 			
 			VAR BaseSalariesLC = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
 			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
-			    'Dim Type Personeel'[Type Zorg Functie] <> " Medisch Specialisten"
+			    'Dim Type Personeel'[Type Zorg Functie] <> " Medisch Specialisten",
+			    basesetmedewerker
 			)
 			
+			
 			RETURN
-			SUMX(
-			    VALUES('Fact Forecasting Medewerkers'[Medewerker ID]),
 			    SWITCH(
 			        TRUE(),
-			        selectedGL = "4120000" && selectedLC = "3083", DIVIDE(BaseSalariesLC, [Maanden in Dienst Actuals], BLANK()) * 0.02,
-			        selectedGL = "4120000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), DIVIDE(BaseSalariesLC, [Maanden in Dienst Actuals], BLANK()) * 0.02,
-			        selectedLC = "3083" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), DIVIDE(BaseSalariesLC, [Maanden in Dienst Actuals], BLANK()) * 0.02,
+			        selectedGL = "4120000" && selectedLC = "3083", BaseSalariesLC * 0.02,
+			        selectedGL = "4120000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), BaseSalariesLC * 0.02,
+			        selectedLC = "3083" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), BaseSalariesLC * 0.02,
 			        BLANK()
 			    )
-			)
 			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: f45c5a60-e82e-4161-a9e2-937e5ecfc65d
@@ -1744,9 +1753,44 @@ table 'Measure Table'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure '(M) LC 3015 - Intensiteitstoeslag'
+	measure '(M) LC 3015 - Intensiteitstoeslag' = ```
+			
+			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			
+			VAR basesetmedewerker = 
+			FILTER(
+			    'Dim Medewerker',
+			    'Dim Medewerker'[Flag Medische Specialisten] = 1 &&
+			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			)
+			
+			VAR BaseSalaryLC = 
+			CALCULATE(
+			    [Bedrag Forecasting Medewerkers],
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    basesetmedewerker
+			)
+			
+			VAR intenstieit = 
+			CALCULATE(
+			    'Measure Table'[% LC 3015 - Intensiteitstoeslag],
+			    basesetmedewerker
+			)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    selectedLC = "3015" && selectedGL = "4103000", BaseSalaryLC * intenstieit,
+			    selectedLC = "3015" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), BaseSalaryLC * intenstieit,
+			    selectedGL = "4103000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), BaseSalaryLC * intenstieit,
+			    BLANK()
+			    )
+			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 43e744bf-b5e9-4e3c-acd4-01e8e63cb1d2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure '(A) LC 3015 - Intensiteitstoeslag' = ```
 			
@@ -2239,21 +2283,27 @@ table 'Measure Table'
 			VAR basesetmedewerker = 
 			FILTER(
 			    'Dim Medewerker',
-			    'Dim Medewerker'[Medewerker ID] = "00002"
+			    'Dim Medewerker'[Flag Stagaire] = 1
 			)
 			
 			VAR kosten = 
 			CALCULATE(
-			    SUM('Dim Kosten Stagaires'[Kosten]),
-			    basesetmedewerker
+			    SUM('Dim Kosten Stagaires'[Kosten]) * 12,
+			    'Dim Medewerker'[Flag Stagaire] = 1
+			)
+			
+			VAR totalekosten = 
+			SUMX(
+			    basesetmedewerker,
+			    kosten
 			)
 			
 			RETURN
 			SWITCH(
 			    TRUE(),
-			    selectedGL = "4121500" && selectedLC = "0001", kosten,
-			    selectedGL = "4121500" && NOT HASONEVALUE('Dim Looncomponent'[LC]), kosten,
-			    selectedLC = "0001" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), kosten,
+			    selectedGL = "4121500" && selectedLC = "0001", totalekosten,
+			    selectedGL = "4121500" && NOT HASONEVALUE('Dim Looncomponent'[LC]), totalekosten,
+			    selectedLC = "0001" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), totalekosten,
 			    BLANK()
 			)
 			```
@@ -2273,6 +2323,15 @@ table 'Measure Table'
 			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
 			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
 			
+			VAR countmedewerkers = 
+			CALCULATE(
+			    [Count Medewerkers],
+			    ALL('Dim Medewerker'),
+			    'Dim Medewerker'[FLag LC 3095 - Vergunning] = 1,
+			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
+			    'Dim Medewerker'[Status_dienstverband] = "In dienst"
+			)
+			
 			VAR basesetmedewerker = 
 			FILTER(
 			    'Dim Medewerker',
@@ -2288,17 +2347,24 @@ table 'Measure Table'
 			    basesetmedewerker
 			)
 			
+			VAR totalekosten = DIVIDE(kosten, countmedewerkers, BLANK())
+			
+			VAR medewerkerkosten = 
+			SUMX(
+			    basesetmedewerker,
+			    totalekosten
+			)
 			
 			RETURN
 			SWITCH(
 			    TRUE(),
-			    selectedGL = "4125500" && selectedLC = "3095", kosten,
-			    selectedGL = "4125500" && NOT HASONEVALUE('Dim Looncomponent'[LC]), kosten,
-			    selectedLC = "3095" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), kosten,
+			    selectedGL = "4125500" && selectedLC = "3095", medewerkerkosten,
+			    selectedGL = "4125500" && NOT HASONEVALUE('Dim Looncomponent'[LC]), medewerkerkosten,
+			    selectedLC = "3095" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), medewerkerkosten,
 			    BLANK()
 			)
 			```
-		formatString: 0
+		formatString: #,0
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 6cb75b3e-2ee6-4a1b-9207-98f90fde3c7f
 
@@ -2522,10 +2588,13 @@ table 'Measure Table'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure '(WA) GB 4125500 - Vergunningen' = ```
+	measure '(WA) GB 4125500 - Vergunningen' =
 			
-			
-			```
+			CALCULATE(
+			    DIVIDE([Sum (u * w)], [(W) Sum of Weights]),
+			    ALL('Dim Grootboek'),
+			    'Dim Grootboek'[Code Grootboek] = "4125500"
+			)
 		formatString: 0
 		displayFolder: Statistics\Weighted Averages
 		lineageTag: 903330af-c06a-4968-aba2-0ebbd69d65f3
@@ -2938,6 +3007,507 @@ table 'Measure Table'
 		formatString: 0
 		displayFolder: Filter Measures
 		lineageTag: 1b29ace4-fe70-4d31-9de8-97edc3bb3585
+
+	measure '% LC 3015 - Intensiteitstoeslag' = DIVIDE([LC 3015 - Intensiteitstoeslag], [Salaris Actuals Not Extrapolated], BLANK())
+		formatString: 0.00
+		displayFolder: Statistics\Percentages
+		lineageTag: eb7df78d-2026-484c-acde-1076e84d34fc
+
+	measure 'LC 3014 - Frequentietoeslag' = ```
+			
+			VAR currentyear = YEAR(TODAY())
+			
+			
+			VAR huidigekosten = 
+			CALCULATE(
+			    [Bedrag Personeelskosten],
+			    ALL('Dim Looncomponent'),
+			    'Dim Looncomponent'[LC] = "3014",
+			    'Dim Medewerker'[Flag Medische Specialisten] = 1,
+			    FILTER(
+			        ALL('Dim Period'),
+			        'Dim Period'[Year] = currentyear
+			    )
+			)
+			
+			
+			RETURN
+			CALCULATE(
+			    huidigekosten,
+			    ALL('Dim Period'),
+			    ALL('Dim Looncomponent'),
+			    ALL('Dim Grootboek')
+			)
+			```
+		formatString: #,0.00
+		displayFolder: Statistics\Percentages
+		lineageTag: 861918d4-3394-4fc1-88f2-2403d525878f
+
+	measure '(M) LC 3014 - Frequentietoeslag' = ```
+			
+			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			
+			VAR basesetmedewerker = 
+			FILTER(
+			    'Dim Medewerker',
+			    'Dim Medewerker'[Flag Medische Specialisten] = 1 &&
+			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			)
+			
+			VAR BaseSalaryLC = 
+			CALCULATE(
+			    [Bedrag Forecasting Medewerkers],
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    basesetmedewerker
+			)
+			
+			VAR intenstieit = 
+			CALCULATE(
+			    'Measure Table'[% LC 3014 - Frequentietoeslag],
+			    basesetmedewerker
+			)
+			
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    selectedGL = "4103000" && selectedLC = "3014", BaseSalaryLC * intenstieit,
+			    selectedLC = "3014" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), BaseSalaryLC * intenstieit,
+			    selectedGL = "4103000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), BaseSalaryLC * intenstieit,
+			    BLANK()
+			    )
+			```
+		displayFolder: Forecasting\Medewerker
+		lineageTag: 7a187586-e6cc-4a1c-9be8-fab5ac29acfe
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(M) WN Bijdrage pensioen CAO' = ```
+			
+			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			VAR selectedschaaltype = SELECTEDVALUE('Dim SchaalType'[SchaalType Forecasting])
+			VAR BasesalariesGL = 
+			CALCULATE(
+			    [Bedrag Forecasting Medewerkers],
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    'Dim SchaalType'[SchaalType Forecasting] = "CAO"
+			)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    selectedschaaltype = "CAO", BaseSalariesGL * 0.05, 
+			    NOT HASONEVALUE('Dim SchaalType'[SchaalType Forecasting]), BaseSalariesGL * 0.05,
+			    BLANK()
+			)
+			```
+		displayFolder: Forecasting\Medewerker
+		lineageTag: fbc27f61-f3c2-4913-9072-36a5f77e77fa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(M) brutobelastbare toelage' = ```
+			
+			SUMX(
+			    'Dim Grootboek',
+			    'Measure Table'[(M) LC 3014 - Frequentietoeslag] + 
+			    'Measure Table'[(M) LC 3015 - Intensiteitstoeslag] + 
+			    'Measure Table'[(M) LC 3021 - Instructievergoeding] +
+			    'Measure Table'[(M) LC 3164 - Softlanding]
+			)
+			
+			```
+		displayFolder: Forecasting\Medewerker
+		lineageTag: 69fc4f29-e20b-4195-ab27-30cd399d1fd9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(M) LC 3010 - Schemawerk 30%' = ```
+			
+			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			
+			VAR basesetmedewerker = 
+			FILTER(
+			    'Dim Medewerker',
+			    'Dim Medewerker'[Flag Overwerk Schemawerk 30%] = 1 && 
+			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1 && 
+			    'Dim Medewerker'[Status_dienstverband] = "In dienst"
+			)
+			
+			VAR totaleFTE = 
+			CALCULATE(
+			    'Measure Table'[FTE Forecasting Medewerker],
+			    basesetmedewerker,
+			    REMOVEFILTERS()
+			)
+			VAR FTE = 
+			CALCULATE(
+			    'Measure Table'[FTE Forecasting Medewerker],
+			    basesetmedewerker
+			)
+			
+			VAR averageschemawerk = 'Measure Table'[(A) LC 3010 Schemawerk 30%]
+			
+			VAR schemawerk = DIVIDE(averageschemawerk, FTE * totaleFTE, BLANK())
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    selectedLC = "3010" && selectedGL = "4103000", schemawerk,
+			    selectedGL = "4103000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), schemawerk,
+			    selectedLC = "3010" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), schemawerk,
+			    BLANK()
+			)
+			
+			```
+		displayFolder: Forecasting\Medewerker
+		lineageTag: a5c2eae5-7df7-48cb-be25-de496b20d57c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(A) LC 3010 Schemawerk 30%' = ```
+			
+			VAR currentyear = YEAR(TODAY())
+			VAR minyear = currentyear - 4
+			
+			VAR BaseYearSet = 
+			FILTER(
+			    ALL('Dim Period'),
+			    'Dim Period'[Year] >= minyear
+			    && 'Dim Period'[Year] <= currentyear - 1
+			)
+			
+			
+			VAR yearforaverage = 
+			CALCULATE(
+			    DISTINCTCOUNT('Dim Period'[Year]),
+			    FILTER(
+			        ALL('Dim Period'),
+			        'Dim Period'[Year] >= minyear
+			        && 'Dim Period'[Year] <= currentyear - 1
+			    )
+			)
+			
+			VAR schemawerk = 
+			CALCULATE(
+			    [Bedrag Personeelskosten],
+			    'Dim Looncomponent'[LC] = "3010",
+			    ALL('Dim Looncomponent'),
+			    ALL('Dim Grootboek'),
+			    FILTER(
+			        ALL('Dim Period'),
+			        'Dim Period'[Year] >= minyear
+			        && 'Dim Period'[Year] <= currentyear - 1
+			    )
+			)
+			
+			
+			RETURN
+			CALCULATE(
+			    DIVIDE(schemawerk ,yearforaverage, 0),
+			    ALL('Dim Period'),
+			    ALL('Dim Grootboek'),
+			    ALL('Dim Looncomponent')
+			)
+			```
+		formatString: 0.00
+		displayFolder: Statistics\Averages
+		lineageTag: d6b21947-f185-46e1-837d-38cd7a655758
+
+	measure '(A) LC 3011 Schemawerk 45%' = ```
+			
+			VAR currentyear = YEAR(TODAY())
+			VAR minyear = currentyear - 4
+			
+			VAR BaseYearSet = 
+			FILTER(
+			    ALL('Dim Period'),
+			    'Dim Period'[Year] >= minyear
+			    && 'Dim Period'[Year] <= currentyear - 1
+			)
+			
+			
+			VAR yearforaverage = 
+			CALCULATE(
+			    DISTINCTCOUNT('Dim Period'[Year]),
+			    FILTER(
+			        ALL('Dim Period'),
+			        'Dim Period'[Year] >= minyear
+			        && 'Dim Period'[Year] <= currentyear - 1
+			    )
+			)
+			
+			VAR schemawerk = 
+			CALCULATE(
+			    [Bedrag Personeelskosten],
+			    'Dim Looncomponent'[LC] = "3011",
+			    ALL('Dim Looncomponent'),
+			    ALL('Dim Grootboek'),
+			    FILTER(
+			        ALL('Dim Period'),
+			        'Dim Period'[Year] >= minyear
+			        && 'Dim Period'[Year] <= currentyear - 1
+			    )
+			)
+			
+			
+			RETURN
+			CALCULATE(
+			    DIVIDE(schemawerk ,yearforaverage, 0),
+			    ALL('Dim Period'),
+			    ALL('Dim Grootboek'),
+			    ALL('Dim Looncomponent')
+			)
+			```
+		displayFolder: Statistics\Averages
+		lineageTag: 63b19e47-758d-450d-9f67-b9be4bbfabef
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(A) LC 3012 Schemawerk 50%' = ```
+			
+			VAR currentyear = YEAR(TODAY())
+			VAR minyear = currentyear - 4
+			
+			VAR BaseYearSet = 
+			FILTER(
+			    ALL('Dim Period'),
+			    'Dim Period'[Year] >= minyear
+			    && 'Dim Period'[Year] <= currentyear - 1
+			)
+			
+			
+			VAR yearforaverage = 
+			CALCULATE(
+			    DISTINCTCOUNT('Dim Period'[Year]),
+			    FILTER(
+			        ALL('Dim Period'),
+			        'Dim Period'[Year] >= minyear
+			        && 'Dim Period'[Year] <= currentyear - 1
+			    )
+			)
+			
+			VAR schemawerk = 
+			CALCULATE(
+			    [Bedrag Personeelskosten],
+			    'Dim Looncomponent'[LC] = "3012",
+			    ALL('Dim Looncomponent'),
+			    ALL('Dim Grootboek'),
+			    FILTER(
+			        ALL('Dim Period'),
+			        'Dim Period'[Year] >= minyear
+			        && 'Dim Period'[Year] <= currentyear - 1
+			    )
+			)
+			
+			
+			RETURN
+			CALCULATE(
+			    DIVIDE(schemawerk ,yearforaverage, 0),
+			    ALL('Dim Period'),
+			    ALL('Dim Grootboek'),
+			    ALL('Dim Looncomponent')
+			)
+			```
+		displayFolder: Statistics\Averages
+		lineageTag: 0af26610-7343-4b10-9c15-48a760505fd0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Salaris Actuals Not Extrapolated' = ```
+			
+			VAR currentyear = YEAR(TODAY())
+			
+			VAR salaris = 
+			CALCULATE(
+			    [Salaris Indexering Actuals],
+			    'Dim IsExtrapolated'[ID] = 2,
+			    'Dim Medewerker'[Flag Medische Specialisten] = 1,
+			    ALL('Dim Looncomponent'),
+			    ALL('Dim Period'),
+			    ALL('Dim Grootboek')
+			)
+			RETURN
+			CALCULATE(
+			    salaris,
+			    ALL('Dim Period'),
+			    ALL('Dim Looncomponent'),
+			    ALL('Dim Grootboek')
+			)
+			```
+		displayFolder: Statistics\Percentages
+		lineageTag: 75fa1b28-be3f-4d82-98b3-a02a1a31770c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Salaris Indexering Actuals' = SUM('Fact Salaris Indexering Actuals'[Bedrag Incl Indexering])
+		displayFolder: Forecasting\Indexering Actuals
+		lineageTag: 796f62f1-1ef1-45b0-b5f2-57f9e4e61cae
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(M) LC 2434 - Salaris Test' = ```
+			
+			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			
+			VAR salaris = 
+			CALCULATE(
+			    [Bedrag Forecasting Medewerkers],
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC])
+			)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    selectedLC = "2434" && selectedGL = "4100000", salaris,
+			    selectedLC = "2434" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), salaris,
+			    selectedGL = "4100000", salaris,
+			    BLANK()
+			)
+			```
+		displayFolder: Forecasting\Medewerker
+		lineageTag: e5c61824-5daf-4555-85ab-07bfb99cf7b3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% LC 3014 - Frequentietoeslag' =
+			
+			DIVIDE([LC 3014 - Frequentietoeslag], [Salaris Actuals Not Extrapolated], BLANK())
+		displayFolder: Statistics\Percentages
+		lineageTag: 78906b9e-ae92-488a-ab97-3341da932fb5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LC 3015 - Intensiteitstoeslag' = ```
+			
+			VAR currentyear = YEAR(TODAY())
+			
+			
+			VAR huidigekosten = 
+			CALCULATE(
+			    [Bedrag Personeelskosten],
+			    ALL('Dim Looncomponent'),
+			    'Dim Looncomponent'[LC] = "3015",
+			    'Dim Medewerker'[Flag Medische Specialisten] = 1,
+			    FILTER(
+			        ALL('Dim Period'),
+			        'Dim Period'[Year] = currentyear
+			    )
+			)
+			
+			
+			RETURN
+			CALCULATE(
+			    huidigekosten,
+			    ALL('Dim Period'),
+			    ALL('Dim Looncomponent'),
+			    ALL('Dim Grootboek')
+			)
+			```
+		displayFolder: Statistics\Percentages
+		lineageTag: 6ea1b521-5d5b-4e3f-ae60-8f5b8dce6d88
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(M) WN Bijdrage Pensioen (LNT)' = ```
+			
+			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			VAR selectedschaaltype = SELECTEDVALUE('Dim SchaalType'[SchaalType Forecasting])
+			// 4115000
+			
+			VAR BaseSalaryLC = 
+			CALCULATE(
+			    [Bedrag Forecasting Medewerkers],
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    'Dim SchaalType'[SchaalType Forecasting] = "LNT"
+			)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    selectedschaaltype = "LNT", BaseSalaryLC * 0.10,
+			    NOT HASONEVALUE('Dim SchaalType'[SchaalType Forecasting]), BaseSalaryLC * 0.10,
+			    BLANK()
+			)
+			```
+		displayFolder: Forecasting\Medewerker
+		lineageTag: 7f846dc9-1034-4de9-a7d9-198c4da29702
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(M) WN Bijdrage Pensioen (AOVK)' = ```
+			
+			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			VAR selectedschaaltype = SELECTEDVALUE('Dim SchaalType'[SchaalType Forecasting])
+			// 4115000
+			
+			VAR BaseSalaryLC = 
+			CALCULATE(
+			    [Bedrag Forecasting Medewerkers],
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    'Dim SchaalType'[SchaalType Forecasting] = "Andere OVK",
+			    'Dim Kostenplaats'[Kostenplaats] <> "1100"
+			)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    selectedschaaltype = "Andere OVK", BaseSalaryLC * 0.10,
+			    NOT HASONEVALUE('Dim SchaalType'[SchaalType Forecasting]), BaseSalaryLC * 0.10,
+			    BLANK()
+			)
+			```
+		displayFolder: Forecasting\Medewerker
+		lineageTag: ff422050-6200-4623-af58-91e92472d705
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(M) WN Bijdrage Pensioen (RvB)' = ```
+			
+			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			VAR selectedschaaltype = SELECTEDVALUE('Dim SchaalType'[SchaalType Forecasting])
+			// 4115000
+			
+			VAR Karina = 
+			CALCULATE(
+			    [Bedrag Forecasting Medewerkers] * 0.05,
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    'Dim Medewerker'[Medewerker ID] = "500311"
+			)
+			
+			VAR Ingemar = 
+			CALCULATE(
+			    [Bedrag Forecasting Medewerkers] * 0.10,
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    'Dim Medewerker'[Medewerker ID] = "40831"
+			)
+			VAR Johan = 
+			CALCULATE(
+			    [Bedrag Forecasting Medewerkers] * 0.05,
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    'Dim Medewerker'[Medewerker ID] = "502029"
+			)
+			
+			VAR total = Karina + Ingemar + Johan
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    selectedschaaltype = "Andere OVK", total,
+			    NOT HASONEVALUE('Dim SchaalType'[SchaalType Forecasting]), total,
+			    BLANK()
+			)
+			```
+		displayFolder: Forecasting\Medewerker
+		lineageTag: 0ec75086-bf13-47c1-8175-232068fdcfec
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition 'Measure Table' = m
 		mode: import

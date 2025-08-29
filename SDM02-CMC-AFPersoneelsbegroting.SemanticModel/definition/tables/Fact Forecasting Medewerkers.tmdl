@@ -265,6 +265,14 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column Naam_werkgever
+		dataType: string
+		lineageTag: ab7c5810-ee91-4784-8d77-aaf070527e3a
+		summarizeBy: none
+		sourceColumn: Naam_werkgever
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Fact Forecasting Medewerkers' = m
 		mode: import
 		queryGroup: Model

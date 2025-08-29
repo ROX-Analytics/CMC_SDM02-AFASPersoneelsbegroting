@@ -1753,52 +1753,65 @@ expression 'Extrapolatie Salaris Indexering Actuals' =
 		(inputTable as table) as table =>
 		let
 		    CurrentYear = Date.Year(DateTime.LocalNow()),
-		
-		    // Ensure the required columns exist
-		    RequiredColumns = {"Jaar", "Boekingsperiode"},
-		    AllColumnsPresent = List.MatchesAll(RequiredColumns, (col) => List.Contains(Table.ColumnNames(inputTable), col)),
+		    RequiredColumns = {"Jaar","Boekingsperiode","Medewerker ID"},
+		    AllColumnsPresent = List.MatchesAll(RequiredColumns, (c) => List.Contains(Table.ColumnNames(inputTable), c)),
 		
 		    Output =
-		        if AllColumnsPresent then
-		            let
-		                // Step 1: Filter to current year
-		                CurrentYearData = Table.SelectRows(inputTable, each [Jaar] = CurrentYear),
+		    if AllColumnsPresent then
+		        let
+		            // 1) Current year only
+		            CurrentYearData = Table.SelectRows(inputTable, each [Jaar] = CurrentYear),
 		
-		                // Step 2: Find latest actual period
-		                PeriodsAvailable = List.Distinct(CurrentYearData[Boekingsperiode]),
-		                MaxAvailablePeriod = if List.Count(PeriodsAvailable) > 0 then List.Max(PeriodsAvailable) else null,
+		            // 2) Flag actuals
+		            WithActualsFlag = Table.AddColumn(CurrentYearData, "IsExtrapolated", each false, type logical),
 		
-		                // Step 3: Determine future periods to extrapolate
-		                PeriodsToExtrapolate = if MaxAvailablePeriod <> null and MaxAvailablePeriod < 12 then
-		                    List.Select({1..12}, each _ > MaxAvailablePeriod)
-		                else
-		                    {},
-		
-		                // Step 4: Select rows to replicate from the latest period
-		                SourceForExtrapolation = if MaxAvailablePeriod <> null and MaxAvailablePeriod < 12 then
-		                    Table.SelectRows(CurrentYearData, each [Boekingsperiode] = MaxAvailablePeriod)
-		                else
-		                    #table(Table.ColumnNames(inputTable), {}),  // empty table with correct schema
-		
-		                // Step 5: Create extrapolated rows with updated Boekingsperiode
-		                RepeatedRows = List.Transform(PeriodsToExtrapolate, (newPeriod) =>
-		                    Table.TransformColumns(
-		                        Table.DuplicateColumn(SourceForExtrapolation, "Boekingsperiode", "OriginalBoekingsperiode"),
-		                        {{"Boekingsperiode", each newPeriod, type number}}
-		                    )
+		            // 3) Group per medewerker, keep only rows from their max Boekingsperiode
+		            LastRowPerMedewerker =
+		                Table.Group(
+		                    WithActualsFlag,
+		                    {"Medewerker ID"},
+		                    {
+		                        {"LastRows",
+		                            (t as table) =>
+		                                let
+		                                    maxP = List.Max(t[Boekingsperiode]),
+		                                    rows = Table.SelectRows(t, each [Boekingsperiode] = maxP)
+		                                in rows,
+		                            type table
+		                        }
+		                    }
 		                ),
-		                CombinedExtrapolated = if List.Count(RepeatedRows) > 0 then Table.Combine(RepeatedRows) else SourceForExtrapolation,
 		
-		                // Step 6: Add IsExtrapolated flag
-		                WithExtrapolatedFlag = Table.AddColumn(CombinedExtrapolated, "IsExtrapolated", each true),
-		                WithActualsFlag = Table.AddColumn(CurrentYearData, "IsExtrapolated", each false),
+		            // 4) Expand inner table, but EXCLUDE the grouping key to avoid duplicates
+		            ColumnsToExpand = List.RemoveItems(Table.ColumnNames(WithActualsFlag), {"Medewerker ID"}),
+		            Expanded = Table.ExpandTableColumn(LastRowPerMedewerker, "LastRows", ColumnsToExpand),
 		
-		                // Step 7: Combine and return
-		                Final = Table.Combine({WithActualsFlag, WithExtrapolatedFlag})
-		            in
-		                Final
-		        else
-		            Table.SelectRows(inputTable, each false) // Fallback: return empty table if Jaar or Boekingsperiode missing
+		            // 5) Build list of future periods for each medewerker
+		            WithPeriods =
+		                Table.AddColumn(
+		                    Expanded, "NewPeriod",
+		                    each if [Boekingsperiode] < 12 then {[Boekingsperiode]+1 .. 12} else {},
+		                    type list
+		                ),
+		
+		            // 6) One row per future period
+		            Replicated = Table.ExpandListColumn(WithPeriods, "NewPeriod"),
+		
+		            // 7) Keep original period and swap in the new one
+		            WithOriginal = Table.DuplicateColumn(Replicated, "Boekingsperiode", "OriginalBoekingsperiode"),
+		            AddedNewBP  = Table.AddColumn(WithOriginal, "Boekingsperiode New", each [NewPeriod], Int64.Type),
+		            RemovedHelp = Table.RemoveColumns(AddedNewBP, {"NewPeriod","Boekingsperiode"}),
+		            RenamedBP   = Table.RenameColumns(RemovedHelp, {{"Boekingsperiode New","Boekingsperiode"}}),
+		
+		            // 8) Mark extrapolated
+		            MarkExtrapolated = Table.ReplaceValue(RenamedBP, false, true, Replacer.ReplaceValue, {"IsExtrapolated"}),
+		
+		            // 9) Combine actuals + extrapolated
+		            Final = Table.Combine({WithActualsFlag, MarkExtrapolated})
+		        in
+		            Final
+		    else
+		        Table.SelectRows(inputTable, each false)
 		in
 		    Output
 	lineageTag: c0522d5b-798b-42a5-8a44-07defa578253
@@ -1836,52 +1849,65 @@ expression 'Extrapolatie Salaris Indexering Actuals Test' =
 		(inputTable as table) as table =>
 		let
 		    CurrentYear = Date.Year(DateTime.LocalNow()),
-		
-		    // Ensure the required columns exist
-		    RequiredColumns = {"Jaar", "Boekingsperiode"},
-		    AllColumnsPresent = List.MatchesAll(RequiredColumns, (col) => List.Contains(Table.ColumnNames(inputTable), col)),
+		    RequiredColumns = {"Jaar","Boekingsperiode","Medewerker ID"},
+		    AllColumnsPresent = List.MatchesAll(RequiredColumns, (c) => List.Contains(Table.ColumnNames(inputTable), c)),
 		
 		    Output =
-		        if AllColumnsPresent then
-		            let
-		                // Step 1: Filter to current year
-		                CurrentYearData = Table.SelectRows(inputTable, each [Jaar] = CurrentYear),
+		    if AllColumnsPresent then
+		        let
+		            // 1) Current year only
+		            CurrentYearData = Table.SelectRows(inputTable, each [Jaar] = CurrentYear),
 		
-		                // Step 2: Find latest actual period
-		                PeriodsAvailable = List.Distinct(CurrentYearData[Boekingsperiode]),
-		                MaxAvailablePeriod = if List.Count(PeriodsAvailable) > 0 then List.Max(PeriodsAvailable) else null,
+		            // 2) Flag actuals
+		            WithActualsFlag = Table.AddColumn(CurrentYearData, "IsExtrapolated", each false, type logical),
 		
-		                // Step 3: Determine future periods to extrapolate
-		                PeriodsToExtrapolate = if MaxAvailablePeriod <> null and MaxAvailablePeriod < 12 then
-		                    List.Select({1..12}, each _ > MaxAvailablePeriod)
-		                else
-		                    {},
-		
-		                // Step 4: Select rows to replicate from the latest period
-		                SourceForExtrapolation = if MaxAvailablePeriod <> null and MaxAvailablePeriod < 12 then
-		                    Table.SelectRows(CurrentYearData, each [Boekingsperiode] = MaxAvailablePeriod)
-		                else
-		                    #table(Table.ColumnNames(inputTable), {}),  // empty table with correct schema
-		
-		                // Step 5: Create extrapolated rows with updated Boekingsperiode
-		                RepeatedRows = List.Transform(PeriodsToExtrapolate, (newPeriod) =>
-		                    Table.TransformColumns(
-		                        Table.DuplicateColumn(SourceForExtrapolation, "Boekingsperiode", "OriginalBoekingsperiode"),
-		                        {{"Boekingsperiode", each newPeriod, type number}}
-		                    )
+		            // 3) Group per medewerker, keep only rows from their max Boekingsperiode
+		            LastRowPerMedewerker =
+		                Table.Group(
+		                    WithActualsFlag,
+		                    {"Medewerker ID"},
+		                    {
+		                        {"LastRows",
+		                            (t as table) =>
+		                                let
+		                                    maxP = List.Max(t[Boekingsperiode]),
+		                                    rows = Table.SelectRows(t, each [Boekingsperiode] = maxP)
+		                                in rows,
+		                            type table
+		                        }
+		                    }
 		                ),
-		                CombinedExtrapolated = if List.Count(RepeatedRows) > 0 then Table.Combine(RepeatedRows) else SourceForExtrapolation,
 		
-		                // Step 6: Add IsExtrapolated flag
-		                WithExtrapolatedFlag = Table.AddColumn(CombinedExtrapolated, "IsExtrapolated", each true),
-		                WithActualsFlag = Table.AddColumn(CurrentYearData, "IsExtrapolated", each false),
+		            // 4) Expand inner table, but EXCLUDE the grouping key to avoid duplicates
+		            ColumnsToExpand = List.RemoveItems(Table.ColumnNames(WithActualsFlag), {"Medewerker ID"}),
+		            Expanded = Table.ExpandTableColumn(LastRowPerMedewerker, "LastRows", ColumnsToExpand),
 		
-		                // Step 7: Combine and return
-		                Final = Table.Combine({WithActualsFlag, WithExtrapolatedFlag})
-		            in
-		                Final
-		        else
-		            Table.SelectRows(inputTable, each false) // Fallback: return empty table if Jaar or Boekingsperiode missing
+		            // 5) Build list of future periods for each medewerker
+		            WithPeriods =
+		                Table.AddColumn(
+		                    Expanded, "NewPeriod",
+		                    each if [Boekingsperiode] < 12 then {[Boekingsperiode]+1 .. 12} else {},
+		                    type list
+		                ),
+		
+		            // 6) One row per future period
+		            Replicated = Table.ExpandListColumn(WithPeriods, "NewPeriod"),
+		
+		            // 7) Keep original period and swap in the new one
+		            WithOriginal = Table.DuplicateColumn(Replicated, "Boekingsperiode", "OriginalBoekingsperiode"),
+		            AddedNewBP  = Table.AddColumn(WithOriginal, "Boekingsperiode New", each [NewPeriod], Int64.Type),
+		            RemovedHelp = Table.RemoveColumns(AddedNewBP, {"NewPeriod","Boekingsperiode"}),
+		            RenamedBP   = Table.RenameColumns(RemovedHelp, {{"Boekingsperiode New","Boekingsperiode"}}),
+		
+		            // 8) Mark extrapolated
+		            MarkExtrapolated = Table.ReplaceValue(RenamedBP, false, true, Replacer.ReplaceValue, {"IsExtrapolated"}),
+		
+		            // 9) Combine actuals + extrapolated
+		            Final = Table.Combine({WithActualsFlag, MarkExtrapolated})
+		        in
+		            Final
+		    else
+		        Table.SelectRows(inputTable, each false)
 		in
 		    Output
 	lineageTag: 78075f2f-3317-4150-ba81-5e58700c7f01
@@ -2890,15 +2916,15 @@ expression 'Fact Forecasting Medewerkers Source' = ```
 		    #"Invoked Custom Function" = Table.AddColumn(#"Added Custom", "Period Forecasting", each #"Forecasting Medewerker Date Function Test"([Year Forecasting])),
 		    #"Expanded Period Forecasting" = Table.ExpandTableColumn(#"Invoked Custom Function", "Period Forecasting", {"Period"}, {"Period"}),
 		    #"Merged Queries1" = Table.NestedJoin(#"Expanded Period Forecasting", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker Details", JoinKind.LeftOuter),
-		    #"Expanded Dim Medewerker Details" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Medewerker Details", {"Anniversary Month", "Kostenplaats", "Schaal ID", "Type Personeel ID"}, {"Anniversary Month", "Kostenplaats", "Schaal ID", "Type Personeel ID"}),
-		    #"Added Custom1" = Table.AddColumn(#"Expanded Dim Medewerker Details", "Period (leading zeros)", each Text.PadStart(Text.From([Period]),2,"0")),
+		    #"Expanded Dim Medewerker Details" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Medewerker Details", {"Anniversary Month", "Kostenplaats", "Naam_werkgever", "Schaal ID", "Type Personeel ID"}, {"Anniversary Month", "Kostenplaats", "Naam_werkgever", "Schaal ID", "Type Personeel ID"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Expanded Dim Medewerker Details", each true),
+		    #"Added Custom1" = Table.AddColumn(#"Filtered Rows1", "Period (leading zeros)", each Text.PadStart(Text.From([Period]),2,"0")),
 		    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Year/Period", each Text.From([Year Forecasting]) & "/" & Text.From([#"Period (leading zeros)"])),
 		    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom2",{{"Period (leading zeros)", type text}, {"Year/Period", type text}}),
 		    #"Merged Queries2" = Table.NestedJoin(#"Changed Type", {"Medewerker ID"}, #"Fact Medewerker MAX Salaris Incl Indexering", {"Medewerker ID"}, "Fact Medewerker MAX Salaris Incl Indexering", JoinKind.LeftOuter),
 		    #"Expanded Fact Medewerker MAX Salaris Incl Indexering" = Table.ExpandTableColumn(#"Merged Queries2", "Fact Medewerker MAX Salaris Incl Indexering", {"Index Name Actuals", "Max Salaris End Actuals"}, {"Index Name Actuals", "Max Salaris End Actuals"}),
 		    #"Changed Type1" = Table.TransformColumnTypes(#"Expanded Fact Medewerker MAX Salaris Incl Indexering",{{"Index Name Actuals", type text}}),
-		    #"Filtered Rows1" = Table.SelectRows(#"Changed Type1", each ([Index Name Actuals] <> null)),
-		    #"Merged Queries3" = Table.NestedJoin(#"Filtered Rows1", {"Medewerker ID"}, #"Fact Medewerker MAX Schaal/Trede Actuals", {"Medewerker ID"}, "Fact Medewerker MAX Schaal/Trede Actuals", JoinKind.LeftOuter),
+		    #"Merged Queries3" = Table.NestedJoin(#"Changed Type1", {"Medewerker ID"}, #"Fact Medewerker MAX Schaal/Trede Actuals", {"Medewerker ID"}, "Fact Medewerker MAX Schaal/Trede Actuals", JoinKind.LeftOuter),
 		    #"Expanded Fact Medewerker MAX Schaal/Trede Actuals" = Table.ExpandTableColumn(#"Merged Queries3", "Fact Medewerker MAX Schaal/Trede Actuals", {"New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals"}, {"New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals"}),
 		    #"Merged Queries4" = Table.NestedJoin(#"Expanded Fact Medewerker MAX Schaal/Trede Actuals", {"New Schaal ID (Trede Verhoging Actuals)"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.Inner),
 		    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries4", "Dim SchaalType", {"SchaalType Forecasting"}, {"SchaalType Forecasting"}),
@@ -3005,9 +3031,10 @@ expression 'GC_FinancialeMutaties (2023 - >12)' =
 expression 'Dim Vrijwilleger en Stagair' =
 		let
 		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMjAwMFTSUQoryswqz8zJSU1PLQJyPfMUUjJT84pLlGJ1wGqMgILBJYnpiZlo0rEA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Medewerker ID" = _t, Voornaam = _t, Status_dienstverband = _t]),
-		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Medewerker ID", type text}, {"Voornaam", type text}})
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Medewerker ID", type text}, {"Voornaam", type text}}),
+		    #"Added Custom" = Table.AddColumn(#"Changed Type", "Naam_werkgever", each "Curacao Medical Center Exploitatie", type nullable text)
 		in
-		    #"Changed Type"
+		    #"Added Custom"
 	lineageTag: 98f8a25b-6dac-482f-b298-d9a256723a56
 	queryGroup: Staging\Forecasting
 
@@ -3174,6 +3201,67 @@ expression 'Dim Vacature Conditional Index' = ```
 		    #"Added Index1"
 		```
 	lineageTag: ed8b5a68-8aaa-4955-912a-335dcc39b5b7
+	queryGroup: Staging\Forecasting
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Fact Salaris Indexering Actuals Source (2)' =
+		let
+		    Source = #"Fact Personeels Kosten 2025",
+		    #"Renamed Columns" = Table.RenameColumns(Source,{{"Omschrijving_klant", "Omschrijving LC"}, {"Medewerker", "Medewerker ID"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Jaar", "Boekingsperiode", "Medewerker ID", "Kostenplaats", "LC", "Omschrijving LC", "Waarde", "Bedrag_credit", "Grootboekrekening", "Grootboekrekening_omschrijving", "FTE"}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Other Columns",{{"FTE", type number}}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type1",{{"FTE", "FTE Original"}}),
+		    #"Added Custom" = Table.AddColumn(#"Renamed Columns1", "FTE", each [FTE Original] / 100),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom",{{"FTE", type number}}),
+		    #"Removed Other Columns1" = Table.SelectColumns(#"Changed Type2",{"Jaar", "Boekingsperiode", "Medewerker ID", "Kostenplaats", "LC", "Omschrijving LC", "Waarde", "Bedrag_credit", "Grootboekrekening", "Grootboekrekening_omschrijving", "FTE"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Removed Other Columns1", each [LC] = "2434" and ([Grootboekrekening] <> "1995000")),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"Jaar", Int64.Type}, {"Boekingsperiode", Int64.Type}, {"Waarde", type number}, {"Bedrag_credit", type number}}),
+		    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
+		    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Naam_werkgever"}, {"Naam_werkgever"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Expanded Dim Medewerker", each [Naam_werkgever] = "Curacao Medical Center Exploitatie")
+		in
+		    #"Filtered Rows1"
+	lineageTag: 0e740174-d8a2-43ba-a611-16c2f1aa80da
+	queryGroup: Staging\Forecasting
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Fact Schemawerk Support' =
+		let
+		    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025", #"Fact Personeels Kosten 2021", #"Fact Personeels Kosten 2023", #"Fact Personeels Kosten 2022"}),
+		    #"Renamed Columns" = Table.RenameColumns(Source,{{"Omschrijving_klant", "Omschrijving LC"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([LC] = "3010" or [LC] = "3011" or [LC] = "3012") and ([Grootboekrekening] = "4103000")),
+		    #"Added Custom" = Table.AddColumn(#"Filtered Rows", "Boeking Periode (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0"), type nullable text),
+		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Salaris Periode (leading zeros)", each Text.PadStart(Text.From([Salarisperiode]),2,"0"), type nullable text),
+		    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Boeking Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Boeking Periode (leading zeros)"]), type nullable text),
+		    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Salaris Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Salaris Periode (leading zeros)"]), type nullable text),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom3",{{"Waarde", type number}, {"Bedrag_credit", type number}}),
+		    #"Added Custom4" = Table.AddColumn(#"Changed Type1", "Bedrag", each [Waarde] - [Bedrag_credit]),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom4",{{"Bedrag", type number}}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type2",{{"FTE", "FTE Original"}}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns1",{{"FTE Original", type number}}),
+		    #"Added Custom5" = Table.AddColumn(#"Changed Type", "FTE", each [FTE Original] / 100),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom5",{{"FTE", type number}}),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type3",{{"Medewerker", "Medewerker ID"}}),
+		    #"Added Index" = Table.AddIndexColumn(#"Renamed Columns2", "Index", 1, 1, Int64.Type),
+		    #"Added Custom6" = Table.AddColumn(#"Added Index", "Line ID", each Text.From([Medewerker ID]) & "_" & Text.From([Grootboekrekening]) & "_" & Text.From([Index])),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Added Custom6",{{"Line ID", type text}}),
+		    #"Added Custom7" = Table.AddColumn(#"Changed Type4", "Saldo", each ([Waarde] * [FTE]) - [Bedrag_credit]),
+		    #"Changed Type5" = Table.TransformColumnTypes(#"Added Custom7",{{"Saldo", type number}}),
+		    #"Trimmed Text" = Table.TransformColumns(#"Changed Type5",{{"Grootboekrekening", Text.Trim, type text}}),
+		    #"Changed Type6" = Table.TransformColumnTypes(#"Trimmed Text",{{"Jaar", Int64.Type}, {"Salarisperiode", Int64.Type}, {"Boekingsperiode", Int64.Type}}),
+		    #"Merged Queries" = Table.NestedJoin(#"Changed Type6", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
+		    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Schaal ID"}, {"Schaal ID"}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Expanded Dim Medewerker",{"Jaar", "LC", "Grootboekrekening", "Boeking Year/Period", "Bedrag"}),
+		    #"Grouped Rows" = Table.Group(#"Removed Other Columns", {"Jaar", "Boeking Year/Period", "LC"}, {{"Bedrag Schemawerk", each List.Sum([Bedrag]), type nullable number}})
+		in
+		    #"Grouped Rows"
+	lineageTag: 87f8d497-1674-4ef9-97fb-3aac5245f675
 	queryGroup: Staging\Forecasting
 
 	annotation PBI_NavigationStepName = Navigation

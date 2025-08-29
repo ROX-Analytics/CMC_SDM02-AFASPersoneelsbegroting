@@ -427,10 +427,6 @@ relationship 4f548d75-0d7d-7796-56f9-f61fd0e90ed2
 	fromColumn: 'Fact Forecasting Vacatures'.Kostenplaats
 	toColumn: 'Dim Kostenplaats'.Kostenplaats
 
-relationship be646cb4-8258-4326-d2fc-7ec5259f50f5
-	fromColumn: 'Fact Personeels Kosten'.'Medewerker ID'
-	toColumn: 'Dim Medewerker/Vacatures'.'Medewerker ID'
-
 relationship 5733d9c6-4700-f537-90eb-0a0eb638d80d
 	fromColumn: 'Fact Forecasting Medewerkers'.'Medewerker ID'
 	toColumn: 'Dim Medewerker'.'Medewerker ID'
@@ -438,4 +434,12 @@ relationship 5733d9c6-4700-f537-90eb-0a0eb638d80d
 relationship 97d5d345-c629-9c4c-e0fd-ce18e1faf578
 	fromColumn: 'Fact Forecasting Vacatures'.'Medewerker ID'
 	toColumn: 'Dim Vacatures Medewerker'.'Medewerker ID'
+
+relationship 63f60045-9498-d1e5-26fa-1f9bd2793184
+	fromColumn: 'Fact Personeels Kosten'.'Medewerker ID'
+	toColumn: 'Dim Medewerker'.'Medewerker ID'
+
+relationship fdf87ded-5ca9-191f-e2ea-6354e61d23c1
+	fromColumn: 'Fact Salaris Indexering Actuals'.'Index Name'
+	toColumn: 'Dim Indexering Actuals'.'Index Name'
 
