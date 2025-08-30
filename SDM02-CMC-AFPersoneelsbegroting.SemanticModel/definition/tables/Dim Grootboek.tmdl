@@ -61,9 +61,10 @@ table 'Dim Grootboek'
 				    #"Sorted Rows" = Table.Sort(#"Removed Duplicates",{{"Rekeningnummer_2", Order.Ascending}}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Sorted Rows",{{"Rekeningnummer_2", "Code Grootboek"}}),
 				    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns",{"Rapportagecockpit", "Rapportagecockpit_omschrijving", "Code Grootboek", "Omschrijving", "Type_rekening"}),
-				    #"Filtered Rows" = Table.SelectRows(#"Reordered Columns", each ([Rapportagecockpit_omschrijving] <> "") and ([Code Grootboek] <> "4113000"))
+				    #"Filtered Rows" = Table.SelectRows(#"Reordered Columns", each ([Rapportagecockpit_omschrijving] <> "") and ([Code Grootboek] <> "4113000")),
+				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each not Text.Contains([Code Grootboek], "4128000"))
 				in
-				    #"Filtered Rows"
+				    #"Filtered Rows1"
 
 	annotation PBI_NavigationStepName = Navigation
 

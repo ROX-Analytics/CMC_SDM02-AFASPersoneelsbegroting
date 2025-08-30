@@ -3268,3 +3268,75 @@ expression 'Fact Schemawerk Support' =
 
 	annotation PBI_ResultType = Table
 
+expression 'Extrapolatie Salarissen for Schemawerk' =
+		// Extrapolate latest period of latest year to period 12
+		(inputTable as table) as table =>
+		let
+		    // Use "Periode" if present, else fall back to "Boekingsperiode"
+		    PeriodCol = if List.Contains(Table.ColumnNames(inputTable), "Periode")
+		                then "Periode" else "Boekingsperiode",
+		
+		    LatestYear   = List.Max(Table.Column(inputTable, "Jaar")),
+		    LatestYearTb = Table.SelectRows(inputTable, each Record.Field(_, "Jaar") = LatestYear),
+		
+		    LatestPeriod = List.Max(Table.Column(LatestYearTb, PeriodCol)),
+		    PeriodsToAdd = if LatestPeriod < 12 then {LatestPeriod + 1 .. 12} else {},
+		
+		    // Source rows to copy (the latest actual period of the latest year)
+		    BaseRows = Table.SelectRows(LatestYearTb, each Record.Field(_, PeriodCol) = LatestPeriod),
+		
+		    // Build extrapolated rows by just replacing the period value
+		    ExtrapolatedRows =
+		        if List.Count(PeriodsToAdd) = 0 then
+		            #table(Table.ColumnNames(inputTable), {})
+		        else
+		            Table.Combine(
+		                List.Transform(
+		                    PeriodsToAdd,
+		                    (p) => Table.TransformColumns(BaseRows, {{PeriodCol, (x) => p, Int64.Type}})
+		                )
+		            ),
+		
+		    // Tag rows
+		    ActualsTagged = Table.AddColumn(inputTable, "IsExtrapolated", each false, type logical),
+		    ExtrasTagged  =
+		        if Table.IsEmpty(ExtrapolatedRows) then
+		            ExtrapolatedRows
+		        else
+		            Table.AddColumn(ExtrapolatedRows, "IsExtrapolated", each true, type logical),
+		
+		    Result = Table.Combine({ActualsTagged, ExtrasTagged})
+		in
+		    Result
+	lineageTag: 6aa1033b-fd41-434e-b0d4-9eba6bf5166f
+	queryGroup: 'Functions Forecasting'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Function
+
+expression 'Fact Salarissen for Schemawerk Source' =
+		let
+		    Source = Table.Combine({#"GC_FinancialeMutaties (2021 - 1-3)", #"GC_FinancialeMutaties (2021 - 4)", #"GC_FinancialeMutaties (2021 - 5)", #"GC_FinancialeMutaties (2021 - 6)", #"GC_FinancialeMutaties (2021 - 7)", #"GC_FinancialeMutaties (2021 - 8)", #"GC_FinancialeMutaties (2021 - 9)", #"GC_FinancialeMutaties (2021 - 10)", #"GC_FinancialeMutaties (2021 - 11)", #"GC_FinancialeMutaties (2021 - >12)", #"GC_FinancialeMutaties (2022- 1-3)", #"GC_FinancialeMutaties (2022- 4-6)", #"GC_FinancialeMutaties (2022- 5)", #"GC_FinancialeMutaties (2022- 6)", #"GC_FinancialeMutaties (2022- 7)", #"GC_FinancialeMutaties (2022- 8)", #"GC_FinancialeMutaties (2022- 9)", #"GC_FinancialeMutaties (2022- 10)", #"GC_FinancialeMutaties (2022- 11)", #"GC_FinancialeMutaties (2022- >12)", #"GC_FinancialeMutaties (2023 - 1-3)", #"GC_FinancialeMutaties (2023 - 4)", #"GC_FinancialeMutaties (2023 - 5)", #"GC_FinancialeMutaties (2023 - 6)", #"GC_FinancialeMutaties (2023 - 7)", #"GC_FinancialeMutaties (2023 - 8)", #"GC_FinancialeMutaties (2023 - 9)", #"GC_FinancialeMutaties (2023 - 10)", #"GC_FinancialeMutaties (2023 - 11)", #"GC_FinancialeMutaties (2023 - >12)", #"GC_FinancialeMutaties (2024 - 1-3)", #"GC_FinancialeMutaties (2024 - 4)", #"GC_FinancialeMutaties (2024 - 5)", #"GC_FinancialeMutaties (2024 - 6)", #"GC_FinancialeMutaties (2024 - 7)", #"GC_FinancialeMutaties (2024 - 8)", #"GC_FinancialeMutaties (2024 - 9)", #"GC_FinancialeMutaties (2024 - 10)", #"GC_FinancialeMutaties (2024 - 11)", #"GC_FinancialeMutaties (2024 - >12)", #"GC_FinancialeMutaties (2025 - 1)", #"GC_FinancialeMutaties (2025 - 2)", #"GC_FinancialeMutaties (2025 - 3)", #"GC_FinancialeMutaties (2025 - 4)", #"GC_FinancialeMutaties (2025 - 5)", #"GC_FinancialeMutaties (2025 - 6)", #"GC_FinancialeMutaties (2025 - 7)", #"GC_FinancialeMutaties (2025 - 8)", #"GC_FinancialeMutaties (2025 - 9)", #"GC_FinancialeMutaties (2025 - 11)", #"GC_FinancialeMutaties (2025 - >12)", #"GC_FinancialeMutaties (2025 - 10)"}),
+		    #"Filtered Rows" = Table.SelectRows(Source, each [Rekeningnummer_2] = "4100000"),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"Boekstukdatum", type datetime}, {"Datum_boeking", type datetime}, {"Datum_toegevoegd", type datetime}, {"Datum_gewijzigd", type datetime}}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Boekstukdatum", type date}, {"Datum_boeking", type date}, {"Datum_toegevoegd", type date}, {"Datum_gewijzigd", type date}, {"Bedrag_debet", type number}, {"Bedrag_credit", type number}, {"Saldo", type number}, {"Valutabedrag_debet", type number}, {"Valutabedrag_credit", type number}}),
+		    #"Added Custom" = Table.AddColumn(#"Changed Type1", "Period (leading zeros)", each Text.PadStart(Text.From([Periode]),2,"0")),
+		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Period (leading zeros)"])),
+		    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Bedrag in LC", each [Saldo]),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom2",{{"Bedrag in LC", type number}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type2",{"Beheerder", "Type_rekening", "Administratie", "Naam_administratie", "Jaar", "Periode", "Boekstukdatum", "Datum_boeking", "Nummer_journaalpost", "Volgnummer_journaalpost", "Rapportagecockpit_omschrijving", "Verzamelen_op", "Rekeningnummer_2", "Omschrijving", "Boekstuknummer", "Factuurnummer", "Omschrijving_2", "Omschrijving_boeking", "Bedrag_debet", "Bedrag_credit", "Saldo", "Valuta", "Valutabedrag_debet", "Valutabedrag_credit", "Code_dagboek", "Omschrijving_3", "Code_verbijzonderingsas_1", "Omschrijving_4", "Code_verbijzonderingsas_2", "Transitorische_post", "Admin._rek.-courantboeking", "Datum_toegevoegd", "Toegevoegd_door", "Datum_gewijzigd", "Gewijzigd_door", "Type_rekening_2", "Rapportagecockpit", "Period (leading zeros)", "Year/Period", "Bedrag in LC"}),
+		    #"Grouped Rows" = Table.Group(#"Removed Other Columns", {"Year/Period", "Rekeningnummer_2", "Jaar", "Periode"}, {{"Total", each List.Sum([Bedrag in LC]), type nullable number}}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Grouped Rows",{{"Periode", type number}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type4",{{"Total", "Total Salarissen"}}),
+		    #"Removed Other Columns1" = Table.SelectColumns(#"Renamed Columns",{"Year/Period", "Jaar", "Periode", "Total Salarissen"}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Removed Other Columns1",{{"Jaar", type number}, {"Year/Period", type text}})
+		in
+		    #"Changed Type3"
+	lineageTag: 36fe13ed-9fe1-4b2d-b3b3-acd23036d8d6
+	queryGroup: Staging\Forecasting
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

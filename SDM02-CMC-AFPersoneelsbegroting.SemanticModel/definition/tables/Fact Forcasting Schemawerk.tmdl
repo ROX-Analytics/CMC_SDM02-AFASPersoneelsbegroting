@@ -1,0 +1,82 @@
+table 'Fact Forcasting Schemawerk'
+	lineageTag: 5ec6a05a-3be9-4f28-a2b8-cc3192b094b8
+
+	column 'Year/Period Original'
+		dataType: string
+		lineageTag: b774d407-76fe-4f44-91e0-8a17145d2d9b
+		summarizeBy: none
+		sourceColumn: Year/Period Original
+
+		annotation SummarizationSetBy = Automatic
+
+	column Jaar
+		dataType: double
+		lineageTag: 2fa88387-3fa3-42c3-b35e-afc4fd0d58f3
+		summarizeBy: sum
+		sourceColumn: Jaar
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Periode
+		dataType: double
+		lineageTag: 783b48e1-d6c9-4827-85c4-85e167a4594b
+		summarizeBy: sum
+		sourceColumn: Periode
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Salarissen'
+		dataType: double
+		lineageTag: a33925f1-74b1-49fa-a46e-540ea8a173af
+		summarizeBy: sum
+		sourceColumn: Total Salarissen
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IsExtrapolated
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ccab7d49-8d5c-4bb3-9d33-3d669ec3fb88
+		summarizeBy: none
+		sourceColumn: IsExtrapolated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Period (leading zeros)'
+		dataType: string
+		lineageTag: 003ada09-2272-4084-af1b-c2151c1662b2
+		summarizeBy: none
+		sourceColumn: Period (leading zeros)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year/Period
+		dataType: string
+		lineageTag: 377742dd-f6f3-403f-aea8-f9bfc8174fd1
+		summarizeBy: none
+		sourceColumn: Year/Period
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Forcasting Schemawerk' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = #"Extrapolatie Salarissen for Schemawerk"(#"Fact Salarissen for Schemawerk Source"),
+				    #"Renamed Columns" = Table.RenameColumns(Source,{{"Year/Period", "Year/Period Original"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Period (leading zeros)", each Text.PadStart(Text.From([Periode]),2,"0"), type nullable text),
+				    #"Added Custom2" = Table.AddColumn(#"Added Custom", "Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Period (leading zeros)"]), type nullable text)
+				in
+				    #"Added Custom2"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
