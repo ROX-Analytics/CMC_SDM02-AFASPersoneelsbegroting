@@ -1267,6 +1267,8 @@ table 'Measure Table'
 			'Measure Table'[(M) LC 2434 - Salaris] +
 			'Measure Table'[(M) LC 2545 - Pensioen Toeslag] + 
 			'Measure Table'[(M) LC 2622 - Overwerk 200%] +
+			'Measure Table'[(M) LC 2807 - WG bijdrage premie AOV/AWW] + 
+			'Measure Table'[(M) LC 2809 - AVBZ premie] +
 			'Measure Table'[(M) LC 3014 - Frequentietoeslag] + 
 			'Measure Table'[(M) LC 3015 - Intensiteitstoeslag] +
 			'Measure Table'[(M) LC 3021 - Instructievergoeding] + 
@@ -3083,7 +3085,7 @@ table 'Measure Table'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure '(M) WN Bijdrage pensioen CAO' = ```
+	measure '(M) WN Bijdrage pensioen (CAO)' = ```
 			
 			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
 			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
@@ -3361,13 +3363,14 @@ table 'Measure Table'
 			)
 			
 			RETURN
-			SWITCH(
-			    TRUE(),
-			    selectedLC = "2434" && selectedGL = "4100000", salaris,
-			    selectedLC = "2434" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), salaris,
-			    selectedGL = "4100000", salaris,
-			    BLANK()
-			)
+			// SWITCH(
+			//     TRUE(),
+			//     selectedLC = "2434" && selectedGL = "4100000", salaris,
+			//     selectedLC = "2434" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), salaris,
+			//     selectedGL = "4100000", salaris,
+			//     BLANK()
+			// )
+			salaris
 			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: e5c61824-5daf-4555-85ab-07bfb99cf7b3
@@ -3506,6 +3509,150 @@ table 'Measure Table'
 			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 0ec75086-bf13-47c1-8175-232068fdcfec
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(M) Belastbare Loon' = ```
+			
+			SUMX(
+			    'Dim Grootboek',
+			    [(M) LC 2434 - Salaris] +
+			    [(M) LC 3014 - Frequentietoeslag] + 
+			    [(M) LC 3015 - Intensiteitstoeslag] + 
+			    [(M) LC 3164 - Softlanding] + 
+			    [(M) LC 3021 - Instructievergoeding] + 
+			    [(M) LC 3027 - Speciale Toelage] +
+			    [(M) LC 2622 - Overwerk 200%] + 
+			    [(M) LC 3075 - Overwerk 300%] + 
+			    [(M) GB 4102200 - Vakantiedagen] + 
+			    [(M) LC 3121 - Reservering Vakantiegeld Bedrag] + 
+			    [(M) LC 3135 - Vakantietoeslag Med Spec] + 
+			    [(M) LC 3086 - Feesturen]
+			)
+			```
+		displayFolder: Forecasting\Medewerker
+		lineageTag: 1059ab99-7cb4-4df6-ac0f-7f3706df18e9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'WN bijdrage pensioen premie' = ```
+			
+			    [(M) WN Bijdrage Pensioen (AOVK)] + 
+			    [(M) WN Bijdrage Pensioen (LNT)] + 
+			    [(M) WN Bijdrage Pensioen (RvB)] + 
+			    [(M) WN Bijdrage pensioen (CAO)]
+			
+			```
+		displayFolder: Forecasting\Medewerker
+		lineageTag: b45c32bb-bb96-4238-8546-a03620eeb3cf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Medewerker Maanden in Dienst' = SUM('Fact Medewerker Maanden in Dienst Actuals'[Maanden in Dienst])
+		formatString: 0
+		displayFolder: Forecasting\Medewerker
+		lineageTag: cf7cb1c0-8f0f-4e4e-8a08-8c79aed711a4
+
+	measure '(M) Grondslag AOV/AVBZ' =
+			
+			[(M) Belastbare Loon] - (41.67 * [Medewerker Maanden in Dienst]) - [WN bijdrage pensioen premie]
+		displayFolder: Forecasting\Medewerker
+		lineageTag: 2213c3fc-1038-4249-a8d2-b540e430a846
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(M) Berekende WG AOV /AWW' = [(M) Grondslag AOV/AVBZ] * 0.095
+		formatString: #,0.00
+		displayFolder: Forecasting\Medewerker
+		lineageTag: 608ea854-9ac0-4de0-a148-a7cc5422f2e4
+
+	measure '(M) LC 2807 - WG bijdrage premie AOV/AWW' = ```
+			
+			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			VAR SelectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
+			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
+			
+			
+			VAR base =
+			    CALCULATE(
+			        [(M) Grondslag AOV/AVBZ] * 0.095,
+			        REMOVEFILTERS('Dim Grootboek'),
+			        REMOVEFILTERS('Dim Looncomponent')
+			    )
+			
+			VAR amount = 
+			IF(
+			    base >= 9500,
+			    9500,
+			    base
+			)
+			
+			VAR total = 
+			SUMX(
+			    'Dim Medewerker',
+			    amount
+			)
+			RETURN
+			IF(
+			    glisinscope || LCisinscope,
+			SWITCH(
+			    TRUE(),
+			    selectedLC = "2807" && SelectedGL = "4110000", total,
+			    selectedLC = "2807" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), total,
+			    SelectedGL = "4110000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), total,
+			    BLANK()
+			),
+			BLANK()
+			)
+			
+			```
+		displayFolder: Forecasting\Medewerker
+		lineageTag: 1b7c8bfb-da14-4f28-9b20-e118e55752b4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(M) Berekende AVBZ' = [(M) Grondslag AOV/AVBZ] * 0.005
+		displayFolder: Forecasting\Medewerker
+		lineageTag: 0e8bc493-aca1-40dc-a43b-e70644da9709
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(M) LC 2809 - AVBZ premie' = ```
+			
+			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
+			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
+			
+			VAR base = 
+			CALCULATE(
+			    [(M) Berekende AVBZ],
+			    REMOVEFILTERS('Dim Grootboek'),
+			    REMOVEFILTERS('Dim Looncomponent')
+			)
+			
+			VAR medewerker = 
+			SUMX(
+			    'Dim Medewerker',
+			    base
+			)
+			
+			RETURN
+			IF(
+			    glisinscope || LCisinscope,
+			SWITCH(
+			    TRUE(),
+			    selectedLC = "2809" && selectedGL = "4111000", base,
+			    selectedLC = "2809" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), base,
+			    selectedGL = "4111000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), base,
+			    BLANK()
+			),
+			BLANK()
+			)
+			```
+		displayFolder: Forecasting\Medewerker
+		lineageTag: 062270ca-a35d-4b3b-8c45-47dfc86276f0
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 

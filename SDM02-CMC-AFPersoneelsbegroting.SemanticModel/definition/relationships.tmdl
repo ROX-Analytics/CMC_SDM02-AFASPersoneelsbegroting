@@ -257,12 +257,6 @@ relationship 98c54c26-6b82-936b-f04d-78283d29e045
 	fromColumn: 'Fact Personeels Kosten'.Grootboek_vervangend
 	toColumn: 'Dim Grootboek'.'Code Grootboek'
 
-relationship ecdd4cad-7457-2974-00c6-f8b374bda3cb
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: 'Dim Medewerker'.'Medewerker ID'
-	toColumn: 'Fact Medewerker Maanden in Dienst Actuals'.'Medewerker ID'
-
 relationship ecb5b17d-753b-6e4f-9781-bb4e566aada2
 	isActive: false
 	fromColumn: 'Series GB 4118000 - Medisch Uitzendkosten'.'GB Code'
@@ -442,4 +436,8 @@ relationship 63f60045-9498-d1e5-26fa-1f9bd2793184
 relationship fdf87ded-5ca9-191f-e2ea-6354e61d23c1
 	fromColumn: 'Fact Salaris Indexering Actuals'.'Index Name'
 	toColumn: 'Dim Indexering Actuals'.'Index Name'
+
+relationship 669b4fbf-ba53-196c-376b-543127ca735c
+	fromColumn: 'Fact Medewerker Maanden in Dienst Actuals'.'Medewerker ID'
+	toColumn: 'Dim Medewerker'.'Medewerker ID'
 

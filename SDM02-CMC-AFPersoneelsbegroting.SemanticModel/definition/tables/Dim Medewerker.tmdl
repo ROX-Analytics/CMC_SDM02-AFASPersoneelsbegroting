@@ -747,6 +747,13 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Flag GB 4106000 Bijzondere Vergoeding'
+		type: calculated
+		lineageTag: 5fb274b9-ecd8-4854-bf14-92db66c74535
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Medewerker' = m
 		mode: import
 		queryGroup: Model

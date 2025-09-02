@@ -1145,9 +1145,10 @@ expression 'Dim Schaal per Formatieplaats CAO' =
 		    #"Expanded Dim MAX CAO Schaal per Formatieplaats1" = Table.ExpandTableColumn(#"Merged Queries11", "Dim MAX CAO Schaal per Formatieplaats", {"Max Schaal/Trede"}, {"Max Schaal/Trede"}),
 		    #"Removed Columns" = Table.RemoveColumns(#"Expanded Dim MAX CAO Schaal per Formatieplaats1",{"MAX Schaal", "MAX Trede", "Max Trede Flag"}),
 		    #"Removed Duplicates1" = Table.Distinct(#"Removed Columns", {"Formatieplaats Code"}),
-		    #"Trimmed Text" = Table.TransformColumns(#"Removed Duplicates1",{{"Max Schaal/Trede", Text.Trim, type text}})
+		    #"Trimmed Text" = Table.TransformColumns(#"Removed Duplicates1",{{"Max Schaal/Trede", Text.Trim, type text}}),
+		    #"Renamed Columns5" = Table.RenameColumns(#"Trimmed Text",{{"Max Schaal/Trede", "Max Schaal/Trede Original"}})
 		in
-		    #"Trimmed Text"
+		    #"Renamed Columns5"
 	lineageTag: 1198848a-5e33-421f-9c3b-377722452b01
 	queryGroup: 'Staging\Functies & Schaal'
 
@@ -3030,7 +3031,7 @@ expression 'GC_FinancialeMutaties (2023 - >12)' =
 
 expression 'Dim Vrijwilleger en Stagair' =
 		let
-		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMjAwMFTSUQoryswqz8zJSU1PLQJyPfMUUjJT84pLlGJ1wGqMgILBJYnpiZlo0rEA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Medewerker ID" = _t, Voornaam = _t, Status_dienstverband = _t]),
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMjAwMFTSUQoryswqz8zJyUxPLVLQMDHVBIp55imkZKbmFZcoxeqAFRoBBYNLEtMTM4FqjA3Q1MQCAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Medewerker ID" = _t, Voornaam = _t, Status_dienstverband = _t]),
 		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Medewerker ID", type text}, {"Voornaam", type text}}),
 		    #"Added Custom" = Table.AddColumn(#"Changed Type", "Naam_werkgever", each "Curacao Medical Center Exploitatie", type nullable text)
 		in
@@ -3335,6 +3336,27 @@ expression 'Fact Salarissen for Schemawerk Source' =
 		    #"Changed Type3"
 	lineageTag: 36fe13ed-9fe1-4b2d-b3b3-acd23036d8d6
 	queryGroup: Staging\Forecasting
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Schaal per FormatiePlaats (Staging) CAO' =
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_Formatieplaats" & "?skip=-1&take=-1", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Formatieplaats", "Omschrijving"}, {"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Formatieplaats", "Omschrijving"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Expanded Column1", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows1",{"Type_functie", "Formatieplaats", "Omschrijving"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Removed Other Columns", each ([Type_functie] <> null and [Type_functie] <> "-" and [Type_functie] <> "BMP13" and [Type_functie] <> "BMP7" and [Type_functie] <> "D" and [Type_functie] <> "M")),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"Type_functie", type number}}),
+		    #"Added Custom" = Table.AddColumn(#"Changed Type", "Schaal", each [Type_functie] / 5),
+		    #"Added Suffix" = Table.TransformColumns(#"Added Custom", {{"Schaal", each Text.From(_, "en-US") & "-MAX", type text}})
+		in
+		    #"Added Suffix"
+	lineageTag: 312a4021-1f9f-44f9-9bd3-344b1d5db836
+	queryGroup: 'Staging\Functies & Schaal'
 
 	annotation PBI_NavigationStepName = Navigation
 
