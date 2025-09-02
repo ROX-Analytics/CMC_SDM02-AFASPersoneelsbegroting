@@ -273,6 +273,34 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation SummarizationSetBy = Automatic
 
+	column '(M) WN Bijdrage Pensioen (AOVK)' = ```
+			
+			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			VAR selectedschaaltype = 'Fact Forecasting Medewerkers'[SchaalType Forecasting]
+			// 4115000
+			
+			VAR BaseSalaryLC = 
+			CALCULATE(
+			    [Bedrag Forecasting Medewerkers],
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    'Dim SchaalType'[SchaalType Forecasting] = "Andere OVK",
+			    'Dim Kostenplaats'[Kostenplaats] <> "1100"
+			)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    'Fact Forecasting Medewerkers'[SchaalType Forecasting] = "Andere OVK", BaseSalaryLC * 0.10,
+			    BLANK()
+			)
+			```
+		formatString: 0.00
+		lineageTag: 6d39672d-0587-40f7-b119-e251fc3e5929
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Fact Forecasting Medewerkers' = m
 		mode: import
 		queryGroup: Model

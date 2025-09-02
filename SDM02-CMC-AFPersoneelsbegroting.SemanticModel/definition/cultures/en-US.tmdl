@@ -23127,7 +23127,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "Measure Table",
-			          "ConceptualProperty": "Totale Bedrag Medewerker Forecasting"
+			          "ConceptualProperty": "Totale (almost) Bedrag Medewerker Forecasting"
 			        }
 			      },
 			      "State": "Generated",

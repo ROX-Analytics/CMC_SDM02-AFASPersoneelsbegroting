@@ -1145,10 +1145,9 @@ expression 'Dim Schaal per Formatieplaats CAO' =
 		    #"Expanded Dim MAX CAO Schaal per Formatieplaats1" = Table.ExpandTableColumn(#"Merged Queries11", "Dim MAX CAO Schaal per Formatieplaats", {"Max Schaal/Trede"}, {"Max Schaal/Trede"}),
 		    #"Removed Columns" = Table.RemoveColumns(#"Expanded Dim MAX CAO Schaal per Formatieplaats1",{"MAX Schaal", "MAX Trede", "Max Trede Flag"}),
 		    #"Removed Duplicates1" = Table.Distinct(#"Removed Columns", {"Formatieplaats Code"}),
-		    #"Trimmed Text" = Table.TransformColumns(#"Removed Duplicates1",{{"Max Schaal/Trede", Text.Trim, type text}}),
-		    #"Renamed Columns5" = Table.RenameColumns(#"Trimmed Text",{{"Max Schaal/Trede", "Max Schaal/Trede Original"}})
+		    #"Trimmed Text" = Table.TransformColumns(#"Removed Duplicates1",{{"Max Schaal/Trede", Text.Trim, type text}})
 		in
-		    #"Renamed Columns5"
+		    #"Trimmed Text"
 	lineageTag: 1198848a-5e33-421f-9c3b-377722452b01
 	queryGroup: 'Staging\Functies & Schaal'
 
