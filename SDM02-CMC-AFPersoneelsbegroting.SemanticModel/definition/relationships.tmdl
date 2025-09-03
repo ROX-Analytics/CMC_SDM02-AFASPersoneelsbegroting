@@ -441,3 +441,7 @@ relationship 669b4fbf-ba53-196c-376b-543127ca735c
 	fromColumn: 'Fact Medewerker Maanden in Dienst Actuals'.'Medewerker ID'
 	toColumn: 'Dim Medewerker'.'Medewerker ID'
 
+relationship d21f72d6-ca96-f34b-0020-825c886dcb4a
+	fromColumn: 'Fact Forecasting MdW LC Overig per GB'.'Index Name Actuals'
+	toColumn: 'Dim Indexering Actuals'.'Index Name'
+

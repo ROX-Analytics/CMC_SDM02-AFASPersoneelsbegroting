@@ -754,6 +754,37 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Flag KPL 1840 - Medische Dienst' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[Kostenplaats] IN {"1840"},
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 747aff51-13c0-448e-b97d-2a715e0fc2a3
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag GB 4125100 - Personeel niet in loondienst' =
+			
+			IF(
+			    'Dim Medewerker'[Kostenplaats] = "1840" ||
+			    'Dim Medewerker'[Dienstbetrekking ID] = 5,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: af9e5bcd-c5ca-4234-8ac3-8025a82d3919
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Medewerker' = m
 		mode: import
 		queryGroup: Model

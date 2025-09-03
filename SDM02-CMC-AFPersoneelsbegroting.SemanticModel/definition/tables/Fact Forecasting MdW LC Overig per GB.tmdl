@@ -203,6 +203,101 @@ table 'Fact Forecasting MdW LC Overig per GB'
 
 		annotation SummarizationSetBy = Automatic
 
+	column '(M) GB 4101100 - Maaltijd Vergoeding' =
+			
+			VAR total  = [(WA) GB 4101100 - Maaltijd Vergoeding]
+			VAR n =
+			    CALCULATE(
+			        DISTINCTCOUNT('Dim Medewerker'[Medewerker ID]),
+			        ALL('Dim Medewerker'),
+			        'Dim Medewerker'[Flag Maaltijdvergoeding] = 1,
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
+			        'Dim Medewerker'[Status_dienstverband] = "In dienst"
+			    )
+			VAR perMedewerker = DIVIDE(total, n, BLANK())
+			RETURN
+			IF (
+			    'Fact Forecasting MdW LC Overig per GB'[Grootboekrekening] = "4101100" &&
+			    RELATED('Dim Medewerker'[Flag Maaltijdvergoeding]) = 1 &&
+			    RELATED('Dim Medewerker'[Medewerkers in Fact Forecasting]) = 1 &&
+			    RELATED('Dim Medewerker'[Status_dienstverband]) = "In dienst",
+			    DIVIDE(perMedewerker, 12, BLANK()),
+			    BLANK()
+			)
+		lineageTag: e5859bd9-475c-46bc-a0f8-a117698a573e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '(M) GB 4125100 - Personeel niet in Loondienst' = ```
+			
+			VAR selectedGL = 'Fact Forecasting MdW LC Overig per GB'[Grootboekrekening]
+			
+			VAr basesetmedewerker = 
+			FILTER(
+			    'Dim Medewerker',
+			    'Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst] = 1 &&
+			    'Dim Medewerker'[Status_dienstverband] = "In dienst" && 
+			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			)
+			
+			VAR countmedewerkers = 
+			CALCULATE(
+			    COUNTROWS('Dim Medewerker'),
+			    ALL('Dim Medewerker'),
+			    basesetmedewerker
+			)
+			VAR total = [(WA) GB 4125100 - Personeel niet in Loondienst]
+			
+			VAR personeelnietinloondienst = 
+			CALCULATE(
+			    DIVIDE([(WA) GB 4125100 - Personeel niet in Loondienst], countmedewerkers, BLANK()),
+			    basesetmedewerker,
+			    KEEPFILTERS('Fact Forecasting MdW LC Overig per GB'[Flag Personeel Niet in Loondienst] = 1)
+			)
+			
+			RETURN
+			IF(
+			    selectedGL = "4125100" && 'Fact Forecasting MdW LC Overig per GB'[Flag Personeel Niet in Loondienst] = 1, 
+			    DIVIDE(personeelnietinloondienst, 12, BLANK()),
+			    BLANK()
+			)
+			
+			```
+		lineageTag: e2eba0de-d400-4c7d-b39c-4ec262a5e03a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Flag Maaltijdvergoeding' =
+			
+			IF(
+			    RELATED('Dim Medewerker'[Flag Maaltijdvergoeding]) = 1,
+			    1,
+			    0)
+		formatString: 0
+		lineageTag: a4b83809-c306-45c3-bdbd-f6c42544f4bd
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag Personeel Niet in Loondienst' =
+			
+			IF(
+			    RELATED('Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst]) = 1,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 24825f57-4651-4f83-8220-1374f32464fe
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Fact Forecasting MdW LC Overig per GB' = m
 		mode: import
 		queryGroup: Model

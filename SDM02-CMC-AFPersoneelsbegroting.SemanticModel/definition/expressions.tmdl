@@ -3361,3 +3361,24 @@ expression 'Dim Schaal per FormatiePlaats (Staging) CAO' =
 
 	annotation PBI_ResultType = Table
 
+expression 'Dim KPT LC per GB Support' =
+		let
+		    Source = #"Fact Personeels Kosten 2025",
+		    #"Buffer Query" = Table.Buffer(Source),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Buffer Query",{"Grootboekrekening", "Grootboekrekening_omschrijving"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Removed Other Columns", each [Grootboekrekening] = "4125100"),
+		    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"Grootboekrekening"}),
+		    #"Added Custom" = Table.AddColumn(#"Removed Duplicates", "Dim LC Overig", each #"LC Overig"),
+		    #"Expanded Dim LC Overig" = Table.ExpandTableColumn(#"Added Custom", "Dim LC Overig", {"LC", "Omschrijving LC"}, {"LC", "Omschrijving LC"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Dim LC Overig",{{"LC", type text}, {"Omschrijving LC", type text}}),
+		    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Grootboekrekening"}, #"Dim Grootboek", {"Code Grootboek"}, "Dim Grootboek", JoinKind.LeftOuter),
+		    #"Expanded Dim Grootboek" = Table.ExpandTableColumn(#"Merged Queries", "Dim Grootboek", {"Rapportagecockpit_omschrijving"}, {"Rapportagecockpit_omschrijving"})
+		in
+		    #"Expanded Dim Grootboek"
+	lineageTag: 39407fbe-e29d-46bc-b472-77c74fbed1f6
+	queryGroup: Staging\Forecasting
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

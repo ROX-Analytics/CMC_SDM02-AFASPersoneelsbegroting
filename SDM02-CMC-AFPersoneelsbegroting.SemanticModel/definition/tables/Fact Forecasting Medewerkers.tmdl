@@ -241,7 +241,10 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'FTE (Divided by 100)' = DIVIDE('Fact Forecasting Medewerkers'[FTE], 100, BLANK())
+	column 'FTE (Divided by 100)' = ```
+			DIVIDE('Fact Forecasting Medewerkers'[FTE], 100, BLANK())
+			
+			```
 		lineageTag: 66ece7f7-e15a-43b3-8f3d-998e58053720
 		summarizeBy: sum
 
@@ -273,33 +276,176 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation SummarizationSetBy = Automatic
 
-	column '(M) WN Bijdrage Pensioen (AOVK)' = ```
+	column '(M) GB 4106000 - Bijzondere Vergoedingen' =
 			
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			VAR selectedschaaltype = 'Fact Forecasting Medewerkers'[SchaalType Forecasting]
-			// 4115000
-			
-			VAR BaseSalaryLC = 
+			VAR FTE = 'Fact Forecasting Medewerkers'[FTE (Divided by 100)]
+			VAR MaandenInDienst = [Maanden in Dienst Actuals]
+			VAR amount =
 			CALCULATE(
-			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
-			    'Dim SchaalType'[SchaalType Forecasting] = "Andere OVK",
-			    'Dim Kostenplaats'[Kostenplaats] <> "1100"
+			    DIVIDE(700, (12 * MaandenInDienst)) * FTE
 			)
-			
 			RETURN
-			SWITCH(
-			    TRUE(),
-			    'Fact Forecasting Medewerkers'[SchaalType Forecasting] = "Andere OVK", BaseSalaryLC * 0.10,
-			    BLANK()
-			)
-			```
+			amount
 		formatString: 0.00
 		lineageTag: 6d39672d-0587-40f7-b119-e251fc3e5929
 		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
+
+	column 'SchaalType Forecasting NEW' = RELATED('Dim SchaalType'[SchaalType Forecasting])
+		lineageTag: 79ad6ff4-4b90-4f7e-bb91-cbc8b9e3e96c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(M) LC 3075 - Overwerk 300%' = ```
+			
+			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
+			
+			
+			VAR total = DIVIDE([(WA) GB 4101000 Overwerk], 2)
+			
+			VAR countmedewerkers = 
+			CALCULATE(
+			    [Count Medewerkers],
+			    ALL('Dim Medewerker'),
+			    'Dim Medewerker'[Flag Overwerk 300%],
+			    'Dim Medewerker'[Status_dienstverband] = "In dienst",
+			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			)
+			
+			VAR basesetmedewerker = 
+			FILTER(
+			    'Dim Medewerker',
+			    'Dim Medewerker'[Flag Overwerk 300%] = 1 &&
+			    'Dim Medewerker'[Status_dienstverband] = "In dienst" &&
+			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			)
+			
+			VAR kosten = 
+			CALCULATE(
+			    DIVIDE(total, countmedewerkers, BLANK()),
+			    basesetmedewerker
+			)
+			
+			RETURN
+			IF(
+			    selectedGL = "4101000" && selectedLC = "3075", 
+			    DIVIDE(kosten, 12, BLANK()),
+			    BLANK()
+			)
+			```
+		lineageTag: 094dd0a5-d212-459c-a348-9aa7b6dd00c7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '(M) LC 2622 - Overwerk 200%' = ```
+			
+			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
+			
+			
+			VAR total = DIVIDE([(WA) GB 4101000 Overwerk], 2)
+			
+			VAR countmedewerkers = 
+			CALCULATE(
+			    [Count Medewerkers],
+			    ALL('Dim Medewerker'),
+			    'Dim Medewerker'[Flag Overwerk 200%] = 1,
+			    'Dim Medewerker'[Status_dienstverband] = "In dienst",
+			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			)
+			
+			VAR basesetmedewerker = 
+			FILTER(
+			    'Dim Medewerker',
+			    'Dim Medewerker'[Flag Overwerk 200%] = 1 &&
+			    'Dim Medewerker'[Status_dienstverband] = "In dienst" && 
+			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			)
+			
+			VAR kosten = 
+			CALCULATE(
+			    DIVIDE(total, countmedewerkers, BLANK()),
+			    basesetmedewerker
+			)
+			
+			VAR totalekosten = 
+			SUMX(
+			    basesetmedewerker,
+			    kosten
+			)
+			
+			RETURN
+			
+			IF(
+			    selectedGL = "4101000" && selectedLC = "2622", 
+			    DIVIDE(kosten, 12, BLANK()),
+			    BLANK()
+			)
+			```
+		lineageTag: ade996e1-b454-48f2-ad2c-1b7142878acb
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '(M) LC 3086 - Feesturen' = ```
+			
+			// 4101500
+			
+			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
+			
+			VAR total = [(WA) GB 4101500 - Feesturen/dagen]
+			
+			VAR countmedewerkers = 
+			CALCULATE(
+			    [Count Medewerkers],
+			    ALL('Dim Medewerker'),
+			    'Dim Medewerker'[Feesturen flag] = 1,
+			    'Dim Medewerker'[Status_dienstverband] = "In dienst"
+			)
+			
+			VAR basesetmedewerker = 
+			FILTER(
+			    'Dim Medewerker',
+			    'Dim Medewerker'[Feesturen flag] = 1 && 
+			    'Dim Medewerker'[Status_dienstverband] = "In dienst"
+			)
+			
+			VAR kosten = 
+			CALCULATE(
+			    DIVIDE(total, countmedewerkers, BLANK()),
+			    basesetmedewerker
+			)
+			
+			VAR totalekosten = 
+			SUMX(
+			    basesetmedewerker,
+			    kosten
+			)
+			
+			RETURN
+			
+			SWITCH(
+			    TRUE(),
+			    selectedGL = "4101500" && selectedLC = "3086", DIVIDE(kosten, 12, BLANK()),
+			    BLANK()
+			)
+			
+			```
+		lineageTag: ffcc7571-a7d5-47bb-ad20-d4c81f76f3be
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition 'Fact Forecasting Medewerkers' = m
 		mode: import

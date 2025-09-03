@@ -58,9 +58,10 @@ table 'Dim KPT LC per GB'
 				    #"Filtered Rows1" = Table.SelectRows(#"Removed Other Columns1", each ([LC] = "0001")),
 				    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows1",{{"Omschrijving_klant", "Omschrijving LC"}}),
 				    #"Replaced Value1" = Table.ReplaceValue(#"Renamed Columns",null,"Overig",Replacer.ReplaceValue,{"Omschrijving LC"}),
-				    #"Renamed Columns1" = Table.RenameColumns(#"Replaced Value1",{{"Omschrijving", "Grootboekrekening_omschrijving"}, {"Code Grootboek", "Grootboekrekening"}})
+				    #"Renamed Columns1" = Table.RenameColumns(#"Replaced Value1",{{"Omschrijving", "Grootboekrekening_omschrijving"}, {"Code Grootboek", "Grootboekrekening"}}),
+				    #"Appended Query" = Table.Combine({#"Renamed Columns1", #"Dim KPT LC per GB Support"})
 				in
-				    #"Renamed Columns1"
+				    #"Appended Query"
 
 	annotation PBI_NavigationStepName = Navigation
 

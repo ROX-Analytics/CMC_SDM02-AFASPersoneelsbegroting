@@ -3,10 +3,7 @@
 
 // Select "Run" to try this sample DAX query.
 EVALUATE
-FILTER(
-    'Dim Medewerker',
-    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1 && 
-    'Dim Medewerker'[Flag 4105000 - Gratificaties] = 1 && 
-    'Dim Medewerker'[Status_dienstverband] = "In dienst" && 
-    'Dim Medewerker'[Dienstjaren Forecasting] = 25
+CALCULATE(
+    DISTINCTCOUNT('Fact Forecasting MdW LC Overig per GB'[Medewerker ID]),
+    'Fact Forecasting MdW LC Overig per GB'[Flag Personeel Niet in Loondienst] = 1
 )
