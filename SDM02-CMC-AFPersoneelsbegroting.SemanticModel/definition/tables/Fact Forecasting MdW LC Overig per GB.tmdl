@@ -298,6 +298,46 @@ table 'Fact Forecasting MdW LC Overig per GB'
 
 		annotation SummarizationSetBy = Automatic
 
+	column '(M) GB 4106000 - Bijzondere Vergoedingen' =
+			
+			VAR selectedGL = 'Fact Forecasting MdW LC Overig per GB'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting MdW LC Overig per GB'[LC]
+			VAR FTE = [FTE Forecasting Medewerker]
+			VAR MaandenInDienst = [Maanden in Dienst Actuals]
+			VAR amount =
+			CALCULATE(
+			    DIVIDE(700, (12 * MaandenInDienst)) * FTE
+			)
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    selectedGL = "4106000" && selectedLC = "0001", amount,
+			    BLANK()
+			)
+		lineageTag: a9a9aabe-2117-4048-bdc1-566427118dca
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '(M) GB 4114000 - Cessantia' =
+			
+			VAR selectedGL = 'Fact Forecasting MdW LC Overig per GB'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting MdW LC Overig per GB'[LC]
+			RETURN
+			IF(
+			    selectedGL = "4114000" && selectedLC = "0001",
+			     DIVIDE(40, 12, BLANK()),
+			     BLANK()
+			)
+		lineageTag: 33547f35-e871-4ab6-bbaa-3c2679e8cd3e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition 'Fact Forecasting MdW LC Overig per GB' = m
 		mode: import
 		queryGroup: Model

@@ -282,7 +282,6 @@ relationship 81d762fc-8de8-496b-945f-5e8c5f241693
 	annotation PBI_IsFromSource = FS
 
 relationship 63708576-bc97-e086-0cff-4feea196c376
-	isActive: false
 	fromColumn: 'Fact Forecasting MdW LC Overig per GB'.Grootboekrekening
 	toColumn: 'Dim Grootboek'.'Code Grootboek'
 
@@ -303,29 +302,26 @@ relationship ac860fd0-baf7-55a1-102c-b6056df11b0a
 	toColumn: 'Dim SchaalType'.'Schaal ID'
 
 relationship d8dc5f4a-f24a-1173-87c9-34fe75a3adc8
-	fromColumn: 'Fact Forecasting Medewerkers'.Year/Period
+	fromColumn: 'Fact Forecasting Medewerkers Salaris'.Year/Period
 	toColumn: 'Dim Period'.Year/Period
 
 relationship 96e77359-e7e4-bf92-a9c0-6662a7d1d907
-	fromColumn: 'Fact Forecasting Medewerkers'.'New Schaal ID (Forecasting)'
+	fromColumn: 'Fact Forecasting Medewerkers Salaris'.'New Schaal ID (Forecasting)'
 	toColumn: 'Dim SchaalType'.'Schaal ID'
 
 relationship 1ac6160c-f068-5ec0-47b4-4eb30b3fe927
-	fromColumn: 'Fact Forecasting Medewerkers'.Kostenplaats
+	fromColumn: 'Fact Forecasting Medewerkers Salaris'.Kostenplaats
 	toColumn: 'Dim Kostenplaats'.Kostenplaats
 
 relationship 07e22377-8b89-44ac-f9c7-b29ac33d3620
-	isActive: false
-	fromColumn: 'Fact Forecasting Medewerkers'.LC
+	fromColumn: 'Fact Forecasting Medewerkers Salaris'.LC
 	toColumn: 'Dim Looncomponent'.LC
 
 relationship 7d4b6211-3d7e-b3c2-a3b4-9223258e1f1d
-	isActive: false
-	fromColumn: 'Fact Forecasting Medewerkers'.Grootboekrekening
+	fromColumn: 'Fact Forecasting Medewerkers Salaris'.Grootboekrekening
 	toColumn: 'Dim Grootboek'.'Code Grootboek'
 
 relationship ba05a77a-859d-1fa9-d9fe-2b010b14c294
-	isActive: false
 	fromColumn: 'Fact Forecasting MdW LC Overig per GB'.LC
 	toColumn: 'Dim Looncomponent'.LC
 
@@ -338,7 +334,7 @@ relationship 6cd18ac2-991f-991e-1085-15690f078598
 	toColumn: 'Dim Kostenplaats'.Kostenplaats
 
 relationship e46cfc18-7384-b677-0878-ac058954541e
-	fromColumn: 'Fact Forecasting Medewerkers'.'Index Name Actuals'
+	fromColumn: 'Fact Forecasting Medewerkers Salaris'.'Index Name Actuals'
 	toColumn: 'Dim Indexering Actuals'.'Index Name'
 
 relationship f677114e-a20c-e3b7-df28-da33f67821c5
@@ -422,7 +418,7 @@ relationship 4f548d75-0d7d-7796-56f9-f61fd0e90ed2
 	toColumn: 'Dim Kostenplaats'.Kostenplaats
 
 relationship 5733d9c6-4700-f537-90eb-0a0eb638d80d
-	fromColumn: 'Fact Forecasting Medewerkers'.'Medewerker ID'
+	fromColumn: 'Fact Forecasting Medewerkers Salaris'.'Medewerker ID'
 	toColumn: 'Dim Medewerker'.'Medewerker ID'
 
 relationship 97d5d345-c629-9c4c-e0fd-ce18e1faf578
@@ -444,4 +440,32 @@ relationship 669b4fbf-ba53-196c-376b-543127ca735c
 relationship d21f72d6-ca96-f34b-0020-825c886dcb4a
 	fromColumn: 'Fact Forecasting MdW LC Overig per GB'.'Index Name Actuals'
 	toColumn: 'Dim Indexering Actuals'.'Index Name'
+
+relationship 86909272-e189-8a0f-fc64-7341b4ceabd6
+	fromColumn: 'Fact Forecasting Medewerkers Other LC'.Grootboekrekening
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
+
+relationship 6ff23b87-3813-52f4-c3b0-4ad619075100
+	fromColumn: 'Fact Forecasting Medewerkers Other LC'.'Index Name Actuals'
+	toColumn: 'Dim Indexering Actuals'.'Index Name'
+
+relationship 02f055a4-3978-a6ab-8461-5c6946de5af6
+	fromColumn: 'Fact Forecasting Medewerkers Other LC'.Kostenplaats
+	toColumn: 'Dim Kostenplaats'.Kostenplaats
+
+relationship 4df1dfe1-e741-5329-71c7-235c60a765f5
+	fromColumn: 'Fact Forecasting Medewerkers Other LC'.LC
+	toColumn: 'Dim Looncomponent'.LC
+
+relationship 51bc678d-7006-21bd-937b-53a08092208a
+	fromColumn: 'Fact Forecasting Medewerkers Other LC'.'Medewerker ID'
+	toColumn: 'Dim Medewerker'.'Medewerker ID'
+
+relationship d54953a5-1d25-559b-db46-7c24a72e70be
+	fromColumn: 'Fact Forecasting Medewerkers Other LC'.'New Schaal ID (Forecasting)'
+	toColumn: 'Dim SchaalType'.'Schaal ID'
+
+relationship a117fcc3-1467-95f6-06c6-d2bf3d97be3f
+	fromColumn: 'Fact Forecasting Medewerkers Other LC'.Year/Period
+	toColumn: 'Dim Period'.Year/Period
 

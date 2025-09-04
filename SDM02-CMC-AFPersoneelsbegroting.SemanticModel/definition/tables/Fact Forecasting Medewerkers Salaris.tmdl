@@ -1,4 +1,4 @@
-table 'Fact Forecasting Medewerkers'
+table 'Fact Forecasting Medewerkers Salaris'
 	lineageTag: d91f9453-ed3e-4d00-948b-c8d73cf3731a
 
 	column 'Medewerker ID'
@@ -242,7 +242,7 @@ table 'Fact Forecasting Medewerkers'
 		annotation SummarizationSetBy = Automatic
 
 	column 'FTE (Divided by 100)' = ```
-			DIVIDE('Fact Forecasting Medewerkers'[FTE], 100, BLANK())
+			DIVIDE('Fact Forecasting Medewerkers Salaris'[FTE], 100, BLANK())
 			
 			```
 		lineageTag: 66ece7f7-e15a-43b3-8f3d-998e58053720
@@ -254,13 +254,13 @@ table 'Fact Forecasting Medewerkers'
 
 	column 'Dienstjaren Medewerker Actuals' = RELATED('Dim Medewerker'[Dienstjaren])
 		lineageTag: 4861f936-2aff-45d4-adb0-50242aa6e1a5
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'Dienstjaren Medewerker Forecasting' = 'Fact Forecasting Medewerkers'[Dienstjaren Medewerker Actuals] + 1
+	column 'Dienstjaren Medewerker Forecasting' = 'Fact Forecasting Medewerkers Salaris'[Dienstjaren Medewerker Actuals] + 1
 		lineageTag: 163d8755-35a6-446a-8767-095a8e4482fe
 		summarizeBy: sum
 
@@ -278,14 +278,20 @@ table 'Fact Forecasting Medewerkers'
 
 	column '(M) GB 4106000 - Bijzondere Vergoedingen' =
 			
-			VAR FTE = 'Fact Forecasting Medewerkers'[FTE (Divided by 100)]
+			VAR selectedGL = 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Medewerkers Salaris'[LC]
+			VAR FTE = 'Fact Forecasting Medewerkers Salaris'[FTE (Divided by 100)]
 			VAR MaandenInDienst = [Maanden in Dienst Actuals]
 			VAR amount =
 			CALCULATE(
 			    DIVIDE(700, (12 * MaandenInDienst)) * FTE
 			)
 			RETURN
-			amount
+			SWITCH(
+			    TRUE(),
+			    selectedGL = "4106000", amount,
+			    BLANK()
+			)
 		formatString: 0.00
 		lineageTag: 6d39672d-0587-40f7-b119-e251fc3e5929
 		summarizeBy: sum
@@ -300,8 +306,8 @@ table 'Fact Forecasting Medewerkers'
 
 	column '(M) LC 3075 - Overwerk 300%' = ```
 			
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
+			VAR selectedGL = 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Medewerkers Salaris'[LC]
 			
 			
 			VAR total = DIVIDE([(WA) GB 4101000 Overwerk], 2)
@@ -345,8 +351,8 @@ table 'Fact Forecasting Medewerkers'
 
 	column '(M) LC 2622 - Overwerk 200%' = ```
 			
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
+			VAR selectedGL = 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Medewerkers Salaris'[LC]
 			
 			
 			VAR total = DIVIDE([(WA) GB 4101000 Overwerk], 2)
@@ -399,8 +405,8 @@ table 'Fact Forecasting Medewerkers'
 			
 			// 4101500
 			
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
+			VAR selectedGL = 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Medewerkers Salaris'[LC]
 			
 			VAR total = [(WA) GB 4101500 - Feesturen/dagen]
 			
@@ -447,15 +453,71 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	partition 'Fact Forecasting Medewerkers' = m
+	column '(M) LC 3078 - Begrafeniskosten' = ```
+			
+			// 4104000
+			
+			VAR selectedGL = 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Medewerkers Salaris'[LC]
+			
+			
+			VAR countmedewerkers = 
+			CALCULATE(
+			    DISTINCTCOUNT('Fact Forecasting Medewerkers Salaris'[Medewerker ID]),
+			    ALL('Dim Medewerker')
+			)
+			
+			VAR averagekosten = DIVIDE([(WA) GB 4104000 - Onbelaste Vergoedingen], countmedewerkers, BLANK())
+			
+			VAR totalekosten = 
+			SUMX(
+			    VALUES('Fact Forecasting Medewerkers Salaris'[Medewerker ID]),
+			    averagekosten
+			)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    selectedGL = "4104000" || selectedLC = "3078", DIVIDE(totalekosten, 12, BLANK()),
+			    BLANK()
+			)
+			```
+		lineageTag: eb723b5d-23bf-4fb8-a6df-139a13ea9b65
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '(M) LC 2434 - Salaris' = ```
+			
+			VAR selectedGL = 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Medewerkers Salaris'[LC]
+			
+			RETURN
+			IF(
+			    selectedGL = "4100000" && selectedLC = "2434", 
+			    'Fact Forecasting Medewerkers Salaris'[Salaris Base Forecasting],
+			    BLANK()
+			)
+			```
+		lineageTag: 3713dbd9-de86-48c9-b071-0bffb8e4aeb5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Fact Forecasting Medewerkers Salaris' = m
 		mode: import
 		queryGroup: Model
 		source =
 				let
 				    Source = #"Buffered Fact Forecasting Medewerkers",
-				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Period", type number}, {"FTE", type number}})
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Period", type number}, {"FTE", type number}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([LC] = "2434"))
 				in
-				    #"Changed Type"
+				    #"Filtered Rows"
 
 	annotation PBI_NavigationStepName = Navigation
 

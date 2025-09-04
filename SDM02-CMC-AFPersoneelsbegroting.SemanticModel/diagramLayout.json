@@ -283,19 +283,6 @@
         },
         {
           "location": {
-            "x": 8274.1720919987019,
-            "y": 291.37212797040934
-          },
-          "nodeIndex": "Fact Forecasting Medewerkers",
-          "nodeLineageTag": "83365ef2-07e7-4f1b-8bc2-6d42683a9127",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
             "x": 7542.1781996018972,
             "y": 303.70108355945831
           },
@@ -601,6 +588,38 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 8274.1720919987019,
+            "y": 291.37212797040934
+          },
+          "nodeIndex": "Fact Forecasting Medewerkers Salaris",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Fact Forecasting Medewerkers Other LC",
+          "nodeLineageTag": "4f61c073-ab65-49e2-b034-ed1249faf2cc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Fact Forecasting Medewerkers Soft Landing",
+          "nodeLineageTag": "a997c2a0-d67c-45fd-b42d-421bd265097c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -879,7 +898,7 @@
     {
       "ordinal": 4,
       "scrollPosition": {
-        "x": 0,
+        "x": 74.666664123535156,
         "y": 200
       },
       "nodes": [
@@ -1117,22 +1136,9 @@
       "ordinal": 6,
       "scrollPosition": {
         "x": 0,
-        "y": 25.236220472440944
+        "y": 25
       },
       "nodes": [
-        {
-          "location": {
-            "x": 373,
-            "y": 25
-          },
-          "nodeIndex": "Fact Forecasting Medewerkers",
-          "nodeLineageTag": "92aa7b64-6098-49bf-b67e-c200a2e13ec4",
-          "size": {
-            "height": 491,
-            "width": 302
-          },
-          "zIndex": 11
-        },
         {
           "location": {
             "x": 762,
@@ -1262,6 +1268,18 @@
             "width": 234
           },
           "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 373,
+            "y": 25
+          },
+          "nodeIndex": "Fact Forecasting Medewerkers Salaris",
+          "size": {
+            "height": 491,
+            "width": 302
+          },
+          "zIndex": 0
         }
       ],
       "name": "Fact Forecasting MdW",
@@ -1274,8 +1292,8 @@
     {
       "ordinal": 7,
       "scrollPosition": {
-        "x": 266.12598425196853,
-        "y": 49.511811023622052
+        "x": 298.44620471864238,
+        "y": 198.04724409448821
       },
       "nodes": [
         {
@@ -1289,7 +1307,7 @@
             "height": 374,
             "width": 252
           },
-          "zIndex": 9
+          "zIndex": 8
         },
         {
           "location": {
@@ -1302,7 +1320,7 @@
             "height": 247.3937007874016,
             "width": 234
           },
-          "zIndex": 11
+          "zIndex": 10
         },
         {
           "location": {
@@ -1315,7 +1333,7 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 6
+          "zIndex": 5
         },
         {
           "location": {
@@ -1328,7 +1346,7 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 7
+          "zIndex": 6
         },
         {
           "location": {
@@ -1341,7 +1359,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 8
+          "zIndex": 7
         },
         {
           "location": {
@@ -1354,7 +1372,7 @@
             "height": 296,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 4
         },
         {
           "location": {
@@ -1367,7 +1385,7 @@
             "height": 176,
             "width": 312
           },
-          "zIndex": 12
+          "zIndex": 11
         },
         {
           "location": {
@@ -1380,7 +1398,7 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 2
         },
         {
           "location": {
@@ -1393,12 +1411,12 @@
             "height": 176,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 3
         },
         {
           "location": {
-            "x": 853.04724409448818,
-            "y": 656.44094488188978
+            "x": 842.732283464567,
+            "y": 705.95275590551182
           },
           "nodeIndex": "Dim Percentage Vacature",
           "nodeLineageTag": "4a2f08f8-5297-4c45-89b5-e010905c6658",
@@ -1406,7 +1424,7 @@
             "height": 176,
             "width": 234
           },
-          "zIndex": 13
+          "zIndex": 12
         },
         {
           "location": {
@@ -1419,7 +1437,7 @@
             "height": 296,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 1
         },
         {
           "location": {
@@ -1432,7 +1450,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 10
+          "zIndex": 9
         },
         {
           "location": {
@@ -1445,7 +1463,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 13
         }
       ],
       "name": "Fact Forecasting Vacature",
@@ -1458,8 +1476,8 @@
     {
       "ordinal": 8,
       "scrollPosition": {
-        "x": 151,
-        "y": 10
+        "x": 96,
+        "y": 200
       },
       "nodes": [
         {
@@ -1898,7 +1916,7 @@
       "ordinal": 13,
       "scrollPosition": {
         "x": 0,
-        "y": 0.66666668653488159
+        "y": 1.3333333730697632
       },
       "nodes": [
         {
@@ -1912,7 +1930,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         },
         {
           "location": {
@@ -1925,7 +1943,7 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 2
         },
         {
           "location": {
@@ -1938,7 +1956,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 3
         },
         {
           "location": {
@@ -1951,7 +1969,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 4
         },
         {
           "location": {
@@ -1964,15 +1982,14 @@
             "height": 296,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 5
         },
         {
           "location": {
             "x": 682,
             "y": 166
           },
-          "nodeIndex": "Fact Forecasting Medewerkers",
-          "nodeLineageTag": "d91f9453-ed3e-4d00-948b-c8d73cf3731a",
+          "nodeIndex": "Fact Forecasting Medewerkers Salaris",
           "size": {
             "height": 300,
             "width": 234
@@ -2050,8 +2067,8 @@
       "nodes": [
         {
           "location": {
-            "x": 298.33333206176758,
-            "y": 239
+            "x": 276.33333206176758,
+            "y": 222
           },
           "nodeIndex": "Fact Forecasting MdW LC Overig per GB",
           "nodeLineageTag": "a8e5b345-9cb6-4500-a3b0-9de2e84bb0f9",
@@ -2103,7 +2120,7 @@
         {
           "location": {
             "x": 0,
-            "y": 344
+            "y": 324
           },
           "nodeIndex": "Dim Medewerker",
           "nodeLineageTag": "704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c",
@@ -2285,57 +2302,31 @@
       "ordinal": 18,
       "scrollPosition": {
         "x": 0,
-        "y": 30
+        "y": 0
       },
       "nodes": [
         {
           "location": {
-            "x": 0,
-            "y": 72
+            "x": 291.33333206176758,
+            "y": 23
           },
-          "nodeIndex": "Dim Period",
-          "nodeLineageTag": "359771a9-e570-4c97-8981-e43407ccad44",
+          "nodeIndex": "Fact Forecasting Medewerkers Soft Landing",
+          "nodeLineageTag": "a997c2a0-d67c-45fd-b42d-421bd265097c",
           "size": {
-            "height": 224,
-            "width": 234
-          },
-          "zIndex": 3
-        },
-        {
-          "location": {
-            "x": 569.33333206176758,
-            "y": 21
-          },
-          "nodeIndex": "Dim Looncomponent",
-          "nodeLineageTag": "d770a55b-3487-4bef-9fec-796f32eb4041",
-          "size": {
-            "height": 152,
-            "width": 234
-          },
-          "zIndex": 2
-        },
-        {
-          "location": {
-            "x": 309.33333206176758,
-            "y": 73
-          },
-          "nodeIndex": "Fact Medewerker Maanden in Dienst Actuals",
-          "nodeLineageTag": "184a40ed-8eb1-4331-bbc8-aba2ad534a7f",
-          "size": {
-            "height": 128,
+            "height": 300,
             "width": 234
           },
           "zIndex": 0
         },
         {
           "location": {
-            "x": 234.33333206176758,
-            "y": 252
+            "x": 620.33333206176758,
+            "y": 166
           },
-          "nodeIndex": "Dim Medewerker",
-          "nodeLineageTag": "704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c",
+          "nodeIndex": "Dim SchaalType",
+          "nodeLineageTag": "db30c2e8-7814-41c3-9c68-cc68616837b3",
           "size": {
-            "height": 300,
+            "height": 177,
             "width": 234
           },
           "zIndex": 0
@@ -2347,8 +2338,127 @@
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
       "tablesLocked": false
+    },
+    {
+      "ordinal": 19,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 273.33333206176758,
+            "y": 71
+          },
+          "nodeIndex": "Fact Forecasting Medewerkers Other LC",
+          "nodeLineageTag": "4f61c073-ab65-49e2-b034-ed1249faf2cc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 553.33333206176758,
+            "y": 0
+          },
+          "nodeIndex": "Dim Grootboek",
+          "nodeLineageTag": "c37ad517-c7bd-4de4-bb24-808a9070814f",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2,
+            "y": 0
+          },
+          "nodeIndex": "Dim Indexering Actuals",
+          "nodeLineageTag": "2775c383-b563-4d0e-9e76-c48d6bff275f",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 196
+          },
+          "nodeIndex": "Dim Kostenplaats",
+          "nodeLineageTag": "234d6e66-dc75-435c-abfa-85f472e752a3",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 294.33333206176758,
+            "y": 449
+          },
+          "nodeIndex": "Dim Looncomponent",
+          "nodeLineageTag": "d770a55b-3487-4bef-9fec-796f32eb4041",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 610.33333206176758,
+            "y": 310.33333206176758
+          },
+          "nodeIndex": "Dim Medewerker",
+          "nodeLineageTag": "704d84f1-47ae-4d1b-a2ba-ebd6cdf4d30c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 849.33333206176758,
+            "y": 69
+          },
+          "nodeIndex": "Dim SchaalType",
+          "nodeLineageTag": "db30c2e8-7814-41c3-9c68-cc68616837b3",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -44.666667938232422,
+            "y": 445
+          },
+          "nodeIndex": "Dim Period",
+          "nodeLineageTag": "359771a9-e570-4c97-8981-e43407ccad44",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 6",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Fact LC 0001",
+  "selectedDiagram": "Layout 5",
   "defaultDiagram": "All tables"
 }

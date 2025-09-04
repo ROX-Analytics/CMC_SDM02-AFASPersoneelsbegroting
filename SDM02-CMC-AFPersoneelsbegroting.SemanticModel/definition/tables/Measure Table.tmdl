@@ -664,14 +664,14 @@ table 'Measure Table'
 			IF(
 			    hasSingleValue,
 			    CALCULATE(
-			        SUM('Fact Forecasting Medewerkers'[Salaris Base Forecasting]),
-			        'Fact Forecasting Medewerkers'[Period] < 7,
+			        SUM('Fact Forecasting Medewerkers Salaris'[Salaris Base Forecasting]),
+			        'Fact Forecasting Medewerkers Salaris'[Period] < 7,
 			        'Dim Period'[Month no.] = selectedperiod,
 			        'Dim Medewerker'[Flag Indexering Forecasting] = "1"
 			    ),
 			    CALCULATE(
-			        SUM('Fact Forecasting Medewerkers'[Salaris Base Forecasting]),
-			        'Fact Forecasting Medewerkers'[Period] < 7,
+			        SUM('Fact Forecasting Medewerkers Salaris'[Salaris Base Forecasting]),
+			        'Fact Forecasting Medewerkers Salaris'[Period] < 7,
 			        'Dim Medewerker'[Flag Indexering Forecasting] = "1"
 			    )
 			)
@@ -680,14 +680,14 @@ table 'Measure Table'
 			IF(
 			    hasSingleValue,
 			    CALCULATE(
-			        (SUM('Fact Forecasting Medewerkers'[Salaris Base Forecasting]) * selectedindexering) + SUM('Fact Forecasting Medewerkers'[Salaris Base Forecasting]),
-			        'Fact Forecasting Medewerkers'[Period] >= 7,
+			        (SUM('Fact Forecasting Medewerkers Salaris'[Salaris Base Forecasting]) * selectedindexering) + SUM('Fact Forecasting Medewerkers Salaris'[Salaris Base Forecasting]),
+			        'Fact Forecasting Medewerkers Salaris'[Period] >= 7,
 			        'Dim Period'[Month no.] = selectedperiod,
 			        'Dim Medewerker'[Flag Indexering Forecasting] = "1"
 			    ),
 			    CALCULATE(
-			        (SUM('Fact Forecasting Medewerkers'[Salaris Base Forecasting]) * selectedindexering) + SUM('Fact Forecasting Medewerkers'[Salaris Base Forecasting]),
-			        'Fact Forecasting Medewerkers'[Period] >= 7,
+			        (SUM('Fact Forecasting Medewerkers Salaris'[Salaris Base Forecasting]) * selectedindexering) + SUM('Fact Forecasting Medewerkers Salaris'[Salaris Base Forecasting]),
+			        'Fact Forecasting Medewerkers Salaris'[Period] >= 7,
 			        'Dim Medewerker'[Flag Indexering Forecasting] = "1"
 			    )
 			)
@@ -706,29 +706,17 @@ table 'Measure Table'
 
 	measure '(M) LC 2434 - Salaris' = ```
 			
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
-			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
-			
 			VAR salaris = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC])
+			    KEEPFILTERS( 'Dim Looncomponent'[LC] = "2434" ),
+			    KEEPFILTERS('Dim Grootboek'[Code Grootboek] = "4100000"),
+			    USERELATIONSHIP('Dim Looncomponent'[LC], 'Fact Forecasting Medewerkers Salaris'[LC]),
+			    USERELATIONSHIP('Dim Grootboek'[Code Grootboek], 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening])
 			)
 			
 			RETURN
-			IF(
-			    glisinscope || LCisinscope,
-			SWITCH(
-			    TRUE(),
-			    selectedLC = "2434" && selectedGL = "4100000", salaris,
-			    selectedLC = "2434" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), salaris,
-			    selectedGL = "4100000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), salaris,
-			    BLANK()
-			),
-			BLANK()
-			)
+			salaris
 			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 50248bb2-b1b0-4ad2-a16a-0a0cb2b25232
@@ -737,31 +725,20 @@ table 'Measure Table'
 
 	measure '(M) LC 2545 - Pensioen Toeslag' = ```
 			
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
-			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
-			
-			VAR BasesalariesGL = 
+			VAR Basesalaries = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    KEEPFILTERS( 'Dim Looncomponent'[LC] = "2545" ),
+			    KEEPFILTERS('Dim Grootboek'[Code Grootboek] = "4115000"),
+			    USERELATIONSHIP('Dim Looncomponent'[LC], 'Fact Forecasting Medewerkers Salaris'[LC]),
+			    USERELATIONSHIP('Dim Grootboek'[Code Grootboek], 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening]),
 			    'Dim SchaalType'[SchaalType Forecasting] = "CAO"
 			)
 			
-			RETURN
-			IF(
-			    glisinscope || LCisinscope,
-			SWITCH(
-			    TRUE(),
-			    selectedGL = "4115000" && selectedLC = "2545", BasesalariesGL * 0.09,
-			    selectedGL = "4115000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), BaseSalariesGL * 0.09,
-			    selectedLC = "2545" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]),
-			    BLANK()
-			),
-			BLANK()
-			)
+			VAR pensioen = Basesalaries * 0.09
 			
+			RETURN
+			pensioen
 			
 			```
 		displayFolder: Forecasting\Medewerker
@@ -771,11 +748,6 @@ table 'Measure Table'
 
 	measure '(M) LC 3027 - Speciale Toelage' = ```
 			
-			// 4103000
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
-			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
 			
 			VAR countmedewerkers = 
 			CALCULATE(
@@ -796,61 +768,59 @@ table 'Measure Table'
 			VAR BasesalariesLC = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    KEEPFILTERS( 'Dim Looncomponent'[LC] = "3027"),
+			    KEEPFILTERS('Dim Grootboek'[Code Grootboek] = "4103000"),
+			    USERELATIONSHIP('Dim Looncomponent'[LC], 'Fact Forecasting Medewerkers Salaris'[LC]),
+			    USERELATIONSHIP('Dim Grootboek'[Code Grootboek], 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening]),
 			    basesetmedewerker
 			)
 			
+			VAR specialetoelage = BasesalariesLC * 0.057
 			
 			RETURN
-			IF(
-			    glisinscope || LCisinscope,
-			    SWITCH(
-			        TRUE(),
-			        selectedGL = "4103000" && selectedLC = "3027", BasesalariesLC * 0.057,
-			        selectedGL = "4103000" && NOT HASONEVALUE('Dim Looncomponent'[LC]) , BasesalariesLC * 0.057,
-			        selectedLC = "3027" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), BasesalariesLC * 0.057, 
-			        BLANK()
-			    ),
-			    BLANK()
-			)
-			
+			specialetoelage
 			
 			```
 		formatString: #,0.00
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 67d3a223-7450-478b-9d66-c756e1774631
 
-	measure '(M) LC 3105 - Pensioen Toeslag (BMP & RVB)' = ```
+	measure '(M) LC 3105 - Pensioen Toeslag (LNT)' = ```
 			
 			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
 			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
 			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
 			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
-			// 4115000
-			VAR BaseSalaryGL =
-			CALCULATE(
-			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"4100000"}, 'Fact Forecasting Medewerkers'[Grootboekrekening]),
-			    'Dim SchaalType'[SchaalType Forecasting] IN {"LNT", "Andere OVK"}
-			)
+			VAR st = SELECTEDVALUE('Dim SchaalType'[SchaalType Forecasting])
 			
 			VAR BaseSalaryLC = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
-			    'Dim SchaalType'[SchaalType Forecasting] IN {"LNT", "Andere OVK"}
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
+			    'Dim SchaalType'[SchaalType Forecasting] = "LNT"
 			)
 			
-			RETURN
+			
+			
+			VAR result =
 			IF(
 			    glisinscope || LCisinscope,
 			SWITCH(
 			    TRUE(),
 			    selectedGL = "4115000" && selectedLC = "3105", BaseSalaryLC * 0.10,
 			    selectedGL = "4115000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), BaseSalaryLC * 0.10,
+			    selectedLC = "3105" && NOT HASONEVALUE('Dim Looncomponent'[LC]), BaseSalaryLC * 0.10,
 			    BLANK()
 			),
 			BLANK()
+			)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    st = "LNT", result,
+			    NOT HASONEVALUE('Dim SchaalType'[SchaalType Forecasting]), result,
+			    BLANK()
 			)
 			```
 		formatString: #,0.00
@@ -868,14 +838,14 @@ table 'Measure Table'
 			VAR BaseSalaryLC =
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			    'Dim Type Personeel'[Type Zorg Functie] <> " Medisch Specialisten"
 			)
 			
 			VAR BaseSalaryGL = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"4100000"}, 'Fact Forecasting Medewerkers'[Grootboekrekening]),
+			    TREATAS({"4100000"}, 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening]),
 			    'Dim Type Personeel'[Type Zorg Functie] <> " Medisch Specialisten"
 			)
 			
@@ -907,7 +877,7 @@ table 'Measure Table'
 			VAR BaseSalaryLC =
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			    'Dim Type Personeel'[Type Zorg Functie] = " Medisch Specialisten"
 			)
 			
@@ -929,12 +899,6 @@ table 'Measure Table'
 
 	measure '(M) LC 3021 - Instructievergoeding' = ```
 			
-			// 4103000
-			
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
-			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
 			
 			VAR basesetmedewerker = 
 			FILTER(
@@ -946,22 +910,16 @@ table 'Measure Table'
 			VAR BasesalariesLC = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    KEEPFILTERS( 'Dim Looncomponent'[LC] = "3021"),
+			    KEEPFILTERS('Dim Grootboek'[Code Grootboek] = "4103000"),
+			    USERELATIONSHIP('Dim Looncomponent'[LC], 'Fact Forecasting Medewerkers Salaris'[LC]),
+			    USERELATIONSHIP('Dim Grootboek'[Code Grootboek], 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening]),
 			    basesetmedewerker
 			)
 			
+			VAR instructie = BasesalariesLC * 0.011
 			RETURN
-			IF(
-			    glisinscope || LCisinscope,
-			SWITCH(
-			    TRUE(),
-			    selectedGL = "4103000" && selectedLC = "3021", BasesalariesLC * 0.011,
-			    selectedGL = "4103000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), BasesalariesLC * 0.011,
-			    selectedLC = "3021" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), BasesalariesLC * 0.011,
-			    BLANK()
-			),
-			BLANK()
-			)
+			instructie
 			```
 		formatString: #,0.00
 		displayFolder: Forecasting\Medewerker
@@ -970,7 +928,7 @@ table 'Measure Table'
 	measure 'Cascade Filter (Slicer) Forecasting Medewerker' =
 			
 			// Insert Fact Table in place of the dim calendar. Can add multiple fact tables with || operator
-			INT(NOT ISEMPTY('Fact Forecasting Medewerkers'))
+			INT(NOT ISEMPTY('Fact Forecasting Medewerkers Salaris'))
 		formatString: 0
 		displayFolder: Filter Measures
 		lineageTag: 6f87c74e-5727-45d7-8a14-587ff64fcf2c
@@ -978,7 +936,7 @@ table 'Measure Table'
 	measure '(M) New Bedrag Exclusief Indexering' =
 			
 			CALCULATE(
-			    SUM('Fact Forecasting Medewerkers'[Salaris Base Forecasting]),
+			    SUM('Fact Forecasting Medewerkers Salaris'[Salaris Base Forecasting]),
 			    'Dim Medewerker'[Flag Indexering Forecasting] = "0"
 			)
 		displayFolder: Forecasting\Medewerker
@@ -1022,7 +980,7 @@ table 'Measure Table'
 			    DIVIDE(total, countmedewerkers, BLANK())
 			)
 			
-			VAR totalekosten = SUM('Fact Forecasting Medewerkers'[(M) LC 3086 - Feesturen])
+			VAR totalekosten = SUM('Fact Forecasting Medewerkers Salaris'[(M) LC 3086 - Feesturen])
 			
 			RETURN
 			IF(
@@ -1108,7 +1066,7 @@ table 'Measure Table'
 			            'Dim Period'[Year] >= minyear
 			            && 'Dim Period'[Year] <= currentyear - 1
 			        ),
-			        'Fact Forecasting Medewerkers'[LC] = "3086"
+			        'Fact Forecasting Medewerkers Salaris'[LC] = "3086"
 			    ),
 			    BLANK()
 			)
@@ -1162,11 +1120,6 @@ table 'Measure Table'
 
 	measure '(M) LC 2622 - Overwerk 200%' = ```
 			
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
-			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
-			
 			// VAR total = DIVIDE([(A) LC 2622 Overtime 200% Actuals], 2)
 			
 			// VAR countmedewerkers = 
@@ -1191,20 +1144,19 @@ table 'Measure Table'
 			//     DIVIDE(total, countmedewerkers, BLANK())
 			// )
 			
-			VAR totalekosten = SUM('Fact Forecasting Medewerkers'[(M) LC 2622 - Overwerk 200%])
+			VAR totalekosten = SUM('Fact Forecasting Medewerkers Salaris'[(M) LC 2622 - Overwerk 200%])
 			
-			RETURN
-			IF(
-			    glisinscope || LCisinscope,
-			SWITCH(
-			    TRUE(),
-			    selectedGL = "4101000" && selectedLC = "2622", totalekosten,
-			    selectedGL = "4101000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), totalekosten,
-			    selectedLC = "2622" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), totalekosten,
-			    BLANK()
-			),
-			BLANK()
+			VAR result = 
+			CALCULATE(
+			    totalekosten,
+			    KEEPFILTERS('Dim Looncomponent'[LC] = "2622"),
+			    KEEPFILTERS('Dim Grootboek'[Code Grootboek] = "4101000"),
+			    USERELATIONSHIP('Dim Looncomponent'[LC], 'Fact Forecasting Medewerkers Salaris'[LC]),
+			    USERELATIONSHIP('Dim Grootboek'[Code Grootboek], 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening])
 			)
+			RETURN
+			result
+			
 			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 2905f65b-4ff2-4b9a-ba7f-58bf113d884d
@@ -1257,11 +1209,6 @@ table 'Measure Table'
 
 	measure '(M) LC 3075 - Overwerk 300%' = ```
 			
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
-			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
-			
 			
 			// VAR total = DIVIDE([(A) LC 3075 Overtime 300% Actuals], 2)
 			
@@ -1284,63 +1231,36 @@ table 'Measure Table'
 			
 			// VAR kosten = CALCULATE(DIVIDE(total, countmedewerkers, BLANK()))
 			
-			VAR totalekosten = SUM('Fact Forecasting Medewerkers'[(M) LC 3075 - Overwerk 300%])
+			VAR totalekosten = SUM('Fact Forecasting Medewerkers Salaris'[(M) LC 3075 - Overwerk 300%])
 			
-			RETURN
-			IF(
-			    glisinscope || LCisinscope,
-			SWITCH(
-			    TRUE(),
-			    selectedGL = "4101000" && selectedLC = "3075", totalekosten,
-			    selectedGL = "4101000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), totalekosten,
-			    selectedLC = "3075" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), totalekosten,
-			    BLANK()
-			),
-			BLANK()
+			VAR result = 
+			CALCULATE(
+			    totalekosten,
+			    KEEPFILTERS('Dim Looncomponent'[LC] = "3075"),
+			    KEEPFILTERS('Dim Grootboek'[Code Grootboek] = "4101000"),
+			    USERELATIONSHIP('Dim Looncomponent'[LC], 'Fact Forecasting Medewerkers Salaris'[LC]),
+			    USERELATIONSHIP('Dim Grootboek'[Code Grootboek], 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening])
 			)
+			RETURN
+			result
+			// IF(
+			//     glisinscope || LCisinscope,
+			// SWITCH(
+			//     TRUE(),
+			//     selectedGL = "4101000" && selectedLC = "3075", totalekosten,
+			//     selectedGL = "4101000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), totalekosten,
+			//     selectedLC = "3075" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), totalekosten,
+			//     BLANK()
+			// ),
+			// BLANK()
+			// )
 			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: d55c511c-3235-4d6a-b991-14bed9010e41
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Totale (almost) Bedrag Medewerker Forecasting' = ```
-			
-			SUMX(
-			    'Dim Grootboek',
-			'Measure Table'[(M) GB 4102200 - Vakantiedagen] + 
-			'Measure Table'[(M) GB 4101100 - Maaltijd Vergoeding] +
-			'Measure Table'[(M) GB 4114000 - Cessantia] + 
-			'Measure Table'[(M) GB 4105000 - Gratificaties] +
-			'Measure Table'[(M) GB 4106000 - Bijzondere Vergoedingen] +
-			'Measure Table'[(M) LC 3142 - Medische Kosten Eig Risico (Eigen Personeel)] + 
-			'Measure Table'[(M) GB 4118000 - Medische Uitzendkosten] + 
-			'Measure Table'[(M) GB 4121000 - Uitzendkrachten en Tijdelijk] +
-			'Measure Table'[(M) GB 4121500 - Kosten Stagaires] +
-			'Measure Table'[(M) GB 4125100 - Personeel niet in Loondienst] + 
-			'Measure Table'[(M) LC 2434 - Salaris] +
-			'Measure Table'[(M) LC 2545 - Pensioen Toeslag] + 
-			'Measure Table'[(M) LC 2622 - Overwerk 200%] +
-			// 'Measure Table'[(M) LC 2807 - WG bijdrage premie AOV/AWW] + 
-			// 'Measure Table'[(M) LC 2809 - AVBZ premie] +
-			'Measure Table'[(M) LC 3014 - Frequentietoeslag] + 
-			'Measure Table'[(M) LC 3015 - Intensiteitstoeslag] +
-			'Measure Table'[(M) LC 3021 - Instructievergoeding] + 
-			'Measure Table'[(M) LC 3027 - Speciale Toelage] +
-			'Measure Table'[(M) LC 3075 - Overwerk 300%] + 
-			'Measure Table'[(M) LC 3078 - Begrafeniskosten] + 
-			'Measure Table'[(M) LC 3080 - Beroepskosten (Specialisten)] + 
-			'Measure Table'[(M) LC 3083 - Studiekosten] + 
-			'Measure Table'[(M) LC 3086 - Feesturen] + 
-			'Measure Table'[(M) LC 3105 - Pensioen Toeslag (BMP & RVB)] + 
-			'Measure Table'[(M) LC 3121 - Reservering Vakantiegeld Bedrag] + 
-			'Measure Table'[(M) LC 3135 - Vakantietoeslag Med Spec] + 
-			'Measure Table'[(M) LC 3164 - Softlanding] + 
-			'Measure Table'[(M) LC 3095 - Vergunning] + 
-			'Measure Table'[(M) LC 3091 - Ziektekosten WG bijdrage (Specialisten)]
-			)
-			```
-		formatString: #,0.00
+	measure 'Totale (almost) Bedrag Medewerker Forecasting'
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 16134d26-6f71-4796-b993-4cfe858a4bee
 
@@ -1363,7 +1283,7 @@ table 'Measure Table'
 			VAR BaseSalariesLC = 
 			CALCULATE(
 			   (DIVIDE(14000, 12) * [FTE Forecasting Medewerker]),
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			     'Dim Type Personeel'[Type Zorg Functie] <> "Arts-assistenten",
 			    'Dim SchaalType'[SchaalType Forecasting] IN {"LNT", "Andere OVK"},
 			    'Dim Type Personeel'[Type Zorg Functie] = " Medisch Specialisten"
@@ -1419,7 +1339,7 @@ table 'Measure Table'
 			VAR BaseSalariesLC = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			    'Dim Type Personeel'[Type Zorg Functie] <> " Medisch Specialisten",
 			    basesetmedewerker
 			)
@@ -1469,7 +1389,7 @@ table 'Measure Table'
 		displayFolder: Statistics\Extrapolation
 		lineageTag: fee9aa64-a0c7-4ae5-b102-29f8ac286381
 
-	measure 'FTE Forecasting Medewerker' = SUM('Fact Forecasting Medewerkers'[FTE (Divided by 100)])
+	measure 'FTE Forecasting Medewerker' = SUM('Fact Forecasting Medewerkers Salaris'[FTE (Divided by 100)])
 		displayFolder: Forecasting
 		lineageTag: dd874486-86b0-4d9e-9078-8a66fb4c7adf
 
@@ -1557,7 +1477,7 @@ table 'Measure Table'
 			
 			VAR totalekosten =
 			    CALCULATE(
-			            SUM('Fact Forecasting Medewerkers'[Softlanding per Maand]),
+			            SUM('Fact Forecasting Medewerkers Salaris'[Softlanding per Maand]),
 			            basesetmedewerker
 			        )
 			
@@ -1718,30 +1638,10 @@ table 'Measure Table'
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure '(M) GB 4114000 - Cessantia' = ```
+			SUM('Fact Forecasting MdW LC Overig per GB'[(M) GB 4114000 - Cessantia])
 			
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			VAR medewerker = VALUES('Dim Medewerker')
-			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
-			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
 			
-			VAR countmedewerkers = 
-			CALCULATE(
-			    DISTINCTCOUNT('Fact Forecasting Medewerkers'[Medewerker ID]),
-			    'Dim Medewerker'[Status_dienstverband] = "In dienst"
-			)
 			
-			RETURN
-			IF(
-			    glisinscope || LCisinscope,
-			SWITCH(
-			    TRUE(),
-			    selectedGL = "4114000" && selectedLC = "0001", countmedewerkers * 40,
-			    selectedGL = "4114000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), countmedewerkers * 40,
-			    BLANK()
-			),
-			BLANK()
-			)
 			
 			
 			
@@ -1857,9 +1757,11 @@ table 'Measure Table'
 			
 			VAR Basesalaries = 
 			CALCULATE(
-			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC])
+			    [(M) LC 2434 - Salaris],
+			    ALL('Dim Grootboek'),
+			    ALL('Dim Looncomponent')
 			)
+			
 			RETURN
 			IF(
 			    glisinscope || LCisinscope,
@@ -1879,11 +1781,6 @@ table 'Measure Table'
 
 	measure '(M) LC 3015 - Intensiteitstoeslag' = ```
 			
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
-			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
-			
 			VAR basesetmedewerker = 
 			FILTER(
 			    'Dim Medewerker',
@@ -1894,28 +1791,21 @@ table 'Measure Table'
 			VAR BaseSalaryLC = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    KEEPFILTERS( 'Dim Looncomponent'[LC] = "3015" ),
+			    KEEPFILTERS('Dim Grootboek'[Code Grootboek] = "4103000"),
+			    USERELATIONSHIP('Dim Looncomponent'[LC], 'Fact Forecasting Medewerkers Salaris'[LC]),
+			    USERELATIONSHIP('Dim Grootboek'[Code Grootboek], 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening]),
 			    basesetmedewerker
 			)
 			
-			VAR intenstieit = 
+			VAR intenstieitperc = 
 			CALCULATE(
 			    'Measure Table'[% LC 3015 - Intensiteitstoeslag],
 			    basesetmedewerker
 			)
-			
+			VAR intensiteit = intenstieitperc * BaseSalaryLC
 			RETURN
-			IF(
-			    glisinscope || LCisinscope,
-			SWITCH(
-			    TRUE(),
-			    selectedLC = "3015" && selectedGL = "4103000", BaseSalaryLC * intenstieit,
-			    selectedLC = "3015" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), BaseSalaryLC * intenstieit,
-			    selectedGL = "4103000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), BaseSalaryLC * intenstieit,
-			    BLANK()
-			    ),
-			    BLANK()
-			)
+			intensiteit
 			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 43e744bf-b5e9-4e3c-acd4-01e8e63cb1d2
@@ -1987,7 +1877,7 @@ table 'Measure Table'
 			VAR BaseSalariesLC = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			    basesetmedewerker
 			)
 			RETURN
@@ -2012,37 +1902,47 @@ table 'Measure Table'
 			
 			// 4104000
 			
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
-			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
+			// VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			// VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			// VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
+			// VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
 			
 			VAR countmedewerkers = 
 			CALCULATE(
-			    DISTINCTCOUNT('Fact Forecasting Medewerkers'[Medewerker ID]),
+			    DISTINCTCOUNT('Fact Forecasting Medewerkers Salaris'[Medewerker ID]),
 			    ALL('Dim Medewerker')
 			)
 			
-			VAR averagekosten = DIVIDE([(A) GB 4104000 - Onbelaste Vergoedingen], countmedewerkers, BLANK())
+			VAR averagekosten = DIVIDE([(WA) GB 4104000 - Onbelaste Vergoedingen], countmedewerkers, BLANK())
 			
 			VAR totalekosten = 
 			SUMX(
-			    VALUES('Fact Forecasting Medewerkers'[Medewerker ID]),
+			    VALUES('Fact Forecasting Medewerkers Salaris'[Medewerker ID]),
 			    averagekosten
 			)
 			
-			RETURN
-			IF(
-			    glisinscope || LCisinscope,
-			SWITCH(
-			    TRUE(),
-			    selectedGL = "4104000" && selectedLC = "3078", totalekosten,
-			    selectedGL = "4104000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), totalekosten,
-			    selectedLC = "3078" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), totalekosten,
-			    BLANK()
-			),
-			BLANK()
+			VAR begrafeniskosten = 
+			CALCULATE(
+			    totalekosten,
+			    KEEPFILTERS('Dim Looncomponent'[LC] = "3078"),
+			    KEEPFILTERS('Dim Grootboek'[Code Grootboek] = "4104000"),
+			    USERELATIONSHIP('Dim Grootboek'[Code Grootboek], 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening]),
+			    USERELATIONSHIP('Dim Looncomponent'[LC], 'Fact Forecasting Medewerkers Salaris'[LC])
 			)
+			
+			RETURN
+			begrafeniskosten
+			// IF(
+			//     glisinscope || LCisinscope,
+			// SWITCH(
+			//     TRUE(),
+			//     selectedGL = "4104000" && selectedLC = "3078", totalekosten,
+			//     selectedGL = "4104000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), totalekosten,
+			//     selectedLC = "3078" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), totalekosten,
+			//     BLANK()
+			// ),
+			// BLANK()
+			// )
 			
 			```
 		formatString: 0
@@ -2101,7 +2001,7 @@ table 'Measure Table'
 			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
 			VAR selectedDienstJaren = SELECTEDVALUE('Dim Gratificatie Jubileum'[Dienstjubileum])
 			VAR selectedJub = SELECTEDVALUE('Dim Gratificatie Jubileum'[Percentage v. Basissalaris])
-			VAR anniver = MAX('Fact Forecasting Medewerkers'[Anniversary Month])
+			VAR anniver = MAX('Fact Forecasting Medewerkers Salaris'[Anniversary Month])
 			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
 			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
 			// VAR BaseSalaryGL = 
@@ -2118,10 +2018,17 @@ table 'Measure Table'
 			    'Dim Medewerker'[Flag 4105000 - Gratificaties] = 1 && 
 			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1 
 			)
+			
+			VAR basesalary = 
+			CALCULATE(
+			    [(M) LC 2434 - Salaris],
+			    ALL('Dim Grootboek'),
+			    ALL('Dim Looncomponent')
+			)
+			
 			VAR BaseSalaryLC12 = 
 			CALCULATE(
-			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    basesalary,
 			    'Dim Medewerker'[Dienstjaren Forecasting] = 12.5,
 			    'Dim Medewerker'[Status_dienstverband] = "In dienst",
 			    'Dim Medewerker'[Flag 4105000 - Gratificaties] = 1,
@@ -2129,8 +2036,7 @@ table 'Measure Table'
 			)
 			VAR BaseSalaryLC25 = 
 			CALCULATE(
-			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    basesalary,
 			    'Dim Medewerker'[Dienstjaren Forecasting] = 25,
 			    'Dim Medewerker'[Status_dienstverband] = "In dienst",
 			    'Dim Medewerker'[Flag 4105000 - Gratificaties] = 1,
@@ -2139,8 +2045,7 @@ table 'Measure Table'
 			
 			VAR BaseSalaryLC35 = 
 			CALCULATE(
-			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    basesalary,
 			    'Dim Medewerker'[Dienstjaren Forecasting] = 35,
 			    'Dim Medewerker'[Status_dienstverband] = "In dienst",
 			    'Dim Medewerker'[Flag 4105000 - Gratificaties] = 1,
@@ -2148,8 +2053,7 @@ table 'Measure Table'
 			)
 			VAR BaseSalaryLC45 = 
 			CALCULATE(
-			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    basesalary,
 			    'Dim Medewerker'[Dienstjaren Forecasting] = 45,
 			    'Dim Medewerker'[Status_dienstverband] = "In dienst",
 			    'Dim Medewerker'[Flag 4105000 - Gratificaties] = 1,
@@ -2257,20 +2161,17 @@ table 'Measure Table'
 			//     DIVIDE(total, countmedewerkers, BLANK())
 			// )
 			
-			VAR totalekosten = SUM('Fact Forecasting MdW LC Overig per GB'[(M) GB 4101100 - Maaltijd Vergoeding])
+			VAR totalekosten = 
+			CALCULATE(
+			    SUM('Fact Forecasting MdW LC Overig per GB'[(M) GB 4101100 - Maaltijd Vergoeding]),
+			    KEEPFILTERS('Dim Grootboek'[Code Grootboek] = "4101100"),
+			    KEEPFILTERS('Dim Looncomponent'[LC] = "0001"),
+			    USERELATIONSHIP('Dim Grootboek'[Code Grootboek], 'Fact Forecasting MdW LC Overig per GB'[Grootboekrekening]),
+			    USERELATIONSHIP('Dim Looncomponent'[LC], 'Fact Forecasting MdW LC Overig per GB'[LC])
+			)
 			
 			RETURN
-			IF(
-			    glisinscope || LCisinscope,
-			SWITCH(
-			    TRUE(),
-			    selectedGL = "4101100" && selectedLC = "0001", totalekosten,
-			    selectedGL = "4101100" && NOT HASONEVALUE('Dim Looncomponent'[LC]), totalekosten,
-			    selectedLC = "0001" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), totalekosten,
-			    BLANK()
-			),
-			BLANK()
-			)
+			totalekosten
 			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 9e6658c6-9757-49a0-96f4-ff865a0738af
@@ -2332,6 +2233,7 @@ table 'Measure Table'
 			VAR selectedmedwerker = SELECTEDVALUE('Dim Medewerker'[Medewerker ID])
 			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
 			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
+			
 			VAR countmedewerkers = 
 			CALCULATE(
 			    [Count Medewerkers],
@@ -2349,7 +2251,7 @@ table 'Measure Table'
 			
 			VAR uitzendkrachten = 
 			CALCULATE(
-			    DIVIDE([(A) GB 4121000 - Uitzendkrachten en Tijdelijke Personeel], countmedewerkers, BLANK())
+			    DIVIDE([(WA) GB 4121000 - Uitzendkracht en Tijdelijk], countmedewerkers, BLANK())
 			)
 			
 			VAR totalekosten = 
@@ -2363,9 +2265,9 @@ table 'Measure Table'
 			    glisinscope || LCisinscope,
 			SWITCH(
 			    TRUE(),
-			    selectedGL = "4121000" && selectedLC = "0001", totalekosten * 12,
-			    selectedGL = "4121000" && NOT HASONEVALUE('Dim Looncomponent'[Omschrijving LC]), totalekosten * 12,
-			    selectedLC = "0001" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), totalekosten * 12,
+			    selectedGL = "4121000" && selectedLC = "0001", totalekosten,
+			    selectedGL = "4121000" && NOT HASONEVALUE('Dim Looncomponent'[Omschrijving LC]), totalekosten,
+			    selectedLC = "0001" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), totalekosten,
 			    BLANK()
 			),
 			BLANK()
@@ -2382,7 +2284,7 @@ table 'Measure Table'
 			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
 			VAR selectedDienstJaren = SELECTEDVALUE('Dim Gratificatie Jubileum'[Dienstjubileum])
 			VAR selectedJub = SELECTEDVALUE('Dim Gratificatie Jubileum'[Percentage v. Basissalaris])
-			VAR anniver = MAX('Fact Forecasting Medewerkers'[Anniversary Month])
+			VAR anniver = MAX('Fact Forecasting Medewerkers Salaris'[Anniversary Month])
 			// VAR BaseSalaryGL = 
 			// CALCULATE(
 			//     [Bedrag Forecasting Medewerkers],
@@ -2394,7 +2296,7 @@ table 'Measure Table'
 			VAR BaseSalaryLC = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			    'Dim Medewerker'[Dienstjaren] IN {12.5, 25, 35, 40},
 			    'Dim Period'[Month no.] = anniver
 			)
@@ -2521,7 +2423,7 @@ table 'Measure Table'
 			VAR kosten = 
 			CALCULATE(
 			    [(A) LC 3095 - Vergunningen],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			    basesetmedewerker
 			)
 			
@@ -2597,7 +2499,7 @@ table 'Measure Table'
 			VAR kosten = 
 			CALCULATE(
 			    DIVIDE(13000, 12, BLANK()) * [FTE Forecasting Medewerker],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			    basesetmedewerker
 			)
 			
@@ -2790,7 +2692,7 @@ table 'Measure Table'
 	measure '(WA) GB 4125100 - Personeel niet in Loondienst' = ```
 			
 			VAR currentyear = YEAR(TODAY())
-			VAR minyear = currentyear - 2
+			VAR minyear = currentyear - 4
 			
 			RETURN
 			CALCULATE(
@@ -2800,7 +2702,7 @@ table 'Measure Table'
 			    FILTER(
 			        'Fact GL Totals Per Year/Period',
 			        'Fact GL Totals Per Year/Period'[Jaar] >= minyear && 
-			        'Fact GL Totals Per Year/Period'[Jaar] <= currentyear -1
+			        'Fact GL Totals Per Year/Period'[Jaar] <= currentyear
 			    )
 			)
 			```
@@ -3233,10 +3135,6 @@ table 'Measure Table'
 
 	measure '(M) LC 3014 - Frequentietoeslag' = ```
 			
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
-			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
 			
 			VAR basesetmedewerker = 
 			FILTER(
@@ -3248,29 +3146,23 @@ table 'Measure Table'
 			VAR BaseSalaryLC = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    KEEPFILTERS( 'Dim Looncomponent'[LC] = "3014" ),
+			    KEEPFILTERS('Dim Grootboek'[Code Grootboek] = "4103000"),
+			    USERELATIONSHIP('Dim Looncomponent'[LC], 'Fact Forecasting Medewerkers Salaris'[LC]),
+			    USERELATIONSHIP('Dim Grootboek'[Code Grootboek], 'Fact Forecasting Medewerkers Salaris'[Grootboekrekening]),
 			    basesetmedewerker
 			)
 			
-			VAR intenstieit = 
+			
+			VAR frequentieperc = 
 			CALCULATE(
 			    'Measure Table'[% LC 3014 - Frequentietoeslag],
 			    basesetmedewerker
 			)
 			
-			
+			VAR frequentie = frequentieperc * BaseSalaryLC
 			RETURN
-			IF(
-			    glisinscope || LCisinscope,
-			SWITCH(
-			    TRUE(),
-			    selectedGL = "4103000" && selectedLC = "3014", BaseSalaryLC * intenstieit,
-			    selectedLC = "3014" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), BaseSalaryLC * intenstieit,
-			    selectedGL = "4103000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), BaseSalaryLC * intenstieit,
-			    BLANK()
-			    ),
-			    BLANK()
-			)
+			frequentie
 			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 7a187586-e6cc-4a1c-9be8-fab5ac29acfe
@@ -3285,7 +3177,7 @@ table 'Measure Table'
 			VAR BasesalariesGL = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			    'Dim SchaalType'[SchaalType Forecasting] = "CAO"
 			)
 			
@@ -3549,27 +3441,7 @@ table 'Measure Table'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure '(M) LC 2434 - Salaris Test' = ```
-			
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			
-			VAR salaris = 
-			CALCULATE(
-			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC])
-			)
-			
-			RETURN
-			// SWITCH(
-			//     TRUE(),
-			//     selectedLC = "2434" && selectedGL = "4100000", salaris,
-			//     selectedLC = "2434" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), salaris,
-			//     selectedGL = "4100000", salaris,
-			//     BLANK()
-			// )
-			salaris
-			```
+	measure '(M) LC 2434 - Salaris Test' = SUM('Fact Forecasting Medewerkers Salaris'[(M) LC 2434 - Salaris])
 		displayFolder: Forecasting\Medewerker
 		lineageTag: e5c61824-5daf-4555-85ab-07bfb99cf7b3
 
@@ -3624,7 +3496,7 @@ table 'Measure Table'
 			VAR BaseSalaryLC = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			    'Dim SchaalType'[SchaalType Forecasting] = "LNT"
 			)
 			
@@ -3651,7 +3523,7 @@ table 'Measure Table'
 			VAR BaseSalaryLC = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers],
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			    'Dim SchaalType'[SchaalType Forecasting] = "Andere OVK",
 			    'Dim Kostenplaats'[Kostenplaats] <> "1100"
 			)
@@ -3679,20 +3551,20 @@ table 'Measure Table'
 			VAR Karina = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers] * 0.05,
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			    'Dim Medewerker'[Medewerker ID] = "500311"
 			)
 			
 			VAR Ingemar = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers] * 0.10,
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			    'Dim Medewerker'[Medewerker ID] = "40831"
 			)
 			VAR Johan = 
 			CALCULATE(
 			    [Bedrag Forecasting Medewerkers] * 0.05,
-			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
+			    TREATAS({"2434"}, 'Fact Forecasting Medewerkers Salaris'[LC]),
 			    'Dim Medewerker'[Medewerker ID] = "502029"
 			)
 			
@@ -3867,30 +3739,77 @@ table 'Measure Table'
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure '(M) GB 4106000 - Bijzondere Vergoedingen' = ```
-			
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
-			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
-			
-			VAR amount = SUM('Fact Forecasting Medewerkers'[(M) GB 4106000 - Bijzondere Vergoedingen])
-			
-			RETURN
-			IF(
-			    glisinscope || LCisinscope,
-			    SWITCH(
-			        TRUE(),
-			        selectedGL = "4106000" && selectedLC = "0001", amount,
-			        selectedGL = "4106000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), amount,
-			        selectedLC = "0001" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), amount,
-			        BLANK()
-			    ),
-			    BLANK()
-			)
+			SUM('Fact Forecasting MdW LC Overig per GB'[(M) GB 4106000 - Bijzondere Vergoedingen])
 			
 			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 7568b4f5-3ccf-4997-bfd8-a78db5185ade
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(WA) GB 4121000 - Uitzendkracht en Tijdelijk' = ```
+			
+			VAR currentyear = YEAR(TODAY())
+			VAR minyear = currentyear - 4
+			
+			RETURN
+			CALCULATE(
+			    DIVIDE([Sum (u * w)], [(W) Sum of Weights]),
+			    ALL('Dim Grootboek'),
+			    'Dim Grootboek'[Code Grootboek] = "4121000",
+			    FILTER(
+			        'Fact GL Totals Per Year/Period',
+			        'Fact GL Totals Per Year/Period'[Jaar] >= minyear && 
+			        'Fact GL Totals Per Year/Period'[Jaar] <= currentyear
+			    )
+			)
+			```
+		displayFolder: Statistics\Weighted Averages
+		lineageTag: 1d125e55-cef2-4a95-ba32-f34adefbba9d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(M) LC 3105 - Pensioen Toeslag (AOVK)' = ```
+			
+			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
+			VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
+			VAR st = SELECTEDVALUE('Dim SchaalType'[Schaal ID])
+			
+			VAR BaseSalaryLC = 
+			CALCULATE(
+			    [(M) LC 2434 - Salaris Test],
+			    ALL('Dim Grootboek'),
+			    ALL('Dim Looncomponent'[LC]),
+			    'Dim SchaalType'[SchaalType Forecasting] = "Andere OVK"
+			)
+			
+			
+			
+			VAR result =
+			IF(
+			    glisinscope || LCisinscope,
+			SWITCH(
+			    TRUE(),
+			    selectedGL = "4115000" && selectedLC = "3105", BaseSalaryLC * 0.10,
+			    selectedGL = "4115000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), BaseSalaryLC * 0.10,
+			    selectedLC = "3105" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), BaseSalaryLC * 0.10,
+			    BLANK()
+			),
+			BLANK()
+			)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    st = 180, result,
+			    NOT HASONEVALUE('Dim SchaalType'[SchaalType Forecasting]), result,
+			    BLANK()
+			)
+			```
+		displayFolder: Forecasting\Medewerker
+		lineageTag: 73401ee1-4804-4dea-b672-780f6a7e9294
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
