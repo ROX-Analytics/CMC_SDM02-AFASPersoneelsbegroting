@@ -27,6 +27,12 @@ table 'Dagkoers EURO/USD'
 
 		annotation SummarizationSetBy = Automatic
 
+	column LC = "0001"
+		lineageTag: 5635d47b-d636-4da4-a2c2-53f4e62b153a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dagkoers EURO/USD' = m
 		mode: import
 		queryGroup: Model

@@ -535,6 +535,194 @@ table 'Fact Forecasting Vacatures'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column 'WN bijdrage pensioen (LNT)' =
+			
+			VAR salaris = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
+			VAR schaaltype = 'Fact Forecasting Vacatures'[SchaalType Forecasting]
+			
+			RETURN
+			IF(
+			    schaaltype = "LNT",
+			    salaris * 0.10
+			)
+		lineageTag: e1e158f9-af0c-4932-bf9f-4cc4903df915
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'WN bijdrage pensioen (CAO)' =
+			
+			VAR salaris = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
+			VAR schaaltype = 'Fact Forecasting Vacatures'[SchaalType Forecasting]
+			
+			RETURN
+			IF(
+			    schaaltype = "CAO",
+			    salaris * 0.05 * 12,
+			    BLANK()
+			)
+		lineageTag: bf41bcec-ef98-4ee8-9f6c-5f4258a0e4e4
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Flag Medische Specialisten' = RELATED('Dim Vacatures Medewerker'[Flag Medische Specialisten])
+		formatString: 0
+		lineageTag: 4eb5509b-640a-47f8-8cee-7440d91f8250
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(V) LC 3014 - Frequentietoeslag' =
+			
+			VAR medspec = 'Fact Forecasting Vacatures'[Flag Medische Specialisten]
+			VAR salaris = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
+			RETURN
+			IF(
+			    medspec = 1,
+			    salaris * 0.06,
+			    BLANK()
+			)
+		lineageTag: c1ca0e7b-a688-4bc5-9d3d-24cf7860a915
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '(V) LC 3015 - Intensiteitstoeslag' =
+			
+			VAR medspec = 'Fact Forecasting Vacatures'[Flag Medische Specialisten]
+			VAR salaris = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
+			RETURN
+			IF(
+			    medspec = 1,
+			    salaris * 0.15,
+			    BLANK()
+			)
+		lineageTag: b19b64a5-21cd-4354-8efe-d558e77b22e0
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '(V) LC 2545 - Pensioen Toeslag CAO' = ```
+			
+			VAR schaaltype = 'Fact Forecasting Vacatures'[SchaalType Forecasting]
+			VAR salaris = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
+			RETURN
+			IF(
+			    schaaltype = "CAO", 
+			    salaris * 0.09,
+			    BLANK()
+			)
+			```
+		lineageTag: 43f2dde9-659f-4574-995b-a1c3bc7126f7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '(V) LC 3075 - Overwerk 300%' = ```
+			
+			VAR salaris =  'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
+			VAR overwerkflag = 'Fact Forecasting Vacatures'[Flag overwerk 200% en 300%]
+			
+			RETURN
+			IF(
+			    overwerkflag = 1,
+			    salaris * 0.0049,
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 16a72dd5-f7e8-4d47-bfbc-68afcd5ecca7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Flag overwerk 200% en 300%' = RELATED('Dim Vacatures Medewerker'[Flag Overtime 200% and 300% Type Personeel])
+		formatString: 0
+		lineageTag: dacf26c5-a1d4-45c4-a93d-1bca2a8424d5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(M) LC 3091 - WG Ziektekosten Specialisten' =
+			
+			VAR flagmedspec = 'Fact Forecasting Vacatures'[Flag Medische Specialisten]
+			
+			RETURN
+			IF(
+			    flagmedspec = 1,
+			    DIVIDE(13000, 12, BLANK()),
+			    BLANK()
+			)
+		lineageTag: 56db8050-956c-42fc-8491-cebc297cea27
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '(V) LC 3142 - Medische Kosten Eig Risico (Eigen Personeel)' =
+			
+			
+			VAR salaris = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
+			VAR flagmedspec = 'Fact Forecasting Vacatures'[Flag Medische Specialisten]
+			RETURN
+			IF(
+			    flagmedspec = 0,
+			    salaris * 0.04,
+			    BLANK()
+			)
+		lineageTag: a56efedc-5365-4acf-b746-47a7c9286640
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LC
+		dataType: string
+		lineageTag: b55e6298-8933-4f44-a6b4-f7e544aa231c
+		summarizeBy: none
+		sourceColumn: LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Omschrijving LC'
+		dataType: string
+		lineageTag: 5ebc69ce-eaa9-492d-b052-589b8b0dc1fd
+		summarizeBy: none
+		sourceColumn: Omschrijving LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboekrekening
+		dataType: string
+		lineageTag: 5906a568-3439-4563-8733-f082721a1a90
+		summarizeBy: none
+		sourceColumn: Grootboekrekening
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboekrekening_omschrijving
+		dataType: string
+		lineageTag: eb14b197-40ed-4213-bc45-4d92b86acb1d
+		summarizeBy: none
+		sourceColumn: Grootboekrekening_omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Fact Forecasting Vacatures' = m
 		mode: import
 		queryGroup: Model
@@ -573,11 +761,17 @@ table 'Fact Forecasting Vacatures'
 				    #"Merged Queries5" = Table.NestedJoin(#"Filtered Rows1", {"Formatieplaats"}, #"Dim Vacature per Verschil FTE", {"Formatieplaats"}, "Dim Vacature per Verschil FTE", JoinKind.LeftOuter),
 				    #"Expanded Dim Vacature per Verschil FTE" = Table.ExpandTableColumn(#"Merged Queries5", "Dim Vacature per Verschil FTE", {"Verschil (excl)", "Medewerker ID"}, {"Verschil (excl).1", "Medewerker ID"}),
 				    #"Renamed Columns7" = Table.RenameColumns(#"Expanded Dim Vacature per Verschil FTE",{{"Verschil (excl).1", "Verschil per Vac (FTE)"}}),
-				    #"Merged Queries" = Table.NestedJoin(#"Renamed Columns7", {"Year Forecasting"}, #"Dim Period", {"Year"}, "Dim Calendar", JoinKind.LeftOuter),
+				
+				    DimLCperGB = Table.Buffer(#"Dim LC per GL Support"),
+				
+				    #"Dim LC per GB Support" = Table.AddColumn(#"Renamed Columns7", "Dim LC per GB", each DimLCperGB),
+				    #"Expand Dim LC per GB" = Table.ExpandTableColumn(#"Dim LC per GB Support", "Dim LC per GB", {"LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving"}, {"LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving"}),
+				
+				    #"Merged Queries" = Table.NestedJoin(#"Expand Dim LC per GB", {"Year Forecasting"}, #"Dim Period", {"Year"}, "Dim Calendar", JoinKind.LeftOuter),
 				    #"Expanded Dim Calendar" = Table.ExpandTableColumn(#"Merged Queries", "Dim Calendar", {"Month no.", "Year/Period"}, {"Month no.", "Year/Period"}),
 				    #"Renamed Columns8" = Table.RenameColumns(#"Expanded Dim Calendar",{{"Month no.", "Month"}}),
 				    #"Removed Duplicates1" = Table.Distinct(#"Renamed Columns8", {"Medewerker ID", "Month", "Formatieplaats"}),
-				    #"Merged Queries1" = Table.NestedJoin(#"Removed Duplicates1", {"Formatieplaats", "Patientgebonden_functies"}, #"Dim Schaal per Formatieplaats CAO", {"Formatieplaats Code", "Patientgebonden_functies"}, "Dim Schaal per Formatieplaats CAO", JoinKind.LeftOuter),
+				    #"Merged Queries1" = Table.NestedJoin(#"Removed Duplicates1", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats CAO Original Test", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats CAO", JoinKind.LeftOuter),
 				    #"Expanded Dim Schaal per Formatieplaats CAO" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Schaal per Formatieplaats CAO", {"Max Schaal/Trede"}, {"Max Schaal/Trede"}),
 				    #"Renamed Columns5" = Table.RenameColumns(#"Expanded Dim Schaal per Formatieplaats CAO",{{"Max Schaal/Trede", "Max Schaal/Trede CAO"}}),
 				    #"Trimmed Text" = Table.TransformColumns(#"Renamed Columns5",{{"Max Schaal/Trede CAO", Text.Trim, type text}}),
@@ -585,15 +779,11 @@ table 'Fact Forecasting Vacatures'
 				    #"Expanded CAO Schaal" = Table.ExpandTableColumn(#"Merged Queries2", "CAO Schaal", {"Salaris"}, {"Salaris"}),
 				    #"Renamed Columns6" = Table.RenameColumns(#"Expanded CAO Schaal",{{"Salaris", "MAX Salaris CAO"}}),
 				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns6", {"Geblokkeerd", "Medewerker ID", "Month", "Formatieplaats"}),
-				    #"Merged Queries3" = Table.NestedJoin(#"Removed Duplicates", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats LNT", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats LNT", JoinKind.LeftOuter),
-				    #"Expanded Dim Schaal per Formatieplaats LNT" = Table.ExpandTableColumn(#"Merged Queries3", "Dim Schaal per Formatieplaats LNT", {"Schaal/Trede LNT 386K Vacature Forecasting", "LNT 386K Schaal Vac Forecast Salaris"}, {"Schaal/Trede LNT 386K Vacature Forecasting", "LNT 386K Schaal Vac Forecast Salaris"}),
-				    #"Merged Queries4" = Table.NestedJoin(#"Expanded Dim Schaal per Formatieplaats LNT", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats BMP", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats BMP", JoinKind.LeftOuter),
-				    #"Expanded Dim Schaal per Formatieplaats BMP" = Table.ExpandTableColumn(#"Merged Queries4", "Dim Schaal per Formatieplaats BMP", {"Schaal/Trede LNT 386K Vac Forecasting", "Salari LNT 386K Forecast Vac"}, {"BMP.Schaal/Trede LNT 386K Vac Forecasting", "BMP.Salari LNT 386K Forecast Vac"}),
-				    #"Added Custom4" = Table.AddColumn(#"Expanded Dim Schaal per Formatieplaats BMP", "BMP Schaal/Trede LNT 386K", each if[#"BMP.Schaal/Trede LNT 386K Vac Forecasting"] = [#"Schaal/Trede LNT 386K Vacature Forecasting"] then null else [#"BMP.Schaal/Trede LNT 386K Vac Forecasting"]),
-				    #"Added Custom5" = Table.AddColumn(#"Added Custom4", "BMP Salaris LNT 386K", each if [BMP.Salari LNT 386K Forecast Vac] = [LNT 386K Schaal Vac Forecast Salaris] then null else [BMP.Salari LNT 386K Forecast Vac]),
-				    #"Merged Columns" = Table.CombineColumns(#"Added Custom5",{"BMP Schaal/Trede LNT 386K", "Schaal/Trede LNT 386K Vacature Forecasting", "Max Schaal/Trede CAO"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Schaal/Trede"),
-				    #"Merged Columns1" = Table.CombineColumns(Table.TransformColumnTypes(#"Merged Columns", {{"MAX Salaris CAO", type text}, {"LNT 386K Schaal Vac Forecast Salaris", type text}, {"BMP Salaris LNT 386K", type text}}, "en-US"),{"MAX Salaris CAO", "LNT 386K Schaal Vac Forecast Salaris", "BMP Salaris LNT 386K"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Bruto Salaris"),
-				    #"Removed Other Columns1" = Table.SelectColumns(#"Merged Columns1",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Werkelijk", "Instroom", "FTE uitstroom (zonder bepaalde tijd)", "Verschil", "Verschil (excl)", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum", "Datum Gewijzigd", "Tijd Gewijzigd", "Uren_Begroot", "Uren_Werkelijk", "Uren_Verschil", "Year Forecasting", "Medewerker ID", "Month", "Year/Period", "Schaal/Trede", "Bruto Salaris"}),
+				    #"Merged Queries3" = Table.NestedJoin(#"Removed Duplicates", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats BMP/LNT", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats BMP/LNT", JoinKind.LeftOuter),
+				    #"Expanded Dim Schaal per Formatieplaats BMP/LNT" = Table.ExpandTableColumn(#"Merged Queries3", "Dim Schaal per Formatieplaats BMP/LNT", {"Max Schaal/Trede", "Salaris"}, {"Max Schaal/Trede", "Salaris"}),
+				    #"Merged Columns" = Table.CombineColumns(#"Expanded Dim Schaal per Formatieplaats BMP/LNT",{"Max Schaal/Trede", "Max Schaal/Trede CAO"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Schaal/Trede"),
+				    #"Merged Columns1" = Table.CombineColumns(Table.TransformColumnTypes(#"Merged Columns", {{"MAX Salaris CAO", type text}, {"Salaris", type text}}, "en-US"),{"MAX Salaris CAO", "Salaris"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Bruto Salaris"),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Merged Columns1",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Werkelijk", "Instroom", "FTE uitstroom (zonder bepaalde tijd)", "Verschil", "Verschil (excl)", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum", "Datum Gewijzigd", "Tijd Gewijzigd", "Uren_Begroot", "Uren_Werkelijk", "Uren_Verschil", "Year Forecasting", "Medewerker ID", "Month", "Year/Period", "Schaal/Trede", "Bruto Salaris", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving"}),
 				    #"Changed Type8" = Table.TransformColumnTypes(#"Removed Other Columns1",{{"Bruto Salaris", type number}}),
 				    #"Merged Queries6" = Table.NestedJoin(#"Changed Type8", {"Schaal/Trede"}, #"Dim SchaalType", {"Schaal/Trede"}, "Dim SchaalType", JoinKind.LeftOuter),
 				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries6", "Dim SchaalType", {"Salaris", "Schaal ID", "SchaalType Forecasting"}, {"Salaris", "Schaal ID", "SchaalType Forecasting"}),

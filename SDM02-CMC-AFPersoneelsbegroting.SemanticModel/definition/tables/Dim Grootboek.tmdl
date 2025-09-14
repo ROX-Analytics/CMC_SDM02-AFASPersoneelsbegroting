@@ -55,7 +55,7 @@ table 'Dim Grootboek'
 		queryGroup: Model
 		source =
 				let
-				    Source = Table.Combine({#"GC_FinancialeMutaties (2024 - 1-3)", #"GC_FinancialeMutaties (2024 - 10)", #"GC_FinancialeMutaties (2024 - 4)", #"GC_FinancialeMutaties (2024 - 5)", #"GC_FinancialeMutaties (2025 - 10)", #"GC_FinancialeMutaties (2025 - 1)", #"GC_FinancialeMutaties (2025 - 5)", #"GC_FinancialeMutaties (2025 - 4)", #"GC_FinancialeMutaties (2025 - 6)"}),
+				    Source = #"Fact Journal Entries",
 				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Type_rekening", "Rapportagecockpit_omschrijving", "Rekeningnummer_2", "Omschrijving", "Rapportagecockpit"}),
 				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns", {"Rekeningnummer_2"}),
 				    #"Sorted Rows" = Table.Sort(#"Removed Duplicates",{{"Rekeningnummer_2", Order.Ascending}}),

@@ -14,7 +14,7 @@ table 'Dim Max Trede'
 		dataType: int64
 		formatString: 0
 		lineageTag: 59593b5c-c94a-43cc-b3bb-ff3a4bbec454
-		summarizeBy: none
+		summarizeBy: count
 		sourceColumn: ID
 
 		annotation SummarizationSetBy = Automatic

@@ -3,7 +3,8 @@
 
 // Select "Run" to try this sample DAX query.
 EVALUATE
-CALCULATE(
-    DISTINCTCOUNT('Fact Forecasting MdW LC Overig per GB'[Medewerker ID]),
-    'Fact Forecasting MdW LC Overig per GB'[Flag Personeel Niet in Loondienst] = 1
+SUMMARIZE(
+        'Fact Forecasting Medewerkers',
+        'Dim Period'[Year],
+        'Dim Period'[Month no.]
 )

@@ -5,7 +5,7 @@ table 'Dim Indexering Forecasting'
 		dataType: double
 		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: f4ffa6e9-6ec0-4ff1-872b-da261a3d5e9d
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Indexering
 
 		annotation SummarizationSetBy = Automatic
@@ -15,6 +15,24 @@ table 'Dim Indexering Forecasting'
 		lineageTag: 399c569b-dc40-4c2b-837d-c16111179b6b
 		summarizeBy: none
 		sourceColumn: Index Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indexering Forecasting' =
+			
+			VAR indexname = 'Dim Indexering Forecasting'[Index Name]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    indexname = "1%", "1.00%",
+			    indexname = "2%", "2.00%",
+			    indexname = "3%", "3.00%",
+			    indexname = "4%", "4.00%",
+			    indexname = "5%", "5.00%",
+			    BLANK()
+			)
+		lineageTag: 8d0a6e56-259a-4f59-b82b-80a6c39bc333
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 

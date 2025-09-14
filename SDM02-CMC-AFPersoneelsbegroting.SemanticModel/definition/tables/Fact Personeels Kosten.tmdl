@@ -28,14 +28,6 @@ table 'Fact Personeels Kosten'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Medewerker ID'
-		dataType: string
-		lineageTag: 600f26fe-9c83-4a47-9a81-2482be75ff43
-		summarizeBy: none
-		sourceColumn: Medewerker ID
-
-		annotation SummarizationSetBy = Automatic
-
 	column Dienstverband
 		dataType: string
 		lineageTag: bfabed9c-b27a-41f8-9c30-2af773c42313
@@ -76,23 +68,14 @@ table 'Fact Personeels Kosten'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Omschrijving LC'
-		dataType: string
-		lineageTag: 83d1a3d4-917c-4f50-af34-d3fada234135
-		summarizeBy: none
-		sourceColumn: Omschrijving LC
-
-		annotation SummarizationSetBy = Automatic
-
 	column Waarde
 		dataType: double
+		formatString: 0.00
 		lineageTag: b0c29fdc-5ca7-4a14-b798-753f07dd8be9
 		summarizeBy: sum
 		sourceColumn: Waarde
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column Bedrag_credit
 		dataType: double
@@ -204,16 +187,6 @@ table 'Fact Personeels Kosten'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column FTE
-		dataType: double
-		lineageTag: 93ba7327-62bc-4e61-a558-d91b31d49f60
-		summarizeBy: sum
-		sourceColumn: FTE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column Index
 		dataType: int64
 		formatString: 0
@@ -276,31 +249,59 @@ table 'Fact Personeels Kosten'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column 'Medewerker ID'
+		dataType: string
+		lineageTag: a3584139-3201-44c2-9c66-cd0bcc81fa14
+		summarizeBy: none
+		sourceColumn: Medewerker ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Omschrijving LC'
+		dataType: string
+		lineageTag: c41f3b60-348d-4a77-81ee-d5e47e0ee726
+		summarizeBy: none
+		sourceColumn: Omschrijving LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column FTE
+		dataType: double
+		lineageTag: 005f42cc-2890-4568-ae7e-298a7b78a6e7
+		summarizeBy: sum
+		sourceColumn: FTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Type Personeel ID' = RELATED('Dim Medewerker'[Type Personeel ID])
+		lineageTag: 5819a54e-134b-4226-885d-8338253d8915
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Fact Personeels Kosten' = m
 		mode: import
 		queryGroup: Model
 		source =
 				let
-				    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025", #"Fact Personeels Kosten 2021", #"Fact Personeels Kosten 2023", #"Fact Personeels Kosten 2022"}),
+				    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025", #"Fact Personeels Kosten 2021", #"Fact Personeels Kosten 2022", #"Fact Personeels Kosten 2023"}),
 				    #"Renamed Columns" = Table.RenameColumns(Source,{{"Omschrijving_klant", "Omschrijving LC"}}),
 				    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Boeking Periode (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0")),
 				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Salaris Periode (leading zeros)", each Text.PadStart(Text.From([Salarisperiode]),2,"0")),
 				    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Boeking Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Boeking Periode (leading zeros)"])),
-				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Salaris Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Salaris Periode (leading zeros)"])),
+				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Salaris Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Salaris Periode (leading zeros)"]), type nullable text),
 				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom3",{{"Waarde", type number}, {"Bedrag_credit", type number}}),
-				    #"Added Custom4" = Table.AddColumn(#"Changed Type1", "Bedrag", each [Waarde] - [Bedrag_credit]),
-				    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom4",{{"Bedrag", type number}}),
-				    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type2",{{"FTE", "FTE Original"}}),
+				    #"Added Custom4" = Table.AddColumn(#"Changed Type1", "Bedrag", each [Waarde] - [Bedrag_credit], type nullable number),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Added Custom4",{{"FTE", "FTE Original"}}),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns1",{{"FTE Original", type number}}),
-				    #"Added Custom5" = Table.AddColumn(#"Changed Type", "FTE", each [FTE Original] / 100),
-				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom5",{{"FTE", type number}}),
-				    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type3",{{"Medewerker", "Medewerker ID"}}),
+				    #"Added Custom5" = Table.AddColumn(#"Changed Type", "FTE", each [FTE Original] / 100, type number),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Added Custom5",{{"Medewerker", "Medewerker ID"}}),
 				    #"Added Index" = Table.AddIndexColumn(#"Renamed Columns2", "Index", 1, 1, Int64.Type),
-				    #"Added Custom6" = Table.AddColumn(#"Added Index", "Line ID", each Text.From([Medewerker ID]) & "_" & Text.From([Grootboekrekening]) & "_" & Text.From([Index])),
-				    #"Changed Type4" = Table.TransformColumnTypes(#"Added Custom6",{{"Line ID", type text}}),
-				    #"Added Custom7" = Table.AddColumn(#"Changed Type4", "Saldo", each ([Waarde] * [FTE]) - [Bedrag_credit]),
-				    #"Changed Type5" = Table.TransformColumnTypes(#"Added Custom7",{{"Saldo", type number}}),
-				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type5",{{"Grootboekrekening", Text.Trim, type text}}),
+				    #"Added Custom6" = Table.AddColumn(#"Added Index", "Line ID", each Text.From([Medewerker ID]) & "_" & Text.From([Grootboekrekening]) & "_" & Text.From([Index]), type nullable text),
+				    #"Added Custom7" = Table.AddColumn(#"Added Custom6", "Saldo", each ([Waarde] * [FTE]) - [Bedrag_credit], type nullable number),
+				    #"Trimmed Text" = Table.TransformColumns(#"Added Custom7",{{"Grootboekrekening", Text.Trim, type text}}),
 				    #"Changed Type6" = Table.TransformColumnTypes(#"Trimmed Text",{{"Jaar", Int64.Type}, {"Salarisperiode", Int64.Type}, {"Boekingsperiode", Int64.Type}}),
 				    #"Merged Queries" = Table.NestedJoin(#"Changed Type6", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
 				    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Schaal ID"}, {"Schaal ID"})

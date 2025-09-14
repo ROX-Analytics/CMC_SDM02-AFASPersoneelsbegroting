@@ -162,7 +162,7 @@ table 'Dim Vacatures Medewerker'
 	column 'Flag Medische Specialisten' =
 			
 			IF(
-			    RELATED('Dim Type Personeel'[Type Personeel ID]) IN {"Z_1", "Z_10", "Z_15"},
+			    'Dim Vacatures Medewerker'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"},
 			    1,
 			    0
 			)
@@ -193,7 +193,7 @@ table 'Dim Vacatures Medewerker'
 	column 'Flag Arts-Assistenten' =
 			
 			IF(
-			    RELATED('Dim Type Personeel'[Type Personeel ID]) = "Z_3",
+			    'Dim Vacatures Medewerker'[Type Personeel ID] = "Z_3",
 			    1,
 			    0
 			)
@@ -293,6 +293,19 @@ table 'Dim Vacatures Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Flag Overtime 200% and 300% Type Personeel' =
+			
+			IF(
+			    ('Dim Vacatures Medewerker'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"} || CONTAINSSTRING('Dim Vacatures Medewerker'[Soort_functie], "Echelon 2") || CONTAINSSTRING('Dim Vacatures Medewerker'[Soort_functie], "Echelon 1")) && 'Dim Vacatures Medewerker'[Flag Maaltijdvergoeding] = 0,
+			    0,
+			    1
+			)
+		formatString: 0
+		lineageTag: 41ec8bd2-0819-45a6-911c-4745e27b16b5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Vacatures Medewerker' = m
 		mode: import
 		queryGroup: Model
@@ -319,5 +332,5 @@ table 'Dim Vacatures Medewerker'
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Exception
+	annotation PBI_ResultType = Table
 

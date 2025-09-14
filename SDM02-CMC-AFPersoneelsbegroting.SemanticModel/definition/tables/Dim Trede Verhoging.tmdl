@@ -14,7 +14,7 @@ table 'Dim Trede Verhoging'
 		dataType: int64
 		formatString: 0
 		lineageTag: 319d3094-2a3e-4d67-83f6-a5bb2884c3b0
-		summarizeBy: none
+		summarizeBy: count
 		sourceColumn: ID
 
 		annotation SummarizationSetBy = Automatic

@@ -82,19 +82,61 @@ table 'Fact Forcasting Schemawerk'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column Grootboekrekeing = RELATED('Dim LC per GL'[Grootboekrekening])
+		lineageTag: b910b707-a479-4167-8f3d-4968a86341f6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Percentage = DIVIDE('Fact Forcasting Schemawerk'[Bedrag Schemawerk], 'Fact Forcasting Schemawerk'[Total Salarissen], BLANK())
+		lineageTag: 1437e99d-8dc7-4616-97c6-488b9a576fb7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Percentage corrected' = ```
+			
+			VAR curYear  = 'Fact Forcasting Schemawerk'[Jaar]
+			VAR curMonth = 'Fact Forcasting Schemawerk'[Periode]
+			VAR curLC = 'Fact Forcasting Schemawerk'[LC]
+			VAR prevPct =
+			    CALCULATE(
+			        MAX('Fact Forcasting Schemawerk'[Percentage]),          
+			        FILTER(
+			            ALL('Fact Forcasting Schemawerk'),
+			            'Fact Forcasting Schemawerk'[Jaar] = curYear - 1
+			            && 'Fact Forcasting Schemawerk'[Periode] = curMonth 
+			            && 'Fact Forcasting Schemawerk'[LC] = curLC
+			        )
+			    )
+			RETURN IF('Fact Forcasting Schemawerk'[IsExtrapolated], prevPct, 'Fact Forcasting Schemawerk'[Percentage])
+			
+			```
+		lineageTag: 51d67e6f-8fd5-46fd-86f5-af1e37d981aa
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition 'Fact Forcasting Schemawerk' = m
 		mode: import
 		queryGroup: Model
 		source =
 				let
-				    Source = #"Extrapolatie Salarissen for Schemawerk"(#"Fact Salarissen for Schemawerk Source"),
+				    Source = #"Buffered Fact Forcasting Schemawerk",
 				    #"Renamed Columns" = Table.RenameColumns(Source,{{"Year/Period", "Year/Period Original"}}),
 				    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Period (leading zeros)", each Text.PadStart(Text.From([Periode]),2,"0"), type nullable text),
 				    #"Added Custom2" = Table.AddColumn(#"Added Custom", "Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Period (leading zeros)"]), type nullable text),
-				    #"Merged Queries" = Table.NestedJoin(#"Added Custom2", {"Jaar", "Year/Period"}, #"Fact Schemawerk Support", {"Jaar", "Boeking Year/Period"}, "Fact Schemawerk Support", JoinKind.LeftOuter),
-				    #"Expanded Fact Schemawerk Support" = Table.ExpandTableColumn(#"Merged Queries", "Fact Schemawerk Support", {"LC", "Bedrag Schemawerk"}, {"LC", "Bedrag Schemawerk"})
+				
+				    FactSchemawerk = Table.Buffer(#"Fact Schemawerk Support Source"),
+				
+				    #"Merged Queries" = Table.NestedJoin(#"Added Custom2", {"Jaar", "Year/Period"}, FactSchemawerk, {"Jaar", "Year/Period"}, "Fact Schemawerk Support Source", JoinKind.LeftOuter),
+				    #"Expanded Fact Schemawerk Support Source" = Table.ExpandTableColumn(#"Merged Queries", "Fact Schemawerk Support Source", {"LC", "Bedrag Schemawerk"}, {"LC", "Bedrag Schemawerk"})
 				in
-				    #"Expanded Fact Schemawerk Support"
+				    #"Expanded Fact Schemawerk Support Source"
 
 	annotation PBI_NavigationStepName = Navigation
 

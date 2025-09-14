@@ -4,7 +4,7 @@ expression ROWS = "200000" meta [IsParameterQuery=true, Type="Text", IsParameter
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Text
+	annotation PBI_ResultType = Exception
 
 expression StartYear = "2024" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 	lineageTag: 2bb4be4c-6749-4e89-982c-c90c8643a98f
@@ -12,7 +12,7 @@ expression StartYear = "2024" meta [IsParameterQuery=true, Type="Text", IsParame
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Text
+	annotation PBI_ResultType = Exception
 
 expression 'FormatiePlaats (Staging)' =
 		let
@@ -130,155 +130,6 @@ expression DurationHours = 3 meta [IsParameterQuery=true, Type="Number", IsParam
 
 	annotation PBI_ResultType = Number
 
-expression 'GC_FinancialeMutaties (2024 - 10)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
-		    #"GC_FinancialeMutaties (2024 - 10)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - 10)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2024 - 10)_"
-	lineageTag: b5d3f7fd-ff87-4877-a688-64da361f5649
-	queryGroup: 'Staging\Journal Entries\2024'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2024 - 1-3)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
-		    #"GC_FinancialeMutaties (2024 - 1-3)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - 1-3)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2024 - 1-3)_"
-	lineageTag: 921b18e4-ec76-497d-98b9-9ba4729b3ece
-	queryGroup: 'Staging\Journal Entries\2024'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2024 - 4)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
-		    #"GC_FinancialeMutaties (2024 - 4)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - 4)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2024 - 4)_"
-	lineageTag: c93cbcb8-06bc-4ea1-95d6-20afa2146cf2
-	queryGroup: 'Staging\Journal Entries\2024'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2024 - 5)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
-		    #"GC_FinancialeMutaties (2024 - 5)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - 5)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2024 - 5)_"
-	lineageTag: b037349c-0332-4293-8de8-314cedd3a0ae
-	queryGroup: 'Staging\Journal Entries\2024'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2025 - 10)' = ```
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
-		    #"GC_FinancialeMutaties (2025 - 10)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 10)",version=""]}[Data]
-		in 
-		  #"GC_FinancialeMutaties (2025 - 10)_"
-		```
-	lineageTag: 6bdb3c7f-ad60-4b6e-aed5-1993da57cf1e
-	queryGroup: 'Staging\Journal Entries\2025'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2025 - 1)' = ```
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
-		    #"GC_FinancialeMutaties (2025 - 1)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 1)",version=""]}[Data]
-		in 
-		  #"GC_FinancialeMutaties (2025 - 1)_"
-		```
-	lineageTag: 90dbcf4b-ccfb-4d8a-a55d-4e13957c9d26
-	queryGroup: 'Staging\Journal Entries\2025'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2025 - 5)' = ```
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
-		    #"GC_FinancialeMutaties (2025 - 5)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 5)",version=""]}[Data]
-		in 
-		  #"GC_FinancialeMutaties (2025 - 5)_"
-		```
-	lineageTag: 53f0c683-509f-43d8-bbf4-cb6d1511e67b
-	queryGroup: 'Staging\Journal Entries\2025'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2025 - 4)' = ```
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
-		    #"GC_FinancialeMutaties (2025 - 4)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 4)",version=""]}[Data]
-		in 
-		  #"GC_FinancialeMutaties (2025 - 4)_"
-		```
-	lineageTag: 9db5dc30-6d05-43d0-9e05-b9ee556c6ec4
-	queryGroup: 'Staging\Journal Entries\2025'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2025 - 6)' = ```
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
-		    #"GC_FinancialeMutaties (2025 - 6)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 6)",version=""]}[Data]
-		in 
-		  #"GC_FinancialeMutaties (2025 - 6)_"
-		```
-	lineageTag: 333afccf-b027-48ab-be0e-67ce369e817a
-	queryGroup: 'Staging\Journal Entries\2025'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
 expression 'Fact Personeels Kosten 2024' =
 		let
 		    Source = PowerPlatform.Dataflows(null),
@@ -328,198 +179,6 @@ expression 'Dim Medewerkers' =
 		    #"Changed Type2"
 	lineageTag: 50fae310-2353-41bd-a36b-3fee9e415faf
 	queryGroup: Staging\Formatie
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2023 - 10)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
-		    #"GC_FinancialeMutaties (2023 - >10)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - 10)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2023 - >10)_"
-	lineageTag: 110959d5-d3b9-4fcf-a8b5-156f1ac7328e
-	queryGroup: 'Staging\Journal Entries\2023'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2023 - 1-3)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
-		    #"GC_FinancialeMutaties (2023 - 1-3)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - 1-3)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2023 - 1-3)_"
-	lineageTag: fda2aa72-58ab-48c8-aa47-5a207240478e
-	queryGroup: 'Staging\Journal Entries\2023'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2023 - 4)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
-		    #"GC_FinancialeMutaties (2023 - 4-6)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - 4)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2023 - 4-6)_"
-	lineageTag: aafc56f2-b3e9-47db-9260-26f123a3f3b2
-	queryGroup: 'Staging\Journal Entries\2023'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2023 - 7)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
-		    #"GC_FinancialeMutaties (2023 - 7-9)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - 7)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2023 - 7-9)_"
-	lineageTag: 4742b5dc-dcea-4996-b1b4-090af66c69e7
-	queryGroup: 'Staging\Journal Entries\2023'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2022- 10)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
-		    #"GC_FinancialeMutaties (2022- >10)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- 10)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2022- >10)_"
-	lineageTag: bf699667-c703-41b8-8405-3b3dada0b102
-	queryGroup: 'Staging\Journal Entries\2022'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2022- 1-3)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
-		    #"GC_FinancialeMutaties (2022- 1-3)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- 1-3)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2022- 1-3)_"
-	lineageTag: bffb9741-e496-45ac-b888-a6025a0d6034
-	queryGroup: 'Staging\Journal Entries\2022'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2022- 4-6)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
-		    #"GC_FinancialeMutaties (2022- 4-6)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- 4)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2022- 4-6)_"
-	lineageTag: 2312e68a-b42f-4079-97f7-70588535866a
-	queryGroup: 'Staging\Journal Entries\2022'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2022- 5)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
-		    #"GC_FinancialeMutaties (2022- 7-9)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- 5)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2022- 7-9)_"
-	lineageTag: 7f54b845-e8d4-4fc5-b2ef-13cb5d9a9592
-	queryGroup: 'Staging\Journal Entries\2022'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2021 - 10)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
-		    #"GC_FinancialeMutaties (2021 - >10)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - 10)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2021 - >10)_"
-	lineageTag: f60b4e93-9aba-4124-8c27-23224a7c8043
-	queryGroup: 'Staging\Journal Entries\2021'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2021 - 1-3)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
-		    #"GC_FinancialeMutaties (2021 - 1-3)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - 1-3)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2021 - 1-3)_"
-	lineageTag: 6611caa6-75dd-4296-ba2d-f96e30ad8119
-	queryGroup: 'Staging\Journal Entries\2021'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2021 - 4)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
-		    #"GC_FinancialeMutaties (2021 - 4-6)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - 4)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2021 - 4-6)_"
-	lineageTag: bcce7ae2-4afe-42f1-811b-2ad10c2b6172
-	queryGroup: 'Staging\Journal Entries\2021'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2021 - 5)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
-		    #"GC_FinancialeMutaties (2021 - 7-9)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - 5)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2021 - 7-9)_"
-	lineageTag: a1522ea9-5d5a-453a-a127-9a9f3f33f00f
-	queryGroup: 'Staging\Journal Entries\2021'
 
 	annotation PBI_NavigationStepName = Navigation
 
@@ -1087,7 +746,7 @@ expression 'Studie Kosten LNT/MedSpec' =
 
 	annotation PBI_ResultType = Function
 
-expression 'Dim Schaal per Formatieplaats CAO' =
+expression 'Dim Schaal per Formatieplaats CAO' = ```
 		let
 		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
 		    rows = Source[rows],
@@ -1146,8 +805,9 @@ expression 'Dim Schaal per Formatieplaats CAO' =
 		    #"Removed Columns" = Table.RemoveColumns(#"Expanded Dim MAX CAO Schaal per Formatieplaats1",{"MAX Schaal", "MAX Trede", "Max Trede Flag"}),
 		    #"Removed Duplicates1" = Table.Distinct(#"Removed Columns", {"Formatieplaats Code"}),
 		    #"Trimmed Text" = Table.TransformColumns(#"Removed Duplicates1",{{"Max Schaal/Trede", Text.Trim, type text}})
-		in
+		in 
 		    #"Trimmed Text"
+		```
 	lineageTag: 1198848a-5e33-421f-9c3b-377722452b01
 	queryGroup: 'Staging\Functies & Schaal'
 
@@ -1366,119 +1026,6 @@ expression 'Fact Formatieplaats per LC Per GB' =
 		in
 		    #"Removed Duplicates"
 	lineageTag: 2e37a16c-ad01-4ced-bfe5-9f6ab37793f9
-	queryGroup: Staging\Forecasting
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'Staging Forecsting Medewerker' =
-		let
-		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
-		    rows = Source[rows],
-		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
-		    #"Filtered Rows" = Table.SelectRows(#"Expanded Column1", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
-		    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"Medewerker", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats_2", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Soort_medewerker", "Type_contract"}),
-		    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Medewerker", "Medewerker ID"}}),
-		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Begindatum_salaris", type datetime}, {"Einddatum_salaris", type datetime}, {"Begindatum_functie", type datetime}}),
-		    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Begindatum_salaris", type date}, {"Einddatum_salaris", type date}, {"Begindatum_functie", type date}, {"Datum_in_dienst", type datetime}, {"Datum_uit_dienst", type datetime}}),
-		    #"Changed Type2" = Table.TransformColumnTypes(#"Changed Type1",{{"Datum_in_dienst", type date}, {"Datum_uit_dienst", type date}}),
-		    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type2",{{"Formatieplaats_2", "Formatieplaats Code"}, {"Organisatorische_eenheid_2", "OE Code"}, {"Cluster_Afdeling_3", "Cluster/Afdeling"}}),
-		    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Geboortedatum", type datetime}}),
-		    #"Changed Type4" = Table.TransformColumnTypes(#"Changed Type3",{{"Geboortedatum", type date}}),
-		    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type4",{{"Functie", "Functie Code"}}),
-		    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns2", {"Medewerker ID"}),
-		    #"Merged Queries" = Table.NestedJoin(#"Removed Duplicates", {"Soort_functie"}, #"Dim Personeel Type OLD", {"Type Personeel"}, "Dim Personeel Type", JoinKind.LeftOuter),
-		    #"Expanded Dim Personeel Type" = Table.ExpandTableColumn(#"Merged Queries", "Dim Personeel Type", {"Type Personeel ID"}, {"Type Personeel ID"}),
-		    #"Merged Queries1" = Table.NestedJoin(#"Expanded Dim Personeel Type", {"Schaal"}, #"Dim SchaalType", {"Schaal"}, "Dim SchaalType", JoinKind.LeftOuter),
-		    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries1", "Dim SchaalType", {"Schaal ID"}, {"Schaal ID"}),
-		    #"Merged Queries2" = Table.NestedJoin(#"Expanded Dim SchaalType", {"Dienstbetrekking"}, #"Dim Dienstbetrekking", {"Dienstbetrekking"}, "Dim Dienstbetrekking", JoinKind.LeftOuter),
-		    #"Expanded Dim Dienstbetrekking" = Table.ExpandTableColumn(#"Merged Queries2", "Dim Dienstbetrekking", {"Dienstbetrekking ID"}, {"Dienstbetrekking ID"}),
-		    #"Removed Other Columns1" = Table.SelectColumns(#"Expanded Dim Dienstbetrekking",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Cluster/Afdeling", "OE Code", "Soort_medewerker", "Type_contract", "Type Personeel ID", "Schaal ID", "Dienstbetrekking ID"}),
-		    #"Changed Type5" = Table.TransformColumnTypes(#"Removed Other Columns1",{{"Salaris", type number}}),
-		    #"Renamed Columns3" = Table.RenameColumns(#"Changed Type5",{{"Cluster/Afdeling", "Cluster/Afdeling Formatieplaats"}, {"Cluster_Afdeling_2", "Cluster/Afdeling Functie"}}),
-		    #"Merged Queries3" = Table.NestedJoin(#"Renamed Columns3", {"Cluster/Afdeling Formatieplaats"}, #"Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Formatieplaatsniveau"}, "Dim Cluster/Afdeling Formatieplaats", JoinKind.LeftOuter),
-		    #"Expanded Dim Cluster/Afdeling Formatieplaats" = Table.ExpandTableColumn(#"Merged Queries3", "Dim Cluster/Afdeling Formatieplaats", {"C/A Formatie ID"}, {"C/A Formatie ID"}),
-		    #"Merged Queries4" = Table.NestedJoin(#"Expanded Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Functie"}, #"Dim Cluster/Afdeling Functienveau", {"Cluster/Afdeling Functienveau"}, "Dim Cluster/Afdeling Functienveau", JoinKind.LeftOuter),
-		    #"Expanded Dim Cluster/Afdeling Functienveau" = Table.ExpandTableColumn(#"Merged Queries4", "Dim Cluster/Afdeling Functienveau", {"C/A Functie ID"}, {"C/A Functie ID"}),
-		    #"Changed Type6" = Table.TransformColumnTypes(#"Expanded Dim Cluster/Afdeling Functienveau",{{"Aantal_FTE", type number}, {"Dienstjaren", type number}}),
-		    #"Merged Queries5" = Table.NestedJoin(#"Changed Type6", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Staf", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Staf", JoinKind.LeftOuter),
-		    #"Expanded Dim Staf" = Table.ExpandTableColumn(#"Merged Queries5", "Dim Staf", {"Staf of Zorg"}, {"Dim Staf.Staf of Zorg"}),
-		    #"Merged Queries6" = Table.NestedJoin(#"Expanded Dim Staf", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Zorg", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Zorg", JoinKind.LeftOuter),
-		    #"Expanded Dim Zorg" = Table.ExpandTableColumn(#"Merged Queries6", "Dim Zorg", {"Type Zorg Functie", "Staf of Zorg"}, {"Dim Zorg.Type Zorg Functie", "Dim Zorg.Staf of Zorg"}),
-		    #"Merged Queries8" = Table.NestedJoin(#"Expanded Dim Zorg", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Medewerker Overig", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Medewerker Overig", JoinKind.LeftOuter),
-		    #"Expanded Dim Medewerker Overig" = Table.ExpandTableColumn(#"Merged Queries8", "Dim Medewerker Overig", {"Staf of Zorg"}, {"Dim Medewerker Overig.Staf of Zorg"}),
-		    #"Removed Other Columns2" = Table.SelectColumns(#"Expanded Dim Medewerker Overig",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster/Afdeling Functie", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Cluster/Afdeling Formatieplaats", "OE Code", "Soort_medewerker", "Type_contract", "Schaal ID", "Dienstbetrekking ID", "C/A Formatie ID", "C/A Functie ID", "Dim Staf.Staf of Zorg", "Dim Zorg.Type Zorg Functie", "Dim Zorg.Staf of Zorg", "Dim Medewerker Overig.Staf of Zorg"}),
-		    #"Merged Columns" = Table.CombineColumns(Table.TransformColumnTypes(#"Removed Other Columns2", {{"Dim Medewerker Overig.Staf of Zorg", type text}}, "en-US"),{"Dim Staf.Staf of Zorg", "Dim Zorg.Staf of Zorg", "Dim Medewerker Overig.Staf of Zorg"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Staf of Zorg"),
-		    #"Merged Queries7" = Table.NestedJoin(#"Merged Columns", {"Soort_functie", "Dim Zorg.Type Zorg Functie", "Staf of Zorg"}, #"Dim Type Personeel", {"Soort_functie", "Type Zorg Functie", "Staf of Zorg"}, "Dim Type Personeel", JoinKind.LeftOuter),
-		    #"Expanded Dim Type Personeel" = Table.ExpandTableColumn(#"Merged Queries7", "Dim Type Personeel", {"Type Personeel ID"}, {"Type Personeel ID"}),
-		    #"Inserted Year" = Table.AddColumn(#"Expanded Dim Type Personeel", "Year", each Date.Year([Datum_in_dienst]), Int64.Type),
-		    #"Added Custom" = Table.AddColumn(#"Inserted Year", "Jaar in Dienst", each [Year] - [Dienstjaren]),
-		    #"Renamed Columns4" = Table.RenameColumns(#"Added Custom",{{"Datum_in_dienst", "Datum_in_dienst Original"}}),
-		    #"Changed Type7" = Table.TransformColumnTypes(#"Renamed Columns4",{{"Jaar in Dienst", Int64.Type}}),
-		    #"Added Custom1" = Table.AddColumn(#"Changed Type7", "Datum in Dienst", each Date.AddYears([Datum_in_dienst Original], [Jaar in Dienst] - Date.Year([Datum_in_dienst Original]))),
-		    #"Removed Other Columns3" = Table.SelectColumns(#"Added Custom1",{"Medewerker ID", "Kostenplaats", "Salaris", "Trede", "Schaal"}),
-		    #"Removed Duplicates1" = Table.Distinct(#"Removed Other Columns3", {"Medewerker ID"}),
-		    #"Added Custom2" = Table.AddColumn(#"Removed Duplicates1", "Forecasting Year", each Date.Year(DateTime.LocalNow()))
-		in
-		    #"Added Custom2"
-	lineageTag: 2a89dd52-020c-4205-a54e-0add9ef49530
-	queryGroup: Staging\Forecasting
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'Fact Forecasting Medewerkers OLD' =
-		let
-		    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025", #"Fact Personeels Kosten 2021", #"Fact Personeels Kosten 2023", #"Fact Personeels Kosten 2022"}),
-		    #"Renamed Columns" = Table.RenameColumns(Source,{{"Omschrijving_klant", "Omschrijving LC"}, {"Medewerker", "Medewerker ID"}}),
-		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Medewerker ID", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "FTE"}),
-		    #"Added Custom" = Table.AddColumn(#"Removed Other Columns", "Year Forecasting", each Date.Year(DateTime.LocalNow()) + 1),
-		    #"Invoked Custom Function" = Table.AddColumn(#"Added Custom", "Period Forecasting", each #"Forecasting Medewerker Date Function"([Year Forecasting])),
-		    #"Expanded Period Forecasting" = Table.ExpandTableColumn(#"Invoked Custom Function", "Period Forecasting", {"Period"}, {"Period"}),
-		    #"Merged Queries" = Table.NestedJoin(#"Expanded Period Forecasting", {"Grootboekrekening"}, #"Dim Grootboek", {"Code Grootboek"}, "Dim Grootboek", JoinKind.LeftOuter),
-		    #"Expanded Dim Grootboek" = Table.ExpandTableColumn(#"Merged Queries", "Dim Grootboek", {"Rapportagecockpit_omschrijving"}, {"Rapportagecockpit_omschrijving"}),
-		    #"Filtered Rows" = Table.SelectRows(#"Expanded Dim Grootboek", each ([Rapportagecockpit_omschrijving] = "19 Lonen en salarissen" or [Rapportagecockpit_omschrijving] = "20 Sociale lasten" or [Rapportagecockpit_omschrijving] = "21 Overige personeelskosten")),
-		    #"Merged Queries1" = Table.NestedJoin(#"Filtered Rows", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker Details", JoinKind.LeftOuter),
-		    #"Expanded Dim Medewerker Details" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Medewerker Details", {"Anniversary Month", "Kostenplaats", "Schaal ID"}, {"Anniversary Month", "Kostenplaats", "Schaal ID"}),
-		    #"Renamed Columns1" = Table.RenameColumns(#"Expanded Dim Medewerker Details",{{"Schaal ID", "Schaal ID (Dim MdW)"}}),
-		    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns1", {"Medewerker ID", "LC", "Grootboekrekening", "Period"}),
-		    #"Merged Queries2" = Table.NestedJoin(#"Removed Duplicates", {"Medewerker ID"}, #"Fact Medewerker MAX Schaal/Trede Actuals", {"Medewerker ID"}, "Fact Medewerker MAX Schaal/Trede Actuals", JoinKind.LeftOuter),
-		    #"Expanded Fact Medewerker MAX Schaal/Trede Actuals" = Table.ExpandTableColumn(#"Merged Queries2", "Fact Medewerker MAX Schaal/Trede Actuals", {"New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals"}, {"New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals"}),
-		    #"Added Custom1" = Table.AddColumn(#"Expanded Fact Medewerker MAX Schaal/Trede Actuals", "Trede Verhoging Forecasting", each if [Anniversary Month] = [Period] then true else false),
-		    #"Merged Queries3" = Table.NestedJoin(#"Added Custom1", {"New Schaal ID (Trede Verhoging Actuals)"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
-		    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries3", "Dim SchaalType", {"SchaalType", "MAX Trede"}, {"SchaalType", "MAX Trede"}),
-		    #"Added Custom2" = Table.AddColumn(#"Expanded Dim SchaalType", "New Schaal ID (Trede Verhoging Forecasting)", each if [Trede Verhoging Forecasting] = true and [MAX Trede Actuals] = false and ([SchaalType] = null or [SchaalType] = "Andere OVK") then ([#"New Schaal ID (Trede Verhoging Actuals)"] + 1) else if [#"New Schaal ID (Trede Verhoging Actuals)"] = null then [#"Schaal ID (Dim MdW)"] else [#"New Schaal ID (Trede Verhoging Actuals)"]),
-		    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Period Forecasting (leading zeros)", each Text.PadStart(Text.From([Period]),2,"0")),
-		    #"Added Custom4" = Table.AddColumn(#"Added Custom3", "Year/Period Forecasting", each Text.From([Year Forecasting]) & "/" & Text.From([#"Period Forecasting (leading zeros)"])),
-		    #"Renamed Columns2" = Table.RenameColumns(#"Added Custom4",{{"MAX Trede", "MAX Trede Forecasting"}}),
-		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns2",{{"FTE", type number}}),
-		    #"Added Custom5" = Table.AddColumn(#"Changed Type", "FTE Forecasting", each [FTE]/100),
-		    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom5",{{"FTE Forecasting", type number}, {"Period Forecasting (leading zeros)", type text}, {"Year/Period Forecasting", type text}, {"SchaalType", type text}, {"Kostenplaats", type text}, {"Trede Verhoging Forecasting", type logical}, {"New Schaal ID (Trede Verhoging Forecasting)", Int64.Type}}),
-		    #"Merged Queries4" = Table.NestedJoin(#"Changed Type1", {"Medewerker ID"}, #"Fact Medewerker MAX Salaris Incl Indexering", {"Medewerker ID"}, "Fact Medewerker MAX Salaris Incl Indexering", JoinKind.LeftOuter),
-		    #"Expanded Fact Medewerker MAX Salaris Incl Indexering" = Table.ExpandTableColumn(#"Merged Queries4", "Fact Medewerker MAX Salaris Incl Indexering", {"Index Name Actuals", "Max Salaris End Actuals"}, {"Index Name Actuals", "Max Salaris End Actuals"}),
-		    #"Merged Queries5" = Table.NestedJoin(#"Expanded Fact Medewerker MAX Salaris Incl Indexering", {"Index Name Actuals"}, #"Dim Indexering Forecasting", {"Index Name"}, "Dim Indexering Forecasting", JoinKind.LeftOuter),
-		    #"Expanded Dim Indexering Forecasting" = Table.ExpandTableColumn(#"Merged Queries5", "Dim Indexering Forecasting", {"Indexering", "Index Name"}, {"Indexering", "Index Name"}),
-		    #"Renamed Columns3" = Table.RenameColumns(#"Expanded Dim Indexering Forecasting",{{"Indexering", "Indexering Forecasting"}, {"Index Name", "Index Name Forecasting"}}),
-			#"Merged Queries6" = Table.NestedJoin(#"Renamed Columns3", {"New Schaal ID (Trede Verhoging Forecasting)"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
-			#"Expanded Dim SchaalType1" = Table.ExpandTableColumn(#"Merged Queries6", "Dim SchaalType", {"Salaris", "SchaalType Forecasting"}, {"Salaris", "SchaalType Forecasting"}),
-		    #"Changed Type2" = Table.TransformColumnTypes(#"Expanded Dim SchaalType1",{{"Salaris", type number}}),
-			#"Added Custom6" = Table.AddColumn(#"Changed Type2", "New Salaris Forecasting", each if [MAX Trede Forecasting] = false and [Trede Verhoging Forecasting] = true and [#"New Schaal ID (Trede Verhoging Forecasting)"] <> 180 then [Salaris] else [Max Salaris End Actuals]),
-			#"Added Custom7" = Table.AddColumn(#"Added Custom6", "New Salaris Forecasting Incl Indexering", each if [Period] < 7 then [New Salaris Forecasting] else ([Indexering Forecasting] * [New Salaris Forecasting]) + [New Salaris Forecasting]),
-			#"Added LC 2434 - Salaris" = Table.AddColumn(#"Added Custom7", "LC 2434 - Salaris", each if [LC] = "2434" then [New Salaris Forecasting Incl Indexering] else null),
-			#"Added LC 3121" = Table.AddColumn(#"Added LC 2434 - Salaris", "3121 - Reservering Vakantiegeld Bedrag", each if [LC] = "3121" then ([New Salaris Forecasting Incl Indexering] * 0.075) else null),
-			#"Changed Type3" = Table.TransformColumnTypes(#"Added LC 3121", {{"3121 - Reservering Vakantiegeld Bedrag", type number}}),
-			#"Added LC 3135" = Table.AddColumn(#"Changed Type3", "3135 - Vakantietoeslag Med Spec", each if [LC] = "3135" then ([New Salaris Forecasting Incl Indexering] * 0.075) else null),
-			#"Changed Type4" = Table.TransformColumnTypes(#"Added LC 3135", {{"3135 - Vakantietoeslag Med Spec", type number}}),
-			#"Added LNT WG Pensioen" = Table.AddColumn(#"Changed Type4", "3105 - Pensioen Toeslag (BMP)", each if [SchaalType Forecasting] = "LNT" and [LC] = "3105" then ([New Salaris Forecasting Incl Indexering] * 0.10) else null),
-			#"Added CAO WG Pensioen" = Table.AddColumn(#"Added LNT WG Pensioen", "2545 - Pensioen Toeslag", each if [SchaalType Forecasting] = "CAO" and [LC] = "2545" then ([New Salaris Forecasting Incl Indexering] * 0.09) else null),
-			#"Added RvB WG Pensioen" = Table.AddColumn(#"Added CAO WG Pensioen", "WG Pensioen Toeslag (Andere OVK)", each if [SchaalType Forecasting] = "Andere OVK" and [LC] = "2545" then ([New Salaris Forecasting Incl Indexering] * 0.09) else if [SchaalType Forecasting] = "Andere OVK" and [LC] = "3100" then ([New Salaris Forecasting Incl Indexering] * 0.085)  else if [SchaalType Forecasting] = "Andere OVK" and [LC] = "3105" and [#"3105 - Pensioen Toeslag (BMP) (RvB)"] = null then ([New Salaris Forecasting Incl Indexering] * 0.10) else null),
-			#"Added LC 3027 Speciale Toelage" = Table.AddColumn(#"Added RvB WG Pensioen", "3027 - Speciale Toelage", each if [LC] = "3027" then ([New Salaris Forecasting Incl Indexering] * 0.057) else null)
-		in
-		    #"Added LC 3027 Speciale Toelage"
-	lineageTag: 22e765ca-fc3b-4fa0-9e31-2faf181404c9
 	queryGroup: Staging\Forecasting
 
 	annotation PBI_NavigationStepName = Navigation
@@ -2114,8 +1661,7 @@ expression 'Dim SchaalType AOVK' = ```
 expression 'Fact Medewerker MAX Schaal/Trede Actuals' =
 		let
 		    Source = #"Buffered Fact Salaris Indexering Actuals",
-		    #"Buffer Query" = Table.Buffer(Source),
-		    #"Grouped Rows" = Table.Group(#"Buffer Query", {"Medewerker ID"}, {{"Schaal ID (New)", each List.Max([#"Schaal ID (New)"]), type nullable number}, {"Max Period", each List.Max([Boekingsperiode]), type nullable number}}),
+		    #"Grouped Rows" = Table.Group(Source, {"Medewerker ID"}, {{"Schaal ID (New)", each List.Max([#"Schaal ID (New)"]), type nullable number}, {"Max Period", each List.Max([Boekingsperiode]), type nullable number}}),
 		    #"Filtered Rows1" = Table.SelectRows(#"Grouped Rows", each ([Max Period] = 12)),
 		    #"Merged Queries" = Table.NestedJoin(#"Filtered Rows1", {"Schaal ID (New)"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
 		    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries", "Dim SchaalType", {"MAX Trede"}, {"MAX Trede"}),
@@ -2136,8 +1682,7 @@ expression 'Fact Medewerker MAX Schaal/Trede Actuals' =
 expression 'Fact Medewerker MAX Salaris Incl Indexering' =
 		let
 		    Source = #"Buffered Fact Salaris Indexering Actuals",
-		    #"Buffer Query" = Table.Buffer(Source),
-		    #"Grouped Rows" = Table.Group(#"Buffer Query", {"Medewerker ID", "Index Name"}, {{"Max Period", each List.Max([Boekingsperiode]), type nullable number}, {"Max Salaris End Actuals", each List.Max([Bedrag Incl Indexering]), type nullable number}}),
+		    #"Grouped Rows" = Table.Group(Source, {"Medewerker ID", "Index Name"}, {{"Max Period", each List.Max([Boekingsperiode]), type nullable number}, {"Max Salaris End Actuals", each List.Max([Bedrag Incl Indexering]), type nullable number}}),
 		    #"Renamed Columns" = Table.RenameColumns(#"Grouped Rows",{{"Index Name", "Index Name Actuals"}}),
 		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([Max Period] = 12)),
 		    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"Medewerker ID", "Index Name Actuals"})
@@ -2189,22 +1734,6 @@ expression 'Forecasting Medewerker Date Function Test' =
 	annotation PBI_NavigationStepName = Navigation
 
 	annotation PBI_ResultType = Function
-
-expression 'GC_FinancialeMutaties (2023 - 5)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
-		    #"GC_FinancialeMutaties (2023 - 4-6)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - 5)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2023 - 4-6)_"
-	lineageTag: a21e9527-9c0a-4df8-a781-5c98df2565e7
-	queryGroup: 'Staging\Journal Entries\2023'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
 
 expression Query1 = ```
 		()=>
@@ -2334,358 +1863,6 @@ expression 'Fact Afbouw Softlanding 2026_2027_2028' =
 
 	annotation PBI_ResultType = Table
 
-expression 'GC_FinancialeMutaties (2024 - 6)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
-		    #"GC_FinancialeMutaties (2024 - 5)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - 6)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2024 - 5)_"
-	lineageTag: 2c40ba66-755d-4751-bc3f-2efd3927dcbf
-	queryGroup: 'Staging\Journal Entries\2024'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2024 - 7)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
-		    #"GC_FinancialeMutaties (2024 - 5)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - 7)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2024 - 5)_"
-	lineageTag: 38f1fc68-0d10-4b8a-9955-33e29ca40ff4
-	queryGroup: 'Staging\Journal Entries\2024'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2024 - 8)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
-		    #"GC_FinancialeMutaties (2024 - 5)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - 8)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2024 - 5)_"
-	lineageTag: fa11c70b-dd90-4dcd-b7a0-cb9f107f67da
-	queryGroup: 'Staging\Journal Entries\2024'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2024 - 9)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
-		    #"GC_FinancialeMutaties (2024 - 5)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - 9)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2024 - 5)_"
-	lineageTag: a41153fb-8483-4d54-b2b7-0fa64ce1f12c
-	queryGroup: 'Staging\Journal Entries\2024'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2024 - 11)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
-		    #"GC_FinancialeMutaties (2024 - 5)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - 11)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2024 - 5)_"
-	lineageTag: e896a811-6f32-4c42-b000-5d10ccc2d457
-	queryGroup: 'Staging\Journal Entries\2024'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2024 - >12)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"e1f2cfae-46cd-41f4-95ce-ff32fe136318" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="e1f2cfae-46cd-41f4-95ce-ff32fe136318"]}[Data],
-		    #"GC_FinancialeMutaties (2024 - 5)_" = #"e1f2cfae-46cd-41f4-95ce-ff32fe136318"{[entity="GC_FinancialeMutaties (2024 - >12)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2024 - 5)_"
-	lineageTag: dfc657f1-38b5-45ce-be17-4eb01840a83b
-	queryGroup: 'Staging\Journal Entries\2024'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2023 - 6)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
-		    #"GC_FinancialeMutaties (2023 - 7-9)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - 6)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2023 - 7-9)_"
-	lineageTag: 2e9ec585-24bc-4163-8a21-ec2357fb6027
-	queryGroup: 'Staging\Journal Entries\2023'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2023 - 8)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
-		    #"GC_FinancialeMutaties (2023 - 7-9)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - 8)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2023 - 7-9)_"
-	lineageTag: 5225219f-f0b9-4f57-959e-ee95fc8b6a47
-	queryGroup: 'Staging\Journal Entries\2023'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2023 - 9)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
-		    #"GC_FinancialeMutaties (2023 - 7-9)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - 9)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2023 - 7-9)_"
-	lineageTag: 3b8c9e64-c010-4088-925e-8fde1c587179
-	queryGroup: 'Staging\Journal Entries\2023'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2023 - 11)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
-		    #"GC_FinancialeMutaties (2023 - 7-9)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - 11)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2023 - 7-9)_"
-	lineageTag: 9b85bb33-a21a-4f11-ab8b-24e275b7d07f
-	queryGroup: 'Staging\Journal Entries\2023'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2022- 6)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
-		    #"GC_FinancialeMutaties (2022- 7-9)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- 6)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2022- 7-9)_"
-	lineageTag: e7697f37-ea51-4afb-8c0f-45ee964c6154
-	queryGroup: 'Staging\Journal Entries\2022'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2022- 7)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
-		    #"GC_FinancialeMutaties (2022- 7-9)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- 7)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2022- 7-9)_"
-	lineageTag: 03986948-016f-4146-87f3-faa98b836a22
-	queryGroup: 'Staging\Journal Entries\2022'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2022- 8)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
-		    #"GC_FinancialeMutaties (2022- 7-9)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- 8)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2022- 7-9)_"
-	lineageTag: b7002194-55dc-474a-8d64-bf1b0a986095
-	queryGroup: 'Staging\Journal Entries\2022'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2022- 9)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
-		    #"GC_FinancialeMutaties (2022- 7-9)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- 9)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2022- 7-9)_"
-	lineageTag: 7325bf76-3305-486a-8b71-9e7618021761
-	queryGroup: 'Staging\Journal Entries\2022'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2022- 11)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
-		    #"GC_FinancialeMutaties (2022- 7-9)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- 11)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2022- 7-9)_"
-	lineageTag: 7f68ac58-cb83-4dc9-95d6-2ee5eb573086
-	queryGroup: 'Staging\Journal Entries\2022'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2022- >12)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"b1569e0b-cd19-485d-a1af-5a92e8c8be11" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="b1569e0b-cd19-485d-a1af-5a92e8c8be11"]}[Data],
-		    #"GC_FinancialeMutaties (2022- 7-9)_" = #"b1569e0b-cd19-485d-a1af-5a92e8c8be11"{[entity="GC_FinancialeMutaties (2022- >12)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2022- 7-9)_"
-	lineageTag: a6b1d0d2-a421-419c-a21f-97bb9850608e
-	queryGroup: 'Staging\Journal Entries\2022'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2021 - 6)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
-		    #"GC_FinancialeMutaties (2021 - 7-9)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - 6)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2021 - 7-9)_"
-	lineageTag: e4d9c5ec-3abc-40f7-a2f0-9c33223d7ac8
-	queryGroup: 'Staging\Journal Entries\2021'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2021 - 7)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
-		    #"GC_FinancialeMutaties (2021 - 7-9)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - 7)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2021 - 7-9)_"
-	lineageTag: eb095834-3679-403d-b0a4-436852e1de80
-	queryGroup: 'Staging\Journal Entries\2021'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2021 - 8)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
-		    #"GC_FinancialeMutaties (2021 - 7-9)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - 8)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2021 - 7-9)_"
-	lineageTag: dd78d29b-a7ab-467d-b69d-5e6158cc189e
-	queryGroup: 'Staging\Journal Entries\2021'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2021 - 9)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
-		    #"GC_FinancialeMutaties (2021 - 7-9)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - 9)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2021 - 7-9)_"
-	lineageTag: b3e28a05-c202-418c-9d05-bbdb6c8e28ac
-	queryGroup: 'Staging\Journal Entries\2021'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2021 - 11)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
-		    #"GC_FinancialeMutaties (2021 - 7-9)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - 11)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2021 - 7-9)_"
-	lineageTag: 5ae581b8-d086-4d0d-8b00-15d5c0d4ac97
-	queryGroup: 'Staging\Journal Entries\2021'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2021 - >12)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"10124910-32b2-4408-bfb3-969c067794ef" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="10124910-32b2-4408-bfb3-969c067794ef"]}[Data],
-		    #"GC_FinancialeMutaties (2021 - 7-9)_" = #"10124910-32b2-4408-bfb3-969c067794ef"{[entity="GC_FinancialeMutaties (2021 - >12)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2021 - 7-9)_"
-	lineageTag: ca4c96f6-d718-458e-b3a1-98b17828f4e4
-	queryGroup: 'Staging\Journal Entries\2021'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
 expression 'Loop Function Financiele Mutaties' = ```
 		(yr as text, prd as text) as table =>
 		        let
@@ -2732,137 +1909,6 @@ expression 'Loop Function Financiele Mutaties' = ```
 
 	annotation PBI_ResultType = Function
 
-expression 'GC_FinancialeMutaties (2025 - 7)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
-		    #"GC_FinancialeMutaties (2025 - 7)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 7)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2025 - 7)_"
-	lineageTag: 2b146ede-94fa-4370-9f5a-e781f4dda91b
-	queryGroup: 'Staging\Journal Entries\2025'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2025 - 8)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
-		    #"GC_FinancialeMutaties (2025 - 7)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 8)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2025 - 7)_"
-	lineageTag: b20c7df8-3a86-45b7-b10e-d9191806dc02
-	queryGroup: 'Staging\Journal Entries\2025'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2025 - 9)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
-		    #"GC_FinancialeMutaties (2025 - 7)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 9)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2025 - 7)_"
-	lineageTag: 1d8e092f-847e-4874-b1ff-20a88e76253e
-	queryGroup: 'Staging\Journal Entries\2025'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2025 - 11)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
-		    #"GC_FinancialeMutaties (2025 - 7)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 11)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2025 - 7)_"
-	lineageTag: ceea106a-2cd0-46a3-836c-e59da8126724
-	queryGroup: 'Staging\Journal Entries\2025'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2025 - >12)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
-		    #"GC_FinancialeMutaties (2025 - 7)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - >12)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2025 - 7)_"
-	lineageTag: 06660101-a7be-4969-994c-62bd5e28bc5a
-	queryGroup: 'Staging\Journal Entries\2025'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2025 - 2)' = ```
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
-		    #"GC_FinancialeMutaties (2025 - 1)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 2)",version=""]}[Data]
-		in 
-		  #"GC_FinancialeMutaties (2025 - 1)_"
-		```
-	lineageTag: b0f081cc-9991-42a1-8cd5-f430528a6588
-	queryGroup: 'Staging\Journal Entries\2025'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2025 - 3)' = ```
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="4a6f17e3-39e4-4200-a764-ef258d5b9e9c"]}[Data],
-		    #"GC_FinancialeMutaties (2025 - 1)_" = #"4a6f17e3-39e4-4200-a764-ef258d5b9e9c"{[entity="GC_FinancialeMutaties (2025 - 3)",version=""]}[Data]
-		in 
-		  #"GC_FinancialeMutaties (2025 - 1)_"
-		```
-	lineageTag: 47fb30a8-413e-48c9-8867-a720c6e3c82c
-	queryGroup: 'Staging\Journal Entries\2025'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'Fact Medewerker MAX Salaris Incl Indexering (2)' =
-		let
-		    Source = #"Fact Salaris Indexering Actuals",
-		    #"Grouped Rows" = Table.Group(Source, {"Medewerker ID", "Index Name"}, {{"Max Period", each List.Max([Boekingsperiode]), type nullable number}, {"Max Salaris End Actuals", each List.Max([Bedrag Incl Indexering]), type nullable number}}),
-		    #"Renamed Columns" = Table.RenameColumns(#"Grouped Rows",{{"Index Name", "Index Name Actuals"}}),
-		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([Max Period] = 12)),
-		    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"Medewerker ID", "Index Name Actuals"}),
-		    #"Filtered Rows1" = Table.SelectRows(#"Removed Duplicates", each [Medewerker ID] = "40015")
-		in
-		    #"Filtered Rows1"
-	lineageTag: c12a02c7-9216-409d-bf1a-34bb968b7b64
-	queryGroup: Staging\Forecasting
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
 expression 'LC Overig' =
 		let
 		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMjAwMFTSUfIvSy3KTFeKjQUA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [LC = _t, #"Omschrijving LC" = _t]),
@@ -2889,64 +1935,70 @@ expression 'Buffered Fact Salaris Indexering Actuals' =
 
 	annotation PBI_ResultType = Table
 
-expression 'Buffered Fact Forecasting Medewerkers' =
-		let
-		    Source = #"Fact Forecasting Medewerkers Source",
-		    #"Buffer Query" = Table.Buffer(Source)
-		in
-		    #"Buffer Query"
-	lineageTag: 2999cb17-5d64-47ed-9239-e5c7aa59ed8d
-	queryGroup: 'Staging\Forecasting\Buffer Queries'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
 expression 'Fact Forecasting Medewerkers Source' = ```
 		let
-		    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025"}),
-		    #"Renamed Columns" = Table.RenameColumns(Source, {{"Omschrijving_klant", "Omschrijving LC"}, {"Medewerker", "Medewerker ID"}}),
-		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Medewerker ID", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "FTE"}),
-		    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns", {"Medewerker ID", "LC", "Grootboekrekening"}),
-		    #"Buffer Query" = Table.Buffer(#"Removed Duplicates"),
-		    #"Merged Queries" = Table.NestedJoin(#"Buffer Query", {"Grootboekrekening"}, #"Dim Grootboek", {"Code Grootboek"}, "Dim Grootboek", JoinKind.LeftOuter),
-		    #"Expanded Dim Grootboek" = Table.ExpandTableColumn(#"Merged Queries", "Dim Grootboek", {"Rapportagecockpit_omschrijving"}, {"Rapportagecockpit_omschrijving"}),
-		    #"Filtered Rows" = Table.SelectRows(#"Expanded Dim Grootboek", each ([Rapportagecockpit_omschrijving] = "19 Lonen en salarissen" or [Rapportagecockpit_omschrijving] = "20 Sociale lasten" or [Rapportagecockpit_omschrijving] = "21 Overige personeelskosten")),
-		    #"Added Custom" = Table.AddColumn(#"Filtered Rows", "Year Forecasting", each Date.Year(DateTime.LocalNow()) + 1),
-		    #"Invoked Custom Function" = Table.AddColumn(#"Added Custom", "Period Forecasting", each #"Forecasting Medewerker Date Function Test"([Year Forecasting])),
-		    #"Expanded Period Forecasting" = Table.ExpandTableColumn(#"Invoked Custom Function", "Period Forecasting", {"Period"}, {"Period"}),
-		    #"Merged Queries1" = Table.NestedJoin(#"Expanded Period Forecasting", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker Details", JoinKind.LeftOuter),
+		    // Employees
+		    Employees = Table.Distinct(
+		        Table.SelectColumns(#"Fact Personeels Kosten 2025", {"Medewerker", "FTE"})
+		    ),
+		    RenamedEmployees = Table.RenameColumns(Employees, {{"Medewerker", "Medewerker ID"}}),
+		
+		    // LC table (buffer since it's reused)
+		    DimLCperGB = Table.Buffer(#"Dim LC per GL Support"),
+		
+		    // 🔹 Cross join Employees × LC (done in one step)
+		    WithLC = Table.AddColumn(RenamedEmployees, "DimLCperGB", each DimLCperGB),
+		    ExpandedLC = Table.ExpandTableColumn(
+		        WithLC,
+		        "DimLCperGB",
+		        {"LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving"}
+		    ),
+		
+		    // 🔹 Add forecasting year
+		    AddYear = Table.AddColumn(ExpandedLC, "Year Forecasting", each Date.Year(DateTime.LocalNow()) + 1, Int64.Type),
+		
+		    // 🔹 Generate 12 periods as list
+		    AddPeriods = Table.AddColumn(AddYear, "Period", each List.Transform({1..12}, each Text.PadStart(Text.From(_),2,"0"))),
+		    ExpandedPeriods = Table.ExpandListColumn(AddPeriods, "Period"),
+		    #"Added Custom" = Table.AddColumn(ExpandedPeriods, "Period (leading zeros)", each [Period], type nullable text),
+		    ChangedType = Table.TransformColumnTypes(#"Added Custom", {{"Period", Int64.Type}}),
+		
+		    DimMedwerker = Table.Buffer(#"Dim Medewerker"),
+		
+		    #"Merged Queries1" = Table.NestedJoin(ChangedType, {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker Details", JoinKind.LeftOuter),
 		    #"Expanded Dim Medewerker Details" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Medewerker Details", {"Anniversary Month", "Kostenplaats", "Naam_werkgever", "Schaal ID", "Type Personeel ID"}, {"Anniversary Month", "Kostenplaats", "Naam_werkgever", "Schaal ID", "Type Personeel ID"}),
 		    #"Filtered Rows1" = Table.SelectRows(#"Expanded Dim Medewerker Details", each true),
-		    #"Added Custom1" = Table.AddColumn(#"Filtered Rows1", "Period (leading zeros)", each Text.PadStart(Text.From([Period]),2,"0")),
-		    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Year/Period", each Text.From([Year Forecasting]) & "/" & Text.From([#"Period (leading zeros)"])),
-		    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom2",{{"Period (leading zeros)", type text}, {"Year/Period", type text}}),
-		    #"Merged Queries2" = Table.NestedJoin(#"Changed Type", {"Medewerker ID"}, #"Fact Medewerker MAX Salaris Incl Indexering", {"Medewerker ID"}, "Fact Medewerker MAX Salaris Incl Indexering", JoinKind.LeftOuter),
+		    #"Added Custom year/period" = Table.AddColumn(#"Filtered Rows1", "Year/Period", each Text.From([Year Forecasting]) & "/" & Text.From([#"Period (leading zeros)"]), type nullable text),
+		
+		    FactMaxSal = Table.Buffer(#"Fact Medewerker MAX Salaris Incl Indexering"),
+		    FactMaxSchaal = Table.Buffer(#"Fact Medewerker MAX Schaal/Trede Actuals"),
+		    DimSchaal = Table.Buffer(#"Dim SchaalType"),
+		    FactAfbouwSal = Table.Buffer(#"Fact Afbouw Salarissen 2026_2027_2028"),
+		    FactSoftlanding = Table.Buffer(#"Fact Afbouw Softlanding 2026_2027_2028"),
+		
+		    #"Merged Queries2" = Table.NestedJoin(#"Added Custom year/period", {"Medewerker ID"}, FactMaxSal, {"Medewerker ID"}, "Fact Medewerker MAX Salaris Incl Indexering", JoinKind.LeftOuter),
 		    #"Expanded Fact Medewerker MAX Salaris Incl Indexering" = Table.ExpandTableColumn(#"Merged Queries2", "Fact Medewerker MAX Salaris Incl Indexering", {"Index Name Actuals", "Max Salaris End Actuals"}, {"Index Name Actuals", "Max Salaris End Actuals"}),
 		    #"Changed Type1" = Table.TransformColumnTypes(#"Expanded Fact Medewerker MAX Salaris Incl Indexering",{{"Index Name Actuals", type text}}),
-		    #"Merged Queries3" = Table.NestedJoin(#"Changed Type1", {"Medewerker ID"}, #"Fact Medewerker MAX Schaal/Trede Actuals", {"Medewerker ID"}, "Fact Medewerker MAX Schaal/Trede Actuals", JoinKind.LeftOuter),
+		    #"Merged Queries3" = Table.NestedJoin(#"Changed Type1", {"Medewerker ID"}, FactMaxSchaal, {"Medewerker ID"}, "Fact Medewerker MAX Schaal/Trede Actuals", JoinKind.LeftOuter),
 		    #"Expanded Fact Medewerker MAX Schaal/Trede Actuals" = Table.ExpandTableColumn(#"Merged Queries3", "Fact Medewerker MAX Schaal/Trede Actuals", {"New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals"}, {"New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals"}),
-		    #"Merged Queries4" = Table.NestedJoin(#"Expanded Fact Medewerker MAX Schaal/Trede Actuals", {"New Schaal ID (Trede Verhoging Actuals)"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.Inner),
+		    #"Merged Queries4" = Table.NestedJoin(#"Expanded Fact Medewerker MAX Schaal/Trede Actuals", {"New Schaal ID (Trede Verhoging Actuals)"}, DimSchaal, {"Schaal ID"}, "Dim SchaalType", JoinKind.Inner),
 		    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries4", "Dim SchaalType", {"SchaalType Forecasting"}, {"SchaalType Forecasting"}),
-		    #"Added Custom3" = Table.AddColumn(#"Expanded Dim SchaalType", "Trede Verhoging (Forecasting)", each if ([Anniversary Month] = [Period] or [Period] > [Anniversary Month]) and [Type Personeel ID] <> "Z_3" and [SchaalType Forecasting] <> "Andere OVK" and [MAX Trede Actuals] = false then true else false),
-		    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom3",{{"Trede Verhoging (Forecasting)", type logical}}),
-		    #"Added Custom4" = Table.AddColumn(#"Changed Type2", "New Schaal ID (Forecasting)", each if [#"Trede Verhoging (Forecasting)"] = true then ([#"New Schaal ID (Trede Verhoging Actuals)"] + 1) else [#"New Schaal ID (Trede Verhoging Actuals)"]),
-		    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom4",{{"New Schaal ID (Forecasting)", Int64.Type}}),
-		    #"Merged Queries5" = Table.NestedJoin(#"Changed Type3", {"New Schaal ID (Forecasting)"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
+		    #"Added Custom3" = Table.AddColumn(#"Expanded Dim SchaalType", "Trede Verhoging (Forecasting)", each if ([Anniversary Month] = [Period] or [Period] > [Anniversary Month]) and [Type Personeel ID] <> "Z_3" and [SchaalType Forecasting] <> "Andere OVK" and [MAX Trede Actuals] = false then true else false, type logical),
+		    #"Added Custom4" = Table.AddColumn(#"Added Custom3", "New Schaal ID (Forecasting)", each if [#"Trede Verhoging (Forecasting)"] = true then ([#"New Schaal ID (Trede Verhoging Actuals)"] + 1) else [#"New Schaal ID (Trede Verhoging Actuals)"], type nullable number),
+		    #"Merged Queries5" = Table.NestedJoin(#"Added Custom4", {"New Schaal ID (Forecasting)"}, DimSchaal, {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
 		    #"Expanded Dim SchaalType1" = Table.ExpandTableColumn(#"Merged Queries5", "Dim SchaalType", {"Salaris"}, {"Salaris"}),
 		    #"Changed Type4" = Table.TransformColumnTypes(#"Expanded Dim SchaalType1",{{"Salaris", type number}}),
 		    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type4",{{"Salaris", "Salaris New Forecasting"}}),
-		    #"Added Custom5" = Table.AddColumn(#"Renamed Columns1", "Salaris Base Forecasting", each if [#"Trede Verhoging (Forecasting)"] = true  then [Salaris New Forecasting] else [Max Salaris End Actuals]),
-		    #"Changed Type5" = Table.TransformColumnTypes(#"Added Custom5",{{"Salaris Base Forecasting", type number}, {"Year Forecasting", Int64.Type}}),
+		    #"Added Custom5" = Table.AddColumn(#"Renamed Columns1", "Salaris Base Forecasting", each if [#"Trede Verhoging (Forecasting)"] = true  then [Salaris New Forecasting] else [Max Salaris End Actuals], type nullable number),
 		    #"Conditional Merge" = 
 		        let 
-		            IsEmptyCondition = Table.IsEmpty(#"Fact Afbouw Salarissen 2026_2027_2028"),
-		            JointableRaw = #"Fact Afbouw Salarissen 2026_2027_2028",
+		            IsEmptyCondition = Table.IsEmpty(FactAfbouwSal),
+		            JointableRaw = FactAfbouwSal,
 		            JoinColumnsLeft = {"Medewerker ID", "Year Forecasting"},
 		            JoinColumnsRght = {"Mdw.", "Jaar"},
 		            ExpandColumns = {"Salaris per Mnd"},
 		            JoinColumnName = "Fact Afbouw Salarissen 2026_2027_2028",
-		            BaseTable = #"Changed Type5",
+		            BaseTable = #"Added Custom5",
 		
 		            SafeJoinTable =
 		                let 
@@ -2970,17 +2022,16 @@ expression 'Fact Forecasting Medewerkers Source' = ```
 		            ExpandedColumn,
 		    #"Changed Type6" = Table.TransformColumnTypes(#"Conditional Merge",{{"Salaris per Mnd", type number}}),
 		    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type6",{{"Salaris Base Forecasting", "Salaris Base Forecasting Original"}}),
-		    #"Added Custom6" = Table.AddColumn(#"Renamed Columns2", "Salaris Base Forecasting", each if [Salaris per Mnd] <> null then [Salaris per Mnd] else [Salaris Base Forecasting Original]),
-		    #"Changed Type7" = Table.TransformColumnTypes(#"Added Custom6",{{"Salaris Base Forecasting", type number}}),
+		    #"Added Custom6" = Table.AddColumn(#"Renamed Columns2", "Salaris Base Forecasting", each if [Salaris per Mnd] <> null then [Salaris per Mnd] else [Salaris Base Forecasting Original], type nullable number),
 		    #"Conditional Merge Softlanding" = 
 		        let 
-		            IsEmptyCondition = Table.IsEmpty(#"Fact Afbouw Softlanding 2026_2027_2028"),
-		            JoinTableRaw = #"Fact Afbouw Softlanding 2026_2027_2028",
+		            IsEmptyCondition = Table.IsEmpty(FactSoftlanding),
+		            JoinTableRaw = FactSoftlanding,
 		            JoinColumnsLeft = {"Medewerker ID", "Year Forecasting", "LC"},
 		            JoinColumnsRght = {"Mdw.", "Jaar", "LC"},
 		            ExpandColumns = {"Softlanding per Maand"},
 		            JoinColumnName = "Fact Afbouw Softlanding 2026_2027_2028",
-		            BaseTable = #"Changed Type7",
+		            BaseTable = #"Added Custom6",
 		
 		            SafeJoinTable =
 		                let 
@@ -3007,22 +2058,6 @@ expression 'Fact Forecasting Medewerkers Source' = ```
 		```
 	lineageTag: af930a67-3e94-4c5b-9261-e03bfca74b40
 	queryGroup: Staging\Forecasting
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'GC_FinancialeMutaties (2023 - >12)' =
-		let
-		    Source = PowerPlatform.Dataflows(null),
-		    Workspaces = Source{[Id="Workspaces"]}[Data],
-		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
-		    #"9091242e-d055-4279-8174-33bf86ec8e4e" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="9091242e-d055-4279-8174-33bf86ec8e4e"]}[Data],
-		    #"GC_FinancialeMutaties (2023 - 7-9)_" = #"9091242e-d055-4279-8174-33bf86ec8e4e"{[entity="GC_FinancialeMutaties (2023 - >12)",version=""]}[Data]
-		in
-		    #"GC_FinancialeMutaties (2023 - 7-9)_"
-	lineageTag: 2046d314-23ca-4eb5-be57-9d2091b0bfea
-	queryGroup: 'Staging\Journal Entries\2023'
 
 	annotation PBI_NavigationStepName = Navigation
 
@@ -3207,60 +2242,16 @@ expression 'Dim Vacature Conditional Index' = ```
 
 	annotation PBI_ResultType = Table
 
-expression 'Fact Salaris Indexering Actuals Source (2)' =
+expression 'Fact Schemawerk Support Source' =
 		let
-		    Source = #"Fact Personeels Kosten 2025",
-		    #"Renamed Columns" = Table.RenameColumns(Source,{{"Omschrijving_klant", "Omschrijving LC"}, {"Medewerker", "Medewerker ID"}}),
-		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Jaar", "Boekingsperiode", "Medewerker ID", "Kostenplaats", "LC", "Omschrijving LC", "Waarde", "Bedrag_credit", "Grootboekrekening", "Grootboekrekening_omschrijving", "FTE"}),
-		    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Other Columns",{{"FTE", type number}}),
-		    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type1",{{"FTE", "FTE Original"}}),
-		    #"Added Custom" = Table.AddColumn(#"Renamed Columns1", "FTE", each [FTE Original] / 100),
-		    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom",{{"FTE", type number}}),
-		    #"Removed Other Columns1" = Table.SelectColumns(#"Changed Type2",{"Jaar", "Boekingsperiode", "Medewerker ID", "Kostenplaats", "LC", "Omschrijving LC", "Waarde", "Bedrag_credit", "Grootboekrekening", "Grootboekrekening_omschrijving", "FTE"}),
-		    #"Filtered Rows" = Table.SelectRows(#"Removed Other Columns1", each [LC] = "2434" and ([Grootboekrekening] <> "1995000")),
-		    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"Jaar", Int64.Type}, {"Boekingsperiode", Int64.Type}, {"Waarde", type number}, {"Bedrag_credit", type number}}),
-		    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
-		    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Naam_werkgever"}, {"Naam_werkgever"}),
-		    #"Filtered Rows1" = Table.SelectRows(#"Expanded Dim Medewerker", each [Naam_werkgever] = "Curacao Medical Center Exploitatie")
+		    Source = #"Fact Personeels Kosten",
+		    #"Filtered Rows" = Table.SelectRows(Source, each ([LC] = "3010" or [LC] = "3011" or [LC] = "3012") and ([Grootboekrekening] = "4103000")),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"Jaar", "Boekingsperiode", "LC", "Grootboekrekening", "Boeking Year/Period", "Bedrag"}),
+		    #"Grouped Rows" = Table.Group(#"Removed Other Columns", {"Jaar", "Boeking Year/Period", "LC", "Boekingsperiode"}, {{"Bedrag Schemawerk", each List.Sum([Bedrag]), type nullable number}}),
+		    #"Added Custom" = Table.AddColumn(#"Grouped Rows", "Period (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0"), type nullable text),
+		    #"Added Custom2" = Table.AddColumn(#"Added Custom", "Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Period (leading zeros)"]), type nullable text)
 		in
-		    #"Filtered Rows1"
-	lineageTag: 0e740174-d8a2-43ba-a611-16c2f1aa80da
-	queryGroup: Staging\Forecasting
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'Fact Schemawerk Support' =
-		let
-		    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025", #"Fact Personeels Kosten 2021", #"Fact Personeels Kosten 2023", #"Fact Personeels Kosten 2022"}),
-		    #"Renamed Columns" = Table.RenameColumns(Source,{{"Omschrijving_klant", "Omschrijving LC"}}),
-		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([LC] = "3010" or [LC] = "3011" or [LC] = "3012") and ([Grootboekrekening] = "4103000")),
-		    #"Added Custom" = Table.AddColumn(#"Filtered Rows", "Boeking Periode (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0"), type nullable text),
-		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Salaris Periode (leading zeros)", each Text.PadStart(Text.From([Salarisperiode]),2,"0"), type nullable text),
-		    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Boeking Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Boeking Periode (leading zeros)"]), type nullable text),
-		    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Salaris Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Salaris Periode (leading zeros)"]), type nullable text),
-		    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom3",{{"Waarde", type number}, {"Bedrag_credit", type number}}),
-		    #"Added Custom4" = Table.AddColumn(#"Changed Type1", "Bedrag", each [Waarde] - [Bedrag_credit]),
-		    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom4",{{"Bedrag", type number}}),
-		    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type2",{{"FTE", "FTE Original"}}),
-		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns1",{{"FTE Original", type number}}),
-		    #"Added Custom5" = Table.AddColumn(#"Changed Type", "FTE", each [FTE Original] / 100),
-		    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom5",{{"FTE", type number}}),
-		    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type3",{{"Medewerker", "Medewerker ID"}}),
-		    #"Added Index" = Table.AddIndexColumn(#"Renamed Columns2", "Index", 1, 1, Int64.Type),
-		    #"Added Custom6" = Table.AddColumn(#"Added Index", "Line ID", each Text.From([Medewerker ID]) & "_" & Text.From([Grootboekrekening]) & "_" & Text.From([Index])),
-		    #"Changed Type4" = Table.TransformColumnTypes(#"Added Custom6",{{"Line ID", type text}}),
-		    #"Added Custom7" = Table.AddColumn(#"Changed Type4", "Saldo", each ([Waarde] * [FTE]) - [Bedrag_credit]),
-		    #"Changed Type5" = Table.TransformColumnTypes(#"Added Custom7",{{"Saldo", type number}}),
-		    #"Trimmed Text" = Table.TransformColumns(#"Changed Type5",{{"Grootboekrekening", Text.Trim, type text}}),
-		    #"Changed Type6" = Table.TransformColumnTypes(#"Trimmed Text",{{"Jaar", Int64.Type}, {"Salarisperiode", Int64.Type}, {"Boekingsperiode", Int64.Type}}),
-		    #"Merged Queries" = Table.NestedJoin(#"Changed Type6", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
-		    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Schaal ID"}, {"Schaal ID"}),
-		    #"Removed Other Columns" = Table.SelectColumns(#"Expanded Dim Medewerker",{"Jaar", "LC", "Grootboekrekening", "Boeking Year/Period", "Bedrag"}),
-		    #"Grouped Rows" = Table.Group(#"Removed Other Columns", {"Jaar", "Boeking Year/Period", "LC"}, {{"Bedrag Schemawerk", each List.Sum([Bedrag]), type nullable number}})
-		in
-		    #"Grouped Rows"
+		    #"Added Custom2"
 	lineageTag: 87f8d497-1674-4ef9-97fb-3aac5245f675
 	queryGroup: Staging\Forecasting
 
@@ -3317,14 +2308,11 @@ expression 'Extrapolatie Salarissen for Schemawerk' =
 
 expression 'Fact Salarissen for Schemawerk Source' =
 		let
-		    Source = Table.Combine({#"GC_FinancialeMutaties (2021 - 1-3)", #"GC_FinancialeMutaties (2021 - 4)", #"GC_FinancialeMutaties (2021 - 5)", #"GC_FinancialeMutaties (2021 - 6)", #"GC_FinancialeMutaties (2021 - 7)", #"GC_FinancialeMutaties (2021 - 8)", #"GC_FinancialeMutaties (2021 - 9)", #"GC_FinancialeMutaties (2021 - 10)", #"GC_FinancialeMutaties (2021 - 11)", #"GC_FinancialeMutaties (2021 - >12)", #"GC_FinancialeMutaties (2022- 1-3)", #"GC_FinancialeMutaties (2022- 4-6)", #"GC_FinancialeMutaties (2022- 5)", #"GC_FinancialeMutaties (2022- 6)", #"GC_FinancialeMutaties (2022- 7)", #"GC_FinancialeMutaties (2022- 8)", #"GC_FinancialeMutaties (2022- 9)", #"GC_FinancialeMutaties (2022- 10)", #"GC_FinancialeMutaties (2022- 11)", #"GC_FinancialeMutaties (2022- >12)", #"GC_FinancialeMutaties (2023 - 1-3)", #"GC_FinancialeMutaties (2023 - 4)", #"GC_FinancialeMutaties (2023 - 5)", #"GC_FinancialeMutaties (2023 - 6)", #"GC_FinancialeMutaties (2023 - 7)", #"GC_FinancialeMutaties (2023 - 8)", #"GC_FinancialeMutaties (2023 - 9)", #"GC_FinancialeMutaties (2023 - 10)", #"GC_FinancialeMutaties (2023 - 11)", #"GC_FinancialeMutaties (2023 - >12)", #"GC_FinancialeMutaties (2024 - 1-3)", #"GC_FinancialeMutaties (2024 - 4)", #"GC_FinancialeMutaties (2024 - 5)", #"GC_FinancialeMutaties (2024 - 6)", #"GC_FinancialeMutaties (2024 - 7)", #"GC_FinancialeMutaties (2024 - 8)", #"GC_FinancialeMutaties (2024 - 9)", #"GC_FinancialeMutaties (2024 - 10)", #"GC_FinancialeMutaties (2024 - 11)", #"GC_FinancialeMutaties (2024 - >12)", #"GC_FinancialeMutaties (2025 - 1)", #"GC_FinancialeMutaties (2025 - 2)", #"GC_FinancialeMutaties (2025 - 3)", #"GC_FinancialeMutaties (2025 - 4)", #"GC_FinancialeMutaties (2025 - 5)", #"GC_FinancialeMutaties (2025 - 6)", #"GC_FinancialeMutaties (2025 - 7)", #"GC_FinancialeMutaties (2025 - 8)", #"GC_FinancialeMutaties (2025 - 9)", #"GC_FinancialeMutaties (2025 - 11)", #"GC_FinancialeMutaties (2025 - >12)", #"GC_FinancialeMutaties (2025 - 10)"}),
+		    Source = #"Fact Journal Entries",
 		    #"Filtered Rows" = Table.SelectRows(Source, each [Rekeningnummer_2] = "4100000"),
 		    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"Boekstukdatum", type datetime}, {"Datum_boeking", type datetime}, {"Datum_toegevoegd", type datetime}, {"Datum_gewijzigd", type datetime}}),
 		    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Boekstukdatum", type date}, {"Datum_boeking", type date}, {"Datum_toegevoegd", type date}, {"Datum_gewijzigd", type date}, {"Bedrag_debet", type number}, {"Bedrag_credit", type number}, {"Saldo", type number}, {"Valutabedrag_debet", type number}, {"Valutabedrag_credit", type number}}),
-		    #"Added Custom" = Table.AddColumn(#"Changed Type1", "Period (leading zeros)", each Text.PadStart(Text.From([Periode]),2,"0")),
-		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Period (leading zeros)"])),
-		    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Bedrag in LC", each [Saldo]),
-		    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom2",{{"Bedrag in LC", type number}}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Changed Type1",{{"Bedrag in LC", type number}}),
 		    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type2",{"Beheerder", "Type_rekening", "Administratie", "Naam_administratie", "Jaar", "Periode", "Boekstukdatum", "Datum_boeking", "Nummer_journaalpost", "Volgnummer_journaalpost", "Rapportagecockpit_omschrijving", "Verzamelen_op", "Rekeningnummer_2", "Omschrijving", "Boekstuknummer", "Factuurnummer", "Omschrijving_2", "Omschrijving_boeking", "Bedrag_debet", "Bedrag_credit", "Saldo", "Valuta", "Valutabedrag_debet", "Valutabedrag_credit", "Code_dagboek", "Omschrijving_3", "Code_verbijzonderingsas_1", "Omschrijving_4", "Code_verbijzonderingsas_2", "Transitorische_post", "Admin._rek.-courantboeking", "Datum_toegevoegd", "Toegevoegd_door", "Datum_gewijzigd", "Gewijzigd_door", "Type_rekening_2", "Rapportagecockpit", "Period (leading zeros)", "Year/Period", "Bedrag in LC"}),
 		    #"Grouped Rows" = Table.Group(#"Removed Other Columns", {"Year/Period", "Rekeningnummer_2", "Jaar", "Periode"}, {{"Total", each List.Sum([Bedrag in LC]), type nullable number}}),
 		    #"Changed Type4" = Table.TransformColumnTypes(#"Grouped Rows",{{"Periode", type number}}),
@@ -3377,6 +2365,557 @@ expression 'Dim KPT LC per GB Support' =
 		    #"Expanded Dim Grootboek"
 	lineageTag: 39407fbe-e29d-46bc-b472-77c74fbed1f6
 	queryGroup: Staging\Forecasting
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Buffered Fact Forcasting Schemawerk' = ```
+		let
+		    Source = #"Extrapolatie Salarissen for Schemawerk"(#"Fact Salarissen for Schemawerk Source"),
+		    #"Buffer" = Table.Buffer(Source)
+		in 
+		    #"Buffer"
+		```
+	lineageTag: 2b5d464c-1522-467e-878f-347a5c4eb8ac
+	queryGroup: 'Staging\Forecasting\Buffer Queries'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Extrapolatie Schemawerk Actuals' =
+		(inputTable as table) as table =>
+		let
+		    CurrentYear = Date.Year(DateTime.LocalNow()),
+		    RequiredColumns = {"Jaar","Boekingsperiode"},
+		    AllColumnsPresent = List.MatchesAll(RequiredColumns, (c) => List.Contains(Table.ColumnNames(inputTable), c)),
+		
+		    Output =
+		    if AllColumnsPresent then
+		        let
+		            // 1) Filter only current year data
+		            CurrentYearData = Table.SelectRows(inputTable, each [Jaar] = CurrentYear),
+		
+		            // 2) Flag actuals
+		            WithActualsFlag = Table.AddColumn(CurrentYearData, "IsExtrapolated", each false, type logical),
+		
+		            // 3) Get maximum available period
+		            MaxPeriod = List.Max(WithActualsFlag[Boekingsperiode]),
+		
+		            // 4) Filter rows from that max period
+		            MaxPeriodRows = Table.SelectRows(WithActualsFlag, each [Boekingsperiode] = MaxPeriod),
+		
+		            // 5) Generate list of future periods
+		            WithPeriods = Table.AddColumn(
+		                MaxPeriodRows,
+		                "NewPeriod",
+		                each if [Boekingsperiode] < 12 then {[Boekingsperiode]+1 .. 12} else {},
+		                type list
+		            ),
+		
+		            // 6) Expand to one row per future period
+		            Replicated = Table.ExpandListColumn(WithPeriods, "NewPeriod"),
+		
+		            // 7) Copy old period, replace with new one
+		            WithOriginal = Table.DuplicateColumn(Replicated, "Boekingsperiode", "OriginalBoekingsperiode"),
+		            AddedNewBP  = Table.AddColumn(WithOriginal, "Boekingsperiode New", each [NewPeriod], Int64.Type),
+		            RemovedHelp = Table.RemoveColumns(AddedNewBP, {"NewPeriod","Boekingsperiode"}),
+		            RenamedBP   = Table.RenameColumns(RemovedHelp, {{"Boekingsperiode New","Boekingsperiode"}}),
+		
+		            // 8) Mark extrapolated
+		            MarkExtrapolated = Table.ReplaceValue(RenamedBP, false, true, Replacer.ReplaceValue, {"IsExtrapolated"}),
+		
+		            // 9) Combine actuals + extrapolated
+		            Final = Table.Combine({WithActualsFlag, MarkExtrapolated})
+		        in
+		            Final
+		    else
+		        Table.SelectRows(inputTable, each false)
+		in
+		    Output
+	lineageTag: acc94e70-2fe6-4143-8d80-52f0daf35640
+	queryGroup: 'Functions Forecasting'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Function
+
+expression 'Dim Schaal per Formatieplaats CAO Original Test' =
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Expanded Column1", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"Medewerker", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats_2", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Soort_medewerker", "Type_contract"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Medewerker", "Medewerker ID"}}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Begindatum_salaris", type datetime}, {"Einddatum_salaris", type datetime}, {"Begindatum_functie", type datetime}}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Begindatum_salaris", type date}, {"Einddatum_salaris", type date}, {"Begindatum_functie", type date}, {"Datum_in_dienst", type datetime}, {"Datum_uit_dienst", type datetime}}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Changed Type1",{{"Datum_in_dienst", type date}, {"Datum_uit_dienst", type date}}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type2",{{"Formatieplaats_2", "Formatieplaats Code"}, {"Organisatorische_eenheid_2", "OE Code"}, {"Cluster_Afdeling_3", "Cluster/Afdeling"}}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Geboortedatum", type datetime}}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Changed Type3",{{"Geboortedatum", type date}}),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type4",{{"Functie", "Functie Code"}}),
+		    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns2", {"Medewerker ID"}),
+		    #"Merged Queries" = Table.NestedJoin(#"Removed Duplicates", {"Soort_functie"}, #"Dim Personeel Type OLD", {"Type Personeel"}, "Dim Personeel Type", JoinKind.LeftOuter),
+		    #"Expanded Dim Personeel Type" = Table.ExpandTableColumn(#"Merged Queries", "Dim Personeel Type", {"Type Personeel ID"}, {"Type Personeel ID"}),
+		    #"Merged Queries1" = Table.NestedJoin(#"Expanded Dim Personeel Type", {"Schaal", "Trede"}, #"Dim SchaalType", {"Schaal", "Trede"}, "Dim SchaalType", JoinKind.LeftOuter),
+		    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries1", "Dim SchaalType", {"SchaalType", "Schaal ID"}, {"SchaalType", "Schaal ID"}),
+		    #"Merged Queries2" = Table.NestedJoin(#"Expanded Dim SchaalType", {"Dienstbetrekking"}, #"Dim Dienstbetrekking", {"Dienstbetrekking"}, "Dim Dienstbetrekking", JoinKind.LeftOuter),
+		    #"Expanded Dim Dienstbetrekking" = Table.ExpandTableColumn(#"Merged Queries2", "Dim Dienstbetrekking", {"Dienstbetrekking ID"}, {"Dienstbetrekking ID"}),
+		    #"Removed Other Columns1" = Table.SelectColumns(#"Expanded Dim Dienstbetrekking",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Cluster/Afdeling", "OE Code", "Soort_medewerker", "Type_contract", "Type Personeel ID", "SchaalType", "Schaal ID", "Dienstbetrekking ID"}),
+		    #"Changed Type5" = Table.TransformColumnTypes(#"Removed Other Columns1",{{"Salaris", type number}}),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Changed Type5",{{"Cluster/Afdeling", "Cluster/Afdeling Formatieplaats"}, {"Cluster_Afdeling_2", "Cluster/Afdeling Functie"}}),
+		    #"Merged Queries3" = Table.NestedJoin(#"Renamed Columns3", {"Cluster/Afdeling Formatieplaats"}, #"Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Formatieplaatsniveau"}, "Dim Cluster/Afdeling Formatieplaats", JoinKind.LeftOuter),
+		    #"Expanded Dim Cluster/Afdeling Formatieplaats" = Table.ExpandTableColumn(#"Merged Queries3", "Dim Cluster/Afdeling Formatieplaats", {"C/A Formatie ID"}, {"C/A Formatie ID"}),
+		    #"Merged Queries4" = Table.NestedJoin(#"Expanded Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Functie"}, #"Dim Cluster/Afdeling Functienveau", {"Cluster/Afdeling Functienveau"}, "Dim Cluster/Afdeling Functienveau", JoinKind.LeftOuter),
+		    #"Expanded Dim Cluster/Afdeling Functienveau" = Table.ExpandTableColumn(#"Merged Queries4", "Dim Cluster/Afdeling Functienveau", {"C/A Functie ID"}, {"C/A Functie ID"}),
+		    #"Changed Type6" = Table.TransformColumnTypes(#"Expanded Dim Cluster/Afdeling Functienveau",{{"Aantal_FTE", type number}, {"Dienstjaren", type number}}),
+		    #"Merged Queries5" = Table.NestedJoin(#"Changed Type6", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Staf", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Staf", JoinKind.LeftOuter),
+		    #"Expanded Dim Staf" = Table.ExpandTableColumn(#"Merged Queries5", "Dim Staf", {"Staf of Zorg"}, {"Dim Staf.Staf of Zorg"}),
+		    #"Merged Queries6" = Table.NestedJoin(#"Expanded Dim Staf", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Zorg", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Zorg", JoinKind.LeftOuter),
+		    #"Expanded Dim Zorg" = Table.ExpandTableColumn(#"Merged Queries6", "Dim Zorg", {"Type Zorg Functie", "Staf of Zorg"}, {"Dim Zorg.Type Zorg Functie", "Dim Zorg.Staf of Zorg"}),
+		    #"Merged Queries8" = Table.NestedJoin(#"Expanded Dim Zorg", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Medewerker Overig", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Medewerker Overig", JoinKind.LeftOuter),
+		    #"Expanded Dim Medewerker Overig" = Table.ExpandTableColumn(#"Merged Queries8", "Dim Medewerker Overig", {"Staf of Zorg"}, {"Dim Medewerker Overig.Staf of Zorg"}),
+		    #"Removed Other Columns2" = Table.SelectColumns(#"Expanded Dim Medewerker Overig",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster/Afdeling Functie", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Cluster/Afdeling Formatieplaats", "OE Code", "Soort_medewerker", "Type_contract", "SchaalType", "Schaal ID", "Dienstbetrekking ID", "C/A Formatie ID", "C/A Functie ID", "Dim Staf.Staf of Zorg", "Dim Zorg.Type Zorg Functie", "Dim Zorg.Staf of Zorg", "Dim Medewerker Overig.Staf of Zorg"}),
+		    #"Merged Columns" = Table.CombineColumns(Table.TransformColumnTypes(#"Removed Other Columns2", {{"Dim Medewerker Overig.Staf of Zorg", type text}}, "en-US"),{"Dim Staf.Staf of Zorg", "Dim Zorg.Staf of Zorg", "Dim Medewerker Overig.Staf of Zorg"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Staf of Zorg"),
+		    #"Merged Queries7" = Table.NestedJoin(#"Merged Columns", {"Soort_functie", "Dim Zorg.Type Zorg Functie", "Staf of Zorg"}, #"Dim Type Personeel", {"Soort_functie", "Type Zorg Functie", "Staf of Zorg"}, "Dim Type Personeel", JoinKind.LeftOuter),
+		    #"Expanded Dim Type Personeel" = Table.ExpandTableColumn(#"Merged Queries7", "Dim Type Personeel", {"Type Zorg Functie", "Type Personeel ID"}, {"Type Zorg Functie", "Type Personeel ID"}),
+		    #"Inserted Year" = Table.AddColumn(#"Expanded Dim Type Personeel", "Year", each Date.Year([Datum_in_dienst]), Int64.Type),
+		    #"Added Custom" = Table.AddColumn(#"Inserted Year", "Jaar in Dienst", each [Year] - [Dienstjaren]),
+		    #"Renamed Columns4" = Table.RenameColumns(#"Added Custom",{{"Datum_in_dienst", "Datum_in_dienst Original"}}),
+		    #"Changed Type7" = Table.TransformColumnTypes(#"Renamed Columns4",{{"Jaar in Dienst", Int64.Type}}),
+		    #"Added Custom1" = Table.AddColumn(#"Changed Type7", "Datum in Dienst", each Date.AddYears([Datum_in_dienst Original], [Jaar in Dienst] - Date.Year([Datum_in_dienst Original]))),
+		    #"Removed Other Columns3" = Table.SelectColumns(#"Added Custom1",{"Patientgebonden_functies", "Soort_functie", "Salaris", "Trede", "Schaal", "Formatieplaats Code", "Cluster/Afdeling Formatieplaats", "SchaalType", "Schaal ID", "C/A Formatie ID", "Staf of Zorg", "Type Zorg Functie", "Type Personeel ID"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Removed Other Columns3", each ([SchaalType] = "CAO")),
+		    #"Removed Other Columns4" = Table.SelectColumns(#"Filtered Rows1",{"Patientgebonden_functies", "Soort_functie", "Salaris", "Trede", "Schaal", "Formatieplaats Code", "Cluster/Afdeling Formatieplaats", "SchaalType", "Schaal ID", "C/A Formatie ID", "Staf of Zorg", "Type Personeel ID"}),
+		    #"Merged Queries10" = Table.NestedJoin(#"Removed Other Columns4", {"Formatieplaats Code", "Patientgebonden_functies"}, #"Dim MAX CAO Schaal per Formatieplaats", {"Formatieplaats Code", "Patientgebonden_functies"}, "Dim MAX CAO Schaal per Formatieplaats", JoinKind.LeftOuter),
+		    #"Expanded Dim MAX CAO Schaal per Formatieplaats" = Table.ExpandTableColumn(#"Merged Queries10", "Dim MAX CAO Schaal per Formatieplaats", {"MAX Schaal", "MAX Trede"}, {"MAX Schaal", "MAX Trede"}),
+		    #"Merged Queries9" = Table.NestedJoin(#"Expanded Dim MAX CAO Schaal per Formatieplaats", {"MAX Schaal", "MAX Trede"}, #"CAO Schaal", {"Schaal", "Trede"}, "CAO Schaal", JoinKind.LeftOuter),
+		    #"Expanded CAO Schaal" = Table.ExpandTableColumn(#"Merged Queries9", "CAO Schaal", {"Max Trede Flag"}, {"Max Trede Flag"}),
+		    #"Filtered Rows2" = Table.SelectRows(#"Expanded CAO Schaal", each ([Formatieplaats Code] <> null)),
+		    #"Merged Queries11" = Table.NestedJoin(#"Filtered Rows2", {"Formatieplaats Code", "Patientgebonden_functies"}, #"Dim MAX CAO Schaal per Formatieplaats", {"Formatieplaats Code", "Patientgebonden_functies"}, "Dim MAX CAO Schaal per Formatieplaats", JoinKind.LeftOuter),
+		    #"Expanded Dim MAX CAO Schaal per Formatieplaats1" = Table.ExpandTableColumn(#"Merged Queries11", "Dim MAX CAO Schaal per Formatieplaats", {"Max Schaal/Trede"}, {"Max Schaal/Trede"}),
+		    #"Removed Columns" = Table.RemoveColumns(#"Expanded Dim MAX CAO Schaal per Formatieplaats1",{"MAX Schaal", "MAX Trede", "Max Trede Flag"}),
+		    #"Removed Duplicates1" = Table.Distinct(#"Removed Columns", {"Formatieplaats Code"}),
+		    #"Trimmed Text" = Table.TransformColumns(#"Removed Duplicates1",{{"Max Schaal/Trede", Text.Trim, type text}}),
+		    #"Merged Queries12" = Table.NestedJoin(#"Trimmed Text", {"Formatieplaats Code"}, #"FormatiePlaats Schaal CAO for Missing Schaal", {"Formatieplaats"}, "FormatiePlaats Schaal CAO for Missing Schaal", JoinKind.FullOuter),
+		    #"Expanded FormatiePlaats Schaal CAO for Missing Schaal" = Table.ExpandTableColumn(#"Merged Queries12", "FormatiePlaats Schaal CAO for Missing Schaal", {"Formatieplaats", "Omschrijving", "Patientgebonden_functies", "Salaris", "Schaal ID", "SchaalType", "Soort_functie", "Trede"}, {"Formatieplaats", "Omschrijving", "Patientgebonden_functies.1", "Salaris.1", "Schaal ID.1", "SchaalType.1", "Soort_functie.1", "Trede.1"}),
+		    #"Renamed Columns5" = Table.RenameColumns(#"Expanded FormatiePlaats Schaal CAO for Missing Schaal",{{"Formatieplaats Code", "Formatieplaats Code Original"}, {"Schaal", "Schaal Original"}, {"SchaalType", "SchaalType Original"}, {"Schaal ID", "Schaal ID Original"}, {"Type Personeel ID", "Type Personeel ID Original"}, {"Max Schaal/Trede", "Max Schaal/Trede Original"}, {"Salaris", "Salaris Original"}, {"Patientgebonden_functies", "Patientgebonden_functies Original"}, {"Soort_functie", "Soort_functie Original"}}),
+		    #"Added Custom2" = Table.AddColumn(#"Renamed Columns5", "Formatieplaats Code", each if [Formatieplaats Code Original] = null then [Formatieplaats] else [Formatieplaats Code Original], type nullable text),
+		    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Max Schaal/Trede", each if [#"Max Schaal/Trede Original"] = null then [Trede.1] else [#"Max Schaal/Trede Original"], type nullable text),
+		    #"Added Custom4" = Table.AddColumn(#"Added Custom3", "Schaal ID", each if [Schaal ID Original] = null then [Schaal ID.1] else [Schaal ID Original], type nullable number),
+		    #"Added Custom5" = Table.AddColumn(#"Added Custom4", "SchaalType", each if [SchaalType Original] = null then [SchaalType.1] else [SchaalType Original], type nullable text),
+		    #"Added Custom6" = Table.AddColumn(#"Added Custom5", "Salaris", each if [Salaris Original] = null then [Salaris.1] else [Salaris Original], type nullable number),
+		    #"Added Custom7" = Table.AddColumn(#"Added Custom6", "Soort_functie", each if [Soort_functie Original] = null then [Soort_functie.1] else [Soort_functie Original], type nullable text),
+		    #"Added Custom8" = Table.AddColumn(#"Added Custom7", "Patientgebonden_functies", each if [Patientgebonden_functies Original] = null then [Patientgebonden_functies.1] else [Patientgebonden_functies Original], type nullable text),
+		    #"Removed Other Columns5" = Table.SelectColumns(#"Added Custom8",{"Omschrijving", "Formatieplaats Code", "Max Schaal/Trede", "Schaal ID", "SchaalType", "Salaris", "Soort_functie", "Patientgebonden_functies"}),
+		    #"Trimmed Text1" = Table.TransformColumns(#"Removed Other Columns5",{{"Formatieplaats Code", Text.Trim, type text}, {"Max Schaal/Trede", Text.Trim, type text}})
+		in
+		    #"Trimmed Text1"
+	lineageTag: 397458e2-9db9-4259-803a-f0c5088c351a
+	queryGroup: 'Staging\Functies & Schaal'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Schaal per Formatieplaats BMP/LNT' =
+		let
+		    Source = Table.Combine({#"Dim Schaal per Formatieplaats BMP Test", #"Dim Schaal per Formatieplaats LNT Test"}),
+		    #"Removed Duplicates" = Table.Distinct(Source, {"Formatieplaats Code"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Removed Duplicates", each ([Formatieplaats Code] <> "CMC309"))
+		in
+		    #"Filtered Rows"
+	lineageTag: 1c7fc737-f5c9-4599-8412-d94c20441fc8
+	queryGroup: 'Staging\Functies & Schaal'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Schaal per Formatieplaats BMP Test' =
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Expanded Column1", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"Medewerker", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats_2", "Omschrijving_5", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Soort_medewerker", "Type_contract"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Medewerker", "Medewerker ID"}}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Begindatum_salaris", type datetime}, {"Einddatum_salaris", type datetime}, {"Begindatum_functie", type datetime}}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Begindatum_salaris", type date}, {"Einddatum_salaris", type date}, {"Begindatum_functie", type date}, {"Datum_in_dienst", type datetime}, {"Datum_uit_dienst", type datetime}}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Changed Type1",{{"Datum_in_dienst", type date}, {"Datum_uit_dienst", type date}}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type2",{{"Formatieplaats_2", "Formatieplaats Code"}, {"Organisatorische_eenheid_2", "OE Code"}, {"Cluster_Afdeling_3", "Cluster/Afdeling"}}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Geboortedatum", type datetime}}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Changed Type3",{{"Geboortedatum", type date}}),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type4",{{"Functie", "Functie Code"}}),
+		    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns2", {"Medewerker ID"}),
+		    #"Merged Queries" = Table.NestedJoin(#"Removed Duplicates", {"Soort_functie"}, #"Dim Personeel Type OLD", {"Type Personeel"}, "Dim Personeel Type", JoinKind.LeftOuter),
+		    #"Expanded Dim Personeel Type" = Table.ExpandTableColumn(#"Merged Queries", "Dim Personeel Type", {"Type Personeel ID"}, {"Type Personeel ID"}),
+		    #"Merged Queries1" = Table.NestedJoin(#"Expanded Dim Personeel Type", {"Schaal", "Trede"}, #"Dim SchaalType", {"Schaal", "Trede"}, "Dim SchaalType", JoinKind.LeftOuter),
+		    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries1", "Dim SchaalType", {"Schaal ID", "SchaalType"}, {"Schaal ID", "SchaalType"}),
+		    #"Merged Queries2" = Table.NestedJoin(#"Expanded Dim SchaalType", {"Dienstbetrekking"}, #"Dim Dienstbetrekking", {"Dienstbetrekking"}, "Dim Dienstbetrekking", JoinKind.LeftOuter),
+		    #"Expanded Dim Dienstbetrekking" = Table.ExpandTableColumn(#"Merged Queries2", "Dim Dienstbetrekking", {"Dienstbetrekking ID"}, {"Dienstbetrekking ID"}),
+		    #"Removed Other Columns1" = Table.SelectColumns(#"Expanded Dim Dienstbetrekking",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Omschrijving_5", "Cluster/Afdeling", "OE Code", "Soort_medewerker", "Type_contract", "Type Personeel ID", "Schaal ID", "SchaalType", "Dienstbetrekking ID"}),
+		    #"Changed Type5" = Table.TransformColumnTypes(#"Removed Other Columns1",{{"Salaris", type number}}),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Changed Type5",{{"Cluster/Afdeling", "Cluster/Afdeling Formatieplaats"}, {"Cluster_Afdeling_2", "Cluster/Afdeling Functie"}}),
+		    #"Merged Queries3" = Table.NestedJoin(#"Renamed Columns3", {"Cluster/Afdeling Formatieplaats"}, #"Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Formatieplaatsniveau"}, "Dim Cluster/Afdeling Formatieplaats", JoinKind.LeftOuter),
+		    #"Expanded Dim Cluster/Afdeling Formatieplaats" = Table.ExpandTableColumn(#"Merged Queries3", "Dim Cluster/Afdeling Formatieplaats", {"C/A Formatie ID"}, {"C/A Formatie ID"}),
+		    #"Merged Queries4" = Table.NestedJoin(#"Expanded Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Functie"}, #"Dim Cluster/Afdeling Functienveau", {"Cluster/Afdeling Functienveau"}, "Dim Cluster/Afdeling Functienveau", JoinKind.LeftOuter),
+		    #"Expanded Dim Cluster/Afdeling Functienveau" = Table.ExpandTableColumn(#"Merged Queries4", "Dim Cluster/Afdeling Functienveau", {"C/A Functie ID"}, {"C/A Functie ID"}),
+		    #"Changed Type6" = Table.TransformColumnTypes(#"Expanded Dim Cluster/Afdeling Functienveau",{{"Aantal_FTE", type number}, {"Dienstjaren", type number}}),
+		    #"Merged Queries5" = Table.NestedJoin(#"Changed Type6", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Staf", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Staf", JoinKind.LeftOuter),
+		    #"Expanded Dim Staf" = Table.ExpandTableColumn(#"Merged Queries5", "Dim Staf", {"Staf of Zorg"}, {"Dim Staf.Staf of Zorg"}),
+		    #"Merged Queries6" = Table.NestedJoin(#"Expanded Dim Staf", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Zorg", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Zorg", JoinKind.LeftOuter),
+		    #"Expanded Dim Zorg" = Table.ExpandTableColumn(#"Merged Queries6", "Dim Zorg", {"Type Zorg Functie", "Staf of Zorg"}, {"Dim Zorg.Type Zorg Functie", "Dim Zorg.Staf of Zorg"}),
+		    #"Merged Queries8" = Table.NestedJoin(#"Expanded Dim Zorg", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Medewerker Overig", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Medewerker Overig", JoinKind.LeftOuter),
+		    #"Expanded Dim Medewerker Overig" = Table.ExpandTableColumn(#"Merged Queries8", "Dim Medewerker Overig", {"Staf of Zorg"}, {"Dim Medewerker Overig.Staf of Zorg"}),
+		    #"Removed Other Columns2" = Table.SelectColumns(#"Expanded Dim Medewerker Overig",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster/Afdeling Functie", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Omschrijving_5", "Cluster/Afdeling Formatieplaats", "OE Code", "Soort_medewerker", "Type_contract", "Schaal ID", "SchaalType", "Dienstbetrekking ID", "C/A Formatie ID", "C/A Functie ID", "Dim Staf.Staf of Zorg", "Dim Zorg.Type Zorg Functie", "Dim Zorg.Staf of Zorg", "Dim Medewerker Overig.Staf of Zorg"}),
+		    #"Merged Columns" = Table.CombineColumns(Table.TransformColumnTypes(#"Removed Other Columns2", {{"Dim Medewerker Overig.Staf of Zorg", type text}}, "en-US"),{"Dim Staf.Staf of Zorg", "Dim Zorg.Staf of Zorg", "Dim Medewerker Overig.Staf of Zorg"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Staf of Zorg"),
+		    #"Merged Queries7" = Table.NestedJoin(#"Merged Columns", {"Soort_functie", "Dim Zorg.Type Zorg Functie", "Staf of Zorg"}, #"Dim Type Personeel", {"Soort_functie", "Type Zorg Functie", "Staf of Zorg"}, "Dim Type Personeel", JoinKind.LeftOuter),
+		    #"Expanded Dim Type Personeel" = Table.ExpandTableColumn(#"Merged Queries7", "Dim Type Personeel", {"Type Zorg Functie", "Type Personeel ID"}, {"Type Zorg Functie", "Type Personeel ID"}),
+		    #"Inserted Year" = Table.AddColumn(#"Expanded Dim Type Personeel", "Year", each Date.Year([Datum_in_dienst]), Int64.Type),
+		    #"Added Custom" = Table.AddColumn(#"Inserted Year", "Jaar in Dienst", each [Year] - [Dienstjaren]),
+		    #"Renamed Columns4" = Table.RenameColumns(#"Added Custom",{{"Datum_in_dienst", "Datum_in_dienst Original"}}),
+		    #"Changed Type7" = Table.TransformColumnTypes(#"Renamed Columns4",{{"Jaar in Dienst", Int64.Type}}),
+		    #"Added Custom1" = Table.AddColumn(#"Changed Type7", "Datum in Dienst", each Date.AddYears([Datum_in_dienst Original], [Jaar in Dienst] - Date.Year([Datum_in_dienst Original]))),
+		    #"Removed Other Columns3" = Table.SelectColumns(#"Added Custom1",{"Patientgebonden_functies", "Soort_functie", "Trede", "Schaal", "Formatieplaats Code", "Cluster/Afdeling Formatieplaats", "Schaal ID", "SchaalType", "C/A Formatie ID", "Staf of Zorg", "Type Zorg Functie", "Type Personeel ID"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Removed Other Columns3", each ([SchaalType] = "BMP")),
+		    #"Removed Duplicates1" = Table.Distinct(#"Filtered Rows1", {"Formatieplaats Code", "Patientgebonden_functies"}),
+		    #"Filtered Rows2" = Table.SelectRows(#"Removed Duplicates1", each ([Schaal] = "Schaal BMP") and ([Formatieplaats Code] <> null)),
+		    #"Merged Queries9" = Table.NestedJoin(#"Filtered Rows2", {"Schaal", "Trede"}, #"BMP/LNT  Schaal", {"Schaal BMP", "Trede BMP"}, "BMP/LNT  Schaal", JoinKind.LeftOuter),
+		    #"Expanded BMP/LNT  Schaal" = Table.ExpandTableColumn(#"Merged Queries9", "BMP/LNT  Schaal", {"Schaal/Trede LNT 501K"}, {"Schaal/Trede LNT 501K"}),
+		    #"Added Custom2" = Table.AddColumn(#"Expanded BMP/LNT  Schaal", "Schaal/Trede LNT 386K Vac Forecasting", each "LNT-MAX"),
+		    #"Merged Queries10" = Table.NestedJoin(#"Added Custom2", {"Schaal/Trede LNT 386K Vac Forecasting"}, #"LNT 386K Schaal", {"Max Trede Flag"}, "LNT 386K Schaal", JoinKind.LeftOuter),
+		    #"Expanded LNT 386K Schaal" = Table.ExpandTableColumn(#"Merged Queries10", "LNT 386K Schaal", {"Salaris"}, {"Salaris"}),
+		    #"Renamed Columns5" = Table.RenameColumns(#"Expanded LNT 386K Schaal",{{"Salaris", "Salari LNT 386K Forecast Vac"}}),
+		    #"Added Custom3" = Table.AddColumn(#"Renamed Columns5", "Schaal/Trede BMP Forecast Vac", each "BMP-MAX"),
+		    #"Merged Queries11" = Table.NestedJoin(#"Added Custom3", {"Formatieplaats Code"}, #"FormatiePlaats Schaal LNT for Missing Schaal", {"Formatieplaats"}, "FormatiePlaats Schaal LNT for Missing Schaal", JoinKind.FullOuter),
+		    #"Expanded FormatiePlaats Schaal LNT for Missing Schaal" = Table.ExpandTableColumn(#"Merged Queries11", "FormatiePlaats Schaal LNT for Missing Schaal", {"Patientgebonden_functies", "Soort_functie", "Formatieplaats", "Omschrijving", "Schaal", "Trede", "Salaris", "Schaal ID", "SchaalType Forecasting"}, {"Patientgebonden_functies.1", "Soort_functie.1", "Formatieplaats", "Omschrijving", "Schaal.1", "Trede.1", "Salaris", "Schaal ID.1", "SchaalType Forecasting"}),
+		    #"Renamed Columns6" = Table.RenameColumns(#"Expanded FormatiePlaats Schaal LNT for Missing Schaal",{{"Patientgebonden_functies", "Patientgebonden_functies Original"}, {"Soort_functie", "Soort_functie Original"}, {"Formatieplaats Code", "Formatieplaats Code Original"}, {"Schaal ID", "Schaal ID Original"}, {"SchaalType", "SchaalType Original"}, {"Schaal/Trede LNT 386K Vac Forecasting", "Schaal/Trede LNT 386K Vac Forecasting Original"}, {"Salari LNT 386K Forecast Vac", "Salari LNT 386K Forecast Vac Original"}, {"Schaal/Trede BMP Forecast Vac", "Schaal/Trede BMP Forecast Vac Original"}, {"Schaal", "Schaal Original"}}),
+		    #"Added Custom4" = Table.AddColumn(#"Renamed Columns6", "Formatieplaats Code", each if [Formatieplaats] = null then [Formatieplaats Code Original] else [Formatieplaats], type nullable text),
+		    #"Added Custom5" = Table.AddColumn(#"Added Custom4", "Schaal/Trede LNT 386K Vac Forecasting", each if [Trede.1] = null then [#"Schaal/Trede LNT 386K Vac Forecasting Original"] else [Trede.1], type nullable text),
+		    #"Added Custom6" = Table.AddColumn(#"Added Custom5", "Salari LNT 386K Forecast Vac", each if [Salaris] = null then [Salari LNT 386K Forecast Vac Original] else [Salaris], type nullable number),
+		    #"Added Custom7" = Table.AddColumn(#"Added Custom6", "Schaal ID", each if [Schaal ID.1] = null then [Schaal ID Original] else [Schaal ID.1], type nullable text),
+		    #"Removed Other Columns4" = Table.SelectColumns(#"Added Custom7",{"SchaalType Forecasting", "Formatieplaats Code", "Schaal/Trede LNT 386K Vac Forecasting", "Salari LNT 386K Forecast Vac", "Schaal ID"}),
+		    #"Renamed Columns7" = Table.RenameColumns(#"Removed Other Columns4",{{"Schaal/Trede LNT 386K Vac Forecasting", "Max Schaal/Trede"}, {"Salari LNT 386K Forecast Vac", "Salaris"}, {"SchaalType Forecasting", "SchaalType"}})
+		in
+		    #"Renamed Columns7"
+	lineageTag: 3c6f18be-5607-47fa-81b9-ad9a7be627c3
+	queryGroup: 'Staging\Functies & Schaal'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Schaal per Formatieplaats LNT Test' =
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Expanded Column1", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"Medewerker", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats_2", "Omschrijving_5", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Soort_medewerker", "Type_contract"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Medewerker", "Medewerker ID"}}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Begindatum_salaris", type datetime}, {"Einddatum_salaris", type datetime}, {"Begindatum_functie", type datetime}}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Begindatum_salaris", type date}, {"Einddatum_salaris", type date}, {"Begindatum_functie", type date}, {"Datum_in_dienst", type datetime}, {"Datum_uit_dienst", type datetime}}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Changed Type1",{{"Datum_in_dienst", type date}, {"Datum_uit_dienst", type date}}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type2",{{"Formatieplaats_2", "Formatieplaats Code"}, {"Organisatorische_eenheid_2", "OE Code"}, {"Cluster_Afdeling_3", "Cluster/Afdeling"}}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Geboortedatum", type datetime}}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Changed Type3",{{"Geboortedatum", type date}}),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type4",{{"Functie", "Functie Code"}}),
+		    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns2", {"Medewerker ID"}),
+		    #"Merged Queries" = Table.NestedJoin(#"Removed Duplicates", {"Soort_functie"}, #"Dim Personeel Type OLD", {"Type Personeel"}, "Dim Personeel Type", JoinKind.LeftOuter),
+		    #"Expanded Dim Personeel Type" = Table.ExpandTableColumn(#"Merged Queries", "Dim Personeel Type", {"Type Personeel ID"}, {"Type Personeel ID"}),
+		    #"Merged Queries1" = Table.NestedJoin(#"Expanded Dim Personeel Type", {"Schaal", "Trede"}, #"Dim SchaalType", {"Schaal", "Trede"}, "Dim SchaalType", JoinKind.LeftOuter),
+		    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries1", "Dim SchaalType", {"Schaal ID", "SchaalType"}, {"Schaal ID", "SchaalType"}),
+		    #"Merged Queries2" = Table.NestedJoin(#"Expanded Dim SchaalType", {"Dienstbetrekking"}, #"Dim Dienstbetrekking", {"Dienstbetrekking"}, "Dim Dienstbetrekking", JoinKind.LeftOuter),
+		    #"Expanded Dim Dienstbetrekking" = Table.ExpandTableColumn(#"Merged Queries2", "Dim Dienstbetrekking", {"Dienstbetrekking ID"}, {"Dienstbetrekking ID"}),
+		    #"Removed Other Columns1" = Table.SelectColumns(#"Expanded Dim Dienstbetrekking",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Omschrijving_5", "Cluster/Afdeling", "OE Code", "Soort_medewerker", "Type_contract", "Type Personeel ID", "Schaal ID", "SchaalType", "Dienstbetrekking ID"}),
+		    #"Changed Type5" = Table.TransformColumnTypes(#"Removed Other Columns1",{{"Salaris", type number}}),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Changed Type5",{{"Cluster/Afdeling", "Cluster/Afdeling Formatieplaats"}, {"Cluster_Afdeling_2", "Cluster/Afdeling Functie"}}),
+		    #"Merged Queries3" = Table.NestedJoin(#"Renamed Columns3", {"Cluster/Afdeling Formatieplaats"}, #"Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Formatieplaatsniveau"}, "Dim Cluster/Afdeling Formatieplaats", JoinKind.LeftOuter),
+		    #"Expanded Dim Cluster/Afdeling Formatieplaats" = Table.ExpandTableColumn(#"Merged Queries3", "Dim Cluster/Afdeling Formatieplaats", {"C/A Formatie ID"}, {"C/A Formatie ID"}),
+		    #"Merged Queries4" = Table.NestedJoin(#"Expanded Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Functie"}, #"Dim Cluster/Afdeling Functienveau", {"Cluster/Afdeling Functienveau"}, "Dim Cluster/Afdeling Functienveau", JoinKind.LeftOuter),
+		    #"Expanded Dim Cluster/Afdeling Functienveau" = Table.ExpandTableColumn(#"Merged Queries4", "Dim Cluster/Afdeling Functienveau", {"C/A Functie ID"}, {"C/A Functie ID"}),
+		    #"Changed Type6" = Table.TransformColumnTypes(#"Expanded Dim Cluster/Afdeling Functienveau",{{"Aantal_FTE", type number}, {"Dienstjaren", type number}}),
+		    #"Merged Queries5" = Table.NestedJoin(#"Changed Type6", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Staf", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Staf", JoinKind.LeftOuter),
+		    #"Expanded Dim Staf" = Table.ExpandTableColumn(#"Merged Queries5", "Dim Staf", {"Staf of Zorg"}, {"Dim Staf.Staf of Zorg"}),
+		    #"Merged Queries6" = Table.NestedJoin(#"Expanded Dim Staf", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Zorg", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Zorg", JoinKind.LeftOuter),
+		    #"Expanded Dim Zorg" = Table.ExpandTableColumn(#"Merged Queries6", "Dim Zorg", {"Type Zorg Functie", "Staf of Zorg"}, {"Dim Zorg.Type Zorg Functie", "Dim Zorg.Staf of Zorg"}),
+		    #"Merged Queries8" = Table.NestedJoin(#"Expanded Dim Zorg", {"Patientgebonden_functies", "Soort_functie", "Cluster/Afdeling Formatieplaats"}, #"Dim Medewerker Overig", {"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}, "Dim Medewerker Overig", JoinKind.LeftOuter),
+		    #"Expanded Dim Medewerker Overig" = Table.ExpandTableColumn(#"Merged Queries8", "Dim Medewerker Overig", {"Staf of Zorg"}, {"Dim Medewerker Overig.Staf of Zorg"}),
+		    #"Removed Other Columns2" = Table.SelectColumns(#"Expanded Dim Medewerker Overig",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster/Afdeling Functie", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Omschrijving_5", "Cluster/Afdeling Formatieplaats", "OE Code", "Soort_medewerker", "Type_contract", "Schaal ID", "SchaalType", "Dienstbetrekking ID", "C/A Formatie ID", "C/A Functie ID", "Dim Staf.Staf of Zorg", "Dim Zorg.Type Zorg Functie", "Dim Zorg.Staf of Zorg", "Dim Medewerker Overig.Staf of Zorg"}),
+		    #"Merged Columns" = Table.CombineColumns(Table.TransformColumnTypes(#"Removed Other Columns2", {{"Dim Medewerker Overig.Staf of Zorg", type text}}, "en-US"),{"Dim Staf.Staf of Zorg", "Dim Zorg.Staf of Zorg", "Dim Medewerker Overig.Staf of Zorg"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Staf of Zorg"),
+		    #"Merged Queries7" = Table.NestedJoin(#"Merged Columns", {"Soort_functie", "Dim Zorg.Type Zorg Functie", "Staf of Zorg"}, #"Dim Type Personeel", {"Soort_functie", "Type Zorg Functie", "Staf of Zorg"}, "Dim Type Personeel", JoinKind.LeftOuter),
+		    #"Expanded Dim Type Personeel" = Table.ExpandTableColumn(#"Merged Queries7", "Dim Type Personeel", {"Type Zorg Functie", "Type Personeel ID"}, {"Type Zorg Functie", "Type Personeel ID"}),
+		    #"Inserted Year" = Table.AddColumn(#"Expanded Dim Type Personeel", "Year", each Date.Year([Datum_in_dienst]), Int64.Type),
+		    #"Added Custom" = Table.AddColumn(#"Inserted Year", "Jaar in Dienst", each [Year] - [Dienstjaren]),
+		    #"Renamed Columns4" = Table.RenameColumns(#"Added Custom",{{"Datum_in_dienst", "Datum_in_dienst Original"}}),
+		    #"Changed Type7" = Table.TransformColumnTypes(#"Renamed Columns4",{{"Jaar in Dienst", Int64.Type}}),
+		    #"Added Custom1" = Table.AddColumn(#"Changed Type7", "Datum in Dienst", each Date.AddYears([Datum_in_dienst Original], [Jaar in Dienst] - Date.Year([Datum_in_dienst Original]))),
+		    #"Removed Other Columns3" = Table.SelectColumns(#"Added Custom1",{"Patientgebonden_functies", "Soort_functie", "Salaris", "Trede", "Schaal", "Formatieplaats Code", "Cluster/Afdeling Formatieplaats", "SchaalType", "Schaal ID", "C/A Formatie ID", "Staf of Zorg", "Type Zorg Functie", "Type Personeel ID"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Removed Other Columns3", each ([SchaalType] = "LNT") and ([Schaal] = "Schaal LNT")),
+		    #"Removed Duplicates1" = Table.Distinct(#"Filtered Rows1", {"Formatieplaats Code", "Patientgebonden_functies"}),
+		    #"Added Custom2" = Table.AddColumn(#"Removed Duplicates1", "Schaal/Trede LNT 386K Vacature Forecasting", each "LNT-MAX"),
+		    #"Merged Queries9" = Table.NestedJoin(#"Added Custom2", {"Schaal/Trede LNT 386K Vacature Forecasting"}, #"LNT 386K Schaal", {"Max Trede Flag"}, "LNT 386K Schaal", JoinKind.LeftOuter),
+		    #"Expanded LNT 386K Schaal" = Table.ExpandTableColumn(#"Merged Queries9", "LNT 386K Schaal", {"Salaris"}, {"LNT 386K Schaal.Salaris"}),
+		    #"Renamed Columns5" = Table.RenameColumns(#"Expanded LNT 386K Schaal",{{"LNT 386K Schaal.Salaris", "LNT 386K Schaal Vac Forecast Salaris"}}),
+		    #"Merged Queries10" = Table.NestedJoin(#"Renamed Columns5", {"Schaal", "Trede"}, #"LNT 386K Schaal", {"Schaal", "Trede"}, "LNT 386K Schaal", JoinKind.LeftOuter),
+		    #"Expanded LNT 386K Schaal1" = Table.ExpandTableColumn(#"Merged Queries10", "LNT 386K Schaal", {"Max Trede Flag", "Salaris"}, {"LNT 386K Schaal.Max Trede Flag", "LNT 386K Schaal.Salaris"}),
+		    #"Renamed Columns6" = Table.RenameColumns(#"Expanded LNT 386K Schaal1",{{"LNT 386K Schaal.Max Trede Flag", "LNT 386K Schaal MdW Forcast"}, {"LNT 386K Schaal.Salaris", "LNT 386K Schaal Salaris MdW Forecast"}}),
+		    #"Trimmed Text" = Table.TransformColumns(#"Renamed Columns6",{{"Schaal/Trede LNT 386K Vacature Forecasting", Text.Trim, type text}}),
+		    #"Merged Queries11" = Table.NestedJoin(#"Trimmed Text", {"Formatieplaats Code"}, #"FormatiePlaats Schaal LNT for Missing Schaal", {"Formatieplaats"}, "FormatiePlaats Schaal LNT for Missing Schaal", JoinKind.FullOuter),
+		    #"Expanded FormatiePlaats Schaal LNT for Missing Schaal" = Table.ExpandTableColumn(#"Merged Queries11", "FormatiePlaats Schaal LNT for Missing Schaal", {"Patientgebonden_functies", "Soort_functie", "Formatieplaats", "Schaal", "Trede", "Salaris", "Schaal ID", "SchaalType Forecasting"}, {"Patientgebonden_functies.1", "Soort_functie.1", "Formatieplaats", "Schaal.1", "Trede.1", "Salaris.1", "Schaal ID.1", "SchaalType Forecasting"}),
+		    #"Renamed Columns7" = Table.RenameColumns(#"Expanded FormatiePlaats Schaal LNT for Missing Schaal",{{"Schaal/Trede LNT 386K Vacature Forecasting", "Schaal/Trede LNT 386K Vacature Forecasting Original"}, {"LNT 386K Schaal Vac Forecast Salaris", "LNT 386K Schaal Vac Forecast Salaris Original"}, {"Formatieplaats Code", "Formatieplaats Code Original"}, {"Schaal", "Schaal Original"}, {"Salaris", "Salaris Original"}, {"Schaal ID", "Schaal ID Original"}, {"SchaalType", "SchaalType Original"}, {"Patientgebonden_functies", "Patientgebonden_functies Original"}, {"Soort_functie", "Soort_functie Original"}}),
+		    #"Added Custom3" = Table.AddColumn(#"Renamed Columns7", "Formatieplaats Code", each if [Formatieplaats] = null then [Formatieplaats Code Original] else [Formatieplaats], type nullable text),
+		    #"Added Custom4" = Table.AddColumn(#"Added Custom3", "Schaal/Trede LNT 386K Vacature Forecasting", each if [Trede.1] = null then [#"Schaal/Trede LNT 386K Vacature Forecasting Original"] else [Trede.1], type nullable text),
+		    #"Added Custom5" = Table.AddColumn(#"Added Custom4", "Schaal ID", each if [Schaal ID.1] = null then [Schaal ID Original] else [Schaal ID.1], type nullable number),
+		    #"Added Custom6" = Table.AddColumn(#"Added Custom5", "LNT 386K Schaal Vac Forecast Salaris", each if [Salaris.1] = null then [LNT 386K Schaal Vac Forecast Salaris Original] else [Salaris.1], type nullable number),
+		    #"Added Custom7" = Table.AddColumn(#"Added Custom6", "SchaalType", each if [SchaalType Forecasting] = null then [SchaalType Original] else [SchaalType Forecasting], type nullable text),
+		    #"Added Custom8" = Table.AddColumn(#"Added Custom7", "Patientgebonden_functies", each if [Patientgebonden_functies.1] = null then [Patientgebonden_functies Original] else [Patientgebonden_functies.1], type nullable text),
+		    #"Added Custom9" = Table.AddColumn(#"Added Custom8", "Soort_functie", each if [Soort_functie.1] = null then [Soort_functie Original] else [Soort_functie.1], type nullable text),
+		    #"Removed Other Columns4" = Table.SelectColumns(#"Added Custom9",{"Formatieplaats Code", "Schaal/Trede LNT 386K Vacature Forecasting", "Schaal ID", "LNT 386K Schaal Vac Forecast Salaris", "SchaalType", "Patientgebonden_functies", "Soort_functie"}),
+		    #"Renamed Columns8" = Table.RenameColumns(#"Removed Other Columns4",{{"Schaal/Trede LNT 386K Vacature Forecasting", "Max Schaal/Trede"}, {"LNT 386K Schaal Vac Forecast Salaris", "Salaris"}})
+		in
+		    #"Renamed Columns8"
+	lineageTag: a3f9e27a-9e46-438a-82e3-bb07e9a32627
+	queryGroup: 'Staging\Functies & Schaal'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'FormatiePlaats Schaal CAO for Missing Schaal' =
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_Formatieplaats" & "?skip=-1&take=-1", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Formatieplaats", "Omschrijving"}, {"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Formatieplaats", "Omschrijving"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Column1",{{"Geblokkeerd", type logical}, {"Naam_werkgever", type text}, {"Patientgebonden_functies", type text}, {"Soort_functie", type text}, {"Declarerend_Niet-declarerend", type text}, {"Service_Lines", type text}, {"Cluster_Afdeling", type text}, {"Omschrijving", type text}, {"Formatieplaats", type text}, {"Kostenplaats", Int64.Type}, {"Organisatorische_eenheid", type text}, {"Omschrijving_2", type text}, {"Functie", type text}, {"Omschrijving_3", type text}, {"Generieke_functienaam", type text}, {"Gebruiker", type text}, {"Type_functie", type text}, {"Naam", type text}}),
+		    #"Inserted Text Before Delimiter" = Table.AddColumn(#"Changed Type", "Text Before Delimiter", each Text.BeforeDelimiter([Einddatum], "T"), type text),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Inserted Text Before Delimiter",{{"Text Before Delimiter", type date}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type1",{{"Text Before Delimiter", "Eind Datum"}}),
+		    #"Inserted Text Before Delimiter1" = Table.AddColumn(#"Renamed Columns", "Text Before Delimiter", each Text.BeforeDelimiter([Begindatum], "T"), type text),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Inserted Text Before Delimiter1",{{"Text Before Delimiter", "Begin Datum"}}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Begin Datum", type date}}),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type2",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum"}),
+		    #"Inserted Text Before Delimiter2" = Table.AddColumn(#"Reordered Columns", "Text Before Delimiter", each Text.BeforeDelimiter([Gewijzigd], "T"), type text),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Inserted Text Before Delimiter2",{{"Text Before Delimiter", "Datum Gewijzigd"}}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns2",{{"Datum Gewijzigd", type date}}),
+		    #"Inserted Text After Delimiter" = Table.AddColumn(#"Changed Type3", "Text After Delimiter", each Text.AfterDelimiter([Gewijzigd], "T"), type text),
+		    #"Extracted Text Before Delimiter" = Table.TransformColumns(#"Inserted Text After Delimiter", {{"Text After Delimiter", each Text.BeforeDelimiter(_, "Z"), type text}}),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Extracted Text Before Delimiter",{{"Text After Delimiter", "Tijd Gewijzigd"}}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Renamed Columns3",{{"Tijd Gewijzigd", type time}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type4",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum", "Datum Gewijzigd", "Tijd Gewijzigd"}),
+		    #"Changed Type5" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Aantal_FTE_2", type number}, {"Aantal_FTE", type number}, {"Aantal_FTE_3", type number}, {"Aantal_FTE_4", type number}, {"Verschil", type number}, {"FTE_Begroot", type number}}),
+		    #"Added Custom" = Table.AddColumn(#"Changed Type5", "Uren_Begroot", each [FTE_Begroot] * 8),
+		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Uren_Werkelijk", each [Aantal_FTE] * 8),
+		    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Uren_Verschil", each [Verschil] * 8),
+		    #"Changed Type6" = Table.TransformColumnTypes(#"Added Custom2",{{"Uren_Begroot", type number}, {"Uren_Werkelijk", type number}, {"Uren_Verschil", type number}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type6", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
+		    #"Removed Other Columns1" = Table.SelectColumns(#"Filtered Rows",{"Patientgebonden_functies", "Soort_functie", "Formatieplaats", "Omschrijving", "Type_functie"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Removed Other Columns1", each ([Type_functie] <> null and [Type_functie] <> "-" and [Type_functie] <> "BMP13" and [Type_functie] <> "BMP7" and [Type_functie] <> "D" and [Type_functie] <> "M")),
+		    #"Changed Type7" = Table.TransformColumnTypes(#"Filtered Rows1",{{"Type_functie", type number}}),
+		    #"Added Custom3" = Table.AddColumn(#"Changed Type7", "Schaal", each [Type_functie] / 5, type nullable text),
+		    #"Changed Type8" = Table.TransformColumnTypes(#"Added Custom3",{{"Schaal", type text}}),
+		    #"Leading zeros Schaal" = Table.TransformColumns(#"Changed Type8", {{"Schaal", each Text.PadStart(Text.From(_), 2, "0"), type text}}),
+		    #"Added Prefix" = Table.TransformColumns(#"Leading zeros Schaal", {{"Schaal", each "Schaal " & _, type text}}),
+		    #"Added Custom4" = Table.AddColumn(#"Added Prefix", "Trede", each [Type_functie] / 5),
+		    #"Changed Type9" = Table.TransformColumnTypes(#"Added Custom4",{{"Trede", type text}}),
+		    #"Added Suffix" = Table.TransformColumns(#"Changed Type9", {{"Trede", each _ & "-MAX", type text}}),
+		    #"Merged Queries" = Table.NestedJoin(#"Added Suffix", {"Schaal", "Trede"}, #"Dim SchaalType", {"Schaal", "Schaal/Trede"}, "Dim SchaalType", JoinKind.LeftOuter),
+		    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries", "Dim SchaalType", {"Salaris", "Schaal ID", "SchaalType Forecasting"}, {"Salaris", "Schaal ID", "SchaalType Forecasting"}),
+		    #"Renamed Columns4" = Table.RenameColumns(#"Expanded Dim SchaalType",{{"SchaalType Forecasting", "SchaalType"}})
+		in
+		    #"Renamed Columns4"
+	lineageTag: ecd9b9ae-3b13-48c8-aa6b-f6b3338f0539
+	queryGroup: Staging\Formatie
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'FormatiePlaats Schaal LNT for Missing Schaal' =
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_Formatieplaats" & "?skip=-1&take=-1", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Formatieplaats", "Omschrijving"}, {"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Formatieplaats", "Omschrijving"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Column1",{{"Geblokkeerd", type logical}, {"Naam_werkgever", type text}, {"Patientgebonden_functies", type text}, {"Soort_functie", type text}, {"Declarerend_Niet-declarerend", type text}, {"Service_Lines", type text}, {"Cluster_Afdeling", type text}, {"Omschrijving", type text}, {"Formatieplaats", type text}, {"Kostenplaats", Int64.Type}, {"Organisatorische_eenheid", type text}, {"Omschrijving_2", type text}, {"Functie", type text}, {"Omschrijving_3", type text}, {"Generieke_functienaam", type text}, {"Gebruiker", type text}, {"Type_functie", type text}, {"Naam", type text}}),
+		    #"Inserted Text Before Delimiter" = Table.AddColumn(#"Changed Type", "Text Before Delimiter", each Text.BeforeDelimiter([Einddatum], "T"), type text),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Inserted Text Before Delimiter",{{"Text Before Delimiter", type date}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type1",{{"Text Before Delimiter", "Eind Datum"}}),
+		    #"Inserted Text Before Delimiter1" = Table.AddColumn(#"Renamed Columns", "Text Before Delimiter", each Text.BeforeDelimiter([Begindatum], "T"), type text),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Inserted Text Before Delimiter1",{{"Text Before Delimiter", "Begin Datum"}}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Begin Datum", type date}}),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type2",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum"}),
+		    #"Inserted Text Before Delimiter2" = Table.AddColumn(#"Reordered Columns", "Text Before Delimiter", each Text.BeforeDelimiter([Gewijzigd], "T"), type text),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Inserted Text Before Delimiter2",{{"Text Before Delimiter", "Datum Gewijzigd"}}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns2",{{"Datum Gewijzigd", type date}}),
+		    #"Inserted Text After Delimiter" = Table.AddColumn(#"Changed Type3", "Text After Delimiter", each Text.AfterDelimiter([Gewijzigd], "T"), type text),
+		    #"Extracted Text Before Delimiter" = Table.TransformColumns(#"Inserted Text After Delimiter", {{"Text After Delimiter", each Text.BeforeDelimiter(_, "Z"), type text}}),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Extracted Text Before Delimiter",{{"Text After Delimiter", "Tijd Gewijzigd"}}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Renamed Columns3",{{"Tijd Gewijzigd", type time}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type4",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum", "Datum Gewijzigd", "Tijd Gewijzigd"}),
+		    #"Changed Type5" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Aantal_FTE_2", type number}, {"Aantal_FTE", type number}, {"Aantal_FTE_3", type number}, {"Aantal_FTE_4", type number}, {"Verschil", type number}, {"FTE_Begroot", type number}}),
+		    #"Added Custom" = Table.AddColumn(#"Changed Type5", "Uren_Begroot", each [FTE_Begroot] * 8),
+		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Uren_Werkelijk", each [Aantal_FTE] * 8),
+		    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Uren_Verschil", each [Verschil] * 8),
+		    #"Changed Type6" = Table.TransformColumnTypes(#"Added Custom2",{{"Uren_Begroot", type number}, {"Uren_Werkelijk", type number}, {"Uren_Verschil", type number}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type6", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
+		    #"Removed Other Columns1" = Table.SelectColumns(#"Filtered Rows",{"Patientgebonden_functies", "Soort_functie", "Formatieplaats", "Omschrijving", "Type_functie"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Removed Other Columns1", each ([Type_functie] = "BMP13" or [Type_functie] = "BMP7")),
+		    #"Added Custom3" = Table.AddColumn(#"Filtered Rows1", "Schaal", each "Schaal LNT", type nullable text),
+		    #"Added Custom4" = Table.AddColumn(#"Added Custom3", "Trede", each "LNT-MAX", type nullable text),
+		    #"Merged Queries" = Table.NestedJoin(#"Added Custom4", {"Schaal", "Trede"}, #"Dim SchaalType", {"Schaal", "Schaal/Trede"}, "Dim SchaalType", JoinKind.LeftOuter),
+		    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries", "Dim SchaalType", {"Salaris", "Schaal ID", "SchaalType Forecasting"}, {"Salaris", "Schaal ID", "SchaalType Forecasting"}),
+		    #"Changed Type7" = Table.TransformColumnTypes(#"Expanded Dim SchaalType",{{"SchaalType Forecasting", type text}})
+		in
+		    #"Changed Type7"
+	lineageTag: c66480f7-c248-42ae-aff9-a741d128d710
+	queryGroup: Staging\Formatie
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Extrapolatie Salarissen for Schemawerk Test' =
+		(inputTable as table) as table =>
+		let
+		    // Determine period column
+		    PeriodCol = if Record.HasFields(Table.Schema(inputTable){0}, "Periode") then "Periode" else "Boekingsperiode",
+		
+		    // Extract latest year and filter table
+		    LatestYear = List.Max(inputTable[Jaar]),
+		    LatestYearTb = Table.SelectRows(inputTable, each [Jaar] = LatestYear),
+		
+		    // Get latest period and determine extrapolation range
+		    LatestPeriod = List.Max(LatestYearTb[PeriodCol]),
+		    PeriodsToAdd = List.Range({LatestPeriod + 1 .. 12}, 0, 12 - LatestPeriod),
+		
+		    // Base rows to replicate
+		    BaseRows = Table.SelectRows(LatestYearTb, each Record.Field(_, PeriodCol) = LatestPeriod),
+		
+		    // Generate extrapolated rows
+		    ExtrapolatedRows =
+		        List.Transform(PeriodsToAdd, (p) =>
+		            Table.TransformRows(BaseRows, each Record.TransformFields(_, {{PeriodCol, (_) => p, Int64.Type}}))
+		        ),
+		    CombinedExtras = if List.Count(ExtrapolatedRows) > 0 then Table.Combine(ExtrapolatedRows) else #table(Table.ColumnNames(inputTable), {}),
+		
+		    // Tag actuals and extrapolated
+		    ActualsTagged = Table.AddColumn(inputTable, "IsExtrapolated", each false, type logical),
+		    ExtrasTagged = Table.AddColumn(CombinedExtras, "IsExtrapolated", each true, type logical),
+		
+		    // Final result
+		    Result = Table.Combine({ActualsTagged, ExtrasTagged})
+		in
+		    Result
+	lineageTag: d46ea4ca-6d75-4b10-ae34-f3328631e772
+	queryGroup: 'Functions Forecasting'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Function
+
+expression 'Dim LC per GL Support' = ```
+		let
+		    Source = Table.Combine({#"Fact Personeels Kosten 2025", #"Fact Personeels Kosten 2024"}),
+		    #"Renamed Columns" = Table.RenameColumns(Source,{{"Omschrijving_klant", "Omschrijving LC"}, {"Medewerker", "Medewerker ID"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving"}),
+		    #"Merged Queries" = Table.NestedJoin(#"Removed Other Columns", {"Grootboekrekening"}, #"Dim Grootboek", {"Code Grootboek"}, "Dim Grootboek", JoinKind.LeftOuter),
+		    #"Expanded Dim Grootboek" = Table.ExpandTableColumn(#"Merged Queries", "Dim Grootboek", {"Rapportagecockpit_omschrijving"}, {"Rapportagecockpit_omschrijving"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Expanded Dim Grootboek", each ([Rapportagecockpit_omschrijving] = "19 Lonen en salarissen" or [Rapportagecockpit_omschrijving] = "20 Sociale lasten" or [Rapportagecockpit_omschrijving] = "21 Overige personeelskosten")),
+		    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"LC", "Grootboekrekening"}),
+		    #"Appended Query" = Table.Combine({#"Removed Duplicates", #"Dim KPT LC per GB"})
+		in 
+		    #"Appended Query"
+		```
+	lineageTag: 6ab50087-c445-4f38-8e17-2f3f6dcce973
+	queryGroup: Model
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'PB Financiele Mutaties 2021' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"45617142-cf60-4049-afda-4cf130b14a38" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="45617142-cf60-4049-afda-4cf130b14a38"]}[Data],
+		    #"PB Financiele Mutaties 2021_" = #"45617142-cf60-4049-afda-4cf130b14a38"{[entity="PB Financiele Mutaties 2021",version=""]}[Data]
+		in
+		    #"PB Financiele Mutaties 2021_"
+	lineageTag: 632f633b-1e0e-4220-9cc8-f58c5777b618
+	queryGroup: 'Staging\Journal Entries'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'PB Financiele Mutaties 2022' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"45617142-cf60-4049-afda-4cf130b14a38" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="45617142-cf60-4049-afda-4cf130b14a38"]}[Data],
+		    #"PB Financiele Mutaties 2022_" = #"45617142-cf60-4049-afda-4cf130b14a38"{[entity="PB Financiele Mutaties 2022",version=""]}[Data]
+		in
+		    #"PB Financiele Mutaties 2022_"
+	lineageTag: 94a46089-4fe8-4fd5-839e-5dae3002df6b
+	queryGroup: 'Staging\Journal Entries'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'PB Financiele Mutaties 2023' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"45617142-cf60-4049-afda-4cf130b14a38" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="45617142-cf60-4049-afda-4cf130b14a38"]}[Data],
+		    #"PB Financiele Mutaties 2023_" = #"45617142-cf60-4049-afda-4cf130b14a38"{[entity="PB Financiele Mutaties 2023",version=""]}[Data]
+		in
+		    #"PB Financiele Mutaties 2023_"
+	lineageTag: e7ad06bc-7d14-46e3-89bd-6e5a0fb01763
+	queryGroup: 'Staging\Journal Entries'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'PB Financiele Mutaties 2024' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"45617142-cf60-4049-afda-4cf130b14a38" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="45617142-cf60-4049-afda-4cf130b14a38"]}[Data],
+		    #"PB Financiele Mutaties 2024_" = #"45617142-cf60-4049-afda-4cf130b14a38"{[entity="PB Financiele Mutaties 2024",version=""]}[Data]
+		in
+		    #"PB Financiele Mutaties 2024_"
+	lineageTag: fe3c0ec9-9f7c-40e5-b9a9-fcf8862e2ca5
+	queryGroup: 'Staging\Journal Entries'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'PB Financiele Mutaties 2025' =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+		    #"45617142-cf60-4049-afda-4cf130b14a38" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="45617142-cf60-4049-afda-4cf130b14a38"]}[Data],
+		    #"PB Financiele Mutaties 2025_" = #"45617142-cf60-4049-afda-4cf130b14a38"{[entity="PB Financiele Mutaties 2025",version=""]}[Data]
+		in
+		    #"PB Financiele Mutaties 2025_"
+	lineageTag: dea49919-38a4-4957-81e2-2db23c7513f9
+	queryGroup: 'Staging\Journal Entries'
 
 	annotation PBI_NavigationStepName = Navigation
 

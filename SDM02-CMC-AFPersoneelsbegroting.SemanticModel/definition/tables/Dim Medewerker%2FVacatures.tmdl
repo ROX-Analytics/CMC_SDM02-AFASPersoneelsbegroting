@@ -450,8 +450,8 @@ table 'Dim Medewerker/Vacatures'
 			    TRUE(),
 			    NOT ISBLANK(
 			        LOOKUPVALUE(
-			            'Fact Forecasting Medewerkers Salaris'[Medewerker ID],
-			            'Fact Forecasting Medewerkers Salaris'[Medewerker ID],
+			            'Fact Forecasting Medewerkers'[Medewerker ID],
+			            'Fact Forecasting Medewerkers'[Medewerker ID],
 			            'Dim Medewerker/Vacatures'[Medewerker ID]
 			        )
 			    ),1,
@@ -487,8 +487,8 @@ table 'Dim Medewerker/Vacatures'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] IN { "3010", "3011", "3012" },
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3010", "3011", "3012" },
 			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
 			    ) > 0 || 'Dim Medewerker/Vacatures'[Flag Medewerker] = 0,
 			    1,
@@ -557,8 +557,8 @@ table 'Dim Medewerker/Vacatures'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] IN { "3164"},
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3164"},
 			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
 			    ) > 0,
 			    1,
@@ -584,8 +584,8 @@ table 'Dim Medewerker/Vacatures'
 			IF(
 			    'Dim Medewerker/Vacatures'[Flag Overtime 200% and 300% Type Personeel] = 1 &&
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] IN { "2622"},
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "2622"},
 			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
 			    ) > 0,
 			    1,
@@ -614,8 +614,8 @@ table 'Dim Medewerker/Vacatures'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] = "3021",
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] = "3021",
 			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
 			    ) > 0,
 			    1,
@@ -631,8 +631,8 @@ table 'Dim Medewerker/Vacatures'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] = "3027",
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] = "3027",
 			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
 			    ) > 0,
 			    1,
@@ -648,8 +648,8 @@ table 'Dim Medewerker/Vacatures'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] IN { "3095"},
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3095"},
 			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
 			    ) > 0,
 			    1,
@@ -665,8 +665,8 @@ table 'Dim Medewerker/Vacatures'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] IN { "3091"},
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3091"},
 			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1,
 			        'Dim Type Personeel'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"}
 			    ) > 0,
@@ -683,7 +683,7 @@ table 'Dim Medewerker/Vacatures'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
+			        COUNTROWS('Fact Forecasting Medewerkers'),
 			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1,
 			        'Dim Medewerker/Vacatures'[Flag LC - 3091 Ziektekosten WG bijdrage] = 0,
 			        FILTER(
@@ -705,8 +705,8 @@ table 'Dim Medewerker/Vacatures'
 			IF(
 			    'Dim Medewerker/Vacatures'[Flag Overtime 200% and 300% Type Personeel] = 1 &&
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] IN { "3075"},
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3075"},
 			        'Dim Medewerker/Vacatures'[Medewerkers in Fact Forecasting] = 1
 			    ) > 0,
 			    1,

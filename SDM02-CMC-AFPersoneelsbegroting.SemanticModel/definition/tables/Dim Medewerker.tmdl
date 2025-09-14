@@ -457,8 +457,8 @@ table 'Dim Medewerker'
 			    TRUE(),
 			    NOT ISBLANK(
 			        LOOKUPVALUE(
-			            'Fact Forecasting Medewerkers Salaris'[Medewerker ID],
-			            'Fact Forecasting Medewerkers Salaris'[Medewerker ID],
+			            'Fact Forecasting Medewerkers'[Medewerker ID],
+			            'Fact Forecasting Medewerkers'[Medewerker ID],
 			            'Dim Medewerker'[Medewerker ID]
 			        )
 			    ),1,
@@ -471,13 +471,14 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Feesturen flag' =
+	column 'Flag 3086 - Feesturen 200%' =
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] IN { "3010", "3011", "3012" },
-			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			        COUNTROWS('Fact Personeels Kosten'),
+			        'Fact Personeels Kosten'[LC] IN { "3010", "3011", "3012" },
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
+			        'Dim Period'[Year] IN {YEAR(TODAY()), YEAR(TODAY()) - 1}
 			    ) > 0,
 			    1,
 			    0
@@ -493,8 +494,8 @@ table 'Dim Medewerker'
 			IF(
 			    'Dim Medewerker'[Flag Overtime 200% and 300% Type Personeel] = 1 &&
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] IN { "2622"},
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "2622"},
 			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
 			    ) > 0,
 			    1,
@@ -511,8 +512,8 @@ table 'Dim Medewerker'
 			IF(
 			    'Dim Medewerker'[Flag Overtime 200% and 300% Type Personeel] = 1 &&
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] IN { "3075"},
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3075"},
 			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
 			    ) > 0,
 			    1,
@@ -528,9 +529,10 @@ table 'Dim Medewerker'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] = "3027",
-			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			        COUNTROWS('Fact Personeels Kosten'),
+			        'Fact Personeels Kosten'[LC] = "3027",
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
+			        'Dim Period'[Year] = YEAR(TODAY())
 			    ) > 0,
 			    1,
 			    0
@@ -545,8 +547,8 @@ table 'Dim Medewerker'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] = "3021",
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] = "3021",
 			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
 			    ) > 0,
 			    1,
@@ -575,7 +577,7 @@ table 'Dim Medewerker'
 	column 'Dienstjaren Forecasting' = 'Dim Medewerker'[Dienstjaren] + 1
 		formatString: 0.0
 		lineageTag: ef1817a6-126b-4628-8d35-c59fbc705816
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
@@ -592,30 +594,14 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Flag LC 3164 - Softlanding' =
-			
-			IF(
-			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] IN { "3164"},
-			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
-			    ) > 0,
-			    1,
-			    0
-			)
-		formatString: 0
-		lineageTag: 9bf2f6c0-24cf-45a7-847e-8e165033dfa2
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'FLag LC 3095 - Vergunning' =
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] IN { "3095"},
-			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			        COUNTROWS('Fact Personeels Kosten'),
+			        'Fact Personeels Kosten'[LC] IN { "3095"},
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
+			        'Dim Period'[Year] = YEAR(TODAY())
 			    ) > 0,
 			    1,
 			    0
@@ -630,8 +616,8 @@ table 'Dim Medewerker'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] IN { "3091"},
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3091"},
 			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
 			        'Dim Type Personeel'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"}
 			    ) > 0,
@@ -648,7 +634,7 @@ table 'Dim Medewerker'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
+			        COUNTROWS('Fact Forecasting Medewerkers'),
 			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
 			        'Dim Medewerker'[Flag LC - 3091 Ziektekosten WG bijdrage] = 0,
 			        FILTER(
@@ -720,7 +706,7 @@ table 'Dim Medewerker'
 	column 'Flag Medische Specialisten' =
 			
 			IF(
-			    RELATED('Dim Type Personeel'[Type Personeel ID]) IN {"Z_1", "Z_10", "Z_15"},
+			    'Dim Medewerker'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"},
 			    1,
 			    0
 			)
@@ -734,8 +720,8 @@ table 'Dim Medewerker'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[LC] IN { "3010"},
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] IN { "3010"},
 			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
 			    ) > 0,
 			    1,
@@ -758,8 +744,8 @@ table 'Dim Medewerker'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers Salaris'),
-			        'Fact Forecasting Medewerkers Salaris'[Kostenplaats] IN {"1840"},
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[Kostenplaats] IN {"1840"},
 			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
 			    ) > 0,
 			    1,
@@ -781,6 +767,109 @@ table 'Dim Medewerker'
 			)
 		formatString: 0
 		lineageTag: af9e5bcd-c5ca-4234-8ac3-8025a82d3919
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Maanden in Dienst' = RELATED('Fact Medewerker Maanden in Dienst Actuals'[Maanden in Dienst])
+		formatString: 0
+		lineageTag: d3a8d4fd-779f-4b5b-8178-e156319ca8d0
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag LC 3010 - Schemawerk 30%' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] = "3010",
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 8ab827ed-5f42-4d72-9195-0d1e4804a677
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag LC 3011 - Schemawerk 45%' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] = "3011",
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 6db275ab-f248-4995-9f7e-853d30d6cdc5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag LC 3012 - Schemawerk 50%' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] = "3012",
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 364b13a8-c58d-446a-82b4-a4b070652872
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'OE Flag LC 3019 - Standby' = RELATED('Dim Organisatie Eenheid Flag Standby'[OE])
+		lineageTag: fee1a740-f008-4b12-8354-ab259451b76f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag LC 3019 - Standby Toelage' = ```
+			
+			// IF(
+			//     ISBLANK('Dim Medewerker'[OE Flag LC 3019 - Standby]), 
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] = "3019",
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			    )
+			// 1
+			// )
+			```
+		formatString: 0
+		lineageTag: f2998bf5-bdeb-4918-9fc9-ad35bc068e2e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flag LC 3026 - Wachttoelage' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Forecasting Medewerkers'),
+			        'Fact Forecasting Medewerkers'[LC] = "3026",
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			    ) > 0,
+			    1,
+			    0
+			    )
+		formatString: 0
+		lineageTag: 46f4a1bf-e732-4021-81ca-2e763aa0e5b8
 		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic

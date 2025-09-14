@@ -2,26 +2,20 @@ table 'Fact Actuals FTE'
 	lineageTag: 3657a3f8-3326-4d2b-b375-d6d974a98225
 
 	column Jaar
-		dataType: string
+		dataType: int64
+		formatString: 0
 		lineageTag: eb6fad41-4b1a-4455-8860-9202facf090e
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Jaar
 
 		annotation SummarizationSetBy = Automatic
 
 	column Boekingsperiode
-		dataType: string
+		dataType: int64
+		formatString: 0
 		lineageTag: c23430fc-f5eb-4160-b2da-b18285a59b09
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Boekingsperiode
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Medewerker ID'
-		dataType: string
-		lineageTag: 04c79b14-a293-43b7-b71d-55423952b9ec
-		summarizeBy: none
-		sourceColumn: Medewerker ID
 
 		annotation SummarizationSetBy = Automatic
 
@@ -67,14 +61,6 @@ table 'Fact Actuals FTE'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'Line ID'
-		dataType: string
-		lineageTag: 9a289f77-96d0-4f61-b594-782b38acd8f0
-		summarizeBy: none
-		sourceColumn: Line ID
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'Schaal ID'
 		dataType: int64
 		formatString: 0
@@ -84,34 +70,25 @@ table 'Fact Actuals FTE'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Medewerker ID'
+		dataType: string
+		lineageTag: 3a30444b-3e40-41fa-a41a-49e3f9a5179a
+		summarizeBy: none
+		sourceColumn: Medewerker ID
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Fact Actuals FTE' = m
 		mode: import
 		queryGroup: Model
-		source =
+		source = ```
 				let
-				    Source = Table.Combine({#"Fact Personeels Kosten 2024", #"Fact Personeels Kosten 2025"}),
-				    #"Renamed Columns" = Table.RenameColumns(Source,{{"Omschrijving_klant", "Omschrijving LC"}}),
-				    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Boeking Periode (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0")),
-				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Salaris Periode (leading zeros)", each Text.PadStart(Text.From([Salarisperiode]),2,"0")),
-				    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Boeking Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Boeking Periode (leading zeros)"])),
-				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Salaris Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Salaris Periode (leading zeros)"])),
-				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom3",{{"Waarde", type number}, {"Bedrag_credit", type number}}),
-				    #"Added Custom4" = Table.AddColumn(#"Changed Type1", "Bedrag", each [Waarde] - [Bedrag_credit]),
-				    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom4",{{"Bedrag", type number}}),
-				    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type2",{{"FTE", "FTE Original"}}),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns1",{{"FTE Original", type number}}),
-				    #"Added Custom5" = Table.AddColumn(#"Changed Type", "FTE", each [FTE Original] / 100),
-				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom5",{{"FTE", type number}}),
-				    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type3",{{"Medewerker", "Medewerker ID"}}),
-				    #"Added Index" = Table.AddIndexColumn(#"Renamed Columns2", "Index", 1, 1, Int64.Type),
-				    #"Added Custom6" = Table.AddColumn(#"Added Index", "Line ID", each Text.From([Medewerker ID]) & "_" & Text.From([Grootboekrekening]) & "_" & Text.From([Index])),
-				    #"Changed Type4" = Table.TransformColumnTypes(#"Added Custom6",{{"Line ID", type text}}),
-				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type4",{"Jaar", "Boekingsperiode", "Medewerker ID", "Kostenplaats", "Kostenplaats_omschrijving", "Boeking Periode (leading zeros)", "Boeking Year/Period", "FTE", "Line ID"}),
-				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns", {"Medewerker ID", "Boeking Year/Period"}),
-				    #"Merged Queries" = Table.NestedJoin(#"Removed Duplicates", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
-				    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Schaal ID"}, {"Schaal ID"})
-				in
-				    #"Expanded Dim Medewerker"
+				    Source = #"Fact Personeels Kosten",
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Jaar", "Boekingsperiode", "Medewerker ID", "Kostenplaats", "Kostenplaats_omschrijving", "Boeking Periode (leading zeros)", "Boeking Year/Period", "FTE", "Schaal ID"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns", {"Medewerker ID", "Boeking Year/Period"})
+				in 
+				    #"Removed Duplicates"
+				```
 
 	annotation PBI_NavigationStepName = Navigation
 

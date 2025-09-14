@@ -78,291 +78,20 @@ relationship 0785e4f0-143f-4b0c-a649-1cdafd8c750b
 	fromColumn: 'Fact Journal Entries'.Datum_gewijzigd
 	toColumn: LocalDateTable_83f54064-336c-402b-902f-703c7a5a3ef0.Date
 
-relationship 81d60563-320e-be6a-3727-22557191c4e3
-	fromColumn: 'Fact Journal Entries'.Year/Period
-	toColumn: 'Dim Period'.Year/Period
-
-relationship ae00d747-acf8-9eaf-4a82-049ca5e5345f
-	fromColumn: 'Fact Journal Entries'.Rekeningnummer_2
-	toColumn: 'Dim Grootboek'.'Code Grootboek'
-
-relationship 1878a66d-2e67-0b38-1927-72a8ba30cfe5
-	fromColumn: 'Fact Journal Entries'.Datum_boeking
-	toColumn: 'Dim Calendar'.Date
-
-relationship e4808b5c-6939-44a4-fa04-310b7f921927
-	fromColumn: 'Fact Personeels Kosten'.Kostenplaats
-	toColumn: 'Dim Kostenplaats'.Kostenplaats
-
-relationship d1d707e5-7d55-2ba6-3977-e3ffe2f998d2
-	fromColumn: 'Fact Personeels Kosten'.LC
-	toColumn: 'Dim Looncomponent'.LC
-
-relationship 86d94682-0fb1-ce87-7e58-9d05005eebd2
-	fromColumn: 'Dim Medewerker'.'C/A Formatie ID'
-	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'C/A Formatie ID'
-
-relationship b9e49d54-3146-c7f7-a799-d6389896b459
-	fromColumn: 'Dim Medewerker'.Formatieplaats
-	toColumn: 'Dim Formatieplaats'.Formatieplaats
-
-relationship e1d17527-e5a7-2070-3f1b-e39df722c5a1
-	fromColumn: 'Dim Medewerker'.'OE Code'
-	toColumn: 'Dim Organisatie Eenheid'.OE
-
-relationship fb0be67d-92a2-c6ac-7e68-03a8d330016b
-	fromColumn: 'Dim Medewerker'.Functie
-	toColumn: 'Dim Functie'.Functiecode
-
-relationship 87cb8753-b475-9ba6-f24d-f8f16c2024bf
-	fromColumn: 'Dim Medewerker'.'Dienstbetrekking ID'
-	toColumn: 'Dim Dienstbetrekking'.'Dienstbetrekking ID'
-
-relationship 3bf83bef-6588-f092-9f43-1cfe2fe44bc3
-	fromColumn: 'Fact FormatiePlaats'.Kostenplaats
-	toColumn: 'Dim Kostenplaats'.Kostenplaats
-
-relationship 7c467852-1190-b452-009f-5d54dfd3ab2d
-	fromColumn: 'Fact FormatiePlaats'.OE
-	toColumn: 'Dim Organisatie Eenheid'.OE
-
-relationship 255f9166-43b8-39f8-8fd8-a446ecfec64f
-	fromColumn: 'Fact FormatiePlaats'.Year/Period
-	toColumn: 'Dim Period'.Year/Period
-
-relationship 57e67000-a1a1-0a9f-3891-ef39d6fcacfe
-	fromColumn: 'Fact FormatiePlaats'.Date
-	toColumn: 'Dim Calendar'.Date
-
-relationship 56c6ac01-2834-8c9b-51ec-d3cf309f2a55
-	fromColumn: 'Fact FormatiePlaats'.'C/A Formatie ID'
-	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'C/A Formatie ID'
-
-relationship 90322fef-938c-4cd8-8ff5-d76fd01f7bf2
-	fromColumn: 'Fact FormatiePlaats'.Formatieplaats
-	toColumn: 'Dim Formatieplaats'.Formatieplaats
-
-relationship AutoDetected_e3730b58-083d-4daa-a17f-df547e73052b
-	fromColumn: 'Fact Budget'.Year/Period
-	toColumn: 'Dim Period'.Year/Period
-
-relationship 1654c9d0-0e1d-d36a-8eba-8d2471603469
-	fromColumn: 'Fact Budget'.Kostenplaatscode
-	toColumn: 'Dim Kostenplaats'.Kostenplaats
-
-relationship 56a76d92-4931-8dbc-5921-0f246d46887e
-	fromColumn: 'Fact Budget'.Grootboekrekeningnummer
-	toColumn: 'Dim Grootboek'.'Code Grootboek'
-
 relationship 5f0947ad-7d8d-42eb-9c72-d1210af4437d
 	joinOnDateBehavior: datePartOnly
 	fromColumn: 'Date Last Refreshed'.'Date Last Refreshed'
 	toColumn: LocalDateTable_3e04eb1b-5b20-4ca3-b677-af3d5ec8c03d.Date
-
-relationship 815725a2-2b00-bc16-ab75-99218e41e26f
-	fromColumn: 'Fact Actuals FTE'.'Boeking Year/Period'
-	toColumn: 'Dim Period'.Year/Period
-
-relationship e8fca446-58f0-fcdd-fce0-3255b3f9efe0
-	fromColumn: 'Fact Actuals FTE'.'Medewerker ID'
-	toColumn: 'Dim Medewerker'.'Medewerker ID'
-
-relationship 9e926a9b-953e-3462-40f1-0697901e04ff
-	fromColumn: 'Fact Actuals FTE'.Kostenplaats
-	toColumn: 'Dim Kostenplaats'.Kostenplaats
-
-relationship dd697d52-c9ee-e63d-6c1c-636088823374
-	fromColumn: 'Fact Personeels Kosten'.'Boeking Year/Period'
-	toColumn: 'Dim Period'.Year/Period
-
-relationship cd46c493-20cc-0ac1-ab9a-847f22313205
-	fromColumn: 'Dim Medewerker'.'Type Personeel ID'
-	toColumn: 'Dim Type Personeel'.'Type Personeel ID'
-
-relationship dd80d9a8-860a-a349-e154-26b5265f8de9
-	fromColumn: 'Dim Medewerker'.'Staf of Zorg'
-	toColumn: 'Dim Staf of Zorg'.'Staf of Zorg'
 
 relationship c0bc57d4-0f7c-4d72-aa4f-b66e69583786
 	joinOnDateBehavior: datePartOnly
 	fromColumn: 'Fact Forecasting Vacatures'.'Begin Datum'
 	toColumn: LocalDateTable_2d48c39c-d009-4314-8331-6a126025f12a.Date
 
-relationship b227c7e5-0dde-486d-cb01-6690729fb4d4
-	fromColumn: 'Dim Vacatures Medewerker'.'C/A Formatie ID'
-	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'C/A Formatie ID'
-
-relationship 243422bb-9417-3497-6aa6-d3f892da77a9
-	fromColumn: 'Dim Vacatures Medewerker'.'Type Personeel ID'
-	toColumn: 'Dim Type Personeel'.'Type Personeel ID'
-
-relationship cde6d034-7136-e840-3ae7-cb7b2af59888
-	fromColumn: 'Dim Vacatures Medewerker'.'Staf of Zorg'
-	toColumn: 'Dim Staf of Zorg'.'Staf of Zorg'
-
-relationship 3821df36-fe14-2ca3-a69d-1de1bc69b310
-	fromColumn: 'Dim Vacatures Medewerker'.Functie
-	toColumn: 'Dim Functie'.Functiecode
-
 relationship 5375ce7a-e028-4880-be47-6a65fc18ba68
 	joinOnDateBehavior: datePartOnly
 	fromColumn: 'Dim Medewerker'.'In_dienst__i.v.m._dienstjaren_'
 	toColumn: LocalDateTable_b0951fab-f7e7-469c-b1c8-e5981f017388.Date
-
-relationship eb6745f3-0b54-06cc-7b43-de3b1ae45bb5
-	fromColumn: 'Fact Salaris Indexering Actuals'.Grootboekrekening
-	toColumn: 'Dim Grootboek'.'Code Grootboek'
-
-relationship f3f41a23-3d3b-4259-2073-4f51c103c3c7
-	fromColumn: 'Fact Salaris Indexering Actuals'.Year/Period
-	toColumn: 'Dim Period'.Year/Period
-
-relationship d92c942e-b84c-8401-9d2c-36b5438f1d80
-	fromColumn: 'Fact Salaris Indexering Actuals'.'Medewerker ID'
-	toColumn: 'Dim Medewerker'.'Medewerker ID'
-
-relationship cc5f0b3b-80c8-548a-b34c-2f90a1157928
-	fromColumn: 'Fact Salaris Indexering Actuals'.Kostenplaats
-	toColumn: 'Dim Kostenplaats'.Kostenplaats
-
-relationship 44e2d41b-8cbf-6b1f-9fed-cda09a78e5d0
-	fromColumn: 'Fact Salaris Indexering Actuals'.LC
-	toColumn: 'Dim Looncomponent'.LC
-
-relationship 06156870-4b0b-8ee5-4578-3dc222a742ec
-	fromColumn: 'Fact Salaris Indexering Actuals'.IsExtrapolated
-	toColumn: 'Dim IsExtrapolated'.IsExtrapolated
-
-relationship 52743e02-1961-7fb9-812b-6e62ef377652
-	fromColumn: 'Fact Salaris Indexering Actuals'.'Schaal.MAX Trede'
-	toColumn: 'Dim Max Trede'.'MAX Trede'
-
-relationship b74be802-efe6-f385-4bec-149b1f35d308
-	fromColumn: 'Fact Salaris Indexering Actuals'.'Trede Verhoging'
-	toColumn: 'Dim Trede Verhoging'.'Trede Verhoging'
-
-relationship bb3f1809-ac65-70f8-a33f-a7f26565a0c4
-	fromColumn: 'Fact Personeels Kosten'.'Schaal ID'
-	toColumn: 'Dim SchaalType'.'Schaal ID'
-
-relationship 78f490a5-ab64-d451-c947-d71123d7a72b
-	fromColumn: 'Fact Forecasting Vacatures'.'Schaal ID'
-	toColumn: 'Dim SchaalType'.'Schaal ID'
-
-relationship 2067e790-bfe7-b9b0-5bf1-846da301ba11
-	fromColumn: 'Fact Actuals FTE'.'Schaal ID'
-	toColumn: 'Dim SchaalType'.'Schaal ID'
-
-relationship 98c54c26-6b82-936b-f04d-78283d29e045
-	fromColumn: 'Fact Personeels Kosten'.Grootboek_vervangend
-	toColumn: 'Dim Grootboek'.'Code Grootboek'
-
-relationship ecb5b17d-753b-6e4f-9781-bb4e566aada2
-	isActive: false
-	fromColumn: 'Series GB 4118000 - Medisch Uitzendkosten'.'GB Code'
-	toColumn: 'Dim Grootboek'.'Code Grootboek'
-
-relationship 7541c6cf-a54f-8228-1a1d-2b7db3775d35
-	fromColumn: 'Fact Forecasting Vacatures'.'Index Name'
-	toColumn: 'Dim Indexering Vacatures'.'Index Name'
-
-relationship c52baeff-ad4f-51ea-4f21-176802403c34
-	fromColumn: 'Fact Forecasting Vacatures'.'Percentage Key LNT'
-	toColumn: 'Dim Percentage Vacature LNT'.'Percentage Key'
-
-relationship 08ce9a7c-4e04-4a23-059b-29d0a2d1b262
-	fromColumn: 'Dagkoers EURO/USD'.GB
-	toColumn: 'Dim Grootboek'.'Code Grootboek'
-
-relationship 81d762fc-8de8-496b-945f-5e8c5f241693
-	isActive: false
-	fromColumn: 'Dim Medewerker'.'Cluster_Afdeling Formatieplaats'
-	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'Cluster/Afdeling Formatieplaatsniveau'
-
-	annotation PBI_IsFromSource = FS
-
-relationship 63708576-bc97-e086-0cff-4feea196c376
-	fromColumn: 'Fact Forecasting MdW LC Overig per GB'.Grootboekrekening
-	toColumn: 'Dim Grootboek'.'Code Grootboek'
-
-relationship de429ab4-c947-cb6d-f0b3-077ea3471593
-	fromColumn: 'Fact Forecasting MdW LC Overig per GB'.Kostenplaats
-	toColumn: 'Dim Kostenplaats'.Kostenplaats
-
-relationship b214a65c-6bc2-294c-5fb6-d5aca1908db3
-	fromColumn: 'Fact Forecasting MdW LC Overig per GB'.'Medewerker ID'
-	toColumn: 'Dim Medewerker'.'Medewerker ID'
-
-relationship 0c9b199f-a156-de25-2d08-eda8765a6fcc
-	fromColumn: 'Fact Forecasting MdW LC Overig per GB'.Year/Period
-	toColumn: 'Dim Period'.Year/Period
-
-relationship ac860fd0-baf7-55a1-102c-b6056df11b0a
-	fromColumn: 'Fact Forecasting MdW LC Overig per GB'.'New Schaal ID (Forecasting)'
-	toColumn: 'Dim SchaalType'.'Schaal ID'
-
-relationship d8dc5f4a-f24a-1173-87c9-34fe75a3adc8
-	fromColumn: 'Fact Forecasting Medewerkers Salaris'.Year/Period
-	toColumn: 'Dim Period'.Year/Period
-
-relationship 96e77359-e7e4-bf92-a9c0-6662a7d1d907
-	fromColumn: 'Fact Forecasting Medewerkers Salaris'.'New Schaal ID (Forecasting)'
-	toColumn: 'Dim SchaalType'.'Schaal ID'
-
-relationship 1ac6160c-f068-5ec0-47b4-4eb30b3fe927
-	fromColumn: 'Fact Forecasting Medewerkers Salaris'.Kostenplaats
-	toColumn: 'Dim Kostenplaats'.Kostenplaats
-
-relationship 07e22377-8b89-44ac-f9c7-b29ac33d3620
-	fromColumn: 'Fact Forecasting Medewerkers Salaris'.LC
-	toColumn: 'Dim Looncomponent'.LC
-
-relationship 7d4b6211-3d7e-b3c2-a3b4-9223258e1f1d
-	fromColumn: 'Fact Forecasting Medewerkers Salaris'.Grootboekrekening
-	toColumn: 'Dim Grootboek'.'Code Grootboek'
-
-relationship ba05a77a-859d-1fa9-d9fe-2b010b14c294
-	fromColumn: 'Fact Forecasting MdW LC Overig per GB'.LC
-	toColumn: 'Dim Looncomponent'.LC
-
-relationship e1348498-4970-c0ed-0548-36149356b7ba
-	fromColumn: 'Dim Medewerker'.'Dienstjaren Forecasting'
-	toColumn: 'Dim Gratificatie Jubileum'.Dienstjubileum
-
-relationship 6cd18ac2-991f-991e-1085-15690f078598
-	fromColumn: 'Fact Journal Entries'.Code_verbijzonderingsas_1
-	toColumn: 'Dim Kostenplaats'.Kostenplaats
-
-relationship e46cfc18-7384-b677-0878-ac058954541e
-	fromColumn: 'Fact Forecasting Medewerkers Salaris'.'Index Name Actuals'
-	toColumn: 'Dim Indexering Actuals'.'Index Name'
-
-relationship f677114e-a20c-e3b7-df28-da33f67821c5
-	fromColumn: 'Fact GL Totals Per Year/Period'.Rekeningnummer_2
-	toColumn: 'Dim Grootboek'.'Code Grootboek'
-
-relationship 61eda937-4cf5-990d-ebd8-63558f438803
-	fromColumn: 'Fact Forecasting Vacatures'.'Percentage Key'
-	toColumn: 'Dim Percentage Vacature'.'Percentage Key'
-
-relationship 851c1c06-aeb9-4231-9fe6-5f43e7f99402
-	isActive: false
-	fromColumn: 'Dim Vacatures Medewerker'.'Cluster_Afdeling Formatieplaats'
-	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'Cluster/Afdeling Formatieplaatsniveau'
-
-	annotation PBI_IsFromSource = FS
-
-relationship 1c48111e-e2ba-5849-7186-20661e0e507e
-	fromColumn: 'Dim Vacature Start of Month'.Year/Period
-	toColumn: 'Dim Period'.Year/Period
-
-relationship b7b79960-44c8-6482-92f0-8d3a610b2cd5
-	fromColumn: 'Fact Forecasting Vacatures'.'Formatieplaats Key'
-	toColumn: 'Dim Vacature Start of Month'.'Formatieplaats Key'
-
-relationship 87971492-0d19-f026-67ef-0c7e2385a231
-	fromColumn: 'Dim Vacatures Medewerker'.Formatieplaats
-	toColumn: 'Dim Formatieplaats'.Formatieplaats
 
 relationship 38a41140-4685-45d6-9587-51ae262b895c
 	joinOnDateBehavior: datePartOnly
@@ -409,63 +138,281 @@ relationship 87e6bdd5-7222-4962-9882-4075f7f0d3b0
 	fromColumn: 'Dim Medewerker/Vacatures'.'In_dienst__i.v.m._dienstjaren_'
 	toColumn: LocalDateTable_2d5f3b71-7389-428f-a0e5-05bc893ec546.Date
 
-relationship e6cb4c9f-bb54-077d-ab47-5658f4631f6e
-	fromColumn: 'Fact Forecasting Vacatures'.'Medewerker ID'
-	toColumn: 'Dim Medewerker/Vacatures'.'Medewerker ID'
+relationship fb8d91d8-508b-064a-9754-e9227cc18a3a
+	fromColumn: 'Fact Actuals FTE'.Kostenplaats
+	toColumn: 'Dim Kostenplaats'.Kostenplaats
 
-relationship 4f548d75-0d7d-7796-56f9-f61fd0e90ed2
+relationship 57a22d99-01e7-b33d-c7b9-3a955e827a03
+	fromColumn: 'Fact Actuals FTE'.'Medewerker ID'
+	toColumn: 'Dim Medewerker'.'Medewerker ID'
+
+relationship baba9db6-212d-7be8-82ad-1960c647bb85
+	fromColumn: 'Fact Actuals FTE'.'Boeking Year/Period'
+	toColumn: 'Dim Period'.Year/Period
+
+relationship f13e514d-3863-7f39-6621-836cadceaa78
+	fromColumn: 'Fact Actuals FTE'.'Schaal ID'
+	toColumn: 'Dim SchaalType'.'Schaal ID'
+
+relationship caf21b58-fa79-eb4f-4b2b-a9d6c25a3189
+	fromColumn: 'Fact Budget'.Grootboekrekeningnummer
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
+
+relationship d2b7f9bc-8229-3e63-18c6-4d854d55f898
+	fromColumn: 'Fact Budget'.Kostenplaatscode
+	toColumn: 'Dim Kostenplaats'.Kostenplaats
+
+relationship 80fda8be-2102-ccb0-dce4-6d413d30d775
+	fromColumn: 'Fact Budget'.Year/Period
+	toColumn: 'Dim Period'.Year/Period
+
+relationship 2f5e1c41-690f-f72c-7cde-5e86d6cef2dd
+	fromColumn: 'Fact Forcasting Schemawerk'.Year/Period
+	toColumn: 'Dim Period'.Year/Period
+
+relationship 6a37ef07-bb55-c78f-a6fa-cb31a7eb5333
+	fromColumn: 'Fact Forcasting Schemawerk'.LC
+	toColumn: 'Dim Looncomponent'.LC
+
+relationship 4e6efc74-23e4-b3ea-755b-6b37a99430d0
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Dim LC per GL'.LC
+	toColumn: 'Dim Looncomponent'.LC
+
+relationship 11b4ada6-8144-0bb5-ebb9-1cda31ea8cf2
+	fromColumn: 'Fact Forcasting Schemawerk'.Grootboekrekeing
+	toColumn: 'Dim Grootboek'.'Code GB + Omschrijving'
+
+relationship ab2fa791-5fcf-bcda-4002-f018de73621f
+	fromColumn: 'Fact Forcasting Schemawerk'.IsExtrapolated
+	toColumn: 'Dim IsExtrapolated'.IsExtrapolated
+
+relationship 0eddf531-3454-a191-3924-1bb3f5376834
+	fromColumn: 'Fact Forecasting Medewerkers'.Grootboekrekening
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
+
+relationship 913692cb-4925-7d29-d33e-2fd66657c4a1
+	fromColumn: 'Fact Forecasting Medewerkers'.'Index Name Actuals'
+	toColumn: 'Dim Indexering Actuals'.'Index Name'
+
+relationship f1baff14-5205-fa62-2fe6-575bd036dc8b
+	fromColumn: 'Fact Forecasting Medewerkers'.Kostenplaats
+	toColumn: 'Dim Kostenplaats'.Kostenplaats
+
+relationship 0151f0a7-b781-6049-c833-fc446e1d8cfb
+	fromColumn: 'Fact Forecasting Medewerkers'.LC
+	toColumn: 'Dim Looncomponent'.LC
+
+relationship 86a8b291-a087-1034-c55a-3c3174148ff6
+	fromColumn: 'Fact Forecasting Medewerkers'.'Medewerker ID'
+	toColumn: 'Dim Medewerker'.'Medewerker ID'
+
+relationship 2d1d9431-ac16-70c0-8b08-dc40221e0089
+	fromColumn: 'Fact Forecasting Medewerkers'.'New Schaal ID (Forecasting)'
+	toColumn: 'Dim SchaalType'.'Schaal ID'
+
+relationship 5eaa5bbc-b736-443d-e258-85a13898af45
+	fromColumn: 'Fact Forecasting Medewerkers'.'Type Personeel ID'
+	toColumn: 'Dim Type Personeel'.'Type Personeel ID'
+
+relationship 37e6e0da-d8fb-f707-bc22-c71d2cea30f1
+	fromColumn: 'Fact Forecasting Medewerkers'.Year/Period
+	toColumn: 'Dim Period'.Year/Period
+
+relationship 6c50336e-7bcb-ee3d-b323-2eca5374100c
+	fromColumn: 'Fact Forecasting Medewerkers'.'Indexering Forecasting'
+	toColumn: 'Dim Indexering Forecasting'.'Indexering Forecasting'
+
+relationship 4899e597-0037-663c-f6e0-b0d737d864a5
+	fromColumn: 'Fact Forecasting Vacatures'.'Formatieplaats Key'
+	toColumn: 'Dim Vacature Start of Month'.'Formatieplaats Key'
+
+relationship 62f9e8b9-f33d-5caa-6355-e3bf99174c5c
+	fromColumn: 'Fact Forecasting Vacatures'.'Index Name'
+	toColumn: 'Dim Indexering Vacatures'.'Index Name'
+
+relationship f757d4b3-b3d5-a27a-8953-67a5696174f5
 	fromColumn: 'Fact Forecasting Vacatures'.Kostenplaats
 	toColumn: 'Dim Kostenplaats'.Kostenplaats
 
-relationship 5733d9c6-4700-f537-90eb-0a0eb638d80d
-	fromColumn: 'Fact Forecasting Medewerkers Salaris'.'Medewerker ID'
-	toColumn: 'Dim Medewerker'.'Medewerker ID'
-
-relationship 97d5d345-c629-9c4c-e0fd-ce18e1faf578
+relationship c3456212-7202-1bd7-275b-6b2deb8d6868
 	fromColumn: 'Fact Forecasting Vacatures'.'Medewerker ID'
 	toColumn: 'Dim Vacatures Medewerker'.'Medewerker ID'
 
-relationship 63f60045-9498-d1e5-26fa-1f9bd2793184
-	fromColumn: 'Fact Personeels Kosten'.'Medewerker ID'
-	toColumn: 'Dim Medewerker'.'Medewerker ID'
+relationship 1913c784-9ea9-d6a0-02da-998a50d8d1de
+	fromColumn: 'Fact Forecasting Vacatures'.'Percentage Key'
+	toColumn: 'Dim Percentage Vacature'.'Percentage Key'
 
-relationship fdf87ded-5ca9-191f-e2ea-6354e61d23c1
-	fromColumn: 'Fact Salaris Indexering Actuals'.'Index Name'
-	toColumn: 'Dim Indexering Actuals'.'Index Name'
+relationship 43a0e1ed-486c-d13a-50df-2f7ce012abbb
+	fromColumn: 'Dim Vacature Start of Month'.Year/Period
+	toColumn: 'Dim Period'.Year/Period
 
-relationship 669b4fbf-ba53-196c-376b-543127ca735c
+relationship 695e90d2-02cd-09f3-6ee2-0b3506b3d7aa
+	fromColumn: 'Fact FormatiePlaats'.Formatieplaats
+	toColumn: 'Dim Formatieplaats'.Formatieplaats
+
+relationship c46c073e-1c0c-afb8-3a29-91e8613276a7
+	fromColumn: 'Fact FormatiePlaats'.Date
+	toColumn: 'Dim Calendar'.Date
+
+relationship 633e1c2e-8939-6d93-5c5e-8d284639d6a7
+	fromColumn: 'Fact FormatiePlaats'.Kostenplaats
+	toColumn: 'Dim Kostenplaats'.Kostenplaats
+
+relationship 66e98cda-3b40-fd82-57e5-8dba5254c508
+	fromColumn: 'Fact FormatiePlaats'.OE
+	toColumn: 'Dim Organisatie Eenheid'.OE
+
+relationship 893254ca-7ee2-1da2-9e9a-ec56a6a71896
+	fromColumn: 'Fact FormatiePlaats'.Year/Period
+	toColumn: 'Dim Period'.Year/Period
+
+relationship 9d8b38f1-734b-ec9e-4b82-06e7b089da1a
+	fromColumn: 'Fact FormatiePlaats'.Functie
+	toColumn: 'Dim Functie'.Functiecode
+
+relationship ed03e8df-b84a-70b4-3616-7337ee846331
+	fromColumn: 'Fact FormatiePlaats'.'C/A Formatie ID'
+	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'C/A Formatie ID'
+
+relationship 7af68104-d728-bb74-85dc-0d0cc0ca4621
+	fromColumn: 'Fact GL Totals Per Year/Period'.Rekeningnummer_2
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
+
+relationship 9c6b90ef-f9b3-c8d9-e233-ffe6351ce0bb
+	fromColumn: 'Fact Journal Entries'.Datum_boeking
+	toColumn: 'Dim Calendar'.Date
+
+relationship 4f617ddb-fd6e-4eba-504a-210fade5e997
+	fromColumn: 'Fact Journal Entries'.Rekeningnummer_2
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
+
+relationship cafa6712-5740-be60-867c-f1c7e70cccbf
+	fromColumn: 'Fact Journal Entries'.Year/Period
+	toColumn: 'Dim Period'.Year/Period
+
+relationship 0b161767-8e1f-05b8-5581-5794d6197531
+	fromColumn: 'Fact Journal Entries'.Code_verbijzonderingsas_1
+	toColumn: 'Dim Kostenplaats'.Kostenplaats
+
+relationship 777a9a47-46f3-56cf-5cd9-d6823dca5857
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
 	fromColumn: 'Fact Medewerker Maanden in Dienst Actuals'.'Medewerker ID'
 	toColumn: 'Dim Medewerker'.'Medewerker ID'
 
-relationship d21f72d6-ca96-f34b-0020-825c886dcb4a
-	fromColumn: 'Fact Forecasting MdW LC Overig per GB'.'Index Name Actuals'
-	toColumn: 'Dim Indexering Actuals'.'Index Name'
-
-relationship 86909272-e189-8a0f-fc64-7341b4ceabd6
-	fromColumn: 'Fact Forecasting Medewerkers Other LC'.Grootboekrekening
+relationship 1fbe60ec-1148-cbaf-9953-d086b62bc7e4
+	fromColumn: 'Fact Personeels Kosten'.Grootboekrekening
 	toColumn: 'Dim Grootboek'.'Code Grootboek'
 
-relationship 6ff23b87-3813-52f4-c3b0-4ad619075100
-	fromColumn: 'Fact Forecasting Medewerkers Other LC'.'Index Name Actuals'
-	toColumn: 'Dim Indexering Actuals'.'Index Name'
-
-relationship 02f055a4-3978-a6ab-8461-5c6946de5af6
-	fromColumn: 'Fact Forecasting Medewerkers Other LC'.Kostenplaats
+relationship 4117e8cc-369a-ca1c-5f71-880ac9180124
+	fromColumn: 'Fact Personeels Kosten'.Kostenplaats
 	toColumn: 'Dim Kostenplaats'.Kostenplaats
 
-relationship 4df1dfe1-e741-5329-71c7-235c60a765f5
-	fromColumn: 'Fact Forecasting Medewerkers Other LC'.LC
+relationship 9502f39f-085f-f80b-349e-81d5ea8b5c60
+	fromColumn: 'Fact Personeels Kosten'.LC
 	toColumn: 'Dim Looncomponent'.LC
 
-relationship 51bc678d-7006-21bd-937b-53a08092208a
-	fromColumn: 'Fact Forecasting Medewerkers Other LC'.'Medewerker ID'
+relationship f3080374-0827-2694-35ad-e5bc901ff0df
+	fromColumn: 'Fact Personeels Kosten'.'Medewerker ID'
 	toColumn: 'Dim Medewerker'.'Medewerker ID'
 
-relationship d54953a5-1d25-559b-db46-7c24a72e70be
-	fromColumn: 'Fact Forecasting Medewerkers Other LC'.'New Schaal ID (Forecasting)'
+relationship 2b21daac-6233-627d-ce67-63b174fc2303
+	fromColumn: 'Fact Personeels Kosten'.'Schaal ID'
 	toColumn: 'Dim SchaalType'.'Schaal ID'
 
-relationship a117fcc3-1467-95f6-06c6-d2bf3d97be3f
-	fromColumn: 'Fact Forecasting Medewerkers Other LC'.Year/Period
+relationship 8b41f709-aa49-e88e-192e-381b88a35029
+	fromColumn: 'Fact Personeels Kosten'.'Type Personeel ID'
+	toColumn: 'Dim Type Personeel'.'Type Personeel ID'
+
+relationship db285ed5-3e91-7f48-5f33-bc739f8db7be
+	fromColumn: 'Fact Personeels Kosten'.'Boeking Year/Period'
 	toColumn: 'Dim Period'.Year/Period
+
+relationship 04776e97-7c5d-4806-db9c-a086f230163e
+	fromColumn: 'Fact Salaris Indexering Actuals'.Year/Period
+	toColumn: 'Dim Period'.Year/Period
+
+relationship a5094987-6279-721c-75b3-27e3442db8e9
+	fromColumn: 'Fact Salaris Indexering Actuals'.'Type Personeel ID'
+	toColumn: 'Dim Type Personeel'.'Type Personeel ID'
+
+relationship f0f3ede9-884c-0cd9-e15a-adc53921a7db
+	fromColumn: 'Fact Salaris Indexering Actuals'.'Schaal ID (New)'
+	toColumn: 'Dim SchaalType'.'Schaal ID'
+
+relationship 4ad63458-9f9e-afcd-5ccb-c21123d63137
+	fromColumn: 'Fact Salaris Indexering Actuals'.LC
+	toColumn: 'Dim Looncomponent'.LC
+
+relationship 90900bf6-2905-5bf1-d6fc-0b1349a665aa
+	fromColumn: 'Fact Salaris Indexering Actuals'.'Medewerker ID'
+	toColumn: 'Dim Medewerker'.'Medewerker ID'
+
+relationship 80c156f0-1a53-b946-5fdd-cd1a1ea8fad3
+	fromColumn: 'Fact Salaris Indexering Actuals'.IsExtrapolated
+	toColumn: 'Dim IsExtrapolated'.IsExtrapolated
+
+relationship 8a04de68-a418-fed6-28a8-e40e80c98fb6
+	fromColumn: 'Fact Salaris Indexering Actuals'.'Index Name'
+	toColumn: 'Dim Indexering Actuals'.'Index Name'
+
+relationship 731d73e3-2776-0b60-0825-07c2b8c3fbd6
+	fromColumn: 'Fact Salaris Indexering Actuals'.Kostenplaats
+	toColumn: 'Dim Kostenplaats'.Kostenplaats
+
+relationship 76f50cee-1254-790f-d861-cc2a2917f1e4
+	fromColumn: 'Series GB 4118000 - Medisch Uitzendkosten'.'GB Code'
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
+
+relationship de095129-27e5-207c-39f4-159e313b079c
+	fromColumn: 'Dim Medewerker'.'C/A Formatie ID'
+	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'C/A Formatie ID'
+
+relationship 3c509e3a-05b2-16e1-7cff-b566560cabf4
+	fromColumn: 'Dim Medewerker'.'Dienstbetrekking ID'
+	toColumn: 'Dim Dienstbetrekking'.'Dienstbetrekking ID'
+
+relationship 4ebd3b99-d17e-e9fe-8339-cb4d3467eacf
+	fromColumn: 'Dim Medewerker'.Formatieplaats
+	toColumn: 'Dim Formatieplaats'.Formatieplaats
+
+relationship 4d8b5f47-a49e-8f43-e94e-8d3005f47917
+	fromColumn: 'Dim Medewerker'.Functie
+	toColumn: 'Dim Functie'.Functiecode
+
+relationship 11dec583-39df-1807-3c4d-eb07a5e5c10d
+	fromColumn: 'Dim Medewerker'.'OE Code'
+	toColumn: 'Dim Organisatie Eenheid'.OE
+
+relationship 7448a03a-cf33-ed3a-1a4e-623223e8c910
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Dim Organisatie Eenheid Flag Standby'.OE
+	toColumn: 'Dim Organisatie Eenheid'.OE
+
+relationship 07585999-229e-4bf0-f161-c1824750bfaa
+	fromColumn: 'Dim Vacatures Medewerker'.'C/A Formatie ID'
+	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'C/A Formatie ID'
+
+relationship ea144b33-e99d-4257-dc12-12b74bfad178
+	fromColumn: 'Dim Vacatures Medewerker'.'OE Code'
+	toColumn: 'Dim Organisatie Eenheid'.OE
+
+relationship a89d9a06-c4ca-c442-2d4d-5916f0a61350
+	fromColumn: 'Dim Vacatures Medewerker'.Functie
+	toColumn: 'Dim Functie'.Functiecode
+
+relationship cf82ac53-089b-8d91-5495-1adb7c930147
+	fromColumn: 'Fact Forecasting Vacatures'.'Type Personeel ID'
+	toColumn: 'Dim Type Personeel'.'Type Personeel ID'
+
+relationship dc0323ec-2ba4-8f8f-6fca-bb6cc890b922
+	fromColumn: 'Fact Forecasting Vacatures'.'Schaal ID'
+	toColumn: 'Dim SchaalType'.'Schaal ID'
+
+relationship b283e57a-6deb-68a9-8c5c-ee908472fda6
+	fromColumn: 'Dagkoers EURO/USD'.GB
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
 

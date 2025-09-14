@@ -1,0 +1,111 @@
+table 'Dim Organisatie Eenheid Flag Standby'
+	lineageTag: 104110a5-a935-4bbf-893a-bb7d1e3a1f44
+
+	column OE
+		dataType: string
+		lineageTag: 51e4d985-8f7d-45f0-b635-7fcf7f0a18c9
+		summarizeBy: none
+		sourceColumn: OE
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'OE Omschrijving'
+		dataType: string
+		lineageTag: ef3da0cd-f240-4207-9eb1-2dadd2e93306
+		summarizeBy: none
+		sourceColumn: OE Omschrijving
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aantal per Week' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Apotheek"), 1,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Capaciteit"), 2,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Sterilisatie"), 2,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Dagbehandelingscentrum"), DIVIDE(2,3, BLANK()),
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Dialyse"), 2,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Kinder"), 1,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Geneeskunde"), 2,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Functie"), 2,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Fys"), 1,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Gips"), 1,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "HCK"), 3,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Hyperbare"), 3,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "ICT"), 3,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Interieur"), 1,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "KNF"), 1,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Kwaliteit"), 1,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Techniek"), 2,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "OK Complex"), 4,
+			    CONTAINSSTRING('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving], "Radiologie"), 3,
+			    BLANK()
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 1958f364-9499-466e-bf5a-f5e0b37403dc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Kosten Standby' =
+			
+			VAR omschrijvingOE = 'Dim Organisatie Eenheid Flag Standby'[OE Omschrijving]
+			VAR aantalperweek = 'Dim Organisatie Eenheid Flag Standby'[Aantal per Week]
+			VAR kosten = 175
+			VAR weken = 52
+			
+			RETURN
+			aantalperweek * kosten * weken
+		formatString: 0
+		lineageTag: 9024de41-c772-4770-9a0b-0b312b49d334
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aantal OE''s met dezelfde omschrijving' =
+			
+			CALCULATE(
+			    COUNTROWS('Dim Organisatie Eenheid Flag Standby'),
+			    FILTER(
+			        'Dim Organisatie Eenheid Flag Standby',
+			        'Dim Organisatie Eenheid Flag Standby'[OE Omschrijving] = EARLIER('Dim Organisatie Eenheid Flag Standby'[OE Omschrijving])
+			    )
+			)
+		formatString: 0
+		lineageTag: 79cc49ed-b9c4-43bc-9183-092aa1743dd2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Kosten Standby Corrected' = DIVIDE('Dim Organisatie Eenheid Flag Standby'[Kosten Standby], 'Dim Organisatie Eenheid Flag Standby'[Aantal OE's met dezelfde omschrijving])
+		lineageTag: bf72a830-7a38-4abc-81bc-7bbd85a187f5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Dim Organisatie Eenheid Flag Standby' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = #"FormatiePlaats (Staging)",
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Organisatorische_eenheid", "Omschrijving_2"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Other Columns",{{"Organisatorische_eenheid", "OE"}, {"Omschrijving_2", "OE Omschrijving"}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns1"),
+				    #"Filtered Rows1" = Table.SelectRows(#"Removed Duplicates", each ([OE] <> null)),
+				    #"Removed Duplicates1" = Table.Distinct(#"Filtered Rows1"),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Duplicates1", each ([OE Omschrijving] = "Apotheek" or [OE Omschrijving] = "Capaciteitsplanning & Zorglogistiek" or [OE Omschrijving] = "Dagbehandelingscentrum (H3)" or [OE Omschrijving] = "Dagbehandelingscentrum - Dagbehandeling (H3)" or [OE Omschrijving] = "Dagbehandelingscentrum - Kort Verblijf (H3)" or [OE Omschrijving] = "Dialyse" or [OE Omschrijving] = "Dialyse " or [OE Omschrijving] = "Functie Cardiologie & Longgeneeskunde" or [OE Omschrijving] = "Fysiotherapie" or [OE Omschrijving] = "Gipskamer" or [OE Omschrijving] = "Hyperbare Therapie" or [OE Omschrijving] = "ICT & Informatiemanagement" or [OE Omschrijving] = "Interieurverzorging" or [OE Omschrijving] = "KNF" or [OE Omschrijving] = "Kwaliteit, Veiligheid & Innovatie" or [OE Omschrijving] = "Medische Techniek" or [OE Omschrijving] = "OK Complex/ Anesthesie & Recovery" or [OE Omschrijving] = "OK Complex/ Anesthesie & Recovery " or [OE Omschrijving] = "OK Complex/ Chirurgie & CSA" or [OE Omschrijving] = "OK Complex/Chirurgie & CSA" or [OE Omschrijving] = "Polikliniek Interne Geneeskunde" or [OE Omschrijving] = "Polikliniek Kindergeneeskunde" or [OE Omschrijving] = "Radiologie")),
+				    #"Sorted Rows" = Table.Sort(#"Filtered Rows",{{"OE Omschrijving", Order.Ascending}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Sorted Rows",{{"OE Omschrijving", Text.Trim, type text}})
+				in
+				    #"Trimmed Text"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

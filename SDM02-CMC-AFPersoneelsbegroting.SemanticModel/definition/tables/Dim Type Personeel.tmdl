@@ -46,6 +46,19 @@ table 'Dim Type Personeel'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Flag Medische Specialisten' =
+			
+			IF(
+			    'Dim Type Personeel'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"},
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 01e5f993-57a9-4585-b10e-9255122223f9
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Type Personeel' = m
 		mode: import
 		queryGroup: Model

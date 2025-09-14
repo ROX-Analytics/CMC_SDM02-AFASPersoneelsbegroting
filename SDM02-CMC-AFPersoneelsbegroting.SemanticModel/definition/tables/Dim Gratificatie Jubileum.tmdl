@@ -5,7 +5,7 @@ table 'Dim Gratificatie Jubileum'
 		dataType: double
 		formatString: 0.0
 		lineageTag: 8c3efcd9-50fb-4e30-939b-c3849ae4e854
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Dienstjubileum
 
 		annotation SummarizationSetBy = Automatic
@@ -13,7 +13,7 @@ table 'Dim Gratificatie Jubileum'
 	column 'Percentage v. Basissalaris'
 		dataType: double
 		lineageTag: d93489e4-2d90-4937-bb34-0e920b822325
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Percentage v. Basissalaris
 
 		annotation SummarizationSetBy = Automatic
@@ -24,7 +24,7 @@ table 'Dim Gratificatie Jubileum'
 		dataType: int64
 		formatString: 0
 		lineageTag: 19ab121f-70d0-459e-983d-5487903cdf10
-		summarizeBy: none
+		summarizeBy: count
 		sourceColumn: ID
 
 		annotation SummarizationSetBy = Automatic
