@@ -416,3 +416,11 @@ relationship b283e57a-6deb-68a9-8c5c-ee908472fda6
 	fromColumn: 'Dagkoers EURO/USD'.GB
 	toColumn: 'Dim Grootboek'.'Code Grootboek'
 
+relationship 6f412ea3-74b6-3d87-948b-73b31204c858
+	fromColumn: 'Fact Forecasting Vacatures'.Grootboekrekening
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
+
+relationship cd5aa74b-5139-cbfd-7aeb-d71d02cc9e65
+	fromColumn: 'Fact Forecasting Vacatures'.LC
+	toColumn: 'Dim Looncomponent'.LC
+

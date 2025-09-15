@@ -326,7 +326,7 @@ table 'Fact Forecasting Medewerkers'
 			
 			RETURN
 			IF(
-			    selectedGL = "4101000" && selectedLC = "3075", 
+			    selectedGL = "4101000" && selectedLC = "3075" && RELATED('Dim Medewerker'[Flag Overwerk 300%]) = 1, 
 			    DIVIDE(kosten, 12, BLANK()),
 			    BLANK()
 			)
@@ -378,7 +378,7 @@ table 'Fact Forecasting Medewerkers'
 			RETURN
 			
 			IF(
-			    selectedGL = "4101000" && selectedLC = "2622", 
+			    selectedGL = "4101000" && selectedLC = "2622" && RELATED('Dim Medewerker'[Flag Overwerk 200%]) = 1, 
 			    DIVIDE(kosten, 12, BLANK()),
 			    BLANK()
 			)
@@ -430,7 +430,8 @@ table 'Fact Forecasting Medewerkers'
 			
 			SWITCH(
 			    TRUE(),
-			    selectedGL = "4101500" && selectedLC = "3086", DIVIDE(kosten, 12, BLANK()),
+			    selectedGL = "4101500" && selectedLC = "3086" && RELATED('Dim Medewerker'[Flag 3086 - Feesturen 200%]) = 1, 
+			    DIVIDE(kosten, 12, BLANK()),
 			    BLANK()
 			)
 			
@@ -520,7 +521,7 @@ table 'Fact Forecasting Medewerkers'
 			VAR instructie = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting] * 0.011
 			RETURN
 			IF(
-			    selectedGL = "4103000" && selectedLC = "3021",
+			    selectedGL = "4103000" && selectedLC = "3021" && RELATED('Dim Medewerker'[LC 3021 - Instructievergoeding]) = 1,
 			    instructie,
 			    BLANK()
 			)
@@ -536,37 +537,11 @@ table 'Fact Forecasting Medewerkers'
 			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
 			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
 			
-			// VAR countmedewerkers = 
-			// CALCULATE(
-			//     [Count Medewerkers],
-			//     ALL('Dim Medewerker'),
-			//     'Dim Medewerker'[Flag LC 3027 - Speciale Toelage] = 1,
-			//     'Dim Medewerker'[Status_dienstverband] = "In dienst"
-			// )
-			
-			// VAR basesetmedewerker = 
-			// FILTER(
-			//     'Dim Medewerker',
-			//     'Dim Medewerker'[Flag LC 3027 - Speciale Toelage] = 1 &&
-			//     'Dim Medewerker'[Status_dienstverband] = "In dienst"
-			// )
-			
-			
-			// VAR BasesalariesLC = 
-			// CALCULATE(
-			//     [Salaris Bedrag Forecasting Medewerkers],
-			//     KEEPFILTERS( 'Dim Looncomponent'[LC] = "3027"),
-			//     KEEPFILTERS('Dim Grootboek'[Code Grootboek] = "4103000"),
-			//     USERELATIONSHIP('Dim Looncomponent'[LC], 'Fact Forecasting Medewerkers'[LC]),
-			//     USERELATIONSHIP('Dim Grootboek'[Code Grootboek], 'Fact Forecasting Medewerkers'[Grootboekrekening]),
-			//     basesetmedewerker
-			// )
-			
 			VAR specialetoelage = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting] * 0.057
 			
 			RETURN
 			IF(
-			    selectedGL = "4103000" && selectedLC = "3027",
+			    selectedGL = "4103000" && selectedLC = "3027" && RELATED('Dim Medewerker'[Flag LC 3027 - Speciale Toelage]) = 1,
 			    specialetoelage,
 			    BLANK()
 			)
@@ -751,7 +726,7 @@ table 'Fact Forecasting Medewerkers'
 			VAR BaseSalariesLC = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting]
 			RETURN
 			IF(
-			    selectedGL = "4116000" && selectedLC = "3142", 
+			    selectedGL = "4116000" && selectedLC = "3142" && RELATED('Dim Medewerker'[Flag Medische Specialisten]) = 0, 
 			    BaseSalariesLC * 0.036,
 			    BLANK()
 			)
@@ -854,11 +829,11 @@ table 'Fact Forecasting Medewerkers'
 			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
 			
 			VAR BaseSalaryLC = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting]
-			
+			VAR schaaltype = 'Fact Forecasting Medewerkers'[SchaalType Forecasting]
 			
 			VAR result =
 			IF(
-			    selectedGL = "4115000" && selectedLC = "3105", 
+			    selectedGL = "4115000" && selectedLC = "3105" && schaaltype IN {"AOVK", "LNT"}, 
 			    BaseSalaryLC * 0.10,
 			    BLANK()
 			)
@@ -1084,7 +1059,7 @@ table 'Fact Forecasting Medewerkers'
 			
 			RETURN
 			IF(
-			    selectedGL = "4103000" && selectedLC = "3077",
+			    selectedGL = "4103000" && selectedLC = "3077" && RELATED('Dim Medewerker'[Flag LC 3027 - Speciale Toelage]) = 1,
 			    amount,
 			    BLANK()
 			)
@@ -1155,10 +1130,10 @@ table 'Fact Forecasting Medewerkers'
 			
 			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening] 
 			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
-			
+			VAR typepersoneel = 'Fact Forecasting Medewerkers'[Type Personeel ID]
 			RETURN
 			IF(
-			    selectedGL = "4124000" && selectedLC = "3082",
+			    selectedGL = "4124000" && selectedLC = "3082" && typepersoneel = "Z_3",
 			    DIVIDE(3000, 12),
 			    BLANK()
 			)
@@ -1339,11 +1314,82 @@ table 'Fact Forecasting Medewerkers'
 			RETURN
 			IF(
 			    selectedLC = "3078",
-			    averagekosten,
+			    DIVIDE(averagekosten, 12, BLANK()),
 			    BLANK()
 			)
 			```
 		lineageTag: 72e05077-d6e3-43a8-b8a7-71ca254624bd
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '(M) GB 4121000 - Uitzendkrachten en Tijdelijk' = ```
+			
+			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
+			
+			VAR countmedewerkers = 
+			CALCULATE(
+			    [Count Medewerkers],
+			    ALL('Dim Medewerker'),
+			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
+			    'Dim Medewerker'[Status_dienstverband] = "In dienst"
+			)
+			
+			VAR uitzendkrachten = DIVIDE([(WA) GB 4121000 - Uitzendkracht en Tijdelijk], countmedewerkers, BLANK())
+			
+			
+			RETURN
+			IF(
+			    selectedGL = "4121000", 
+			    DIVIDE(uitzendkrachten, 12, BLANK()),
+			    BLANK()
+			)
+			```
+		lineageTag: d2fc7074-7463-41ef-a743-5c11d9c950a6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '(M) GB 4125500 - Overige Personeelskosten' = ```
+			
+			VAR selectedGl = 'Fact Forecasting Medewerkers'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
+			
+			
+			VAR countmedewerkers = 
+			CALCULATE(
+			    [Count Medewerkers],
+			    ALL('Dim Medewerker'),
+			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
+			    'Dim Medewerker'[Status_dienstverband] = "In dienst"
+			)
+			
+			VAR basesetmedewerker = 
+			FILTER(
+			    'Dim Medewerker',
+			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1 &&
+			    'Dim Medewerker'[Status_dienstverband] = "In dienst"
+			)
+			
+			VAR averagekosten = 
+			CALCULATE(
+			    DIVIDE('Measure Table'[(WA) GB 4125500 - Overige Personeelskosten], countmedewerkers, BLANK())
+			)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    selectedGl = "4125500", 
+			    DIVIDE(averagekosten, 12, BLANK()),
+			    BLANK()
+			)
+			```
+		lineageTag: d8ad983a-0b44-4f46-a1f0-2b6dca58af13
 		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic

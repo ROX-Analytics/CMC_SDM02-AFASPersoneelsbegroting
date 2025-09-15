@@ -998,7 +998,7 @@
       "ordinal": 5,
       "scrollPosition": {
         "x": 0,
-        "y": 98
+        "y": 21
       },
       "nodes": [
         {
@@ -1016,13 +1016,13 @@
         },
         {
           "location": {
-            "x": 579.33333206176758,
+            "x": 560.33333206176758,
             "y": 0
           },
           "nodeIndex": "Dim Vacature Start of Month",
           "nodeLineageTag": "1fb0a982-3ae8-4181-9fc8-093346c7b210",
           "size": {
-            "height": 239,
+            "height": 159,
             "width": 234
           },
           "zIndex": 3
@@ -1043,7 +1043,7 @@
         {
           "location": {
             "x": 0,
-            "y": 187
+            "y": 211
           },
           "nodeIndex": "Dim Kostenplaats",
           "nodeLineageTag": "234d6e66-dc75-435c-abfa-85f472e752a3",
@@ -1055,8 +1055,8 @@
         },
         {
           "location": {
-            "x": 406.33333206176758,
-            "y": 447
+            "x": 430.33333206176758,
+            "y": 558
           },
           "nodeIndex": "Dim Vacatures Medewerker",
           "nodeLineageTag": "c23cc87a-8633-4e3b-99e9-15d2ef927a19",
@@ -1068,8 +1068,8 @@
         },
         {
           "location": {
-            "x": 13.333332061767578,
-            "y": 404
+            "x": 0,
+            "y": 383
           },
           "nodeIndex": "Dim Percentage Vacature",
           "nodeLineageTag": "4a2f08f8-5297-4c45-89b5-e010905c6658",
@@ -1107,13 +1107,39 @@
         },
         {
           "location": {
-            "x": 559.33333206176758,
-            "y": 251
+            "x": 554.33333206176758,
+            "y": 214
           },
           "nodeIndex": "Dim SchaalType",
           "nodeLineageTag": "db30c2e8-7814-41c3-9c68-cc68616837b3",
           "size": {
-            "height": 296,
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 191.33333206176758,
+            "y": 475
+          },
+          "nodeIndex": "Dim Grootboek",
+          "nodeLineageTag": "c37ad517-c7bd-4de4-bb24-808a9070814f",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 542.33333206176758,
+            "y": 377.33332824707031
+          },
+          "nodeIndex": "Dim Looncomponent",
+          "nodeLineageTag": "d770a55b-3487-4bef-9fec-796f32eb4041",
+          "size": {
+            "height": 152,
             "width": 234
           },
           "zIndex": 0
@@ -1916,7 +1942,7 @@
             "height": 176,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         },
         {
           "location": {
@@ -1929,7 +1955,7 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 2
         }
       ],
       "name": "Layout 1",
@@ -1940,6 +1966,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Layout 1",
+  "selectedDiagram": "Fact For Vacatures",
   "defaultDiagram": "All tables"
 }

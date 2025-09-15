@@ -723,6 +723,67 @@ table 'Fact Forecasting Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
+	column '(M) LC 2434 - Salaris' =
+			
+			VAR selectedGL = 'Fact Forecasting Vacatures'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Vacatures'[LC]
+			VAR salary = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
+			
+			RETURN
+			IF(
+			    selectedGL = "4100000" && selectedLC = "2434",
+			    salary,
+			    BLANK()
+			)
+		lineageTag: 1cb54022-f1bf-473a-b5aa-230e7275aea4
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '(V) LC 3080 Beroepkosten (Specialisten)' =
+			
+			VAR selectedGL = 'Fact Forecasting Vacatures'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Vacatures'[LC]
+			VAR medspec = 'Fact Forecasting Vacatures'[Flag Medische Specialisten]
+			RETURN
+			IF(
+			    selectedLC = "3080" && medspec = 1,
+			    DIVIDE(14000, 12, BLANK()) * 'Fact Forecasting Vacatures'[Verschil (excl)],
+			    BLANK()
+			)
+		lineageTag: 7ef6933a-64d0-4233-a532-34bb2f3cee34
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '(V) GB 4114000 - Cessantia' = ```
+			
+			VAR selectedGL = 'Fact Forecasting Vacatures'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Vacatures'[LC]
+			
+			
+			
+			RETURN
+			IF(
+			    selectedGL = "4114000" && selectedLC = "0001",
+			    DIVIDE(40,12,BLANK()),
+			    BLANK()
+			)
+			
+			
+			
+			```
+		lineageTag: 9b5de2b8-66c3-4144-a679-c139be16b007
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition 'Fact Forecasting Vacatures' = m
 		mode: import
 		queryGroup: Model
@@ -770,16 +831,14 @@ table 'Fact Forecasting Vacatures'
 				    #"Merged Queries" = Table.NestedJoin(#"Expand Dim LC per GB", {"Year Forecasting"}, #"Dim Period", {"Year"}, "Dim Calendar", JoinKind.LeftOuter),
 				    #"Expanded Dim Calendar" = Table.ExpandTableColumn(#"Merged Queries", "Dim Calendar", {"Month no.", "Year/Period"}, {"Month no.", "Year/Period"}),
 				    #"Renamed Columns8" = Table.RenameColumns(#"Expanded Dim Calendar",{{"Month no.", "Month"}}),
-				    #"Removed Duplicates1" = Table.Distinct(#"Renamed Columns8", {"Medewerker ID", "Month", "Formatieplaats"}),
-				    #"Merged Queries1" = Table.NestedJoin(#"Removed Duplicates1", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats CAO Original Test", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats CAO", JoinKind.LeftOuter),
+				    #"Merged Queries1" = Table.NestedJoin(#"Renamed Columns8", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats CAO Original Test", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats CAO", JoinKind.LeftOuter),
 				    #"Expanded Dim Schaal per Formatieplaats CAO" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Schaal per Formatieplaats CAO", {"Max Schaal/Trede"}, {"Max Schaal/Trede"}),
 				    #"Renamed Columns5" = Table.RenameColumns(#"Expanded Dim Schaal per Formatieplaats CAO",{{"Max Schaal/Trede", "Max Schaal/Trede CAO"}}),
 				    #"Trimmed Text" = Table.TransformColumns(#"Renamed Columns5",{{"Max Schaal/Trede CAO", Text.Trim, type text}}),
 				    #"Merged Queries2" = Table.NestedJoin(#"Trimmed Text", {"Max Schaal/Trede CAO"}, #"CAO Schaal AFAS", {"Max Trede Flag"}, "CAO Schaal", JoinKind.LeftOuter),
 				    #"Expanded CAO Schaal" = Table.ExpandTableColumn(#"Merged Queries2", "CAO Schaal", {"Salaris"}, {"Salaris"}),
 				    #"Renamed Columns6" = Table.RenameColumns(#"Expanded CAO Schaal",{{"Salaris", "MAX Salaris CAO"}}),
-				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns6", {"Geblokkeerd", "Medewerker ID", "Month", "Formatieplaats"}),
-				    #"Merged Queries3" = Table.NestedJoin(#"Removed Duplicates", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats BMP/LNT", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats BMP/LNT", JoinKind.LeftOuter),
+				    #"Merged Queries3" = Table.NestedJoin(#"Renamed Columns6", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats BMP/LNT", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats BMP/LNT", JoinKind.LeftOuter),
 				    #"Expanded Dim Schaal per Formatieplaats BMP/LNT" = Table.ExpandTableColumn(#"Merged Queries3", "Dim Schaal per Formatieplaats BMP/LNT", {"Max Schaal/Trede", "Salaris"}, {"Max Schaal/Trede", "Salaris"}),
 				    #"Merged Columns" = Table.CombineColumns(#"Expanded Dim Schaal per Formatieplaats BMP/LNT",{"Max Schaal/Trede", "Max Schaal/Trede CAO"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Schaal/Trede"),
 				    #"Merged Columns1" = Table.CombineColumns(Table.TransformColumnTypes(#"Merged Columns", {{"MAX Salaris CAO", type text}, {"Salaris", type text}}, "en-US"),{"MAX Salaris CAO", "Salaris"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Bruto Salaris"),

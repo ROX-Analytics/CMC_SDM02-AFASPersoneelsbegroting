@@ -874,6 +874,53 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Flag Arts-Assistenten' =
+			
+			IF(
+			    'Dim Medewerker'[Type Personeel ID] = "Z_3",
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 0ad4fd5a-8496-472d-bc92-03688fae4c65
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'LC 3077 - Onregelmatigheidstoeslag' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Personeels Kosten'),
+			        'Fact Personeels Kosten'[LC] IN {"3077"},
+			        'Dim Period'[Year] IN {YEAR(TODAY()), YEAR(TODAY()) - 1}
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 43896b5e-3a2f-4c20-8f5e-cca537ffe0b5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'LC 3021 - Instructievergoeding' =
+			
+			IF(
+			    CALCULATE(
+			        COUNTROWS('Fact Personeels Kosten'),
+			        'Fact Personeels Kosten'[LC] IN {"3021"},
+			        'Dim Period'[Year] IN {YEAR(TODAY()), YEAR(TODAY()) -1}
+			    ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: f28da3cd-92b3-4fba-bf16-8e10879e22e7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Medewerker' = m
 		mode: import
 		queryGroup: Model
