@@ -23,13 +23,21 @@ table 'Dim Formatieplaats'
 
 		annotation SummarizationSetBy = Automatic
 
+	column Declarerend_Niet-declarerend
+		dataType: string
+		lineageTag: d01b6b88-263f-49e4-be81-e52bea34eb8d
+		summarizeBy: none
+		sourceColumn: Declarerend_Niet-declarerend
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Formatieplaats' = m
 		mode: import
 		queryGroup: Model
 		source =
 				let
 				    Source = #"FormatiePlaats (Staging)",
-				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Formatieplaats", "Omschrijving"}),
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Declarerend_Niet-declarerend", "Formatieplaats", "Omschrijving"}),
 				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns")
 				in
 				    #"Removed Duplicates"

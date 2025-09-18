@@ -14,7 +14,7 @@ table 'Dim IsExtrapolated'
 		dataType: int64
 		formatString: 0
 		lineageTag: 1c4b8b1e-2e4e-4a37-a9d0-02a9ede930e0
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: ID
 
 		annotation SummarizationSetBy = Automatic

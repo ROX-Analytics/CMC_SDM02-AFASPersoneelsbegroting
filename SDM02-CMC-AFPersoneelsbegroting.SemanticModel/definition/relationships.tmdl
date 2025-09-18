@@ -166,10 +166,6 @@ relationship 80fda8be-2102-ccb0-dce4-6d413d30d775
 	fromColumn: 'Fact Budget'.Year/Period
 	toColumn: 'Dim Period'.Year/Period
 
-relationship 2f5e1c41-690f-f72c-7cde-5e86d6cef2dd
-	fromColumn: 'Fact Forcasting Schemawerk'.Year/Period
-	toColumn: 'Dim Period'.Year/Period
-
 relationship 6a37ef07-bb55-c78f-a6fa-cb31a7eb5333
 	fromColumn: 'Fact Forcasting Schemawerk'.LC
 	toColumn: 'Dim Looncomponent'.LC
@@ -179,14 +175,6 @@ relationship 4e6efc74-23e4-b3ea-755b-6b37a99430d0
 	fromCardinality: one
 	fromColumn: 'Dim LC per GL'.LC
 	toColumn: 'Dim Looncomponent'.LC
-
-relationship 11b4ada6-8144-0bb5-ebb9-1cda31ea8cf2
-	fromColumn: 'Fact Forcasting Schemawerk'.Grootboekrekeing
-	toColumn: 'Dim Grootboek'.'Code GB + Omschrijving'
-
-relationship ab2fa791-5fcf-bcda-4002-f018de73621f
-	fromColumn: 'Fact Forcasting Schemawerk'.IsExtrapolated
-	toColumn: 'Dim IsExtrapolated'.IsExtrapolated
 
 relationship 0eddf531-3454-a191-3924-1bb3f5376834
 	fromColumn: 'Fact Forecasting Medewerkers'.Grootboekrekening
@@ -423,4 +411,12 @@ relationship 6f412ea3-74b6-3d87-948b-73b31204c858
 relationship cd5aa74b-5139-cbfd-7aeb-d71d02cc9e65
 	fromColumn: 'Fact Forecasting Vacatures'.LC
 	toColumn: 'Dim Looncomponent'.LC
+
+relationship db21d0d2-a81f-506f-2db6-bf5b92cbae39
+	fromColumn: 'Fact Forcasting Schemawerk'.Year/Period
+	toColumn: 'Dim Period'.Year/Period
+
+relationship 437b7a09-a130-a47c-91cd-5a6941457ab3
+	fromColumn: 'Fact Forcasting Schemawerk'.Grootboekrekeing
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
 

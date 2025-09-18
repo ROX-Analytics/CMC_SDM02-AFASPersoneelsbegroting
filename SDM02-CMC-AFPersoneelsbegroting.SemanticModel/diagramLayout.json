@@ -760,13 +760,13 @@
       "ordinal": 3,
       "scrollPosition": {
         "x": 0,
-        "y": 117.33333587646484
+        "y": 0
       },
       "nodes": [
         {
           "location": {
-            "x": 300.33333206176758,
-            "y": 88
+            "x": 352.33333206176758,
+            "y": 0
           },
           "nodeIndex": "Fact Forcasting Schemawerk",
           "nodeLineageTag": "5ec6a05a-3be9-4f28-a2b8-cc3192b094b8",
@@ -774,12 +774,12 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 5
         },
         {
           "location": {
-            "x": 587.33333206176758,
-            "y": 77
+            "x": 740.33333206176758,
+            "y": 104
           },
           "nodeIndex": "Dim Period",
           "nodeLineageTag": "359771a9-e570-4c97-8981-e43407ccad44",
@@ -787,12 +787,12 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 2
         },
         {
           "location": {
-            "x": 0,
-            "y": 115
+            "x": 29,
+            "y": 162
           },
           "nodeIndex": "Dim Looncomponent",
           "nodeLineageTag": "d770a55b-3487-4bef-9fec-796f32eb4041",
@@ -800,7 +800,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 3
         },
         {
           "location": {
@@ -813,12 +813,12 @@
             "height": 200,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 4
         },
         {
           "location": {
-            "x": 260.33333206176758,
-            "y": 485.66667175292969
+            "x": 317.33333206176758,
+            "y": 439.66667175292969
           },
           "nodeIndex": "Dim Grootboek",
           "nodeLineageTag": "c37ad517-c7bd-4de4-bb24-808a9070814f",
@@ -826,12 +826,12 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 6
         },
         {
           "location": {
-            "x": 533.33333206176758,
-            "y": 420.66666412353516
+            "x": 694.33333206176758,
+            "y": 402.66666412353516
           },
           "nodeIndex": "Dim IsExtrapolated",
           "nodeLineageTag": "99142ce3-5455-4aea-9553-3f2ea961e718",
@@ -839,7 +839,7 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         }
       ],
       "name": "Fact Schemawerk",
@@ -852,14 +852,14 @@
     {
       "ordinal": 4,
       "scrollPosition": {
-        "x": 275.33334350585938,
-        "y": 20
+        "x": 0,
+        "y": 75.333335876464844
       },
       "nodes": [
         {
           "location": {
-            "x": 359.33333206176758,
-            "y": 20
+            "x": 380.33333206176758,
+            "y": 81
           },
           "nodeIndex": "Fact Forecasting Medewerkers",
           "nodeLineageTag": "d91f9453-ed3e-4d00-948b-c8d73cf3731a",
@@ -1966,6 +1966,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Fact For Vacatures",
+  "selectedDiagram": "Fact For MdW",
   "defaultDiagram": "All tables"
 }

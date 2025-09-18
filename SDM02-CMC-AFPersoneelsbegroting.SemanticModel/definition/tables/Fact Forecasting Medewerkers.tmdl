@@ -55,15 +55,6 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Schaal ID'
-		dataType: int64
-		formatString: 0
-		lineageTag: b4c54f77-25a0-440a-bb3c-999fd267b55d
-		summarizeBy: count
-		sourceColumn: Schaal ID
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'Type Personeel ID'
 		dataType: string
 		lineageTag: 81bfb8aa-017d-4ece-a9c0-64da2ce9b52a
@@ -96,35 +87,6 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Max Salaris End Actuals'
-		dataType: double
-		lineageTag: 93e9eb01-28aa-4f08-8e8b-4bfa65e7461f
-		summarizeBy: sum
-		sourceColumn: Max Salaris End Actuals
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'New Schaal ID (Trede Verhoging Actuals)'
-		dataType: double
-		lineageTag: 5b7f90bb-65cd-4bc8-bd27-aa532730c943
-		summarizeBy: sum
-		sourceColumn: New Schaal ID (Trede Verhoging Actuals)
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'MAX Trede Actuals'
-		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 35cec671-ff4d-4942-bb4d-ef350b960428
-		summarizeBy: none
-		sourceColumn: MAX Trede Actuals
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'SchaalType Forecasting'
 		dataType: string
 		lineageTag: 148ebacf-4d6b-4743-8efc-6bdc7af18381
@@ -150,46 +112,6 @@ table 'Fact Forecasting Medewerkers'
 		sourceColumn: New Schaal ID (Forecasting)
 
 		annotation SummarizationSetBy = Automatic
-
-	column 'Salaris New Forecasting'
-		dataType: double
-		lineageTag: 954d044b-8072-46f7-bd19-289a02f7d2cf
-		summarizeBy: sum
-		sourceColumn: Salaris New Forecasting
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Salaris Base Forecasting Original'
-		dataType: double
-		lineageTag: e7227cee-ee26-4e43-b375-b934eced54c2
-		summarizeBy: sum
-		sourceColumn: Salaris Base Forecasting Original
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Salaris per Mnd'
-		dataType: double
-		lineageTag: a512bd6a-99f7-4e26-92ae-9aafa0f9fcae
-		summarizeBy: sum
-		sourceColumn: Salaris per Mnd
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Salaris Base Forecasting Original 2'
-		dataType: double
-		lineageTag: 113d46c2-2950-4a8f-81b1-a5e3f1da0102
-		summarizeBy: sum
-		sourceColumn: Salaris Base Forecasting Original 2
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column 'Softlanding per Maand'
 		dataType: double
@@ -256,14 +178,6 @@ table 'Fact Forecasting Medewerkers'
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column Naam_werkgever
-		dataType: string
-		lineageTag: ab7c5810-ee91-4784-8d77-aaf070527e3a
-		summarizeBy: none
-		sourceColumn: Naam_werkgever
-
-		annotation SummarizationSetBy = Automatic
 
 	column '(M) GB 4106000 - Bijzondere Vergoedingen' =
 			
@@ -489,139 +403,6 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column '(M) LC 2545 - Pensioen Toeslag' = ```
-			
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
-			VAR Basesalaries = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting]
-			VAR schaaltype = 'Fact Forecasting Medewerkers'[SchaalType Forecasting NEW]
-			
-			VAR pensioen = Basesalaries * 0.09
-			
-			RETURN
-			IF(
-			    selectedGL = "4115000" && selectedLC = "2545" && schaaltype = "CAO", 
-			    pensioen,
-			    BLANK()
-			)
-			
-			```
-		lineageTag: 58c878e2-dfc0-4603-a37b-d541d75ce08f
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(M) LC 3021 - Instructievergoeding' =
-			
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
-			
-			VAR instructie = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting] * 0.011
-			RETURN
-			IF(
-			    selectedGL = "4103000" && selectedLC = "3021" && RELATED('Dim Medewerker'[LC 3021 - Instructievergoeding]) = 1,
-			    instructie,
-			    BLANK()
-			)
-		lineageTag: 74894a3f-e2e6-49d7-9822-69b3efa80e2e
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(M) LC 3027 - Speciale Toelage' = ```
-			
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
-			
-			VAR specialetoelage = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting] * 0.057
-			
-			RETURN
-			IF(
-			    selectedGL = "4103000" && selectedLC = "3027" && RELATED('Dim Medewerker'[Flag LC 3027 - Speciale Toelage]) = 1,
-			    specialetoelage,
-			    BLANK()
-			)
-			
-			```
-		lineageTag: 3a405536-d87a-4a3e-90da-295014df3569
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(M) LC 3014 - Frequentietoeslag' = ```
-			
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
-			VAR basesetmedewerker = 
-			FILTER(
-			    'Dim Medewerker',
-			    'Dim Medewerker'[Flag Medische Specialisten] = 1 &&
-			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
-			)
-			
-			VAR BaseSalaryLC = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting]
-			
-			
-			VAR frequentieperc = 
-			CALCULATE(
-			    'Measure Table'[% LC 3014 - Frequentietoeslag],
-			    basesetmedewerker
-			)
-			
-			VAR frequentie = frequentieperc * BaseSalaryLC
-			RETURN
-			IF(
-			    selectedGL = "4103000" && selectedLC = "3014",
-			    frequentie,
-			    BLANK()
-			)
-			```
-		lineageTag: a25434ab-8fd2-44b2-80bd-cbaedab08dbc
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(M) LC 3015 - Intensiteitstoeslag' = ```
-			
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
-			VAR basesetmedewerker = 
-			FILTER(
-			    'Dim Medewerker',
-			    'Dim Medewerker'[Flag Medische Specialisten] = 1 &&
-			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
-			)
-			
-			VAR BaseSalaryLC = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting]
-			
-			VAR intenstieitperc = 
-			CALCULATE(
-			    'Measure Table'[% LC 3015 - Intensiteitstoeslag],
-			    basesetmedewerker
-			)
-			VAR intensiteit = intenstieitperc * BaseSalaryLC
-			RETURN
-			IF(
-			    selectedGL = "4103000" && selectedLC = "3015",
-			    intensiteit,
-			    BLANK()
-			)
-			```
-		lineageTag: edc37b89-6d49-4aaa-a75f-617532b71a1c
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column '(M) LC 3080 - Beroepskosten (Specialisten)' = ```
 			
 			//  Arts-assistenten
@@ -657,87 +438,6 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column '(M) LC 3083 - Studiekosten' = ```
-			
-			//  Medisch Specialisten
-			// 4120000
-			
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
-			
-			VAR studiekosten = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting] * 0.02
-			
-			RETURN
-			IF(
-			    selectedGL = "4120000" && selectedLC = "3083" && RELATED('Dim Medewerker'[Flag Medische Specialisten]) = 0,
-			    studiekosten,
-			    BLANK()
-			)
-			// VAR glisinscope = ISINSCOPE('Dim Grootboek'[Code Grootboek])
-			// VAR LCisinscope = ISINSCOPE('Dim Looncomponent'[LC])
-			
-			// VAR basesetmedewerker = 
-			// FILTER(
-			//     'Dim Medewerker',
-			//     'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1 
-			// )
-			
-			// VAR BaseSalariesLC = 
-			// CALCULATE(
-			//     [Salaris Bedrag Forecasting Medewerkers],
-			//     TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
-			//     'Dim Type Personeel'[Type Zorg Functie] <> " Medisch Specialisten",
-			//     basesetmedewerker
-			// )
-			
-			
-			// RETURN
-			// IF(
-			//     glisinscope || LCisinscope,
-			//     SWITCH(
-			//         TRUE(),
-			//         selectedGL = "4120000" && selectedLC = "3083", BaseSalariesLC * 0.02,
-			//         selectedGL = "4120000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), BaseSalariesLC * 0.02,
-			//         selectedLC = "3083" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), BaseSalariesLC * 0.02,
-			//         BLANK()
-			//     ),
-			//     BLANK()
-			// )
-			```
-		lineageTag: 47c264b2-30c0-4df9-9333-b3524f8c7842
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(M) LC 3142 - Medische Kosten Eig Risico (Eigen Personeel)' = ```
-			
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
-			
-			VAR basesetmedewerker = 
-			FILTER(
-			    'Dim Medewerker',
-			    'Dim Medewerker'[Flag LC 3142 - Medische Kosten Eig Risico (Eigen Personeel)] = 1 && 
-			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1 && 
-			    'Dim Medewerker'[Status_dienstverband] = "In dienst"
-			)
-			VAR BaseSalariesLC = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting]
-			RETURN
-			IF(
-			    selectedGL = "4116000" && selectedLC = "3142" && RELATED('Dim Medewerker'[Flag Medische Specialisten]) = 0, 
-			    BaseSalariesLC * 0.036,
-			    BLANK()
-			)
-			```
-		lineageTag: 2ce82045-ec69-4776-8a55-a8e1f265e333
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column '(M) LC 3091 - Ziektekosten WG bijdrage (Specialisten)' = ```
 			
 			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
@@ -756,7 +456,7 @@ table 'Fact Forecasting Medewerkers'
 			
 			RETURN
 			IF(
-			    selectedGL = "4117000" && selectedLC = "3091" && 'Fact Forecasting Medewerkers'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"}, 
+			    selectedGL = "4117000" && selectedLC = "3091" && 'Fact Forecasting Medewerkers'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"} && RELATED('Dim Medewerker'[Flag LC - 3091 Ziektekosten WG bijdrage]) = 1, 
 			    kosten,
 			    BLANK()
 			)
@@ -823,77 +523,6 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column '(M) LC 3105 - Pensioen Toeslag (LNT & AOVK)' = ```
-			
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
-			
-			VAR BaseSalaryLC = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting]
-			VAR schaaltype = 'Fact Forecasting Medewerkers'[SchaalType Forecasting]
-			
-			VAR result =
-			IF(
-			    selectedGL = "4115000" && selectedLC = "3105" && schaaltype IN {"AOVK", "LNT"}, 
-			    BaseSalaryLC * 0.10,
-			    BLANK()
-			)
-			RETURN
-			result
-			```
-		lineageTag: d8f79ec7-e25d-4d26-a7f3-5cd338a186fa
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(M) LC 3121 - Reservering Vakantiegeld Bedrag' = ```
-			
-			// 4102000
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
-			
-			VAR BaseSalaryLC = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting]
-			
-			RETURN
-			IF(
-			    selectedGL = "4102000" && selectedLC = "3121" && NOT ('Fact Forecasting Medewerkers'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"}),
-			    BaseSalaryLC * 0.075,
-			    BLANK()
-			)
-			
-			```
-		lineageTag: 0dd2d9cc-32e6-4f6e-8679-3b0ff37d815c
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(M) LC 3135 - Vakantietoeslag Med Spec' = ```
-			
-			// 4102000
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
-			
-			
-			VAR BaseSalaryLC = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting]
-			
-			
-			RETURN
-			IF(
-			    selectedGL = "4102000" && selectedLC = "3135" && 'Fact Forecasting Medewerkers'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"}, 
-			    BaseSalaryLC * 0.075,
-			    BLANK()
-			)
-			```
-		lineageTag: 1a071912-c8b1-471d-98cf-3ea2f56ed4f7
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column '(M) WN Bijdrage pensioen (CAO)' = ```
 			
 			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
@@ -911,56 +540,6 @@ table 'Fact Forecasting Medewerkers'
 			)
 			```
 		lineageTag: 29dc4472-833a-4fed-85b3-984c57b553ab
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(M) WN Bijdrage Pensioen (LNT)' = ```
-			
-			
-			VAR selectedschaaltype = 'Fact Forecasting Medewerkers'[SchaalType Forecasting]
-			// 4115000
-			
-			VAR BaseSalaryLC = 'Fact Forecasting Medewerkers'[(M) LC 2434 - Salaris]
-			
-			RETURN
-			IF(
-			    selectedschaaltype = "LNT", 
-			    BaseSalaryLC * 0.10,
-			    BLANK()
-			)
-			```
-		lineageTag: 64c40a08-8db1-4164-8a2d-1fcc38348167
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(M) WN Bijdrage Pensioen (AOVK)' = ```
-			
-			
-			VAR selectedschaaltype = 'Fact Forecasting Medewerkers'[SchaalType Forecasting]
-			// 4115000
-			
-			VAR BaseSalaryLC = 'Fact Forecasting Medewerkers'[(M) LC 2434 - Salaris]
-			// CALCULATE(
-			//     [Salaris Bedrag Forecasting Medewerkers],
-			//     TREATAS({"2434"}, 'Fact Forecasting Medewerkers'[LC]),
-			//     'Dim SchaalType'[SchaalType Forecasting] = "Andere OVK",
-			//     'Dim Kostenplaats'[Kostenplaats] <> "1100"
-			// )
-			
-			RETURN
-			IF(
-			    selectedschaaltype = "Andere OVK" && 'Fact Forecasting Medewerkers'[Kostenplaats] <> "1100", 
-			    BaseSalaryLC * 0.10,
-			    BLANK()
-			)
-			```
-		lineageTag: f11c47c3-70e5-44b8-a926-a206065fb802
 		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
@@ -1066,63 +645,6 @@ table 'Fact Forecasting Medewerkers'
 		formatString: 0
 		lineageTag: aae7dd6a-ef75-4fea-b875-7ca13aa5d469
 		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-	column '(M) LC 3019 - Standby toelage FTE' =
-			
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
-			
-			RETURN
-			IF(
-			    selectedLC = "3019" && selectedGL = "4103000",
-			    'Fact Forecasting Medewerkers'[FTE (Divided by 100)],
-			    BLANK()
-			)
-		lineageTag: d46f0654-1944-43c5-b077-99aad9c3f64d
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(M) LC 3019 - Standby toelage' = ```
-			
-			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
-			VAR medewerkerID = 'Fact Forecasting Medewerkers'[Medewerker ID]
-			
-			VAR toeslagPerc = [% LC 3019 - Standbytoeslag]
-			
-			
-			VAR baseSalary = 'Fact Forecasting Medewerkers'[Salaris Base Forecasting]
-			
-			RETURN
-			IF(
-			    selectedGL = "4103000" && selectedLC = "3019",
-			    baseSalary * toeslagPerc,
-			    BLANK()
-			)
-			
-			```
-		lineageTag: b3d425bd-91dd-45bd-a581-abd67c8f7b29
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Flag Salary Actuals > Salary Forecasting' =
-			
-			IF(
-			    ('Fact Forecasting Medewerkers'[Max Salaris End Actuals] > 'Fact Forecasting Medewerkers'[(M) LC 2434 - Salaris]) && 'Fact Forecasting Medewerkers'[LC] = "2434",
-			    TRUE(),
-			    FALSE()
-			)
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 910279b5-31f9-4789-9df5-ba526df6e204
-		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
@@ -1411,9 +933,10 @@ table 'Fact Forecasting Medewerkers'
 				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type2",{{"Salaris Base Forecasting", "Salaris Base Forecasting Original 2"}}),
 				    #"Added Custom2" = Table.AddColumn(#"Renamed Columns", "Salaris Base Forecasting", each if [Period] >= 7 and ([#"Type Personeel ID"] = "Z_1" or [#"Type Personeel ID"] = "Z_3" or [#"Type Personeel ID"] = "Z_10" or [#"Type Personeel ID"] = "Z_15") or [#"SchaalType Forecasting"] = "Andere OVK" then [#"Salaris Base Forecasting Original 2"] else if [Period] < 7 then [#"Salaris Base Forecasting Original 2"] else ([#"Salaris Base Forecasting Original 2"] * [Indexering]) + [#"Salaris Base Forecasting Original 2"], type nullable number),
 				    #"Renamed Columns1" = Table.RenameColumns(#"Added Custom2",{{"Index Name", "Indexering Forecasting"}}),
-				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Indexering", type number}})
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Indexering", type number}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type1",{"Medewerker ID", "FTE", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "Year Forecasting", "Period", "Period (leading zeros)", "Anniversary Month", "Kostenplaats", "Type Personeel ID", "Year/Period", "Index Name Actuals", "SchaalType Forecasting", "Trede Verhoging (Forecasting)", "New Schaal ID (Forecasting)", "Softlanding per Maand", "Indexering Forecasting", "Indexering", "Salaris Base Forecasting"})
 				in
-				    #"Changed Type1"
+				    #"Removed Other Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 

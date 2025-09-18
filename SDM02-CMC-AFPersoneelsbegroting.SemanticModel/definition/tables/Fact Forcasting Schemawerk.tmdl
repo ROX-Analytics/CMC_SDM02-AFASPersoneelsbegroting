@@ -74,13 +74,12 @@ table 'Fact Forcasting Schemawerk'
 
 	column 'Bedrag Schemawerk'
 		dataType: double
+		formatString: 0.00
 		lineageTag: 40961a4e-fb73-4687-a761-d618c8ae9115
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Bedrag Schemawerk
 
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation SummarizationSetBy = User
 
 	column Grootboekrekeing = RELATED('Dim LC per GL'[Grootboekrekening])
 		lineageTag: b910b707-a479-4167-8f3d-4968a86341f6

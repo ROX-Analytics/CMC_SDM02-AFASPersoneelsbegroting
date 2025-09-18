@@ -577,78 +577,6 @@ table 'Fact Forecasting Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
-	column '(V) LC 3014 - Frequentietoeslag' =
-			
-			VAR medspec = 'Fact Forecasting Vacatures'[Flag Medische Specialisten]
-			VAR salaris = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
-			RETURN
-			IF(
-			    medspec = 1,
-			    salaris * 0.06,
-			    BLANK()
-			)
-		lineageTag: c1ca0e7b-a688-4bc5-9d3d-24cf7860a915
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(V) LC 3015 - Intensiteitstoeslag' =
-			
-			VAR medspec = 'Fact Forecasting Vacatures'[Flag Medische Specialisten]
-			VAR salaris = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
-			RETURN
-			IF(
-			    medspec = 1,
-			    salaris * 0.15,
-			    BLANK()
-			)
-		lineageTag: b19b64a5-21cd-4354-8efe-d558e77b22e0
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(V) LC 2545 - Pensioen Toeslag CAO' = ```
-			
-			VAR schaaltype = 'Fact Forecasting Vacatures'[SchaalType Forecasting]
-			VAR salaris = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
-			RETURN
-			IF(
-			    schaaltype = "CAO", 
-			    salaris * 0.09,
-			    BLANK()
-			)
-			```
-		lineageTag: 43f2dde9-659f-4574-995b-a1c3bc7126f7
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(V) LC 3075 - Overwerk 300%' = ```
-			
-			VAR salaris =  'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
-			VAR overwerkflag = 'Fact Forecasting Vacatures'[Flag overwerk 200% en 300%]
-			
-			RETURN
-			IF(
-			    overwerkflag = 1,
-			    salaris * 0.0049,
-			    BLANK()
-			)
-			
-			```
-		lineageTag: 16a72dd5-f7e8-4d47-bfbc-68afcd5ecca7
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column 'Flag overwerk 200% en 300%' = RELATED('Dim Vacatures Medewerker'[Flag Overtime 200% and 300% Type Personeel])
 		formatString: 0
 		lineageTag: dacf26c5-a1d4-45c4-a93d-1bca2a8424d5
@@ -659,32 +587,14 @@ table 'Fact Forecasting Vacatures'
 	column '(M) LC 3091 - WG Ziektekosten Specialisten' =
 			
 			VAR flagmedspec = 'Fact Forecasting Vacatures'[Flag Medische Specialisten]
-			
+			VAR selectedLC = 'Fact Forecasting Vacatures'[LC]
 			RETURN
 			IF(
-			    flagmedspec = 1,
+			    flagmedspec = 1 && selectedLC = "3091",
 			    DIVIDE(13000, 12, BLANK()),
 			    BLANK()
 			)
 		lineageTag: 56db8050-956c-42fc-8491-cebc297cea27
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column '(V) LC 3142 - Medische Kosten Eig Risico (Eigen Personeel)' =
-			
-			
-			VAR salaris = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
-			VAR flagmedspec = 'Fact Forecasting Vacatures'[Flag Medische Specialisten]
-			RETURN
-			IF(
-			    flagmedspec = 0,
-			    salaris * 0.04,
-			    BLANK()
-			)
-		lineageTag: a56efedc-5365-4acf-b746-47a7c9286640
 		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
@@ -722,25 +632,6 @@ table 'Fact Forecasting Vacatures'
 		sourceColumn: Grootboekrekening_omschrijving
 
 		annotation SummarizationSetBy = Automatic
-
-	column '(M) LC 2434 - Salaris' =
-			
-			VAR selectedGL = 'Fact Forecasting Vacatures'[Grootboekrekening]
-			VAR selectedLC = 'Fact Forecasting Vacatures'[LC]
-			VAR salary = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
-			
-			RETURN
-			IF(
-			    selectedGL = "4100000" && selectedLC = "2434",
-			    salary,
-			    BLANK()
-			)
-		lineageTag: 1cb54022-f1bf-473a-b5aa-230e7275aea4
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column '(V) LC 3080 Beroepkosten (Specialisten)' =
 			
@@ -784,6 +675,36 @@ table 'Fact Forecasting Vacatures'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column '(V) GB 4101100 - Maaltijd Vergoeding' = ```
+			
+			VAR selectedGl = 'Fact Forecasting Vacatures'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Vacatures'[LC]
+			VAR FTE =
+			CALCULATE(
+			    [FTE Forecasting Medewerker (max period at total)],
+			    ALL('Dim Looncomponent'),
+			    ALL('Dim Grootboek'),
+			    ALL('Dim Medewerker')
+			)
+			VAR ratio = DIVIDE(15000, FTE)
+			
+			VAR amount = ratio * 'Fact Forecasting Vacatures'[Verschil (excl)]
+			
+			RETURN
+			IF(
+			    selectedGl = "4101100" && selectedLC = "0001" && RELATED('Dim Vacatures Medewerker'[Flag Maaltijdvergoeding]) = 1,
+			    DIVIDE(amount, 12, BLANK()),
+			    BLANK()
+			)
+			
+			```
+		lineageTag: e5b81b40-496f-4033-a510-8c36bb329077
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition 'Fact Forecasting Vacatures' = m
 		mode: import
 		queryGroup: Model
@@ -821,7 +742,8 @@ table 'Fact Forecasting Vacatures'
 				    #"Filtered Rows1" = Table.SelectRows(#"Renamed Columns4", each [#"Verschil (excl)"] > 0),
 				    #"Merged Queries5" = Table.NestedJoin(#"Filtered Rows1", {"Formatieplaats"}, #"Dim Vacature per Verschil FTE", {"Formatieplaats"}, "Dim Vacature per Verschil FTE", JoinKind.LeftOuter),
 				    #"Expanded Dim Vacature per Verschil FTE" = Table.ExpandTableColumn(#"Merged Queries5", "Dim Vacature per Verschil FTE", {"Verschil (excl)", "Medewerker ID"}, {"Verschil (excl).1", "Medewerker ID"}),
-				    #"Renamed Columns7" = Table.RenameColumns(#"Expanded Dim Vacature per Verschil FTE",{{"Verschil (excl).1", "Verschil per Vac (FTE)"}}),
+				    #"Sorted Rows" = Table.Sort(#"Expanded Dim Vacature per Verschil FTE",{{"Medewerker ID", Order.Ascending}}),
+				    #"Renamed Columns7" = Table.RenameColumns(#"Sorted Rows",{{"Verschil (excl).1", "Verschil per Vac (FTE)"}}),
 				
 				    DimLCperGB = Table.Buffer(#"Dim LC per GL Support"),
 				
