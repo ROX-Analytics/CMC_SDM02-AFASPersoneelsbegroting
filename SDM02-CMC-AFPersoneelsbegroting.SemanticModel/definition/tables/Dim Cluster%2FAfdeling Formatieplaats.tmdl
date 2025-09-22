@@ -32,7 +32,8 @@ table 'Dim Cluster/Afdeling Formatieplaats'
 				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Cluster_Afdeling_3", "Cluster/Afdeling Formatieplaatsniveau"}}),
 				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns"),
 				    #"Filtered Rows" = Table.SelectRows(#"Removed Duplicates", each ([#"Cluster/Afdeling Formatieplaatsniveau"] <> null)),
-				    #"Added Index" = Table.AddIndexColumn(#"Filtered Rows", "Index", 1, 1, Int64.Type),
+				    #"Appended Query" = Table.Combine({#"Filtered Rows", #"Dim Cluster/Afdeling Formatie RvC"}),
+				    #"Added Index" = Table.AddIndexColumn(#"Appended Query", "Index", 1, 1, Int64.Type),
 				    #"Renamed Columns1" = Table.RenameColumns(#"Added Index",{{"Index", "C/A Formatie ID"}})
 				in
 				    #"Renamed Columns1"

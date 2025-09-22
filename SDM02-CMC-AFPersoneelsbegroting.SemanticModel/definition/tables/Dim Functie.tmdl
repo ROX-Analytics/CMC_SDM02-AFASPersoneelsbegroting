@@ -34,9 +34,10 @@ table 'Dim Functie'
 				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns"),
 				    #"Filtered Rows1" = Table.SelectRows(#"Removed Duplicates", each ([Functiecode] <> null)),
 				    #"Appended Query" = Table.Combine({#"Filtered Rows1", #"Functies Bezetting (Staging)"}),
-				    #"Removed Duplicates1" = Table.Distinct(#"Appended Query", {"Functiecode"})
+				    #"Removed Duplicates1" = Table.Distinct(#"Appended Query", {"Functiecode"}),
+				    #"Appended Query1" = Table.Combine({#"Removed Duplicates1", #"Dim Functie RvC"})
 				in
-				    #"Removed Duplicates1"
+				    #"Appended Query1"
 
 	annotation PBI_NavigationStepName = Navigation
 

@@ -4,7 +4,7 @@ expression ROWS = "200000" meta [IsParameterQuery=true, Type="Text", IsParameter
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Exception
+	annotation PBI_ResultType = Text
 
 expression StartYear = "2024" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 	lineageTag: 2bb4be4c-6749-4e89-982c-c90c8643a98f
@@ -12,7 +12,7 @@ expression StartYear = "2024" meta [IsParameterQuery=true, Type="Text", IsParame
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Exception
+	annotation PBI_ResultType = Text
 
 expression 'FormatiePlaats (Staging)' =
 		let
@@ -1182,29 +1182,6 @@ expression 'LNT 501K Schaal' =
 		    #"Added Custom"
 	lineageTag: 5d4a7eb0-7902-40c8-983d-2608884463fe
 	queryGroup: 'Staging\Functies & Schaal'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'Dim Cluster/Afdeling Functienveau' =
-		let
-		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
-		    rows = Source[rows],
-		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
-		    #"Filtered Rows1" = Table.SelectRows(#"Expanded Column1", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
-		    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows1",{{"Medewerker", "Medewerker ID"}}),
-		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Cluster_Afdeling_2"}),
-		    #"Renamed Columns1" = Table.RenameColumns(#"Removed Other Columns",{{"Cluster_Afdeling_2", "Cluster/Afdeling Functienveau"}}),
-		    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns1"),
-		    #"Filtered Rows" = Table.SelectRows(#"Removed Duplicates", each ([#"Cluster/Afdeling Functienveau"] <> null)),
-		    #"Added Index" = Table.AddIndexColumn(#"Filtered Rows", "Index", 1, 1, Int64.Type),
-		    #"Renamed Columns2" = Table.RenameColumns(#"Added Index",{{"Index", "C/A Functie ID"}})
-		in
-		    #"Renamed Columns2"
-	lineageTag: 85ae1477-5369-44d8-ab2e-0a71e255f2d6
-	queryGroup: Model
 
 	annotation PBI_NavigationStepName = Navigation
 
@@ -2991,6 +2968,96 @@ expression 'Dim Type Personeel RvC' =
 		in
 		    #"Renamed Columns1"
 	lineageTag: f90d3b2d-a567-49c8-80e2-d89552e3d105
+	queryGroup: 'Staging\Kosten RvC'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Dienstbetrekking RvC' =
+		let
+		    Source = #"Dim Medewerker RVC Staging",
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"Dienstbetrekking"}),
+		    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns")
+		in
+		    #"Removed Duplicates"
+	lineageTag: 781c77d9-7a20-46f8-b49d-253b31aa9918
+	queryGroup: 'Staging\Kosten RvC'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Organisatorische Eenheid RvC' =
+		let
+		    Source = #"Dim Medewerker RVC Staging",
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"OE", "OE Omschrijving"}),
+		    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns", {"OE"})
+		in
+		    #"Removed Duplicates"
+	lineageTag: 6b11978e-83e0-4cd6-8dc7-86ec30ab00cc
+	queryGroup: 'Staging\Kosten RvC'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Formatieplaats RvC' =
+		let
+		    Source = #"Dim Medewerker RVC Staging",
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"Code Formatie- plaats", "Formatieplaats"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Code Formatie- plaats", "Omschrijving"}}),
+		    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns", {"Formatieplaats"})
+		in
+		    #"Removed Duplicates"
+	lineageTag: e1a161fd-9d57-4195-be10-de12a660297d
+	queryGroup: 'Staging\Kosten RvC'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Functie RvC' =
+		let
+		    Source = #"Dim Medewerker RVC Staging",
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"Functie"}),
+		    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
+		    #"Added Index" = Table.AddIndexColumn(#"Removed Duplicates", "Index", 1, 1, Int64.Type),
+		    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "Functiecode"}}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Functiecode", type text}}),
+		    #"Added Prefix" = Table.TransformColumns(#"Changed Type", {{"Functiecode", each "RVC_" & _, type text}})
+		in
+		    #"Added Prefix"
+	lineageTag: a3be6dc0-2afa-4d25-9632-b6cd05066529
+	queryGroup: 'Staging\Kosten RvC'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Cluster/Afdeling Formatie RvC' =
+		let
+		    Source = #"Dim Medewerker RVC Staging",
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"Cluster/Afdeling Formatieplaatsniveau"}),
+		    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns")
+		in
+		    #"Removed Duplicates"
+	lineageTag: 3d8c6a43-eef2-41ca-bf86-083eb50a8e42
+	queryGroup: 'Staging\Kosten RvC'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Cluster/Afdeling Functie RvC' =
+		let
+		    Source = #"Dim Medewerker RVC Staging",
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"Cluster/Afdeling Formatieplaatsniveau"}),
+		    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Duplicates",{{"Cluster/Afdeling Formatieplaatsniveau", "Cluster/Afdeling Functienveau"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 7b552f38-f907-48b4-98ca-1c6a0a58d4e9
 	queryGroup: 'Staging\Kosten RvC'
 
 	annotation PBI_NavigationStepName = Navigation

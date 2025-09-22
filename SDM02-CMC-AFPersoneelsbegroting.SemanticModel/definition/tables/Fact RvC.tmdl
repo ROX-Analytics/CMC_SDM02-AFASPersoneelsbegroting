@@ -1,0 +1,118 @@
+table 'Fact RvC'
+	lineageTag: 1fb558da-9c68-461b-8d42-7cf9f82b99ea
+
+	column 'Mdw.'
+		dataType: string
+		lineageTag: b5162636-fcdc-4b58-80fd-b69a18fd306e
+		summarizeBy: none
+		sourceColumn: Mdw.
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Salaris per Maand'
+		dataType: double
+		lineageTag: 0f7f69aa-d111-4870-87e4-85e6b064f029
+		summarizeBy: sum
+		sourceColumn: Salaris per Maand
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Months
+		dataType: int64
+		formatString: 0
+		lineageTag: a2e4e9b3-6bcd-4bfe-833e-a4863609c3b6
+		summarizeBy: sum
+		sourceColumn: Months
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Forecasting Year'
+		dataType: string
+		lineageTag: f3e7f594-2994-4896-825c-94c1a02004e7
+		summarizeBy: none
+		sourceColumn: Forecasting Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Period (Leading zeros)'
+		dataType: string
+		lineageTag: 33b49549-82cb-4d9c-a10d-807db182c391
+		summarizeBy: none
+		sourceColumn: Period (Leading zeros)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year/Period
+		dataType: string
+		lineageTag: eb6eacd0-3b0f-4586-8efc-0fef469f3aa0
+		summarizeBy: none
+		sourceColumn: Year/Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column LC
+		dataType: string
+		lineageTag: 299b7e29-5423-4907-acdc-0eb89d833bf5
+		summarizeBy: none
+		sourceColumn: LC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostenplaats
+		dataType: string
+		lineageTag: 5bb03335-c787-4f48-b371-f3b06c7ade71
+		summarizeBy: none
+		sourceColumn: Kostenplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grootboekrekening
+		dataType: string
+		lineageTag: 3abb4824-3fc5-444f-ae1c-c28ac037aa2c
+		summarizeBy: none
+		sourceColumn: Grootboekrekening
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Type Personeel ID'
+		dataType: string
+		lineageTag: 520ef52c-33b4-485b-961a-b2fd978fdfb5
+		summarizeBy: none
+		sourceColumn: Type Personeel ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal ID'
+		dataType: double
+		lineageTag: 2cb400a4-e517-4d64-967f-ba345dfd24bb
+		summarizeBy: none
+		sourceColumn: Schaal ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Fact RvC' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+				    #"a4e57e63-b408-45d6-a6f0-a1e2d7a608e7" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="a4e57e63-b408-45d6-a6f0-a1e2d7a608e7"]}[Data],
+				    #"Fact RvC Salaris_" = #"a4e57e63-b408-45d6-a6f0-a1e2d7a608e7"{[entity="Fact RvC Salaris",version=""]}[Data],
+				    #"Added Custom" = Table.AddColumn(#"Fact RvC Salaris_", "LC", each "0001", type nullable text),
+				    #"Added Custom2" = Table.AddColumn(#"Added Custom", "Kostenplaats", each "1000", type nullable text),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom2", "Grootboekrekening", each "4126000", type nullable text),
+				    #"Merged Queries" = Table.NestedJoin(#"Added Custom1", {"Mdw."}, #"Dim Medewerker RVC", {"Medewerker ID"}, "Dim Medewerker RVC", JoinKind.LeftOuter),
+				    #"Expanded Dim Medewerker RVC" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker RVC", {"Type Personeel ID", "Schaal ID"}, {"Type Personeel ID", "Schaal ID"})
+				in
+				    #"Expanded Dim Medewerker RVC"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

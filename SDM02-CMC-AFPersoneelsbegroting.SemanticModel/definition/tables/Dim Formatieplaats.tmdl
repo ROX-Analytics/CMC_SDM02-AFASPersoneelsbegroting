@@ -38,9 +38,10 @@ table 'Dim Formatieplaats'
 				let
 				    Source = #"FormatiePlaats (Staging)",
 				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Declarerend_Niet-declarerend", "Formatieplaats", "Omschrijving"}),
-				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns")
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
+				    #"Appended Query" = Table.Combine({#"Removed Duplicates", #"Dim Formatieplaats RvC"})
 				in
-				    #"Removed Duplicates"
+				    #"Appended Query"
 
 	annotation PBI_NavigationStepName = Navigation
 

@@ -1,0 +1,109 @@
+table 'Dim Medewerker RVC'
+	lineageTag: 882a2d7d-81d1-4e05-ab7e-c0a9353b7425
+
+	column 'Medewerker ID'
+		dataType: string
+		lineageTag: 19e26ab8-69da-4f83-88cd-2570189215a9
+		summarizeBy: none
+		sourceColumn: Medewerker ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Voornaam
+		dataType: string
+		lineageTag: bd7015e2-5546-44ea-9bea-e188f7901097
+		summarizeBy: none
+		sourceColumn: Voornaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'OE Code'
+		dataType: string
+		lineageTag: 56f404fd-0ddf-4104-a49f-06ec64270d18
+		summarizeBy: none
+		sourceColumn: OE Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Formatieplaats
+		dataType: string
+		lineageTag: a61aa129-01ad-4d53-a8b6-33489c88694b
+		summarizeBy: none
+		sourceColumn: Formatieplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Type Personeel ID'
+		dataType: string
+		lineageTag: 71ccc99f-b4c7-4f3b-bcdb-a540ce7306c4
+		summarizeBy: none
+		sourceColumn: Type Personeel ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dienstbetrekking ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d37507a-53af-497d-a8af-c3214af4af1c
+		summarizeBy: count
+		sourceColumn: Dienstbetrekking ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Functie
+		dataType: string
+		lineageTag: 1b5cbabb-7ad8-42e0-85dc-9c21cf5d7448
+		summarizeBy: none
+		sourceColumn: Functie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'C/A Formatie ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0e9adf5a-1427-4ee8-962f-0808835f937c
+		summarizeBy: count
+		sourceColumn: C/A Formatie ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Schaal ID'
+		dataType: double
+		lineageTag: 023b5956-2915-46e9-b95f-21a5c76a45a5
+		summarizeBy: count
+		sourceColumn: Schaal ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Dim Medewerker RVC' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364" = Workspaces{[workspaceId="32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"]}[Data],
+				    #"a4e57e63-b408-45d6-a6f0-a1e2d7a608e7" = #"32fd7b43-b2ac-4114-8fd0-5c58b7fe7364"{[dataflowId="a4e57e63-b408-45d6-a6f0-a1e2d7a608e7"]}[Data],
+				    #"Dim Medewerker RVC_" = #"a4e57e63-b408-45d6-a6f0-a1e2d7a608e7"{[entity="Dim Medewerker RVC",version=""]}[Data],
+				    #"Renamed Columns" = Table.RenameColumns(#"Dim Medewerker RVC_",{{"Org. eenheid code", "OE"}, {"Organisatorische eenheid", "OE Omschrijving"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Type Personeel ID", each "O_5", type nullable text),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Added Custom",{{"Mdw.", "Medewerker ID"}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns1",{"Medewerker ID", "Naam", "Cluster/Afdeling Formatieplaatsniveau", "Dienstbetrekking", "OE", "OE Omschrijving", "Formatieplaats", "Functie", "Type Personeel ID"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Removed Other Columns", {"Dienstbetrekking"}, #"Dim Dienstbetrekking", {"Dienstbetrekking"}, "Dim Dienstbetrekking", JoinKind.LeftOuter),
+				    #"Expanded Dim Dienstbetrekking" = Table.ExpandTableColumn(#"Merged Queries", "Dim Dienstbetrekking", {"Dienstbetrekking ID"}, {"Dienstbetrekking ID"}),
+				    #"Merged Queries1" = Table.NestedJoin(#"Expanded Dim Dienstbetrekking", {"Functie"}, #"Dim Functie", {"Functie"}, "Dim Functie", JoinKind.LeftOuter),
+				    #"Expanded Dim Functie" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Functie", {"Functiecode"}, {"Functiecode"}),
+				    #"Merged Queries2" = Table.NestedJoin(#"Expanded Dim Functie", {"Cluster/Afdeling Formatieplaatsniveau"}, #"Dim Cluster/Afdeling Formatieplaats", {"Cluster/Afdeling Formatieplaatsniveau"}, "Dim Cluster/Afdeling Formatieplaats", JoinKind.LeftOuter),
+				    #"Expanded Dim Cluster/Afdeling Formatieplaats" = Table.ExpandTableColumn(#"Merged Queries2", "Dim Cluster/Afdeling Formatieplaats", {"C/A Formatie ID"}, {"C/A Formatie ID"}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Expanded Dim Cluster/Afdeling Formatieplaats",{"Medewerker ID", "Naam", "OE", "Formatieplaats", "Type Personeel ID", "Dienstbetrekking ID", "Functiecode", "C/A Formatie ID"}),
+				    #"Added Custom1" = Table.AddColumn(#"Removed Other Columns1", "Schaal ID", each 180, type nullable number),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Added Custom1",{{"Naam", "Voornaam"}, {"Functiecode", "Functie"}, {"OE", "OE Code"}})
+				in
+				    #"Renamed Columns2"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,24 +1,24 @@
-table 'Dim Dienstbetrekking'
-	lineageTag: 008b4704-71ee-45fd-b284-a79ca01516d2
+table 'Dim Cluster/Afdeling Functienveau'
+	lineageTag: 57e544d5-5879-43dc-be12-68da9d405ac9
 
-	column Dienstbetrekking
+	column 'Cluster/Afdeling Functienveau'
 		dataType: string
-		lineageTag: 53a2f9bc-84f8-4e33-b103-e3de75e0486c
+		lineageTag: cf41d82e-05aa-45b8-8759-01c67d9f2064
 		summarizeBy: none
-		sourceColumn: Dienstbetrekking
+		sourceColumn: Cluster/Afdeling Functienveau
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Dienstbetrekking ID'
+	column 'C/A Functie ID'
 		dataType: int64
 		formatString: 0
-		lineageTag: 52310b27-5f3e-45a2-99b7-634746b4feac
-		summarizeBy: none
-		sourceColumn: Dienstbetrekking ID
+		lineageTag: 525c7128-589d-4d07-ab5f-11cb62a79f93
+		summarizeBy: count
+		sourceColumn: C/A Functie ID
 
 		annotation SummarizationSetBy = Automatic
 
-	partition 'Dim Dienstbetrekking' = m
+	partition 'Dim Cluster/Afdeling Functienveau' = m
 		mode: import
 		queryGroup: Model
 		source =
@@ -27,13 +27,17 @@ table 'Dim Dienstbetrekking'
 				    rows = Source[rows],
 				    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
 				    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
-				    #"Removed Other Columns" = Table.SelectColumns(#"Expanded Column1",{"Dienstbetrekking"}),
-				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
-				    #"Appended Query" = Table.Combine({#"Removed Duplicates", #"Dim Dienstbetrekking RvC"}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Expanded Column1", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
+				    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows1",{{"Medewerker", "Medewerker ID"}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Cluster_Afdeling_2"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Other Columns",{{"Cluster_Afdeling_2", "Cluster/Afdeling Functienveau"}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns1"),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Duplicates", each ([#"Cluster/Afdeling Functienveau"] <> null)),
+				    #"Appended Query" = Table.Combine({#"Filtered Rows", #"Dim Cluster/Afdeling Functie RvC"}),
 				    #"Added Index" = Table.AddIndexColumn(#"Appended Query", "Index", 1, 1, Int64.Type),
-				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "Dienstbetrekking ID"}})
+				    #"Renamed Columns2" = Table.RenameColumns(#"Added Index",{{"Index", "C/A Functie ID"}})
 				in
-				    #"Renamed Columns"
+				    #"Renamed Columns2"
 
 	annotation PBI_NavigationStepName = Navigation
 

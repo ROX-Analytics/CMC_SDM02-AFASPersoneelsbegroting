@@ -64,9 +64,10 @@ table 'Dim Type Personeel'
 		queryGroup: Model
 		source =
 				let
-				    Source = Table.Combine({#"Dim Type Personeel Zorg", #"Dim Staf Type Personeel", #"Dim Overig Type Personeel"})
+				    Source = Table.Combine({#"Dim Type Personeel Zorg", #"Dim Staf Type Personeel", #"Dim Overig Type Personeel"}),
+				    #"Appended Query" = Table.Combine({Source, #"Dim Type Personeel RvC"})
 				in
-				    Source
+				    #"Appended Query"
 
 	annotation PBI_NavigationStepName = Navigation
 

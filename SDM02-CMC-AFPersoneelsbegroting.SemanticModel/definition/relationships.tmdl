@@ -420,3 +420,31 @@ relationship 437b7a09-a130-a47c-91cd-5a6941457ab3
 	fromColumn: 'Fact Forcasting Schemawerk'.Grootboekrekeing
 	toColumn: 'Dim Grootboek'.'Code Grootboek'
 
+relationship 6fa8b306-83f9-c454-9be0-aa78acc2ddea
+	fromColumn: 'Fact RvC'.LC
+	toColumn: 'Dim Looncomponent'.LC
+
+relationship 8f0f8d3a-473d-6ea8-4136-fd7accac5807
+	fromColumn: 'Fact RvC'.Grootboekrekening
+	toColumn: 'Dim Grootboek'.'Code Grootboek'
+
+relationship 239d7323-f491-4bb9-14df-8fdee63fc204
+	fromColumn: 'Fact RvC'.Year/Period
+	toColumn: 'Dim Period'.Year/Period
+
+relationship a4eb962e-2124-bd5a-8dd5-b6f3b88be313
+	fromColumn: 'Fact RvC'.'Mdw.'
+	toColumn: 'Dim Medewerker RVC'.'Medewerker ID'
+
+relationship 3fd13aec-a95c-2cc8-60c6-84393c69fa2d
+	fromColumn: 'Fact RvC'.'Schaal ID'
+	toColumn: 'Dim SchaalType'.'Schaal ID'
+
+relationship 1b6bf244-906d-6959-e532-39f12b8bac94
+	fromColumn: 'Dim Medewerker RVC'.Functie
+	toColumn: 'Dim Functie'.Functiecode
+
+relationship 7ddb3953-0bad-1671-89a0-9f2c08f6d6cb
+	fromColumn: 'Dim Medewerker RVC'.'OE Code'
+	toColumn: 'Dim Organisatie Eenheid'.OE
+
