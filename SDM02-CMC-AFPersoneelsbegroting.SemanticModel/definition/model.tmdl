@@ -130,7 +130,6 @@ ref table 'Dim Staf of Zorg'
 ref table 'Dim Gratificatie Jubileum'
 ref table 'Dim Vacatures Medewerker'
 ref table 'Fact Forecasting Vacatures'
-ref table LocalDateTable_2d48c39c-d009-4314-8331-6a126025f12a
 ref table LocalDateTable_b0951fab-f7e7-469c-b1c8-e5981f017388
 ref table 'Dim Indexering Actuals'
 ref table 'Fact Salaris Indexering Actuals'
@@ -150,8 +149,6 @@ ref table 'Fact GL Totals Per Year/Period'
 ref table 'Dim Percentage Vacature'
 ref table 'Dim LC per GL'
 ref table 'Dim Vacature Start of Month'
-ref table LocalDateTable_ae22db71-6e80-449c-a062-1c75b7543d37
-ref table LocalDateTable_09f1961f-7882-4891-a429-9a2748d6b7e6
 ref table 'Dim Medewerker/Vacatures'
 ref table LocalDateTable_cad87efc-2d83-4962-8028-119a11bfd5a0
 ref table LocalDateTable_029a4dfd-497c-495a-b6c9-c9d6b1c6c6d9
@@ -165,6 +162,8 @@ ref table 'Dim Organisatie Eenheid Flag Standby'
 ref table 'Fact RvC'
 ref table 'Dim Medewerker RVC'
 ref table 'Dim Cluster/Afdeling Functienveau'
+ref table LocalDateTable_f4f31fd6-b684-4c83-90ec-96d1de590f5f
+ref table LocalDateTable_b64d31bf-1cf2-48a4-b2bb-73a8d842cffd
 
 ref cultureInfo en-US
 

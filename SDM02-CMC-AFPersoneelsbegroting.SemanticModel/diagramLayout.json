@@ -1028,7 +1028,7 @@
       "ordinal": 5,
       "scrollPosition": {
         "x": 0,
-        "y": 21.333333969116211
+        "y": 0
       },
       "nodes": [
         {
@@ -1042,7 +1042,7 @@
             "height": 324,
             "width": 198
           },
-          "zIndex": 2
+          "zIndex": 5
         },
         {
           "location": {
@@ -1055,7 +1055,7 @@
             "height": 159,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 6
         },
         {
           "location": {
@@ -1068,7 +1068,7 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 7
         },
         {
           "location": {
@@ -1081,7 +1081,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 8
         },
         {
           "location": {
@@ -1094,7 +1094,7 @@
             "height": 321,
             "width": 234
           },
-          "zIndex": 7
+          "zIndex": 11
         },
         {
           "location": {
@@ -1107,7 +1107,7 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 6
+          "zIndex": 9
         },
         {
           "location": {
@@ -1120,7 +1120,7 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 8
+          "zIndex": 10
         },
         {
           "location": {
@@ -1133,7 +1133,7 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 4
         },
         {
           "location": {
@@ -1146,7 +1146,7 @@
             "height": 145,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         },
         {
           "location": {
@@ -1159,7 +1159,7 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 2
         },
         {
           "location": {
@@ -1172,7 +1172,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 3
         }
       ],
       "name": "Fact For Vacatures",
@@ -1998,8 +1998,8 @@
     {
       "ordinal": 16,
       "scrollPosition": {
-        "x": 8,
-        "y": 251.33332824707031
+        "x": 339.33334350585938,
+        "y": 64
       },
       "nodes": [
         {
@@ -2013,7 +2013,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 6
         },
         {
           "location": {
@@ -2026,7 +2026,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 5
         },
         {
           "location": {
@@ -2039,7 +2039,7 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 6
+          "zIndex": 7
         },
         {
           "location": {
@@ -2052,7 +2052,7 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 2
         },
         {
           "location": {
@@ -2065,7 +2065,7 @@
             "height": 234,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 3
         },
         {
           "location": {
@@ -2078,12 +2078,12 @@
             "height": 192,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 4
         },
         {
           "location": {
-            "x": 532.33333206176758,
-            "y": 683
+            "x": 617.33333206176758,
+            "y": 691
           },
           "nodeIndex": "Dim Functie",
           "nodeLineageTag": "ee3d1dd8-72a5-4cd8-b499-4d452ad4c546",
@@ -2091,7 +2091,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 7
+          "zIndex": 8
         },
         {
           "location": {
@@ -2102,6 +2102,32 @@
           "nodeLineageTag": "81c24bbf-9ac2-48f5-9b10-a06d2f097f34",
           "size": {
             "height": 152,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 387.33333206176758,
+            "y": 579.33332824707031
+          },
+          "nodeIndex": "Dim Formatieplaats",
+          "nodeLineageTag": "10d06fa1-5849-41e1-a468-653228f72526",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 864.33333206176758,
+            "y": 400.33334350585938
+          },
+          "nodeIndex": "Dim Cluster/Afdeling Formatieplaats",
+          "nodeLineageTag": "f8bb1cbf-67b7-4305-842a-7efd5247f772",
+          "size": {
+            "height": 128,
             "width": 234
           },
           "zIndex": 0
@@ -2115,6 +2141,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Fact RvC",
+  "selectedDiagram": "Fact For Vacatures",
   "defaultDiagram": "All tables"
 }

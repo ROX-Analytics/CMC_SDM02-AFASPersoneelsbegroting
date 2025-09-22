@@ -94,6 +94,44 @@ table 'Fact RvC'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column 'Grondslag AOV/AVBZ' =
+			
+			IF(
+			     'Fact RvC'[Mdw.] = "010",
+			     BLANK(),
+			     'Fact RvC'[Salaris per Maand] - 41.67
+			)
+		lineageTag: 64dc4f90-be80-44a7-8db2-3a65c5aec57c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Berekende AOV' = 'Fact RvC'[Grondslag AOV/AVBZ] * 0.095
+		lineageTag: 392ee5e5-3138-4c83-9160-0bce96450575
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Berekende AVBZ' = 'Fact RvC'[Grondslag AOV/AVBZ] * 0.005
+		lineageTag: 41fdaf2c-bfcc-4074-af0d-e153ea459c92
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Totale Bedrag RvC' = 'Fact RvC'[Salaris per Maand] + 'Fact RvC'[Berekende AOV] + 'Fact RvC'[Berekende AVBZ]
+		lineageTag: f31338ad-d73e-4709-b0e4-a93ed96a58bf
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition 'Fact RvC' = m
 		mode: import
 		queryGroup: Model

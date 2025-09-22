@@ -1095,6 +1095,7 @@ table 'Measure Table'
 
 	measure 'Totale Bedrag Medewerker Forecasting' = ```
 			
+			VAR Medewerker =
 			SUMX(
 			    'Dim Grootboek',
 			    'Measure Table'[(M) GB 4101100 - Maaltijd Vergoeding] + 
@@ -1136,6 +1137,11 @@ table 'Measure Table'
 			    'Measure Table'[(M) LC 3142 - Medische Kosten Eig Risico (Eigen Personeel)] +
 			    'Measure Table'[(M) LC 3164 - Softlanding]
 			)
+			
+			VAR RvC = [(M) GB 4126000 - RvC Kosten]
+			
+			RETURN
+			Medewerker + RvC
 			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 16134d26-6f71-4796-b993-4cfe858a4bee
@@ -2893,7 +2899,9 @@ table 'Measure Table'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Totale Bedrag (Mdw + Vac)' = [Totale Bedrag Vacatures Forecasting] + [Totale Bedrag Medewerker Forecasting]
+	measure 'Totale Bedrag (Mdw + Vac)' = ```
+			[Totale Bedrag Vacatures Forecasting] + [Totale Bedrag Medewerker Forecasting] 
+			```
 		formatString: #,0.00
 		displayFolder: Forecasting
 		lineageTag: d61e2652-686e-4477-b52e-8f824a0eae96
@@ -4857,6 +4865,18 @@ table 'Measure Table'
 			```
 		displayFolder: Forecasting\Medewerker\Schemawerk
 		lineageTag: bbe41782-48ce-4c06-a1fe-f6aacd9ddbd2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(M) GB 4126000 - RvC Kosten' = SUM('Fact RvC'[Totale Bedrag RvC])
+		displayFolder: Forecasting\Medewerker
+		lineageTag: 3ad0c82f-b9e3-4ac9-b92c-eb9f2f812c9e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total FTE (MdW + Vac)' = [FTE Forecasting Medewerker (max period at total)] + [FTE Forecasting Vacatures TEST]
+		displayFolder: Forecasting
+		lineageTag: 50aa2299-e352-4b69-bb30-b70a4f4a7c8d
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 

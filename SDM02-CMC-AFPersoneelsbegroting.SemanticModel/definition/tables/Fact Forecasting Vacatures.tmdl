@@ -90,14 +90,6 @@ table 'Fact Forecasting Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
-	column OE
-		dataType: string
-		lineageTag: 61b32662-ff5a-49e9-9769-e874c9ffbbcb
-		summarizeBy: none
-		sourceColumn: OE
-
-		annotation SummarizationSetBy = Automatic
-
 	column Omschrijving_2
 		dataType: string
 		lineageTag: a39c1d9a-8fe1-4189-8d58-7816c77a2446
@@ -140,98 +132,15 @@ table 'Fact Forecasting Vacatures'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column Werkelijk
-		dataType: double
-		lineageTag: 442c1a20-e68a-4f3a-81dd-e77cbb574428
-		summarizeBy: sum
-		sourceColumn: Werkelijk
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column Instroom
-		dataType: double
-		lineageTag: f7790bc6-8572-42d6-a945-09c1a526059f
-		summarizeBy: sum
-		sourceColumn: Instroom
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'FTE uitstroom (zonder bepaalde tijd)'
-		dataType: double
-		lineageTag: 2081f823-c7e1-4c42-830f-193e6997388d
-		summarizeBy: sum
-		sourceColumn: FTE uitstroom (zonder bepaalde tijd)
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column Verschil
 		dataType: double
-		lineageTag: 235d3332-b588-4a76-b758-8da145ab291a
+		lineageTag: 06dbf6df-b7f0-4f7c-8b1a-a500e7cc548a
 		summarizeBy: sum
 		sourceColumn: Verschil
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Verschil (excl) Original'
-		dataType: double
-		lineageTag: 06dbf6df-b7f0-4f7c-8b1a-a500e7cc548a
-		summarizeBy: sum
-		sourceColumn: Verschil (excl) Original
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column Gebruiker
-		dataType: string
-		lineageTag: be896c72-ad7c-493a-98cc-7d6789f872c3
-		summarizeBy: none
-		sourceColumn: Gebruiker
-
-		annotation SummarizationSetBy = Automatic
-
-	column Type_functie
-		dataType: string
-		lineageTag: 11d8e508-6bd4-4468-b648-a161310754ce
-		summarizeBy: none
-		sourceColumn: Type_functie
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Begin Datum'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: b8f3d855-2c39-4b17-bd6e-70d0ea1bd966
-		summarizeBy: none
-		sourceColumn: Begin Datum
-
-		variation Variation
-			isDefault
-			relationship: c0bc57d4-0f7c-4d72-aa4f-b66e69583786
-			defaultHierarchy: LocalDateTable_2d48c39c-d009-4314-8331-6a126025f12a.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column 'Tijd Gewijzigd'
-		dataType: dateTime
-		formatString: Long Time
-		lineageTag: 4801987c-2d6e-41c2-8ff1-8b00465a3ba6
-		summarizeBy: none
-		sourceColumn: Tijd Gewijzigd
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Time
 
 	column Uren_Begroot
 		dataType: double
@@ -458,46 +367,6 @@ table 'Fact Forecasting Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
-	column Naam
-		dataType: string
-		lineageTag: 9d9e7c5a-4fa3-4dfc-8440-dd2a79099819
-		summarizeBy: none
-		sourceColumn: Naam
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Eind Datum'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: e9f1cb5b-fee3-42aa-a857-87e3c8795d8e
-		summarizeBy: none
-		sourceColumn: Eind Datum
-
-		variation Variation
-			isDefault
-			relationship: 38a41140-4685-45d6-9587-51ae262b895c
-			defaultHierarchy: LocalDateTable_ae22db71-6e80-449c-a062-1c75b7543d37.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column 'Datum Gewijzigd'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 163e5c4c-f43f-456f-a1bb-5dd9cef86dd8
-		summarizeBy: none
-		sourceColumn: Datum Gewijzigd
-
-		variation Variation
-			isDefault
-			relationship: cbd76164-df60-43dd-8a81-3743438dc5ce
-			defaultHierarchy: LocalDateTable_09f1961f-7882-4891-a429-9a2748d6b7e6.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
 	column 'Bruto Salaris'
 		dataType: double
 		lineageTag: 8b2fd85b-ce3a-4bcf-8c17-0954f5754703
@@ -508,11 +377,11 @@ table 'Fact Forecasting Vacatures'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'Medewerker ID'
+	column 'Medewerker ID Original'
 		dataType: string
 		lineageTag: 2e4e9c00-8320-4eb3-b9ad-4d918c503b7d
 		summarizeBy: none
-		sourceColumn: Medewerker ID
+		sourceColumn: Medewerker ID Original
 
 		annotation SummarizationSetBy = Automatic
 
@@ -525,11 +394,11 @@ table 'Fact Forecasting Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Verschil (excl)'
+	column 'Verschil (excl) Original'
 		dataType: double
 		lineageTag: 40bde6e0-1564-447d-b7a0-3709453ea3ca
 		summarizeBy: sum
-		sourceColumn: Verschil (excl)
+		sourceColumn: Verschil (excl) Original
 
 		annotation SummarizationSetBy = Automatic
 
@@ -705,44 +574,105 @@ table 'Fact Forecasting Vacatures'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column OE
+		dataType: string
+		lineageTag: 22dd1bdd-8a43-4ed6-a09d-5d956f0399d5
+		summarizeBy: none
+		sourceColumn: OE
+
+		annotation SummarizationSetBy = Automatic
+
+	column Werkelijk
+		dataType: double
+		lineageTag: c2ebe4cf-f6a0-43bd-aed7-5f6a3b0e33d6
+		summarizeBy: sum
+		sourceColumn: Werkelijk
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Instroom
+		dataType: double
+		lineageTag: dc143a42-3920-484b-9242-af2c7bc41f05
+		summarizeBy: sum
+		sourceColumn: Instroom
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'FTE uitstroom (zonder bepaalde tijd)'
+		dataType: double
+		lineageTag: f05aa22b-2969-4cbf-8e0b-45ae750d2592
+		summarizeBy: sum
+		sourceColumn: FTE uitstroom (zonder bepaalde tijd)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Begin Datum'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d393c1cb-4ccd-49bb-959b-ff1f8f58abeb
+		summarizeBy: none
+		sourceColumn: Begin Datum
+
+		variation Variation
+			isDefault
+			relationship: 9e424a93-4433-4d2b-9c9a-522e7383c160
+			defaultHierarchy: LocalDateTable_f4f31fd6-b684-4c83-90ec-96d1de590f5f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Eind Datum'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ca3a4d6a-caa4-428d-aa0b-ca41e2f74599
+		summarizeBy: none
+		sourceColumn: Eind Datum
+
+		variation Variation
+			isDefault
+			relationship: c4911d00-964a-4958-80a0-86439701f0b8
+			defaultHierarchy: LocalDateTable_b64d31bf-1cf2-48a4-b2bb-73a8d842cffd.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Medewerker ID'
+		dataType: string
+		lineageTag: 12eb73ed-2e16-4588-9fad-7d7a1b51d2a7
+		summarizeBy: none
+		sourceColumn: Medewerker ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Verschil (excl)'
+		dataType: double
+		lineageTag: 4fc26041-9819-4d0b-9ba3-c23a9ff96f1e
+		summarizeBy: sum
+		sourceColumn: Verschil (excl)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition 'Fact Forecasting Vacatures' = m
 		mode: import
 		queryGroup: Model
 		source =
 				let
-				    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_Formatieplaats" & "?skip=-1&take=-1", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
-				    rows = Source[rows],
-				    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-				    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Formatieplaats", "Omschrijving"}, {"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Formatieplaats", "Omschrijving"}),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Column1",{{"Geblokkeerd", type logical}, {"Naam_werkgever", type text}, {"Patientgebonden_functies", type text}, {"Soort_functie", type text}, {"Declarerend_Niet-declarerend", type text}, {"Service_Lines", type text}, {"Cluster_Afdeling", type text}, {"Omschrijving", type text}, {"Formatieplaats", type text}, {"Kostenplaats", Int64.Type}, {"Organisatorische_eenheid", type text}, {"Omschrijving_2", type text}, {"Functie", type text}, {"Omschrijving_3", type text}, {"Generieke_functienaam", type text}, {"Gebruiker", type text}, {"Type_functie", type text}, {"Naam", type text}}),
-				    #"Inserted Text Before Delimiter" = Table.AddColumn(#"Changed Type", "Text Before Delimiter", each Text.BeforeDelimiter([Einddatum], "T"), type text),
-				    #"Changed Type1" = Table.TransformColumnTypes(#"Inserted Text Before Delimiter",{{"Text Before Delimiter", type date}}),
-				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type1",{{"Text Before Delimiter", "Eind Datum"}}),
-				    #"Inserted Text Before Delimiter1" = Table.AddColumn(#"Renamed Columns", "Text Before Delimiter", each Text.BeforeDelimiter([Begindatum], "T"), type text),
-				    #"Renamed Columns1" = Table.RenameColumns(#"Inserted Text Before Delimiter1",{{"Text Before Delimiter", "Begin Datum"}}),
-				    #"Changed Type2" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Begin Datum", type date}}),
-				    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type2",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begindatum", "Einddatum", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gewijzigd", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum"}),
-				    #"Inserted Text Before Delimiter2" = Table.AddColumn(#"Reordered Columns", "Text Before Delimiter", each Text.BeforeDelimiter([Gewijzigd], "T"), type text),
-				    #"Renamed Columns2" = Table.RenameColumns(#"Inserted Text Before Delimiter2",{{"Text Before Delimiter", "Datum Gewijzigd"}}),
-				    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns2",{{"Datum Gewijzigd", type date}}),
-				    #"Inserted Text After Delimiter" = Table.AddColumn(#"Changed Type3", "Text After Delimiter", each Text.AfterDelimiter([Gewijzigd], "T"), type text),
-				    #"Extracted Text Before Delimiter" = Table.TransformColumns(#"Inserted Text After Delimiter", {{"Text After Delimiter", each Text.BeforeDelimiter(_, "Z"), type text}}),
-				    #"Renamed Columns3" = Table.RenameColumns(#"Extracted Text Before Delimiter",{{"Text After Delimiter", "Tijd Gewijzigd"}}),
-				    #"Changed Type4" = Table.TransformColumnTypes(#"Renamed Columns3",{{"Tijd Gewijzigd", type time}}),
-				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type4",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Aantal_FTE", "Aantal_FTE_2", "Aantal_FTE_3", "Aantal_FTE_4", "Verschil", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum", "Datum Gewijzigd", "Tijd Gewijzigd"}),
-				    #"Changed Type5" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Aantal_FTE_2", type number}, {"Aantal_FTE", type number}, {"Aantal_FTE_3", type number}, {"Aantal_FTE_4", type number}, {"Verschil", type number}, {"FTE_Begroot", type number}}),
-				    #"Added Custom" = Table.AddColumn(#"Changed Type5", "Uren_Begroot", each [FTE_Begroot] * 8),
-				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Uren_Werkelijk", each [Aantal_FTE] * 8),
-				    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Uren_Verschil", each [Verschil] * 8),
-				    #"Changed Type6" = Table.TransformColumnTypes(#"Added Custom2",{{"Uren_Begroot", type number}, {"Uren_Werkelijk", type number}, {"Uren_Verschil", type number}}),
-				    #"Filtered Rows" = Table.SelectRows(#"Changed Type6", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
-				    #"Changed Type7" = Table.TransformColumnTypes(#"Filtered Rows",{{"Kostenplaats", type text}}),
-				    #"Inserted Year" = Table.AddColumn(#"Changed Type7", "Year Forecasting", each Date.Year([Begin Datum]) + 1, type nullable number),
-				    #"Renamed Columns4" = Table.RenameColumns(#"Inserted Year",{{"Aantal_FTE", "Werkelijk"}, {"Aantal_FTE_2", "Instroom"}, {"Aantal_FTE_3", "FTE uitstroom (zonder bepaalde tijd)"}, {"Verschil", "Verschil (excl)"}, {"Aantal_FTE_4", "Verschil"}, {"Organisatorische_eenheid", "OE"}}),
-				    #"Filtered Rows1" = Table.SelectRows(#"Renamed Columns4", each [#"Verschil (excl)"] > 0),
+				    Source = #"Buffered Dim Vacatures Medewerker (STG)",
+				    #"Filtered Rows1" = Table.SelectRows(Source, each [#"Verschil (excl)"] > 0),
 				    #"Merged Queries5" = Table.NestedJoin(#"Filtered Rows1", {"Formatieplaats"}, #"Dim Vacature per Verschil FTE", {"Formatieplaats"}, "Dim Vacature per Verschil FTE", JoinKind.LeftOuter),
-				    #"Expanded Dim Vacature per Verschil FTE" = Table.ExpandTableColumn(#"Merged Queries5", "Dim Vacature per Verschil FTE", {"Verschil (excl)", "Medewerker ID"}, {"Verschil (excl).1", "Medewerker ID"}),
-				    #"Sorted Rows" = Table.Sort(#"Expanded Dim Vacature per Verschil FTE",{{"Medewerker ID", Order.Ascending}}),
+				    #"Expanded Dim Vacature per Verschil FTE" = Table.ExpandTableColumn(#"Merged Queries5", "Dim Vacature per Verschil FTE", {"Verschil (excl)", "Medewerker ID"}, {"Verschil (excl).1", "Medewerker ID.1"}),
+				    #"Added Custom" = Table.AddColumn(#"Expanded Dim Vacature per Verschil FTE", "Year Forecasting", each Date.Year(Date.From(DateTime.LocalNow())) + 1, type nullable number),
+				    #"Sorted Rows" = Table.Sort(#"Added Custom",{{"Medewerker ID", Order.Ascending}}),
 				    #"Renamed Columns7" = Table.RenameColumns(#"Sorted Rows",{{"Verschil (excl).1", "Verschil per Vac (FTE)"}}),
 				
 				    DimLCperGB = Table.Buffer(#"Dim LC per GL Support"),
@@ -762,10 +692,12 @@ table 'Fact Forecasting Vacatures'
 				    #"Renamed Columns6" = Table.RenameColumns(#"Expanded CAO Schaal",{{"Salaris", "MAX Salaris CAO"}}),
 				    #"Merged Queries3" = Table.NestedJoin(#"Renamed Columns6", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats BMP/LNT", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats BMP/LNT", JoinKind.LeftOuter),
 				    #"Expanded Dim Schaal per Formatieplaats BMP/LNT" = Table.ExpandTableColumn(#"Merged Queries3", "Dim Schaal per Formatieplaats BMP/LNT", {"Max Schaal/Trede", "Salaris"}, {"Max Schaal/Trede", "Salaris"}),
-				    #"Merged Columns" = Table.CombineColumns(#"Expanded Dim Schaal per Formatieplaats BMP/LNT",{"Max Schaal/Trede", "Max Schaal/Trede CAO"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Schaal/Trede"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Expanded Dim Schaal per Formatieplaats BMP/LNT",{{"Schaal/Trede", "Schaal/Trede Original"}}),
+				    #"Merged Columns" = Table.CombineColumns(#"Renamed Columns",{"Max Schaal/Trede", "Max Schaal/Trede CAO"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Schaal/Trede"),
 				    #"Merged Columns1" = Table.CombineColumns(Table.TransformColumnTypes(#"Merged Columns", {{"MAX Salaris CAO", type text}, {"Salaris", type text}}, "en-US"),{"MAX Salaris CAO", "Salaris"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Bruto Salaris"),
-				    #"Removed Other Columns1" = Table.SelectColumns(#"Merged Columns1",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Werkelijk", "Instroom", "FTE uitstroom (zonder bepaalde tijd)", "Verschil", "Verschil (excl)", "Gebruiker", "Type_functie", "Naam", "Begin Datum", "Eind Datum", "Datum Gewijzigd", "Tijd Gewijzigd", "Uren_Begroot", "Uren_Werkelijk", "Uren_Verschil", "Year Forecasting", "Medewerker ID", "Month", "Year/Period", "Schaal/Trede", "Bruto Salaris", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving"}),
-				    #"Changed Type8" = Table.TransformColumnTypes(#"Removed Other Columns1",{{"Bruto Salaris", type number}}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Merged Columns1",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Werkelijk", "Instroom", "FTE uitstroom (zonder bepaalde tijd)", "Verschil", "Verschil (excl)", "Begin Datum", "Eind Datum", "Uren_Begroot", "Uren_Werkelijk", "Uren_Verschil", "Medewerker ID", "Medewerker ID.1", "Year Forecasting", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "Month", "Year/Period", "Schaal/Trede", "Bruto Salaris"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Other Columns1",{{"Medewerker ID", "Medewerker ID Original"}, {"Medewerker ID.1", "Medewerker ID"}}),
+				    #"Changed Type8" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Bruto Salaris", type number}}),
 				    #"Merged Queries6" = Table.NestedJoin(#"Changed Type8", {"Schaal/Trede"}, #"Dim SchaalType", {"Schaal/Trede"}, "Dim SchaalType", JoinKind.LeftOuter),
 				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries6", "Dim SchaalType", {"Salaris", "Schaal ID", "SchaalType Forecasting"}, {"Salaris", "Schaal ID", "SchaalType Forecasting"}),
 				    #"Renamed Columns10" = Table.RenameColumns(#"Expanded Dim SchaalType",{{"Salaris", "Schaal/Trede Salaris"}}),

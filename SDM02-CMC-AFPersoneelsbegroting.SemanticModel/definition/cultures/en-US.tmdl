@@ -19490,22 +19490,6 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "fact_forecasting_vacature.oe": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "OE"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "oe": {
-			            "State": "Generated"
-			          }
-			        }
-			      ]
-			    },
 			    "fact_forecasting_vacature.omschrijving_2": {
 			      "Definition": {
 			        "Binding": {
@@ -19614,81 +19598,11 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "fact_forecasting_vacature.werkelijk": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "Werkelijk"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "werkelijk": {
-			            "State": "Generated"
-			          }
-			        }
-			      ]
-			    },
-			    "fact_forecasting_vacature.instroom": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "Instroom"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "instroom": {
-			            "State": "Generated"
-			          }
-			        }
-			      ]
-			    },
-			    "fact_forecasting_vacature.FTE_uitstroom_zonder_bepaalde_tijd": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "FTE uitstroom (zonder bepaalde tijd)"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "FTE uitstroom (zonder bepaalde tijd)": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "FTE uitstroom": {
-			            "State": "Generated",
-			            "Weight": 0.75
-			          }
-			        }
-			      ]
-			    },
-			    "fact_forecasting_vacature.verschil": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "Verschil"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "verschil": {
-			            "State": "Generated"
-			          }
-			        }
-			      ]
-			    },
 			    "fact_forecasting_vacature.verschil_excl_original": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "Verschil (excl) Original"
+			          "ConceptualProperty": "Verschil"
 			        }
 			      },
 			      "State": "Generated",
@@ -19769,168 +19683,6 @@ cultureInfo en-US
 			          }
 			        }
 			      ]
-			    },
-			    "fact_forecasting_vacature.gebruiker": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "Gebruiker"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "gebruiker": {
-			            "State": "Generated"
-			          }
-			        }
-			      ]
-			    },
-			    "fact_forecasting_vacature.type_functie": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "Type_functie"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "type functie": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "Type_functie": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.99
-			          }
-			        },
-			        {
-			          "category functie": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.6
-			          }
-			        },
-			        {
-			          "genre functie": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.6
-			          }
-			        },
-			        {
-			          "manner functie": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.6
-			          }
-			        },
-			        {
-			          "variety functie": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.6
-			          }
-			        },
-			        {
-			          "brand functie": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.582
-			          }
-			        },
-			        {
-			          "class functie": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.582
-			          }
-			        },
-			        {
-			          "kind functie": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.582
-			          }
-			        },
-			        {
-			          "style functie": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.582
-			          }
-			        },
-			        {
-			          "form functie": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.582
-			          }
-			        },
-			        {
-			          "grouping functie": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.582
-			          }
-			        }
-			      ]
-			    },
-			    "fact_forecasting_vacature.begin_datum": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "Begin Datum"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "begin datum": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "date": {
-			            "State": "Generated",
-			            "Weight": 0.7
-			          }
-			        }
-			      ],
-			      "SemanticType": "Time"
 			    },
 			    "fact_forecasting_vacature.datum_gewijzigd.date_hierarchy": {
 			      "Definition": {
@@ -20112,29 +19864,6 @@ cultureInfo en-US
 			        {
 			          "day": {
 			            "State": "Generated"
-			          }
-			        }
-			      ],
-			      "SemanticType": "Time"
-			    },
-			    "fact_forecasting_vacature.tijd_gewijzigd": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "Tijd Gewijzigd"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "tijd gewijzigd": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "time": {
-			            "State": "Generated",
-			            "Weight": 0.7
 			          }
 			        }
 			      ],
@@ -29657,45 +29386,6 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "fact_forecasting_vacature.naam": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "Naam"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "naam": {
-			            "State": "Generated"
-			          }
-			        }
-			      ]
-			    },
-			    "fact_forecasting_vacature.eind_datum": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "Eind Datum"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "eind datum": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "date": {
-			            "State": "Generated",
-			            "Weight": 0.7
-			          }
-			        }
-			      ],
-			      "SemanticType": "Time"
-			    },
 			    "fact_forecasting_vacature.eind_datum.date_hierarchy": {
 			      "Definition": {
 			        "Binding": {
@@ -29881,29 +29571,6 @@ cultureInfo en-US
 			      ],
 			      "SemanticType": "Time"
 			    },
-			    "fact_forecasting_vacature.datum_gewijzigd": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "Datum Gewijzigd"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "datum gewijzigd": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "date": {
-			            "State": "Generated",
-			            "Weight": 0.7
-			          }
-			        }
-			      ],
-			      "SemanticType": "Time"
-			    },
 			    "fact_forecasting_vacature.bruto_salaris": {
 			      "Definition": {
 			        "Binding": {
@@ -29924,7 +29591,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "Medewerker ID"
+			          "ConceptualProperty": "Medewerker ID Original"
 			        }
 			      },
 			      "State": "Generated",
@@ -30009,7 +29676,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "Fact Forecasting Vacatures",
-			          "ConceptualProperty": "Verschil (excl)"
+			          "ConceptualProperty": "Verschil (excl) Original"
 			        }
 			      },
 			      "State": "Generated",

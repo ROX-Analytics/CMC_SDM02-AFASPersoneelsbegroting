@@ -62,7 +62,7 @@ table 'Dim Medewerker RVC'
 		dataType: int64
 		formatString: 0
 		lineageTag: 0e9adf5a-1427-4ee8-962f-0808835f937c
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: C/A Formatie ID
 
 		annotation SummarizationSetBy = Automatic
