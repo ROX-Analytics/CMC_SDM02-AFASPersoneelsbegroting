@@ -423,7 +423,7 @@ table 'Fact Forecasting Medewerkers'
 			VAR beroepkostenFTE = beroepkosten * 'Fact Forecasting Medewerkers'[FTE (Divided by 100)]
 			VAR result =
 			IF(
-			    selectedGL = "4120000" && selectedLC = "3080" && 'Fact Forecasting Medewerkers'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"},
+			    selectedGL = "4120000" && selectedLC = "3080" && (RELATED('Dim Medewerker'[Flag Medische Specialisten]) = 1),
 			    beroepkostenFTE,
 			    BLANK()
 			)
@@ -444,20 +444,13 @@ table 'Fact Forecasting Medewerkers'
 			VAR selectedGL = 'Fact Forecasting Medewerkers'[Grootboekrekening]
 			VAR selectedLC = 'Fact Forecasting Medewerkers'[LC]
 			
-			VAR basesetmedewerker = 
-			FILTER(
-			    'Dim Medewerker',
-			    'Dim Medewerker'[Flag LC - 3091 Ziektekosten WG bijdrage] = 1 && 
-			    'Dim Medewerker'[Status_dienstverband] = "In dienst" && 
-			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
-			)
 			VAR FTE = 'Fact Forecasting Medewerkers'[FTE (Divided by 100)]
 			
 			VAR kosten = DIVIDE(13000, 12, BLANK()) * FTE
 			
 			RETURN
 			IF(
-			    selectedGL = "4117000" && selectedLC = "3091" && 'Fact Forecasting Medewerkers'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"} && RELATED('Dim Medewerker'[Flag LC - 3091 Ziektekosten WG bijdrage]) = 1, 
+			    selectedGL = "4117000" && selectedLC = "3091" && RELATED('Dim Medewerker'[Flag LC - 3091 Ziektekosten WG bijdrage]) = 1, 
 			    kosten,
 			    BLANK()
 			)
@@ -656,7 +649,7 @@ table 'Fact Forecasting Medewerkers'
 			VAR typepersoneel = 'Fact Forecasting Medewerkers'[Type Personeel ID]
 			RETURN
 			IF(
-			    selectedGL = "4124000" && selectedLC = "3082" && typepersoneel = "Z_3",
+			    selectedGL = "4124000" && selectedLC = "3082" && (RELATED('Dim Medewerker'[Flag Arts-Assistenten]) = 1),
 			    DIVIDE(3000, 12),
 			    BLANK()
 			)
@@ -932,7 +925,7 @@ table 'Fact Forecasting Medewerkers'
 				    #"Duplicated Column" = Table.DuplicateColumn(#"Added Suffix", "Index Name", "Indexering"),
 				    #"Changed Type2" = Table.TransformColumnTypes(#"Duplicated Column",{{"Indexering", type number}}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type2",{{"Salaris Base Forecasting", "Salaris Base Forecasting Original 2"}}),
-				    #"Added Custom2" = Table.AddColumn(#"Renamed Columns", "Salaris Base Forecasting", each if [Period] >= 7 and ([#"Type Personeel ID"] = "Z_1" or [#"Type Personeel ID"] = "Z_3" or [#"Type Personeel ID"] = "Z_10" or [#"Type Personeel ID"] = "Z_15") or [#"SchaalType Forecasting"] = "Andere OVK" then [#"Salaris Base Forecasting Original 2"] else if [Period] < 7 then [#"Salaris Base Forecasting Original 2"] else ([#"Salaris Base Forecasting Original 2"] * [Indexering]) + [#"Salaris Base Forecasting Original 2"], type nullable number),
+				    #"Added Custom2" = Table.AddColumn(#"Renamed Columns", "Salaris Base Forecasting", each if [Period] >= 7 and ([#"Type Zorg Functie"] = "Medisch Specialisten" or [#"Type Zorg Functie"] = "Arts-assistenten") or [#"SchaalType Forecasting"] = "Andere OVK" then [#"Salaris Base Forecasting Original 2"] else if [Period] < 7 then [#"Salaris Base Forecasting Original 2"] else ([#"Salaris Base Forecasting Original 2"] * [Indexering]) + [#"Salaris Base Forecasting Original 2"], type nullable number),
 				    #"Renamed Columns1" = Table.RenameColumns(#"Added Custom2",{{"Index Name", "Indexering Forecasting"}}),
 				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Indexering", type number}}),
 				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type1",{"Medewerker ID", "FTE", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "Year Forecasting", "Period", "Period (leading zeros)", "Anniversary Month", "Kostenplaats", "Type Personeel ID", "Year/Period", "Index Name Actuals", "SchaalType Forecasting", "Trede Verhoging (Forecasting)", "New Schaal ID (Forecasting)", "Softlanding per Maand", "Indexering Forecasting", "Indexering", "Salaris Base Forecasting"})

@@ -538,11 +538,11 @@ expression 'Dim Management Echelon 2 Type Personeel Zorg' =
 		    #"Filtered Rows2" = Table.SelectRows(#"Removed Duplicates", each Text.Contains([Patientgebonden_functies], "Pat")),
 		    #"Inserted Text After Delimiter" = Table.AddColumn(#"Filtered Rows2", "Text After Delimiter", each Text.AfterDelimiter([Patientgebonden_functies], ":"), type text),
 		    #"Renamed Columns" = Table.RenameColumns(#"Inserted Text After Delimiter",{{"Text After Delimiter", "Type Zorg Functie"}}),
-		    #"Filtered Rows3" = Table.SelectRows(#"Renamed Columns", each ([Soort_functie] = "Management Echelon 2") and ([Cluster_Afdeling_3] = "Snijdend")),
-		    #"Removed Duplicates1" = Table.Distinct(#"Filtered Rows3", {"Cluster_Afdeling_3", "Type Zorg Functie"}),
-		    #"Removed Other Columns1" = Table.SelectColumns(#"Removed Duplicates1",{"Soort_functie", "Type Zorg Functie"})
+		    #"Filtered Rows3" = Table.SelectRows(#"Renamed Columns", each ([Soort_functie] = "Management Echelon 2") and [Cluster_Afdeling_3] <> "HR & Organisatieontwikkeling"),
+		    #"Removed Other Columns1" = Table.SelectColumns(#"Filtered Rows3",{"Soort_functie", "Type Zorg Functie"}),
+		    #"Removed Duplicates1" = Table.Distinct(#"Removed Other Columns1", {"Type Zorg Functie"})
 		in
-		    #"Removed Other Columns1"
+		    #"Removed Duplicates1"
 	lineageTag: ce986efa-91c7-4173-8ffe-51e8361f96b2
 	queryGroup: 'Staging\Medewerker\Zorg\Type Personeel Zorg'
 
@@ -1943,7 +1943,7 @@ expression 'Fact Forecasting Medewerkers Source' = ```
 		    DimMedwerker = Table.Buffer(#"Dim Medewerker"),
 		
 		    #"Merged Queries1" = Table.NestedJoin(ChangedType, {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker Details", JoinKind.LeftOuter),
-		    #"Expanded Dim Medewerker Details" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Medewerker Details", {"Anniversary Month", "Kostenplaats", "Naam_werkgever", "Schaal ID", "Type Personeel ID"}, {"Anniversary Month", "Kostenplaats", "Naam_werkgever", "Schaal ID", "Type Personeel ID"}),
+		    #"Expanded Dim Medewerker Details" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Medewerker Details", {"Anniversary Month", "Kostenplaats", "Naam_werkgever", "Schaal ID", "Type Personeel ID", "Type Zorg Functie"}, {"Anniversary Month", "Kostenplaats", "Naam_werkgever", "Schaal ID", "Type Personeel ID", "Type Zorg Functie"}),
 		    #"Filtered Rows1" = Table.SelectRows(#"Expanded Dim Medewerker Details", each true),
 		    #"Added Custom year/period" = Table.AddColumn(#"Filtered Rows1", "Year/Period", each Text.From([Year Forecasting]) & "/" & Text.From([#"Period (leading zeros)"]), type nullable text),
 		
@@ -1960,7 +1960,7 @@ expression 'Fact Forecasting Medewerkers Source' = ```
 		    #"Expanded Fact Medewerker MAX Schaal/Trede Actuals" = Table.ExpandTableColumn(#"Merged Queries3", "Fact Medewerker MAX Schaal/Trede Actuals", {"New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals"}, {"New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals"}),
 		    #"Merged Queries4" = Table.NestedJoin(#"Expanded Fact Medewerker MAX Schaal/Trede Actuals", {"New Schaal ID (Trede Verhoging Actuals)"}, DimSchaal, {"Schaal ID"}, "Dim SchaalType", JoinKind.Inner),
 		    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries4", "Dim SchaalType", {"SchaalType Forecasting"}, {"SchaalType Forecasting"}),
-		    #"Added Custom3" = Table.AddColumn(#"Expanded Dim SchaalType", "Trede Verhoging (Forecasting)", each if ([Anniversary Month] = [Period] or [Period] > [Anniversary Month]) and [Type Personeel ID] <> "Z_3" and [SchaalType Forecasting] <> "Andere OVK" and [MAX Trede Actuals] = false then true else false, type logical),
+		    #"Added Custom3" = Table.AddColumn(#"Expanded Dim SchaalType", "Trede Verhoging (Forecasting)", each if ([Anniversary Month] = [Period] or [Period] > [Anniversary Month]) and [Type Zorg Functie] <> "Arts-assistenten" and [SchaalType Forecasting] <> "Andere OVK" and [MAX Trede Actuals] = false then true else false, type logical),
 		    #"Added Custom4" = Table.AddColumn(#"Added Custom3", "New Schaal ID (Forecasting)", each if [#"Trede Verhoging (Forecasting)"] = true then ([#"New Schaal ID (Trede Verhoging Actuals)"] + 1) else [#"New Schaal ID (Trede Verhoging Actuals)"], type nullable number),
 		    #"Merged Queries5" = Table.NestedJoin(#"Added Custom4", {"New Schaal ID (Forecasting)"}, DimSchaal, {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
 		    #"Expanded Dim SchaalType1" = Table.ExpandTableColumn(#"Merged Queries5", "Dim SchaalType", {"Salaris"}, {"Salaris"}),
@@ -3059,6 +3059,43 @@ expression 'Dim Cluster/Afdeling Functie RvC' =
 		    #"Renamed Columns"
 	lineageTag: 7b552f38-f907-48b4-98ca-1c6a0a58d4e9
 	queryGroup: 'Staging\Kosten RvC'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Management Echelon 2 Type Personeel Zorg (2)' =
+		let
+		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+		    rows = Source[rows],
+		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Expanded Column1", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling_3"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Removed Other Columns", each ([Patientgebonden_functies] <> null)),
+		    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows1"),
+		    #"Filtered Rows2" = Table.SelectRows(#"Removed Duplicates", each Text.Contains([Patientgebonden_functies], "Pat")),
+		    #"Inserted Text After Delimiter" = Table.AddColumn(#"Filtered Rows2", "Text After Delimiter", each Text.AfterDelimiter([Patientgebonden_functies], ":"), type text),
+		    #"Renamed Columns" = Table.RenameColumns(#"Inserted Text After Delimiter",{{"Text After Delimiter", "Type Zorg Functie"}}),
+		    #"Filtered Rows3" = Table.SelectRows(#"Renamed Columns", each ([Soort_functie] = "Management Echelon 2") and [Cluster_Afdeling_3] <> "HR & Organisatieontwikkeling"),
+		    #"Removed Other Columns1" = Table.SelectColumns(#"Filtered Rows3",{"Soort_functie", "Type Zorg Functie"}),
+		    #"Removed Duplicates1" = Table.Distinct(#"Removed Other Columns1", {"Type Zorg Functie"})
+		in
+		    #"Removed Duplicates1"
+	lineageTag: 184641b1-3aca-4876-a750-7c7ede3fd52e
+	queryGroup: 'Staging\Medewerker\Zorg\Type Personeel Zorg'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Dim Medewerker/Vacatures' =
+		let
+		    Source = Table.Combine({#"Dim Medewerker", #"Dim Vacatures Medewerker"})
+		in
+		    Source
+	lineageTag: f848cd0f-384d-43ed-80b8-362d0c179963
+	queryGroup: Model
 
 	annotation PBI_NavigationStepName = Navigation
 

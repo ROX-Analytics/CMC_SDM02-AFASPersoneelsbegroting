@@ -65,9 +65,10 @@ table 'Dim Type Personeel'
 		source =
 				let
 				    Source = Table.Combine({#"Dim Type Personeel Zorg", #"Dim Staf Type Personeel", #"Dim Overig Type Personeel"}),
-				    #"Appended Query" = Table.Combine({Source, #"Dim Type Personeel RvC"})
+				    #"Appended Query" = Table.Combine({Source, #"Dim Type Personeel RvC"}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Appended Query",{{"Type Zorg Functie", Text.Trim, type text}})
 				in
-				    #"Appended Query"
+				    #"Trimmed Text"
 
 	annotation PBI_NavigationStepName = Navigation
 

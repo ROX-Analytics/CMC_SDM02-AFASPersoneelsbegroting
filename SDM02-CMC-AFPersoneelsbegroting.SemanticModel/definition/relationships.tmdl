@@ -88,41 +88,6 @@ relationship 5375ce7a-e028-4880-be47-6a65fc18ba68
 	fromColumn: 'Dim Medewerker'.'In_dienst__i.v.m._dienstjaren_'
 	toColumn: LocalDateTable_b0951fab-f7e7-469c-b1c8-e5981f017388.Date
 
-relationship e1355301-5622-40a3-937d-b92c5d4d523a
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker/Vacatures'.Geboortedatum
-	toColumn: LocalDateTable_cad87efc-2d83-4962-8028-119a11bfd5a0.Date
-
-relationship d050a910-5411-48b6-83df-ad2b088ac9fd
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker/Vacatures'.Datum_in_dienst
-	toColumn: LocalDateTable_029a4dfd-497c-495a-b6c9-c9d6b1c6c6d9.Date
-
-relationship 2fdab6e7-ebdc-4bca-b693-e8198c43f05a
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker/Vacatures'.Datum_uit_dienst
-	toColumn: LocalDateTable_95d0b49b-9f57-4438-b781-5bfaf35a2a5b.Date
-
-relationship a900e187-bd33-46ef-ad60-42d9dfa96a1a
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker/Vacatures'.Begindatum_salaris
-	toColumn: LocalDateTable_ce9a54a0-9432-4419-bf44-0ad38a964670.Date
-
-relationship 707f78e1-897d-4217-a3d7-3bdeb80d120c
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker/Vacatures'.Einddatum_salaris
-	toColumn: LocalDateTable_48e92ca7-36dc-453a-abdf-f72699e93d0a.Date
-
-relationship dc8dfa76-ff6f-4ec2-8d23-ba1943aa8213
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker/Vacatures'.Begindatum_functie
-	toColumn: LocalDateTable_d3269c37-72d3-449f-87cd-7918c4883570.Date
-
-relationship 87e6bdd5-7222-4962-9882-4075f7f0d3b0
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker/Vacatures'.'In_dienst__i.v.m._dienstjaren_'
-	toColumn: LocalDateTable_2d5f3b71-7389-428f-a0e5-05bc893ec546.Date
-
 relationship fb8d91d8-508b-064a-9754-e9227cc18a3a
 	fromColumn: 'Fact Actuals FTE'.Kostenplaats
 	toColumn: 'Dim Kostenplaats'.Kostenplaats

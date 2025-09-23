@@ -552,19 +552,6 @@
         },
         {
           "location": {
-            "x": 13150.545573693984,
-            "y": 291.37212797040939
-          },
-          "nodeIndex": "Dim Medewerker/Vacatures",
-          "nodeLineageTag": "c0315acf-c11b-4c39-a9b6-1947573e966b",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
             "x": 13718.545573693984,
             "y": 317.37212797040939
           },
@@ -1028,7 +1015,7 @@
       "ordinal": 5,
       "scrollPosition": {
         "x": 0,
-        "y": 0
+        "y": 300
       },
       "nodes": [
         {

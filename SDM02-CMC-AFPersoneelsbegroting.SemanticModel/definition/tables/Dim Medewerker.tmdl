@@ -368,11 +368,11 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Dim Zorg.Type Zorg Functie'
+	column 'Type Zorg Functie'
 		dataType: string
 		lineageTag: aeafe45b-638e-42ad-824f-2914bdea7411
 		summarizeBy: none
-		sourceColumn: Dim Zorg.Type Zorg Functie
+		sourceColumn: Type Zorg Functie
 
 		annotation SummarizationSetBy = Automatic
 
@@ -416,7 +416,7 @@ table 'Dim Medewerker'
 	column 'Flag Overtime 200% and 300% Type Personeel' =
 			
 			IF(
-			    ('Dim Medewerker'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"} || CONTAINSSTRING('Dim Medewerker'[Soort_functie], "Echelon 2") || CONTAINSSTRING('Dim Medewerker'[Soort_functie], "Echelon 1")) && 'Dim Medewerker'[Flag Maaltijdvergoeding] = 0,
+			    ('Dim Medewerker'[Type Zorg Functie] = "Medisch Specialisten" || CONTAINSSTRING('Dim Medewerker'[Soort_functie], "Echelon 2") || CONTAINSSTRING('Dim Medewerker'[Soort_functie], "Echelon 1")) && 'Dim Medewerker'[Flag Maaltijdvergoeding] = 0,
 			    0,
 			    1
 			)
@@ -436,9 +436,7 @@ table 'Dim Medewerker'
 	column 'Flag Maaltijdvergoeding' =
 			
 			IF(
-			    'Dim Medewerker'[Type Personeel ID] = "Z_1" ||
-			    'Dim Medewerker'[Type Personeel ID] = "Z_10" ||
-			    'Dim Medewerker'[Type Personeel ID] = "Z_15" ||
+			    'Dim Medewerker'[Type Zorg Functie] = "Medisch Specialisten" ||
 			    'Dim Medewerker'[Type Personeel ID] = "S_4" ||
 			    'Dim Medewerker'[Type Personeel ID] = "S_5" ||
 			    'Dim Medewerker'[Type Personeel ID] = "O_4",
@@ -532,7 +530,7 @@ table 'Dim Medewerker'
 			        COUNTROWS('Fact Personeels Kosten'),
 			        'Fact Personeels Kosten'[LC] = "3027",
 			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
-			        'Dim Period'[Year] = YEAR(TODAY())
+			        'Dim Period'[Year] IN {YEAR(TODAY()), YEAR(TODAY()) - 1}
 			    ) > 0,
 			    1,
 			    0
@@ -602,7 +600,7 @@ table 'Dim Medewerker'
 			        COUNTROWS('Fact Personeels Kosten'),
 			        'Fact Personeels Kosten'[LC] IN { "3095"},
 			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
-			        'Dim Period'[Year] = YEAR(TODAY())
+			        'Dim Period'[Year] IN {YEAR(TODAY()), YEAR(TODAY()) - 1}
 			    ) > 0,
 			    1,
 			    0
@@ -618,9 +616,9 @@ table 'Dim Medewerker'
 			IF(
 			    CALCULATE(
 			        COUNTROWS('Fact Personeels Kosten'),
-			        'Fact Personeels Kosten'[LC] IN { "3091"},
+			        'Fact Personeels Kosten'[LC] IN {"3091"},
 			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
-			        'Dim Type Personeel'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"},
+			        'Dim Medewerker'[Flag Medische Specialisten] = 1,
 			        'Dim Period'[Year] IN {YEAR(TODAY()), YEAR(TODAY()) - 1}
 			    ) > 0,
 			    1,
@@ -641,7 +639,7 @@ table 'Dim Medewerker'
 			        'Dim Medewerker'[Flag LC - 3091 Ziektekosten WG bijdrage] = 0,
 			        FILTER(
 			            ALL('Dim Type Personeel'),
-			            'Dim Type Personeel'[Type Personeel ID] <> "Z_1" || 'Dim Type Personeel'[Type Personeel ID] <> "Z_10" || 'Dim Type Personeel'[Type Personeel ID] <> "Z_15"
+			            'Dim Type Personeel'[Type Zorg Functie] = "Medisch Specialisten"
 			        )
 			    ) > 0,
 			    1,
@@ -708,7 +706,7 @@ table 'Dim Medewerker'
 	column 'Flag Medische Specialisten' =
 			
 			IF(
-			    'Dim Medewerker'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"},
+			    'Dim Medewerker'[Type Zorg Functie] = "Medisch Specialisten",
 			    1,
 			    0
 			)
@@ -846,9 +844,10 @@ table 'Dim Medewerker'
 			//     ISBLANK('Dim Medewerker'[OE Flag LC 3019 - Standby]), 
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers'),
-			        'Fact Forecasting Medewerkers'[LC] = "3019",
-			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			        COUNTROWS('Fact Personeels Kosten'),
+			        'Fact Personeels Kosten'[LC] = "3019",
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
+			        'Dim Period'[Year] IN {YEAR(TODAY()), YEAR(TODAY()) - 1}
 			    ) > 0,
 			    1,
 			    0
@@ -866,9 +865,10 @@ table 'Dim Medewerker'
 			
 			IF(
 			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Medewerkers'),
-			        'Fact Forecasting Medewerkers'[LC] = "3026",
-			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
+			        COUNTROWS('Fact Personeels Kosten'),
+			        'Fact Personeels Kosten'[LC] = "3026",
+			        'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1,
+			        'Dim Period'[Year] IN {YEAR(TODAY()), YEAR(TODAY()) - 1}
 			    ) > 0,
 			    1,
 			    0
@@ -882,7 +882,7 @@ table 'Dim Medewerker'
 	column 'Flag Arts-Assistenten' =
 			
 			IF(
-			    'Dim Medewerker'[Type Personeel ID] = "Z_3",
+			    'Dim Medewerker'[Type Zorg Functie] = "Arts-assistenten",
 			    1,
 			    0
 			)
@@ -985,8 +985,9 @@ table 'Dim Medewerker'
 				    #"Expanded Dim Medewerker Overig" = Table.ExpandTableColumn(#"Merged Queries8", "Dim Medewerker Overig", {"Staf of Zorg"}, {"Dim Medewerker Overig.Staf of Zorg"}),
 				    #"Removed Other Columns2" = Table.SelectColumns(#"Expanded Dim Medewerker Overig",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie Code", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster/Afdeling Functie", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats Code", "Omschrijving_5", "Cluster/Afdeling Formatieplaats", "OE Code", "Soort_medewerker", "Type_contract", "Schaal ID", "Dienstbetrekking ID", "C/A Formatie ID", "C/A Functie ID", "Dim Staf.Staf of Zorg", "Dim Zorg.Type Zorg Functie", "Dim Zorg.Staf of Zorg", "Dim Medewerker Overig.Staf of Zorg"}),
 				    #"Merged Columns" = Table.CombineColumns(Table.TransformColumnTypes(#"Removed Other Columns2", {{"Dim Medewerker Overig.Staf of Zorg", type text}}, "en-US"),{"Dim Staf.Staf of Zorg", "Dim Zorg.Staf of Zorg", "Dim Medewerker Overig.Staf of Zorg"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Staf of Zorg"),
-				    #"Merged Queries7" = Table.NestedJoin(#"Merged Columns", {"Soort_functie", "Dim Zorg.Type Zorg Functie", "Staf of Zorg"}, #"Dim Type Personeel", {"Soort_functie", "Type Zorg Functie", "Staf of Zorg"}, "Dim Type Personeel", JoinKind.LeftOuter),
-				    #"Expanded Dim Type Personeel" = Table.ExpandTableColumn(#"Merged Queries7", "Dim Type Personeel", {"Type Personeel ID"}, {"Type Personeel ID"}),
+				    #"Trimmed Text1" = Table.TransformColumns(#"Merged Columns",{{"Dim Zorg.Type Zorg Functie", Text.Trim, type text}}),
+				    #"Merged Queries7" = Table.NestedJoin(#"Trimmed Text1", {"Soort_functie", "Dim Zorg.Type Zorg Functie", "Staf of Zorg"}, #"Dim Type Personeel", {"Soort_functie", "Type Zorg Functie", "Staf of Zorg"}, "Dim Type Personeel", JoinKind.LeftOuter),
+				    #"Expanded Dim Type Personeel" = Table.ExpandTableColumn(#"Merged Queries7", "Dim Type Personeel", {"Type Zorg Functie", "Type Personeel ID"}, {"Type Zorg Functie", "Type Personeel ID"}),
 				    #"Removed Duplicates1" = Table.Distinct(#"Expanded Dim Type Personeel", {"Medewerker ID"}),
 				    #"Merged Queries9" = Table.NestedJoin(#"Removed Duplicates1", {"Medewerker ID"}, #"Dim Medewerker (FormatieBezetting)", {"Medewerker"}, "Dim Medewerker (FormatieBezetting)", JoinKind.LeftOuter),
 				    #"Expanded Dim Medewerker (FormatieBezetting)" = Table.ExpandTableColumn(#"Merged Queries9", "Dim Medewerker (FormatieBezetting)", {"In_dienst__i.v.m._dienstjaren_"}, {"In_dienst__i.v.m._dienstjaren_"}),
@@ -998,9 +999,11 @@ table 'Dim Medewerker'
 				    #"Renamed Columns5" = Table.RenameColumns(#"Added Custom",{{"Formatieplaats Code", "Formatieplaats"}, {"Functie Code", "Functie"}, {"Cluster/Afdeling Formatieplaats", "Cluster_Afdeling Formatieplaats"}, {"Omschrijving_5", "Formatieplaats Omschrijving"}}),
 				    #"Merged Queries10" = Table.NestedJoin(#"Renamed Columns5", {"Schaal ID"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
 				    #"Expanded Dim SchaalType1" = Table.ExpandTableColumn(#"Merged Queries10", "Dim SchaalType", {"Schaal/Trede"}, {"Schaal/Trede"}),
-				    #"Removed Other Columns3" = Table.SelectColumns(#"Expanded Dim SchaalType1",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster/Afdeling Functie", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Formatieplaats", "Formatieplaats Omschrijving", "Cluster_Afdeling Formatieplaats", "OE Code", "Soort_medewerker", "Type_contract", "Schaal ID", "Dienstbetrekking ID", "C/A Formatie ID", "C/A Functie ID", "Dim Zorg.Type Zorg Functie", "Staf of Zorg", "Type Personeel ID", "In_dienst__i.v.m._dienstjaren_", "Anniversary Month", "Flag Medewerker", "Schaal/Trede"})
+				    #"Removed Other Columns3" = Table.SelectColumns(#"Expanded Dim SchaalType1",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster/Afdeling Functie", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Formatieplaats", "Formatieplaats Omschrijving", "Cluster_Afdeling Formatieplaats", "OE Code", "Soort_medewerker", "Type_contract", "Schaal ID", "Dienstbetrekking ID", "C/A Formatie ID", "C/A Functie ID", "Dim Zorg.Type Zorg Functie", "Staf of Zorg", "Type Personeel ID", "In_dienst__i.v.m._dienstjaren_", "Anniversary Month", "Flag Medewerker", "Schaal/Trede"}),
+				    #"Renamed Columns6" = Table.RenameColumns(#"Removed Other Columns3",{{"Dim Zorg.Type Zorg Functie", "Type Zorg Functie"}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Renamed Columns6",{{"Type Zorg Functie", Text.Trim, type text}})
 				in
-				    #"Removed Other Columns3"
+				    #"Trimmed Text"
 
 	annotation PBI_NavigationStepName = Navigation
 

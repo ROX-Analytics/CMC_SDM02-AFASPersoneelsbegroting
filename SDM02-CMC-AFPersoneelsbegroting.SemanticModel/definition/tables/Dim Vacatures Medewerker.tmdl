@@ -83,11 +83,11 @@ table 'Dim Vacatures Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Dim Zorg.Type Zorg Functie'
+	column 'Type Zorg Functie'
 		dataType: string
 		lineageTag: 2d7f4eef-b5fe-4ab3-8590-eaff95514558
 		summarizeBy: none
-		sourceColumn: Dim Zorg.Type Zorg Functie
+		sourceColumn: Type Zorg Functie
 
 		annotation SummarizationSetBy = Automatic
 
@@ -162,7 +162,7 @@ table 'Dim Vacatures Medewerker'
 	column 'Flag Medische Specialisten' =
 			
 			IF(
-			    'Dim Vacatures Medewerker'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"},
+			    'Dim Vacatures Medewerker'[Type Zorg Functie] = "Medisch Specialisten",
 			    1,
 			    0
 			)
@@ -175,9 +175,7 @@ table 'Dim Vacatures Medewerker'
 	column 'Flag Maaltijdvergoeding' =
 			
 			IF(
-			    'Dim Vacatures Medewerker'[Type Personeel ID] = "Z_1" ||
-			    'Dim Vacatures Medewerker'[Type Personeel ID] = "Z_10" ||
-			    'Dim Vacatures Medewerker'[Type Personeel ID] = "Z_15" ||
+			    'Dim Vacatures Medewerker'[Flag Medische Specialisten] = 1 ||
 			    'Dim Vacatures Medewerker'[Type Personeel ID] = "S_4" ||
 			    'Dim Vacatures Medewerker'[Type Personeel ID] = "S_5" ||
 			    'Dim Vacatures Medewerker'[Type Personeel ID] = "O_4",
@@ -193,7 +191,7 @@ table 'Dim Vacatures Medewerker'
 	column 'Flag Arts-Assistenten' =
 			
 			IF(
-			    'Dim Vacatures Medewerker'[Type Personeel ID] = "Z_3",
+			    'Dim Vacatures Medewerker'[Type Zorg Functie] = "Arts-assistenten",
 			    1,
 			    0
 			)
@@ -296,7 +294,7 @@ table 'Dim Vacatures Medewerker'
 	column 'Flag Overtime 200% and 300% Type Personeel' =
 			
 			IF(
-			    ('Dim Vacatures Medewerker'[Type Personeel ID] IN {"Z_1", "Z_10", "Z_15"} || CONTAINSSTRING('Dim Vacatures Medewerker'[Soort_functie], "Echelon 2") || CONTAINSSTRING('Dim Vacatures Medewerker'[Soort_functie], "Echelon 1")) && 'Dim Vacatures Medewerker'[Flag Maaltijdvergoeding] = 0,
+			    ('Dim Vacatures Medewerker'[Flag Medische Specialisten] = 1 || CONTAINSSTRING('Dim Vacatures Medewerker'[Soort_functie], "Echelon 2") || CONTAINSSTRING('Dim Vacatures Medewerker'[Soort_functie], "Echelon 1")) && 'Dim Vacatures Medewerker'[Flag Maaltijdvergoeding] = 0,
 			    0,
 			    1
 			)
@@ -313,7 +311,9 @@ table 'Dim Vacatures Medewerker'
 				let 
 				    Source = #"Buffered Dim Vacatures Medewerker (STG)",
 				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Functie", "C/A Formatie ID", "Dim Zorg.Type Zorg Functie", "Staf of Zorg", "Type Personeel ID", "Schaal/Trede", "Schaal ID"}),
-				    #"Merged Queries" = Table.NestedJoin(#"Removed Other Columns", {"Formatieplaats"}, #"Dim Vacature per Verschil FTE", {"Formatieplaats"}, "Dim Vacature per Verschil FTE", JoinKind.LeftOuter),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Removed Other Columns",{{"Dim Zorg.Type Zorg Functie", "Type Zorg Functie"}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Renamed Columns2",{{"Type Zorg Functie", Text.Trim, type text}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Trimmed Text", {"Formatieplaats"}, #"Dim Vacature per Verschil FTE", {"Formatieplaats"}, "Dim Vacature per Verschil FTE", JoinKind.LeftOuter),
 				    #"Expanded Dim Vacature per Verschil FTE" = Table.ExpandTableColumn(#"Merged Queries", "Dim Vacature per Verschil FTE", {"Verschil (excl)", "Medewerker ID", "Nr van Vacature"}, {"Verschil (excl)", "Medewerker ID", "Nr van Vacature"}),
 				    #"Added Custom" = Table.AddColumn(#"Expanded Dim Vacature per Verschil FTE", "Flag Medewerker", each 0, type nullable number),
 				    #"Renamed Columns" = Table.RenameColumns(#"Added Custom",{{"OE", "OE Code"}, {"Omschrijving", "Formatieplaats Omschrijving"}, {"Cluster_Afdeling", "Cluster_Afdeling Formatieplaats"}}),
@@ -322,7 +322,7 @@ table 'Dim Vacatures Medewerker'
 				    #"Merged Queries1" = Table.NestedJoin(#"Renamed Columns1", {"Schaal ID"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
 				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries1", "Dim SchaalType", {"Salaris"}, {"Salaris Original"}),
 				    #"Added Custom2" = Table.AddColumn(#"Expanded Dim SchaalType", "Salaris", each [Salaris Original] * [FTE], type nullable number),
-				    #"Removed Other Columns1" = Table.SelectColumns(#"Added Custom2",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling Formatieplaats", "Formatieplaats", "Formatieplaats Omschrijving", "Kostenplaats", "OE Code", "Functie", "C/A Formatie ID", "Dim Zorg.Type Zorg Functie", "Staf of Zorg", "Type Personeel ID", "Schaal/Trede", "Schaal ID", "FTE", "Medewerker ID", "Nr van Vacature", "Flag Medewerker", "Voornaam", "Salaris"}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Added Custom2",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Cluster_Afdeling Formatieplaats", "Formatieplaats", "Formatieplaats Omschrijving", "Kostenplaats", "OE Code", "Functie", "C/A Formatie ID", "Type Zorg Functie", "Staf of Zorg", "Type Personeel ID", "Schaal/Trede", "Schaal ID", "FTE", "Medewerker ID", "Nr van Vacature", "Flag Medewerker", "Voornaam", "Salaris"}),
 				    #"Added Custom3" = Table.AddColumn(#"Removed Other Columns1", "Status_dienstverband", each "In dienst", type nullable text),
 				    #"Transform Nr Vac" = Table.TransformColumns(#"Added Custom3", {{"Nr van Vacature", each Text.PadStart(Text.From(_), 2, "0"), type nullable text}}),
 				    #"Added Custom4" = Table.AddColumn(#"Transform Nr Vac", "Formatieplaats Vacature Nr", each [Formatieplaats] & " " & "-" & " " & Text.From([Nr van Vacature]), type nullable text)
