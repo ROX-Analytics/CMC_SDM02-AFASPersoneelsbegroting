@@ -1,71 +1,6 @@
 table 'Fact Forecasting Vacatures'
 	lineageTag: 114278a5-cda5-4b3a-90a9-11a9655cd651
 
-	column Geblokkeerd
-		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 76771010-4e4e-4f52-8667-8466dad9a65c
-		summarizeBy: none
-		sourceColumn: Geblokkeerd
-
-		annotation SummarizationSetBy = Automatic
-
-	column Naam_werkgever
-		dataType: string
-		lineageTag: 59175e64-4d1b-47c6-8c67-d50ef08c6293
-		summarizeBy: none
-		sourceColumn: Naam_werkgever
-
-		annotation SummarizationSetBy = Automatic
-
-	column Patientgebonden_functies
-		dataType: string
-		lineageTag: 9de37e6a-6d75-45eb-941b-1fabcb2623d2
-		summarizeBy: none
-		sourceColumn: Patientgebonden_functies
-
-		annotation SummarizationSetBy = Automatic
-
-	column Soort_functie
-		dataType: string
-		lineageTag: d850aa91-db98-4b4d-8e91-d50cc2690be8
-		summarizeBy: none
-		sourceColumn: Soort_functie
-
-		annotation SummarizationSetBy = Automatic
-
-	column Declarerend_Niet-declarerend
-		dataType: string
-		lineageTag: a0fe73da-affe-4dc9-b78d-730b1fb2021f
-		summarizeBy: none
-		sourceColumn: Declarerend_Niet-declarerend
-
-		annotation SummarizationSetBy = Automatic
-
-	column Service_Line_Type
-		dataType: string
-		lineageTag: 91d634f5-5288-46be-bbb1-0a828e062f27
-		summarizeBy: none
-		sourceColumn: Service_Line_Type
-
-		annotation SummarizationSetBy = Automatic
-
-	column Service_Lines
-		dataType: string
-		lineageTag: 8d1cfba9-1c4b-4eb8-909f-6655c41733ed
-		summarizeBy: none
-		sourceColumn: Service_Lines
-
-		annotation SummarizationSetBy = Automatic
-
-	column Cluster_Afdeling
-		dataType: string
-		lineageTag: dccb2840-0e64-44dc-8786-de93ea6ba169
-		summarizeBy: none
-		sourceColumn: Cluster_Afdeling
-
-		annotation SummarizationSetBy = Automatic
-
 	column Formatieplaats
 		dataType: string
 		lineageTag: 6eb454c5-4054-4464-867d-cf02d80a2137
@@ -90,88 +25,6 @@ table 'Fact Forecasting Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
-	column Omschrijving_2
-		dataType: string
-		lineageTag: a39c1d9a-8fe1-4189-8d58-7816c77a2446
-		summarizeBy: none
-		sourceColumn: Omschrijving_2
-
-		annotation SummarizationSetBy = Automatic
-
-	column Functie
-		dataType: string
-		lineageTag: 9ad68a34-6934-41e6-aa82-846096106118
-		summarizeBy: none
-		sourceColumn: Functie
-
-		annotation SummarizationSetBy = Automatic
-
-	column Omschrijving_3
-		dataType: string
-		lineageTag: 57c0034d-24b9-4453-a509-b9403c5e88d8
-		summarizeBy: none
-		sourceColumn: Omschrijving_3
-
-		annotation SummarizationSetBy = Automatic
-
-	column Generieke_functienaam
-		dataType: string
-		lineageTag: 2b77c7a1-bf81-46c0-aa5b-8bc9f0f1e197
-		summarizeBy: none
-		sourceColumn: Generieke_functienaam
-
-		annotation SummarizationSetBy = Automatic
-
-	column FTE_Begroot
-		dataType: double
-		lineageTag: 12409285-d7ca-4416-8f8a-636268fdb249
-		summarizeBy: sum
-		sourceColumn: FTE_Begroot
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column Verschil
-		dataType: double
-		lineageTag: 06dbf6df-b7f0-4f7c-8b1a-a500e7cc548a
-		summarizeBy: sum
-		sourceColumn: Verschil
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column Uren_Begroot
-		dataType: double
-		lineageTag: 9d72e6b9-cc01-4064-9067-775e16e832c6
-		summarizeBy: sum
-		sourceColumn: Uren_Begroot
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column Uren_Werkelijk
-		dataType: double
-		lineageTag: 6608ff9b-17be-4ae4-a349-33c71dad22b1
-		summarizeBy: sum
-		sourceColumn: Uren_Werkelijk
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column Uren_Verschil
-		dataType: double
-		lineageTag: 6900d0f4-b2ad-44c6-bacb-a90649071847
-		summarizeBy: sum
-		sourceColumn: Uren_Verschil
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column Year/Period
 		dataType: string
 		lineageTag: 0c59f5ab-9955-48d2-964f-7efeda1434c5
@@ -180,102 +33,24 @@ table 'Fact Forecasting Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
-	column Schaal/Trede
-		dataType: string
-		lineageTag: 6e23ae47-2278-4ff6-bdd3-0794b04c1d76
-		summarizeBy: none
-		sourceColumn: Schaal/Trede
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Schaal/Trede Salaris'
+	column 'Salaris Incl Indexering'
 		dataType: double
 		lineageTag: 35ea5606-a70f-4161-badf-11959d30d59f
 		summarizeBy: sum
-		sourceColumn: Schaal/Trede Salaris
+		sourceColumn: Salaris Incl Indexering
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column 'Schaal ID'
-		dataType: int64
+		dataType: double
 		formatString: 0
 		lineageTag: 094613f2-7f58-44b7-885a-7a5f91507069
 		summarizeBy: none
 		sourceColumn: Schaal ID
 
 		annotation SummarizationSetBy = Automatic
-
-	column 'SchaalType Forecasting'
-		dataType: string
-		lineageTag: 5570c0da-5cfb-4fb5-ae1d-048741ce97dc
-		summarizeBy: none
-		sourceColumn: SchaalType Forecasting
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Percentage Name CAO'
-		dataType: string
-		lineageTag: 6250d233-6a62-4237-8efd-6e83046e1965
-		summarizeBy: none
-		sourceColumn: Percentage Name CAO
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Percentage CAO'
-		dataType: double
-		lineageTag: 37487df9-0399-4368-89f8-f62bfbba1e68
-		summarizeBy: sum
-		sourceColumn: Percentage CAO
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Percentage LNT'
-		dataType: double
-		lineageTag: f1045f5e-5fad-4bb1-9903-d0fbd1945522
-		summarizeBy: sum
-		sourceColumn: Percentage LNT
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Percentage Name LNT'
-		dataType: string
-		lineageTag: 6d8d04c0-3486-49fd-8a78-850c7e746dda
-		summarizeBy: none
-		sourceColumn: Percentage Name LNT
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Percentage Key CAO'
-		dataType: string
-		lineageTag: 6aed953b-319d-44e5-8939-94585c776956
-		summarizeBy: none
-		sourceColumn: Percentage Key CAO
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Percentage Key LNT'
-		dataType: string
-		lineageTag: db11636a-706f-48ae-a85f-6a060db770b9
-		summarizeBy: none
-		sourceColumn: Percentage Key LNT
-
-		annotation SummarizationSetBy = Automatic
-
-	column Indexering
-		dataType: double
-		lineageTag: e0935788-90d6-4c65-adcc-9e17eed59901
-		summarizeBy: sum
-		sourceColumn: Indexering
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column 'Index Name'
 		dataType: string
@@ -293,48 +68,8 @@ table 'Fact Forecasting Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Salary (incl %) CAO'
-		dataType: double
-		lineageTag: bf46f37a-c41f-4a04-a9ce-b55edaa27367
-		summarizeBy: sum
-		sourceColumn: Salary (incl %) CAO
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Salary (incl %) LNT'
-		dataType: double
-		lineageTag: 22509c31-00c5-475e-b046-a4b81dd50b39
-		summarizeBy: sum
-		sourceColumn: Salary (incl %) LNT
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Salaris Incl Indexering LNT'
-		dataType: double
-		lineageTag: 7f790347-6650-4148-832b-0ced1a843b9a
-		summarizeBy: sum
-		sourceColumn: Salaris Incl Indexering LNT
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Salaris Incl Indexering CAO'
-		dataType: double
-		lineageTag: 75087ece-cdd0-4373-a70d-cc506f9ebdd1
-		summarizeBy: sum
-		sourceColumn: Salaris Incl Indexering CAO
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column 'Year Forecasting'
-		dataType: double
+		dataType: int64
 		lineageTag: cf9e9fd9-1a16-4ce2-8dcc-1f89ae315866
 		summarizeBy: sum
 		sourceColumn: Year Forecasting
@@ -351,7 +86,7 @@ table 'Fact Forecasting Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Salaris Incl Indexering * (Verschil FTE)' = ('Fact Forecasting Vacatures'[Salaris Incl Indexering CAO] + 'Fact Forecasting Vacatures'[Salaris Incl Indexering LNT]) * 'Fact Forecasting Vacatures'[Verschil (excl)]
+	column 'Salaris Incl Indexering * (Verschil FTE)' = 'Fact Forecasting Vacatures'[Salaris Incl Indexering] * 'Fact Forecasting Vacatures'[Verschil per Vac (FTE)]
 		lineageTag: 3980e3b0-48aa-4cd4-a10d-308f7ebfbed8
 		summarizeBy: sum
 
@@ -367,21 +102,11 @@ table 'Fact Forecasting Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Bruto Salaris'
-		dataType: double
-		lineageTag: 8b2fd85b-ce3a-4bcf-8c17-0954f5754703
-		summarizeBy: sum
-		sourceColumn: Bruto Salaris
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Medewerker ID Original'
+	column 'Medewerker ID'
 		dataType: string
 		lineageTag: 2e4e9c00-8320-4eb3-b9ad-4d918c503b7d
 		summarizeBy: none
-		sourceColumn: Medewerker ID Original
+		sourceColumn: Medewerker ID
 
 		annotation SummarizationSetBy = Automatic
 
@@ -394,20 +119,10 @@ table 'Fact Forecasting Vacatures'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Verschil (excl) Original'
-		dataType: double
-		lineageTag: 40bde6e0-1564-447d-b7a0-3709453ea3ca
-		summarizeBy: sum
-		sourceColumn: Verschil (excl) Original
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column 'WN bijdrage pensioen (LNT)' =
 			
 			VAR salaris = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
-			VAR schaaltype = 'Fact Forecasting Vacatures'[SchaalType Forecasting]
+			VAR schaaltype = 'Fact Forecasting Vacatures'[SchaalType]
 			
 			RETURN
 			IF(
@@ -424,7 +139,7 @@ table 'Fact Forecasting Vacatures'
 	column 'WN bijdrage pensioen (CAO)' =
 			
 			VAR salaris = 'Fact Forecasting Vacatures'[Salaris Incl Indexering * (Verschil FTE)]
-			VAR schaaltype = 'Fact Forecasting Vacatures'[SchaalType Forecasting]
+			VAR schaaltype = 'Fact Forecasting Vacatures'[SchaalType]
 			
 			RETURN
 			IF(
@@ -442,14 +157,14 @@ table 'Fact Forecasting Vacatures'
 	column 'Flag Medische Specialisten' = RELATED('Dim Vacatures Medewerker'[Flag Medische Specialisten])
 		formatString: 0
 		lineageTag: 4eb5509b-640a-47f8-8cee-7440d91f8250
-		summarizeBy: sum
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
 	column 'Flag overwerk 200% en 300%' = RELATED('Dim Vacatures Medewerker'[Flag Overtime 200% and 300% Type Personeel])
 		formatString: 0
 		lineageTag: dacf26c5-a1d4-45c4-a93d-1bca2a8424d5
-		summarizeBy: sum
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
@@ -510,7 +225,7 @@ table 'Fact Forecasting Vacatures'
 			RETURN
 			IF(
 			    selectedLC = "3080" && medspec = 1,
-			    DIVIDE(14000, 12, BLANK()) * 'Fact Forecasting Vacatures'[Verschil (excl)],
+			    DIVIDE(14000, 12, BLANK()) * 'Fact Forecasting Vacatures'[Verschil per Vac (FTE)],
 			    BLANK()
 			)
 		lineageTag: 7ef6933a-64d0-4233-a532-34bb2f3cee34
@@ -557,7 +272,7 @@ table 'Fact Forecasting Vacatures'
 			)
 			VAR ratio = DIVIDE(15000, FTE)
 			
-			VAR amount = ratio * 'Fact Forecasting Vacatures'[Verschil (excl)]
+			VAR amount = ratio * 'Fact Forecasting Vacatures'[Verschil per Vac (FTE)]
 			
 			RETURN
 			IF(
@@ -568,95 +283,49 @@ table 'Fact Forecasting Vacatures'
 			
 			```
 		lineageTag: e5b81b40-496f-4033-a510-8c36bb329077
-		summarizeBy: sum
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column OE
+	column 'Type Zorg Functie'
 		dataType: string
-		lineageTag: 22dd1bdd-8a43-4ed6-a09d-5d956f0399d5
+		lineageTag: 4b117bac-5a28-429d-8dbd-a40540909039
 		summarizeBy: none
-		sourceColumn: OE
+		sourceColumn: Type Zorg Functie
 
 		annotation SummarizationSetBy = Automatic
 
-	column Werkelijk
-		dataType: double
-		lineageTag: c2ebe4cf-f6a0-43bd-aed7-5f6a3b0e33d6
-		summarizeBy: sum
-		sourceColumn: Werkelijk
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column Instroom
-		dataType: double
-		lineageTag: dc143a42-3920-484b-9242-af2c7bc41f05
-		summarizeBy: sum
-		sourceColumn: Instroom
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'FTE uitstroom (zonder bepaalde tijd)'
-		dataType: double
-		lineageTag: f05aa22b-2969-4cbf-8e0b-45ae750d2592
-		summarizeBy: sum
-		sourceColumn: FTE uitstroom (zonder bepaalde tijd)
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Begin Datum'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: d393c1cb-4ccd-49bb-959b-ff1f8f58abeb
-		summarizeBy: none
-		sourceColumn: Begin Datum
-
-		variation Variation
-			isDefault
-			relationship: 9e424a93-4433-4d2b-9c9a-522e7383c160
-			defaultHierarchy: LocalDateTable_f4f31fd6-b684-4c83-90ec-96d1de590f5f.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column 'Eind Datum'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: ca3a4d6a-caa4-428d-aa0b-ca41e2f74599
-		summarizeBy: none
-		sourceColumn: Eind Datum
-
-		variation Variation
-			isDefault
-			relationship: c4911d00-964a-4958-80a0-86439701f0b8
-			defaultHierarchy: LocalDateTable_b64d31bf-1cf2-48a4-b2bb-73a8d842cffd.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column 'Medewerker ID'
+	column 'Max Schaal/Trede'
 		dataType: string
-		lineageTag: 12eb73ed-2e16-4588-9fad-7d7a1b51d2a7
+		lineageTag: cb415885-42fa-4706-a187-18e6ecb6438d
 		summarizeBy: none
-		sourceColumn: Medewerker ID
+		sourceColumn: Max Schaal/Trede
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Verschil (excl)'
+	column SchaalType
+		dataType: string
+		lineageTag: 27a76ff6-fdf4-47d9-a959-edd416df0362
+		summarizeBy: none
+		sourceColumn: SchaalType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Verschil per Vac (FTE)'
 		dataType: double
-		lineageTag: 4fc26041-9819-4d0b-9ba3-c23a9ff96f1e
+		lineageTag: 30e107b8-7d70-447e-be3b-b93625aacd4a
 		summarizeBy: sum
-		sourceColumn: Verschil (excl)
+		sourceColumn: Verschil per Vac (FTE)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Salaris (incl %)'
+		dataType: double
+		lineageTag: c1241e55-a234-4f13-b1bf-b67f5cabe1ae
+		summarizeBy: sum
+		sourceColumn: Salaris (incl %)
 
 		annotation SummarizationSetBy = Automatic
 
@@ -665,69 +334,66 @@ table 'Fact Forecasting Vacatures'
 	partition 'Fact Forecasting Vacatures' = m
 		mode: import
 		queryGroup: Model
-		source =
+		source = ```
 				let
-				    Source = #"Buffered Dim Vacatures Medewerker (STG)",
-				    #"Filtered Rows1" = Table.SelectRows(Source, each [#"Verschil (excl)"] > 0),
-				    #"Renamed Columns2" = Table.RenameColumns(#"Filtered Rows1",{{"Dim Zorg.Type Zorg Functie", "Type Zorg Functie"}}),
+				    Source = #"Dim Vacatures Medewerker (STG) Test",
+				    #"Renamed Columns2" = Table.RenameColumns(Source,{{"Dim Zorg.Type Zorg Functie", "Type Zorg Functie"}}),
 				    #"Trimmed Text1" = Table.TransformColumns(#"Renamed Columns2",{{"Type Zorg Functie", Text.Trim, type text}}),
-				    #"Merged Queries5" = Table.NestedJoin(#"Trimmed Text1", {"Formatieplaats"}, #"Dim Vacature per Verschil FTE", {"Formatieplaats"}, "Dim Vacature per Verschil FTE", JoinKind.LeftOuter),
-				    #"Expanded Dim Vacature per Verschil FTE" = Table.ExpandTableColumn(#"Merged Queries5", "Dim Vacature per Verschil FTE", {"Verschil (excl)", "Medewerker ID"}, {"Verschil (excl).1", "Medewerker ID.1"}),
-				    #"Added Custom" = Table.AddColumn(#"Expanded Dim Vacature per Verschil FTE", "Year Forecasting", each Date.Year(Date.From(DateTime.LocalNow())) + 1, type nullable number),
-				    #"Sorted Rows" = Table.Sort(#"Added Custom",{{"Medewerker ID", Order.Ascending}}),
-				    #"Renamed Columns7" = Table.RenameColumns(#"Sorted Rows",{{"Verschil (excl).1", "Verschil per Vac (FTE)"}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Trimmed Text1",{"Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "Begin Datum", "Eind Datum", "C/A Formatie ID", "Type Zorg Functie", "Type Personeel ID", "Max Schaal/Trede", "Schaal ID", "SchaalType", "Salaris"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Type Personeel ID", type text}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type",{{"Salaris", "Bruto Salaris"}}),
+				    #"Inserted Year" = Table.AddColumn(#"Renamed Columns1", "Year Forecasting", each Date.Year([Begin Datum]) + 1, Int64.Type),
+				    #"Merged Queries" = Table.NestedJoin(#"Inserted Year", {"Formatieplaats"}, #"Dim Vacature per Verschil FTE Test", {"Formatieplaats"}, "Dim Vacature per Verschil FTE Test", JoinKind.LeftOuter),
+				    #"Expanded Dim Vacature per Verschil FTE Test" = Table.ExpandTableColumn(#"Merged Queries", "Dim Vacature per Verschil FTE Test", {"Verschil (excl)", "Medewerker ID"}, {"Verschil (excl)", "Medewerker ID"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Expanded Dim Vacature per Verschil FTE Test",{{"Verschil (excl)", "Verschil per Vac (FTE)"}}),
+				
+				    DimPeriod = Table.Buffer(#"Dim Period"),
+				
+				    #"Merged Dim Period" = Table.NestedJoin(#"Renamed Columns", {"Year Forecasting"},  DimPeriod, {"Year"}, "Dim Period", JoinKind.LeftOuter),
+				    #"Expanded Dim Period" = Table.ExpandTableColumn(#"Merged Dim Period", "Dim Period", {"Month no.", "Year/Period"}, {"Month no.", "Year/Period"}),
 				
 				    DimLCperGB = Table.Buffer(#"Dim LC per GL Support"),
 				
-				    #"Dim LC per GB Support" = Table.AddColumn(#"Renamed Columns7", "Dim LC per GB", each DimLCperGB),
-				    #"Expand Dim LC per GB" = Table.ExpandTableColumn(#"Dim LC per GB Support", "Dim LC per GB", {"LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving"}, {"LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving"}),
+				    #"DimLCperGLSupport" = Table.AddColumn(#"Expanded Dim Period", "Dim LC per GB", each DimLCperGB),
+				    #"Expanded Support" = Table.ExpandTableColumn(#"DimLCperGLSupport", "Dim LC per GB", {"LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving"}, {"LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving"}),
 				
-				    #"Merged Queries" = Table.NestedJoin(#"Expand Dim LC per GB", {"Year Forecasting"}, #"Dim Period", {"Year"}, "Dim Calendar", JoinKind.LeftOuter),
-				    #"Expanded Dim Calendar" = Table.ExpandTableColumn(#"Merged Queries", "Dim Calendar", {"Month no.", "Year/Period"}, {"Month no.", "Year/Period"}),
-				    #"Renamed Columns8" = Table.RenameColumns(#"Expanded Dim Calendar",{{"Month no.", "Month"}}),
-				    #"Merged Queries1" = Table.NestedJoin(#"Renamed Columns8", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats CAO Original Test", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats CAO", JoinKind.LeftOuter),
-				    #"Expanded Dim Schaal per Formatieplaats CAO" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Schaal per Formatieplaats CAO", {"Max Schaal/Trede"}, {"Max Schaal/Trede"}),
-				    #"Renamed Columns5" = Table.RenameColumns(#"Expanded Dim Schaal per Formatieplaats CAO",{{"Max Schaal/Trede", "Max Schaal/Trede CAO"}}),
-				    #"Trimmed Text" = Table.TransformColumns(#"Renamed Columns5",{{"Max Schaal/Trede CAO", Text.Trim, type text}}),
-				    #"Merged Queries2" = Table.NestedJoin(#"Trimmed Text", {"Max Schaal/Trede CAO"}, #"CAO Schaal AFAS", {"Max Trede Flag"}, "CAO Schaal", JoinKind.LeftOuter),
-				    #"Expanded CAO Schaal" = Table.ExpandTableColumn(#"Merged Queries2", "CAO Schaal", {"Salaris"}, {"Salaris"}),
-				    #"Renamed Columns6" = Table.RenameColumns(#"Expanded CAO Schaal",{{"Salaris", "MAX Salaris CAO"}}),
-				    #"Merged Queries3" = Table.NestedJoin(#"Renamed Columns6", {"Formatieplaats"}, #"Dim Schaal per Formatieplaats BMP/LNT", {"Formatieplaats Code"}, "Dim Schaal per Formatieplaats BMP/LNT", JoinKind.LeftOuter),
-				    #"Expanded Dim Schaal per Formatieplaats BMP/LNT" = Table.ExpandTableColumn(#"Merged Queries3", "Dim Schaal per Formatieplaats BMP/LNT", {"Max Schaal/Trede", "Salaris"}, {"Max Schaal/Trede", "Salaris"}),
-				    #"Renamed Columns" = Table.RenameColumns(#"Expanded Dim Schaal per Formatieplaats BMP/LNT",{{"Schaal/Trede", "Schaal/Trede Original"}}),
-				    #"Merged Columns" = Table.CombineColumns(#"Renamed Columns",{"Max Schaal/Trede", "Max Schaal/Trede CAO"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Schaal/Trede"),
-				    #"Merged Columns1" = Table.CombineColumns(Table.TransformColumnTypes(#"Merged Columns", {{"MAX Salaris CAO", type text}, {"Salaris", type text}}, "en-US"),{"MAX Salaris CAO", "Salaris"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Bruto Salaris"),
-				    #"Removed Other Columns1" = Table.SelectColumns(#"Merged Columns1",{"Geblokkeerd", "Naam_werkgever", "Patientgebonden_functies", "Soort_functie", "Declarerend_Niet-declarerend", "Service_Line_Type", "Service_Lines", "Cluster_Afdeling", "Formatieplaats", "Omschrijving", "Kostenplaats", "OE", "Omschrijving_2", "Functie", "Omschrijving_3", "Generieke_functienaam", "FTE_Begroot", "Werkelijk", "Instroom", "FTE uitstroom (zonder bepaalde tijd)", "Verschil", "Verschil (excl)", "Begin Datum", "Eind Datum", "Uren_Begroot", "Uren_Werkelijk", "Uren_Verschil", "Medewerker ID", "Medewerker ID.1", "Year Forecasting", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "Month", "Year/Period", "Schaal/Trede", "Bruto Salaris"}),
-				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Other Columns1",{{"Medewerker ID", "Medewerker ID Original"}, {"Medewerker ID.1", "Medewerker ID"}}),
-				    #"Changed Type8" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Bruto Salaris", type number}}),
-				    #"Merged Queries6" = Table.NestedJoin(#"Changed Type8", {"Schaal/Trede"}, #"Dim SchaalType", {"Schaal/Trede"}, "Dim SchaalType", JoinKind.LeftOuter),
-				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries6", "Dim SchaalType", {"Salaris", "Schaal ID", "SchaalType Forecasting"}, {"Salaris", "Schaal ID", "SchaalType Forecasting"}),
-				    #"Renamed Columns10" = Table.RenameColumns(#"Expanded Dim SchaalType",{{"Salaris", "Schaal/Trede Salaris"}}),
-				    #"Merged Queries7" = Table.NestedJoin(#"Renamed Columns10", {"SchaalType Forecasting"}, #"Dim Percentage Vacature CAO", {"SchaalType"}, "Dim Percentage Vacature CAO", JoinKind.LeftOuter),
-				    #"Expanded Dim Percentage Vacature CAO" = Table.ExpandTableColumn(#"Merged Queries7", "Dim Percentage Vacature CAO", {"Percentage", "Percentage Name"}, {"Percentage", "Percentage Name"}),
-				    #"Renamed Columns11" = Table.RenameColumns(#"Expanded Dim Percentage Vacature CAO",{{"Percentage", "Percentage CAO"}, {"Percentage Name", "Percentage Name CAO"}}),
-				    #"Merged Queries8" = Table.NestedJoin(#"Renamed Columns11", {"SchaalType Forecasting"}, #"Dim Percentage Vacature LNT", {"SchaalType"}, "Dim Percentage Vacature LNT", JoinKind.LeftOuter),
-				    #"Expanded Dim Percentage Vacature LNT" = Table.ExpandTableColumn(#"Merged Queries8", "Dim Percentage Vacature LNT", {"Percentage", "Percentage Name"}, {"Percentage", "Percentage Name"}),
-				    #"Renamed Columns12" = Table.RenameColumns(#"Expanded Dim Percentage Vacature LNT",{{"Percentage", "Percentage LNT"}, {"Percentage Name", "Percentage Name LNT"}}),
-				    #"Added Custom6" = Table.AddColumn(#"Renamed Columns12", "Percentage Key CAO", each if [SchaalType Forecasting] = "CAO" then Text.From([Percentage Name CAO]) & "_" & Text.From([SchaalType Forecasting]) else null),
-				    #"Added Custom7" = Table.AddColumn(#"Added Custom6", "Percentage Key LNT", each if [SchaalType Forecasting] = "LNT" then Text.From([Percentage Name LNT]) & "_" & Text.From([SchaalType Forecasting]) else null),
-				    #"Changed Type9" = Table.TransformColumnTypes(#"Added Custom7",{{"Percentage Key CAO", type text}, {"Percentage Key LNT", type text}}),
-				    #"Added Custom8" = Table.AddColumn(#"Changed Type9", "Salary (incl %) CAO", each if [SchaalType Forecasting] = "CAO" then ([Percentage CAO] * [#"Schaal/Trede Salaris"]) else null),
-				    #"Added Custom11" = Table.AddColumn(#"Added Custom8", "Salary (incl %) LNT", each if [SchaalType Forecasting] = "LNT" then ([Percentage LNT] * [#"Schaal/Trede Salaris"]) else null),
-				    #"Added Custom9" = Table.AddColumn(#"Added Custom11", "Indexering Vacatures", each #"Dim Indexering Vacatures"),
-				    #"Expanded Indexering Vacatures" = Table.ExpandTableColumn(#"Added Custom9", "Indexering Vacatures", {"Indexering", "Index Name"}, {"Indexering", "Index Name"}),
-				    #"Merged Queries9" = Table.NestedJoin(#"Expanded Indexering Vacatures", {"Medewerker ID"}, #"Dim Vacatures Medewerker", {"Medewerker ID"}, "Dim Vacatures Medewerker", JoinKind.LeftOuter),
-				    #"Expanded Dim Vacatures Medewerker" = Table.ExpandTableColumn(#"Merged Queries9", "Dim Vacatures Medewerker", {"Type Personeel ID"}, {"Type Personeel ID"}),
-				    #"Added Custom10" = Table.AddColumn(#"Expanded Dim Vacatures Medewerker", "Salaris Incl Indexering LNT", each if [Month] >= 7 and ([Type Zorg Functie] = "Medisch Specialisten" or [Type Zorg Functie] = "Arts-assistenten") then [#"Salary (incl %) LNT"] else if [Month] < 7 then [#"Salary (incl %) LNT"] else ([#"Salary (incl %) LNT"] + ([#"Salary (incl %) LNT"] * [Indexering]))),
-				    #"Added Custom12" = Table.AddColumn(#"Added Custom10", "Salaris Incl Indexering CAO", each if [Month] < 7 then [#"Salary (incl %) CAO"] else ([#"Salary (incl %) CAO"] + ([#"Salary (incl %) CAO"] * [Indexering]))),
-				    #"Changed Type10" = Table.TransformColumnTypes(#"Added Custom12",{{"Salaris Incl Indexering LNT", type number}, {"Salaris Incl Indexering CAO", type number}, {"Salary (incl %) LNT", type number}, {"Salary (incl %) CAO", type number}, {"Indexering", type number}}),
-				    #"Added Custom13" = Table.AddColumn(#"Changed Type10", "Percentage Key", each if [Percentage Key CAO] = null then [Percentage Key LNT] else [Percentage Key CAO], type nullable text),
-				    #"Added Custom14" = Table.AddColumn(#"Added Custom13", "Formatieplaats Key", each Text.From([#"Medewerker ID"]) & "_" & Text.From([Month]), type nullable text),
-				    #"Renamed Columns9" = Table.RenameColumns(#"Added Custom14",{{"Verschil (excl)", "Verschil (excl) Original"}}),
-				    #"Merged Queries10" = Table.NestedJoin(#"Renamed Columns9", {"Formatieplaats Key"}, #"Dim Vacature Start of Month", {"Formatieplaats Key"}, "Dim Vacature Start of Month", JoinKind.LeftOuter),
-				    #"Expanded Dim Vacature Start of Month" = Table.ExpandTableColumn(#"Merged Queries10", "Dim Vacature Start of Month", {"Verschil (excl)"}, {"Verschil (excl)"})
+				    DimPerCAO = Table.Buffer(#"Dim Percentage Vacature CAO"), // Buffer table to increase performance
+				    DimPerLNT = Table.Buffer(#"Dim Percentage Vacature LNT"), // Buffer table to increase performance
+				
+				    #"Merged Dim Per CAO" = Table.NestedJoin(#"Expanded Support", {"SchaalType"}, DimPerCAO, {"SchaalType"}, "Dim Percentage Vacature CAO", JoinKind.LeftOuter),
+				    #"Expanded Dim Percentage Vacature CAO" = Table.ExpandTableColumn(#"Merged Dim Per CAO", "Dim Percentage Vacature CAO", {"Percentage", "Percentage Name"}, {"Percentage", "Percentage Name"}),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Expanded Dim Percentage Vacature CAO",{{"Percentage", "Percentage CAO"}, {"Percentage Name", "Percentage Name CAO"}}),
+				    #"Merged Dim Per LNT" = Table.NestedJoin(#"Renamed Columns3", {"SchaalType"}, DimPerLNT, {"SchaalType"}, "Dim Percentage Vacature LNT", JoinKind.LeftOuter),
+				    #"Expanded Dim Percentage Vacature LNT" = Table.ExpandTableColumn(#"Merged Dim Per LNT", "Dim Percentage Vacature LNT", {"Percentage", "Percentage Name"}, {"Percentage", "Percentage Name"}),
+				    #"Renamed Columns4" = Table.RenameColumns(#"Expanded Dim Percentage Vacature LNT",{{"Percentage", "Percentage LNT"}, {"Percentage Name", "Percentage Name LNT"}}),
+				    #"Added Custom Perc Key" = Table.AddColumn(#"Renamed Columns4", "Percentage Key", each if [SchaalType] = "CAO" then Text.From([Percentage Name CAO]) & "_" & Text.From([SchaalType]) else if [SchaalType] = "LNT" then Text.From([Percentage Name LNT]) & "_" & Text.From([SchaalType]) else null, type nullable text),
+				    #"Added Salaris Perc" = Table.AddColumn(#"Added Custom Perc Key", "Salaris (incl %)", each if [SchaalType] = "CAO" then ([Bruto Salaris] * [Percentage CAO]) else if [SchaalType] = "LNT" then ([Bruto Salaris] * [Percentage LNT]) else null, type nullable number),
+				
+				    IndexVac = Table.Buffer(#"Dim Indexering Vacatures"),
+				
+				    #"Added Dim Index Vac" = Table.AddColumn(#"Added Salaris Perc", "Dim Indexering Vacatures", each IndexVac),
+				    #"Expand Dim Index Vac" = Table.ExpandTableColumn(#"Added Dim Index Vac", "Dim Indexering Vacatures", {"Indexering", "Index Name"}, {"Indexering", "Index Name"}),
+				    #"Renamed Columns5" = Table.RenameColumns(#"Expand Dim Index Vac",{{"Month no.", "Month"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns5", "Salaris", each 
+				        if [SchaalType] = "CAO" 
+				        then (if [Month] < 7 
+				                then [#"Salaris (incl %)"] 
+				                else ([#"Salaris (incl %)"] + ([#"Salaris (incl %)"] * [Indexering]))
+				            ) 
+				        else if [SchaalType] = "LNT" 
+				        then ( if [Month] >= 7 and ([Type Zorg Functie] = "Medisch Specialisten" or [Type Zorg Functie] = "Arts-assistenten") 
+				                then [#"Salaris (incl %)"] 
+				                else if [Month] < 7 
+				                then [#"Salaris (incl %)"] 
+				                else ([#"Salaris (incl %)"] + ([#"Salaris (incl %)"] * [Indexering]))
+				            )
+				        else null, type nullable number),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Formatieplaats Key", each Text.From([Medewerker ID]) & "_" & Text.From([Month]), type nullable text),
+				    #"Renamed Columns6" = Table.RenameColumns(#"Added Custom1",{{"Salaris", "Salaris Incl Indexering"}}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Renamed Columns6",{"Formatieplaats", "Omschrijving", "Kostenplaats", "Type Zorg Functie", "Type Personeel ID", "Max Schaal/Trede", "Schaal ID", "SchaalType", "Year Forecasting", "Verschil per Vac (FTE)", "Medewerker ID", "Month", "Year/Period", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "Percentage Key", "Salaris (incl %)", "Index Name", "Salaris Incl Indexering", "Formatieplaats Key"})
 				in
-				    #"Expanded Dim Vacature Start of Month"
+				    #"Removed Other Columns1"
+				```
 
 	annotation PBI_NavigationStepName = Navigation
 

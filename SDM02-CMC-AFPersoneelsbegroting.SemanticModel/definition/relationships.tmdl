@@ -330,10 +330,6 @@ relationship 07585999-229e-4bf0-f161-c1824750bfaa
 	fromColumn: 'Dim Vacatures Medewerker'.'C/A Formatie ID'
 	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'C/A Formatie ID'
 
-relationship ea144b33-e99d-4257-dc12-12b74bfad178
-	fromColumn: 'Dim Vacatures Medewerker'.'OE Code'
-	toColumn: 'Dim Organisatie Eenheid'.OE
-
 relationship a89d9a06-c4ca-c442-2d4d-5916f0a61350
 	fromColumn: 'Dim Vacatures Medewerker'.Functie
 	toColumn: 'Dim Functie'.Functiecode
@@ -402,17 +398,17 @@ relationship f1e60c3f-bb09-17bb-b097-41b79c9d572f
 	fromColumn: 'Dim Medewerker RVC'.'C/A Formatie ID'
 	toColumn: 'Dim Cluster/Afdeling Formatieplaats'.'C/A Formatie ID'
 
-relationship 9e424a93-4433-4d2b-9c9a-522e7383c160
+relationship 09433c0e-5e49-4764-8cbe-dd655f68ebe4
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Fact Forecasting Vacatures'.'Begin Datum'
-	toColumn: LocalDateTable_f4f31fd6-b684-4c83-90ec-96d1de590f5f.Date
+	fromColumn: 'Dim Vacatures Medewerker'.'Begin Datum'
+	toColumn: LocalDateTable_1037b00d-2c0f-4ada-adf0-f563bcdcf480.Date
 
-relationship c4911d00-964a-4958-80a0-86439701f0b8
+relationship 81ef511e-4f05-4a42-9d9a-e03435b5074d
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Fact Forecasting Vacatures'.'Eind Datum'
-	toColumn: LocalDateTable_b64d31bf-1cf2-48a4-b2bb-73a8d842cffd.Date
+	fromColumn: 'Dim Vacatures Medewerker'.'Eind Datum'
+	toColumn: LocalDateTable_ce44edf7-627d-4c86-9285-960f0aab00bb.Date
 
-relationship 11ae05e3-bdff-fb35-0030-bd63d6431725
+relationship 55df26f5-fbad-96c3-4c62-540f46a815c4
 	fromColumn: 'Fact Forecasting Vacatures'.'Medewerker ID'
 	toColumn: 'Dim Vacatures Medewerker'.'Medewerker ID'
 

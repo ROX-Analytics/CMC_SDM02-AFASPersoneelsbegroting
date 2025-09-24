@@ -149,12 +149,15 @@ table 'Dim Vacature Start of Month'
 		queryGroup: Model
 		source =
 				let
-				    Source = #"Dim Vacatures Medewerker (STG)",
+				    Source = #"Dim Vacatures Medewerker (STG) Test",
 				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Formatieplaats", "Omschrijving"}),
-				    #"Merged Queries" = Table.NestedJoin(#"Removed Other Columns", {"Formatieplaats"}, #"Dim Vacature per Verschil FTE", {"Formatieplaats"}, "Dim Vacature per Verschil FTE", JoinKind.LeftOuter),
+				    #"Merged Queries" = Table.NestedJoin(#"Removed Other Columns", {"Formatieplaats"}, #"Dim Vacature per Verschil FTE Test", {"Formatieplaats"}, "Dim Vacature per Verschil FTE", JoinKind.LeftOuter),
 				    #"Expanded Dim Vacature per Verschil FTE" = Table.ExpandTableColumn(#"Merged Queries", "Dim Vacature per Verschil FTE", {"Verschil (excl)", "Medewerker ID", "Formatieplaats Verschil ID", "Nr van Vacature"}, {"Verschil (excl)", "Medewerker ID", "Formatieplaats Verschil ID", "Nr van Vacature"}),
 				    #"Transform Nr Vac" = Table.TransformColumns(#"Expanded Dim Vacature per Verschil FTE", {{"Nr van Vacature", each Text.PadStart(Text.From(_), 2, "0"), type nullable text}}),
-				    #"Added Custom" = Table.AddColumn(#"Transform Nr Vac", "Dim Period", each #"Dim Period"),
+				
+				    DimPeriod = Table.Buffer(#"Dim Period"),
+				
+				    #"Added Custom" = Table.AddColumn(#"Transform Nr Vac", "Dim Period", each DimPeriod),
 				    #"Exapndedn Columns" = Table.ExpandTableColumn(#"Added Custom", "Dim Period", {"Year", "Month no.", "Year/Period"}, {"Year", "Start of Month", "Year/Period"}),
 				    #"Added Custom1" = Table.AddColumn(#"Exapndedn Columns", "Forecast Year Filter", each if [Year] = Date.Year(DateTime.LocalNow()) + 1 then true else false, type logical),
 				    #"Filtered Rows" = Table.SelectRows(#"Added Custom1", each ([Forecast Year Filter] = true)),

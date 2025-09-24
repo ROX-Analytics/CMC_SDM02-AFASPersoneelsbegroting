@@ -79,12 +79,12 @@
           "z": 9000.00
         },
         {
-          "config": "{\"name\":\"2db90f4063891573c3df\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":1277.4913493661106,\"z\":8000,\"width\":1215.4041409285824,\"height\":342.42036168576163,\"tabOrder\":9000}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"Dim Medewerker.Volledige Naam\",\"active\":true}],\"Columns\":[{\"queryRef\":\"Dim Grootboek.Code GB + Omschrijving\",\"active\":true}],\"Values\":[{\"queryRef\":\"Measure Table.(M) LC 3010 - Schemawerk 30%\"},{\"queryRef\":\"Measure Table.(M) LC 3011 - Schemawerk 45%\"},{\"queryRef\":\"Measure Table.(M) LC 3012 - Schemawerk 50%\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"Dim Grootboek\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Volledige Naam\"},\"Name\":\"Dim Medewerker.Volledige Naam\",\"NativeReferenceName\":\"Volledige Naam\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"Code GB + Omschrijving\"},\"Name\":\"Dim Grootboek.Code GB + Omschrijving\",\"NativeReferenceName\":\"Code GB + Omschrijving\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"(M) LC 3010 - Schemawerk 30%\"},\"Name\":\"Measure Table.(M) LC 3010 - Schemawerk 30%\",\"NativeReferenceName\":\"(M) LC 3010 - Schemawerk 30%\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"(M) LC 3011 - Schemawerk 45%\"},\"Name\":\"Measure Table.(M) LC 3011 - Schemawerk 45%\",\"NativeReferenceName\":\"(M) LC 3011 - Schemawerk 45%\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"(M) LC 3012 - Schemawerk 50%\"},\"Name\":\"Measure Table.(M) LC 3012 - Schemawerk 50%\",\"NativeReferenceName\":\"(M) LC 3012 - Schemawerk 50%\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{}}}",
+          "config": "{\"name\":\"2db90f4063891573c3df\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":1097.6374508616111,\"z\":8000,\"width\":1244.7970460086724,\"height\":503.8052022093514,\"tabOrder\":9000}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"Dim Medewerker.Volledige Naam\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Volledige Naam\"},\"Name\":\"Dim Medewerker.Volledige Naam\",\"NativeReferenceName\":\"Volledige Naam\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{}}}",
           "filters": "[]",
-          "height": 342.42,
-          "width": 1215.40,
+          "height": 503.81,
+          "width": 1244.80,
           "x": 0.00,
-          "y": 1277.49,
+          "y": 1097.64,
           "z": 8000.00
         },
         {
@@ -106,12 +106,12 @@
           "z": 0.00
         },
         {
-          "config": "{\"name\":\"6468525da94f7f0c5051\",\"layouts\":[{\"id\":0,\"position\":{\"x\":26.00451323955799,\"y\":906.6906949525886,\"z\":14000,\"width\":223.63881386019872,\"height\":166.42888473317115,\"tabOrder\":14000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.FTE Forecasting Vacatures TEST\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Vacatures TEST\"},\"Name\":\"Measure Table.FTE Forecasting Vacatures TEST\",\"NativeReferenceName\":\"FTE Forecasting Vacatures TEST\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Vacatures TEST\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "config": "{\"name\":\"6468525da94f7f0c5051\",\"layouts\":[{\"id\":0,\"position\":{\"x\":327.2136880328777,\"y\":1037.0423234481152,\"z\":14000,\"width\":436.2849173771703,\"height\":166.20377804844583,\"tabOrder\":14000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.FTE Forecasting Vacatures TEST\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Vacatures TEST\"},\"Name\":\"Measure Table.FTE Forecasting Vacatures TEST\",\"NativeReferenceName\":\"FTE Forecasting Vacatures TEST\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Vacatures TEST\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
           "filters": "[]",
-          "height": 166.43,
-          "width": 223.64,
-          "x": 26.00,
-          "y": 906.69,
+          "height": 166.20,
+          "width": 436.28,
+          "x": 327.21,
+          "y": 1037.04,
           "z": 14000.00
         },
         {
@@ -149,6 +149,15 @@
           "x": 1065.70,
           "y": 140.92,
           "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"b0526d577870eb4549bf\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1077,\"y\":648,\"width\":202,\"height\":364,\"z\":14001,\"tabOrder\":14001}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Type Personeel.Type Zorg Functie\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Type Personeel\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Type Zorg Functie\"},\"Name\":\"Dim Type Personeel.Type Zorg Functie\",\"NativeReferenceName\":\"Type Zorg Functie\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 364.00,
+          "width": 202.00,
+          "x": 1077.00,
+          "y": 648.00,
+          "z": 14001.00
         },
         {
           "config": "{\"name\":\"b8f18c015d4efafde63e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1065.6370528408975,\"y\":425.9154462787663,\"z\":5000,\"width\":213.80616028336476,\"height\":64.48122294260207,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Indexering Vacatures.Index Name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Vacatures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"},\"Name\":\"Dim Indexering Vacatures.Index Name\",\"NativeReferenceName\":\"Indexering Vacatures\"}]},\"columnProperties\":{\"Dim Indexering Vacatures.Index Name\":{\"displayName\":\"Indexering Vacatures\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Vacatures\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'1%'\"}}]]}}}]}}}}]}}}",

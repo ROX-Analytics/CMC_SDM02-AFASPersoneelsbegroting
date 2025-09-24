@@ -2652,7 +2652,7 @@ table 'Measure Table'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'FTE Forecasting Vacatures' = SUM('Dim Vacatures Medewerker'[FTE])
+	measure 'FTE Forecasting Vacatures' = SUM('Dim Vacatures Medewerker'[Verschil (excl)])
 		displayFolder: Forecasting
 		lineageTag: bfb17f9e-1989-4813-9e55-13087c112b65
 
@@ -4675,7 +4675,7 @@ table 'Measure Table'
 			    )
 			VAR maxFTE =
 			    CALCULATE(
-			        SUM('Fact Forecasting Vacatures'[Verschil (excl)]),
+			        SUM('Fact Forecasting Vacatures'[Verschil per Vac (FTE)]),
 			        'Dim Period'[Month no.] = maxPeriod,
 			        'Dim Looncomponent'[LC] = "2434"
 			    )
@@ -4684,7 +4684,7 @@ table 'Measure Table'
 			IF(
 			    selectedPeriod,
 			    CALCULATE(
-			        SUM('Fact Forecasting Vacatures'[Verschil (excl)]),
+			        SUM('Fact Forecasting Vacatures'[Verschil per Vac (FTE)]),
 			        'Dim Period'[Month no.] = selectedPeriod,
 			        'Dim Looncomponent'[LC] = "2434"
 			    ),
