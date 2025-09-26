@@ -4205,8 +4205,9 @@ table 'Measure Table'
 			    'Dim Grootboek'[Code Grootboek] = "4101000",
 			    'Dim Looncomponent'[LC] = "2622"
 			)
+			VAR perc = SELECTEDVALUE('Dim Range Overwerk'[Percentage])
 			RETURN
-			salaris
+			salaris * perc
 			
 			```
 		displayFolder: Forecasting\Vacatures
@@ -4224,8 +4225,9 @@ table 'Measure Table'
 			    'Dim Looncomponent'[LC] = "3075",
 			    'Dim Vacatures Medewerker'[Flag Overtime 200% and 300% Type Personeel] = 1
 			)
+			VAR perc = SELECTEDVALUE('Dim Range Overwerk'[Percentage])
 			RETURN
-			overwerk
+			overwerk * perc
 			
 			```
 		displayFolder: Forecasting\Vacatures
@@ -5007,26 +5009,6 @@ table 'Measure Table'
 			```
 		displayFolder: Forecasting
 		lineageTag: 05cff757-5109-40c1-ac61-4e7240eda1b9
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	measure '(M) GB 4125100 - Personeel niet in Loondienst Test' = ```
-			
-			VAR FTE = [FTE Forecasting Medewerker (max period at total) Personeel niet in Loondienst]
-			VAR FTETotal = [FTE Forecasting Medewerker GB 4125100 Total]
-			VAR personeelnietinloondienst = 
-			CALCULATE(
-			    SUM('Fact Forecasting Medewerkers'[(M) GB 4125100 - Personeel niet in Loondienst]),
-			    'Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst] = 1
-			)
-			
-			VAR selectedkosten = SELECTEDVALUE ('Series GB 4118000 - Medisch Uitzendkosten'[Waarde])
-			RETURN
-			// personeelnietinloondienst
-			DIVIDE (personeelnietinloondienst * FTE, FTETotal, BLANK ())
-			```
-		displayFolder: Forecasting\Medewerker
-		lineageTag: f676c52c-4d6e-4178-b498-a118c8e37da9
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
