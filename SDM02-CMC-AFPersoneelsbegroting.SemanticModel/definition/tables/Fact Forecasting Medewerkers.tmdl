@@ -105,7 +105,7 @@ table 'Fact Forecasting Medewerkers'
 		annotation SummarizationSetBy = Automatic
 
 	column 'New Schaal ID (Forecasting)'
-		dataType: double
+		dataType: int64
 		formatString: 0
 		lineageTag: ce1f3166-354b-450d-81d9-266de47ea018
 		summarizeBy: none
@@ -586,7 +586,7 @@ table 'Fact Forecasting Medewerkers'
 	column 'Maanden In Dienst' = RELATED('Fact Medewerker Maanden in Dienst Actuals'[Maanden in Dienst])
 		formatString: 0
 		lineageTag: 0a1212bb-4f58-4e3e-ac16-92214d84de0a
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
@@ -928,9 +928,10 @@ table 'Fact Forecasting Medewerkers'
 				    #"Added Custom2" = Table.AddColumn(#"Renamed Columns", "Salaris Base Forecasting", each if [Period] >= 7 and ([#"Type Zorg Functie"] = "Medisch Specialisten" or [#"Type Zorg Functie"] = "Arts-assistenten") or [#"SchaalType Forecasting"] = "Andere OVK" then [#"Salaris Base Forecasting Original 2"] else if [Period] < 7 then [#"Salaris Base Forecasting Original 2"] else ([#"Salaris Base Forecasting Original 2"] * [Indexering]) + [#"Salaris Base Forecasting Original 2"], type nullable number),
 				    #"Renamed Columns1" = Table.RenameColumns(#"Added Custom2",{{"Index Name", "Indexering Forecasting"}}),
 				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Indexering", type number}}),
-				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type1",{"Medewerker ID", "FTE", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "Year Forecasting", "Period", "Period (leading zeros)", "Anniversary Month", "Kostenplaats", "Type Personeel ID", "Year/Period", "Index Name Actuals", "SchaalType Forecasting", "Trede Verhoging (Forecasting)", "New Schaal ID (Forecasting)", "Softlanding per Maand", "Indexering Forecasting", "Indexering", "Salaris Base Forecasting"})
+				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type1",{"Medewerker ID", "FTE", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "Year Forecasting", "Period", "Period (leading zeros)", "Anniversary Month", "Kostenplaats", "Type Personeel ID", "Year/Period", "Index Name Actuals", "SchaalType Forecasting", "Trede Verhoging (Forecasting)", "New Schaal ID (Forecasting)", "Softlanding per Maand", "Indexering Forecasting", "Indexering", "Salaris Base Forecasting"}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Removed Other Columns",{{"New Schaal ID (Forecasting)", Int64.Type}})
 				in
-				    #"Removed Other Columns"
+				    #"Changed Type3"
 
 	annotation PBI_NavigationStepName = Navigation
 

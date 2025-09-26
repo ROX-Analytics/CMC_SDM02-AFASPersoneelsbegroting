@@ -1,0 +1,35 @@
+table 'Dim Range Studiekosten CAO'
+	lineageTag: b70c7764-e50f-4233-adfe-e447735a7aab
+
+	column Percentage
+		dataType: double
+		lineageTag: ffaac757-b3f6-48cd-b914-55ff3d115538
+		summarizeBy: sum
+		sourceColumn: Percentage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Range = FORMAT('Dim Range Studiekosten CAO'[Percentage] * 100, "0") & "%"
+		lineageTag: 1367b428-406e-4bec-a2d6-d7712c0b4439
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Range Studiekosten CAO' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = {0.02, 0.03, 0.04, 0.05, 0.06},
+				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Converted to Table",{{"Column1", Percentage.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Column1", "Percentage"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

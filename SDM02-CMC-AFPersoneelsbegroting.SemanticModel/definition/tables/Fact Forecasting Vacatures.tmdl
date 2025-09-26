@@ -331,6 +331,27 @@ table 'Fact Forecasting Vacatures'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column '(V) GB 4120500 - Werving en selectiekosten' =
+			
+			VAR selectedGL = 'Fact Forecasting Vacatures'[Grootboekrekening]
+			VAR selectedLC = 'Fact Forecasting Vacatures'[LC]
+			VAR flagmedspec = 'Fact Forecasting Vacatures'[Flag Medische Specialisten]
+			
+			VAR kosten = DIVIDE(1800, 12, BLANK())
+			
+			RETURN
+			IF(
+			    selectedGL = "4120500" && selectedLC = "3139" && flagmedspec = 1,
+			    kosten,
+			    BLANK()
+			)
+		lineageTag: bf176ace-f9c7-4e3d-bf7e-8533642c5e3b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition 'Fact Forecasting Vacatures' = m
 		mode: import
 		queryGroup: Model

@@ -19,6 +19,12 @@ table 'Series GB 4118000 - Medisch Uitzendkosten'
 
 		annotation SummarizationSetBy = Automatic
 
+	column LC = "0001"
+		lineageTag: ce038614-014c-4e82-980c-2e7c14af204a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Series GB 4118000 - Medisch Uitzendkosten' = m
 		mode: import
 		queryGroup: Model

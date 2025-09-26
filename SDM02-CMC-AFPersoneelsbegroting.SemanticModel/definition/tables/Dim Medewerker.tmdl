@@ -774,7 +774,7 @@ table 'Dim Medewerker'
 	column 'Maanden in Dienst' = RELATED('Fact Medewerker Maanden in Dienst Actuals'[Maanden in Dienst])
 		formatString: 0
 		lineageTag: d3a8d4fd-779f-4b5b-8178-e156319ca8d0
-		summarizeBy: sum
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 

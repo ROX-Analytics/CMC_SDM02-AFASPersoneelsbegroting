@@ -144,6 +144,12 @@ table 'Dim Vacature Start of Month'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Formatieplaats Code + Omschrijving + FTE (verschil)' = 'Dim Vacature Start of Month'[Code + Omschrijving] & " " & "(" & "FTE - " & FORMAT('Dim Vacature Start of Month'[Verschil (excl)], "0.00") & ")"
+		lineageTag: 31ad7278-cfb3-477e-9de5-d7b309a5cef1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Vacature Start of Month' = m
 		mode: import
 		queryGroup: Model

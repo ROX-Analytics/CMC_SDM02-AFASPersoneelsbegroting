@@ -1,0 +1,35 @@
+table 'Dim Range Personeel niet in Loondienst'
+	lineageTag: 3c2c3e96-0970-4ee4-af81-42f6569cb88f
+
+	column Percentage
+		dataType: double
+		lineageTag: 7f6a3ce0-9941-4b04-9882-554a654ea1c1
+		summarizeBy: sum
+		sourceColumn: Percentage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Range = FORMAT('Dim Range Personeel niet in Loondienst'[Percentage] * 100, "0") & "%"
+		lineageTag: 6126985f-8dd8-45b3-91df-c3ae95adfbb7
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Range Personeel niet in Loondienst' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = {0.5, 0.75, 1.05, 1.00, 1.10},
+				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Converted to Table",{{"Column1", Percentage.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Column1", "Percentage"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

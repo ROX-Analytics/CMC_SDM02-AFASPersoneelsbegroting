@@ -201,13 +201,12 @@ table 'Dim Vacatures Medewerker'
 
 	column 'Verschil (excl)'
 		dataType: double
+		formatString: 0.00
 		lineageTag: f3bd37b7-4564-49f8-b1ca-b1abe5d91e26
 		summarizeBy: sum
 		sourceColumn: Verschil (excl)
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column 'Medewerker ID'
 		dataType: string
@@ -232,12 +231,6 @@ table 'Dim Vacatures Medewerker'
 		lineageTag: 65a32f68-b2ad-43a9-bafb-999e7784f799
 		summarizeBy: none
 		sourceColumn: Nr van Vacature
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Naam en Nr Vacature' = 'Dim Vacatures Medewerker'[Voornaam] & " " & "-" & " " & 'Dim Vacatures Medewerker'[Nr van Vacature]
-		lineageTag: f48c8e2d-d498-4d6a-a8f8-185dbb662416
-		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
@@ -355,6 +348,12 @@ table 'Dim Vacatures Medewerker'
 		lineageTag: dcf5ee39-16a2-4c0b-8289-ce3a9e8fbb03
 		summarizeBy: none
 		sourceColumn: SchaalType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Formatieplaats Code + Omschrijving + FTE (Verschil)' = 'Dim Vacatures Medewerker'[Formatieplaats] & " " & "-" & " " & 'Dim Vacatures Medewerker'[Formatieplaats Omschrijving] & " " & 'Dim Vacatures Medewerker'[Nr van Vacature] & " " & "(" & "FTE - " & FORMAT('Dim Vacatures Medewerker'[Verschil (excl)], "0.00") & ")"
+		lineageTag: ec01f162-2c5b-4a7c-8ad6-6246848c3167
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 

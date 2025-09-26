@@ -1,0 +1,35 @@
+table 'Dim Range Overwerk'
+	lineageTag: 207bf8d6-af66-48be-b661-de35f11af6ee
+
+	column Percentage
+		dataType: double
+		lineageTag: 15b851a1-17ec-4e80-864c-6b8af5c4a7c9
+		summarizeBy: sum
+		sourceColumn: Percentage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Range = FORMAT('Dim Range Overwerk'[Percentage] * 100, "0") & "%"
+		lineageTag: dd4c42b6-f994-42f9-b18a-76e51c2833ee
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Range Overwerk' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = {0.5, 0.75, 1.05, 1.00, 1.10},
+				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Converted to Table",{{"Column1", Percentage.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Column1", "Percentage"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

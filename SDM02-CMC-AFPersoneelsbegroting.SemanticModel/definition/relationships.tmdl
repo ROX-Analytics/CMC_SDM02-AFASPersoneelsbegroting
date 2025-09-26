@@ -146,10 +146,6 @@ relationship 86a8b291-a087-1034-c55a-3c3174148ff6
 	fromColumn: 'Fact Forecasting Medewerkers'.'Medewerker ID'
 	toColumn: 'Dim Medewerker'.'Medewerker ID'
 
-relationship 2d1d9431-ac16-70c0-8b08-dc40221e0089
-	fromColumn: 'Fact Forecasting Medewerkers'.'New Schaal ID (Forecasting)'
-	toColumn: 'Dim SchaalType'.'Schaal ID'
-
 relationship 5eaa5bbc-b736-443d-e258-85a13898af45
 	fromColumn: 'Fact Forecasting Medewerkers'.'Type Personeel ID'
 	toColumn: 'Dim Type Personeel'.'Type Personeel ID'
@@ -411,4 +407,16 @@ relationship 81ef511e-4f05-4a42-9d9a-e03435b5074d
 relationship 55df26f5-fbad-96c3-4c62-540f46a815c4
 	fromColumn: 'Fact Forecasting Vacatures'.'Medewerker ID'
 	toColumn: 'Dim Vacatures Medewerker'.'Medewerker ID'
+
+relationship eeed5753-be04-d218-dd0a-5ce0a0122b5f
+	fromColumn: 'Dim Vacatures Medewerker'.OE
+	toColumn: 'Dim Organisatie Eenheid'.OE
+
+relationship 6babcf89-e9ed-f035-f20c-772aaf7a0d92
+	fromColumn: 'Fact Forecasting Medewerkers'.'New Schaal ID (Forecasting)'
+	toColumn: 'Dim SchaalType'.'Schaal ID'
+
+relationship 8a0342b2-c725-31a2-56cb-38069f332e64
+	fromColumn: 'Series GB 4118000 - Medisch Uitzendkosten'.LC
+	toColumn: 'Dim Looncomponent'.LC
 

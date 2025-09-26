@@ -70,22 +70,40 @@
       "name": "efbd2fe44a9e30c7d19c",
       "visualContainers": [
         {
-          "config": "{\"name\":\"12e52b5bdc369d04528d\",\"layouts\":[{\"id\":0,\"position\":{\"x\":26.340027821981664,\"y\":1072.4154184663962,\"z\":9000,\"width\":472.239070236957,\"height\":146.75158357961212,\"tabOrder\":10000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.FTE Forecasting Medewerker (max period at total) Schemawerk\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Medewerker (max period at total) Schemawerk\"},\"Name\":\"Measure Table.FTE Forecasting Medewerker (max period at total) Schemawerk\",\"NativeReferenceName\":\"FTE Forecasting Medewerker (max period at total) Schemawerk\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Medewerker (max period at total) Schemawerk\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"labels\":[{\"properties\":{\"labelDisplayUnits\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}}}}]}}}",
+          "config": "{\"name\":\"0eb940fd261d87720513\",\"layouts\":[{\"id\":0,\"position\":{\"x\":818.1505720343679,\"y\":508.82742511309687,\"z\":17001,\"width\":461.23924866367054,\"height\":305.6625179636229,\"tabOrder\":17001}}],\"singleVisual\":{\"visualType\":\"donutChart\",\"projections\":{\"Category\":[{\"queryRef\":\"Dim SchaalType.SchaalType Forecasting\",\"active\":true}],\"Y\":[{\"queryRef\":\"Measure Table.Totale Bedrag (Mdw + Vac)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim SchaalType\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"SchaalType Forecasting\"},\"Name\":\"Dim SchaalType.SchaalType Forecasting\",\"NativeReferenceName\":\"SchaalType Forecasting\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Totale Bedrag (Mdw + Vac)\"},\"Name\":\"Measure Table.Totale Bedrag (Mdw + Vac)\",\"NativeReferenceName\":\"Totale Bedrag (Mdw + Vac)\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Totale Bedrag (Mdw + Vac)\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
           "filters": "[]",
-          "height": 146.75,
-          "width": 472.24,
-          "x": 26.34,
-          "y": 1072.42,
-          "z": 9000.00
+          "height": 305.66,
+          "width": 461.24,
+          "x": 818.15,
+          "y": 508.83,
+          "z": 17001.00
         },
         {
-          "config": "{\"name\":\"2db90f4063891573c3df\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":1097.6374508616111,\"z\":8000,\"width\":1244.7970460086724,\"height\":503.8052022093514,\"tabOrder\":9000}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"Dim Medewerker.Volledige Naam\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Volledige Naam\"},\"Name\":\"Dim Medewerker.Volledige Naam\",\"NativeReferenceName\":\"Volledige Naam\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{}}}",
+          "config": "{\"name\":\"12e52b5bdc369d04528d\",\"layouts\":[{\"id\":0,\"position\":{\"x\":497.8455382401523,\"y\":516.1486830283932,\"z\":8000,\"width\":472.22113553661507,\"height\":146.42515830592714,\"tabOrder\":10000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.FTE Forecasting Medewerker GB 4125100 Total\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Medewerker GB 4125100 Total\"},\"Name\":\"Measure Table.FTE Forecasting Medewerker GB 4125100 Total\",\"NativeReferenceName\":\"FTE Forecasting Medewerker GB 4125100 Total\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Medewerker GB 4125100 Total\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"labels\":[{\"properties\":{\"labelDisplayUnits\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}}}}]}}}",
           "filters": "[]",
-          "height": 503.81,
-          "width": 1244.80,
-          "x": 0.00,
-          "y": 1097.64,
+          "height": 146.43,
+          "width": 472.22,
+          "x": 497.85,
+          "y": 516.15,
           "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"2db90f4063891573c3df\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":984.70918960736,\"z\":16000,\"width\":841.944660259081,\"height\":556.4156015625232,\"tabOrder\":9000}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"Dim Vacatures Medewerker.Medewerker ID\",\"active\":true}],\"Values\":[{\"queryRef\":\"Measure Table.(V) LC 3095 - Vergunningen\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Vacatures Medewerker\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Medewerker ID\"},\"Name\":\"Dim Vacatures Medewerker.Medewerker ID\",\"NativeReferenceName\":\"First Medewerker ID\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"(V) LC 3095 - Vergunningen\"},\"Name\":\"Measure Table.(V) LC 3095 - Vergunningen\",\"NativeReferenceName\":\"(V) LC 3095 - Vergunningen\"}]},\"expansionStates\":[{\"roles\":[\"Rows\"],\"levels\":[{\"queryRefs\":[\"Dim Vacatures Medewerker.Medewerker ID\"],\"isCollapsed\":true,\"isPinned\":true}],\"root\":{\"identityValues\":null}}],\"drillFilterOtherVisuals\":true,\"objects\":{}}}",
+          "filters": "[]",
+          "height": 556.42,
+          "width": 841.94,
+          "x": 0.00,
+          "y": 984.71,
+          "z": 16000.00
+        },
+        {
+          "config": "{\"name\":\"50b344f14fceb9a287f7\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":658.9132123766722,\"z\":15000,\"width\":294.6806310906784,\"height\":82.36415154708402,\"tabOrder\":16000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Range Studiekosten CAO.Range\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Range Studiekosten CAO\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Range\"},\"Name\":\"Dim Range Studiekosten CAO.Range\",\"NativeReferenceName\":\"Range Studiekosten CAO\"}]},\"columnProperties\":{\"Dim Range Studiekosten CAO.Range\":{\"displayName\":\"Range Studiekosten CAO\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 82.36,
+          "width": 294.68,
+          "x": 0.00,
+          "y": 658.91,
+          "z": 15000.00
         },
         {
           "config": "{\"name\":\"5956ac00d52e706d534b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1076.635441767331,\"y\":504.5409227105728,\"z\":6000,\"width\":202.66078903855643,\"height\":67.55359634618547,\"tabOrder\":6000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Percentage Vacature.SchaalType\",\"active\":true},{\"queryRef\":\"Dim Percentage Vacature.Percentage van Schaal Type\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Percentage Vacature\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Percentage van Schaal Type\"},\"Name\":\"Dim Percentage Vacature.Percentage van Schaal Type\",\"NativeReferenceName\":\"Percentage van Schaal Type\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"SchaalType\"},\"Name\":\"Dim Percentage Vacature.SchaalType\",\"NativeReferenceName\":\"SchaalType\"}]},\"expansionStates\":[{\"roles\":[\"Values\"],\"levels\":[{\"queryRefs\":[\"Dim Percentage Vacature.SchaalType\"],\"isCollapsed\":true,\"identityKeys\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Percentage Vacature\"}},\"Property\":\"SchaalType\"}}],\"isPinned\":true},{\"queryRefs\":[\"Dim Percentage Vacature.Percentage van Schaal Type\"],\"isCollapsed\":true,\"isPinned\":true}],\"root\":{\"identityValues\":null,\"children\":[{\"identityValues\":[{\"Literal\":{\"Value\":\"'LNT'\"}}],\"isToggled\":true}]}}],\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Percentage Vacature\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"SchaalType\"}},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Percentage van Schaal Type\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'CAO'\"}},{\"Literal\":{\"Value\":\"'100% van CAO'\"}}],[{\"Literal\":{\"Value\":\"'LNT'\"}},{\"Literal\":{\"Value\":\"'100% van LNT'\"}}]]}}}]}}}}]},\"filterExpressionMetadata\":{\"expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Percentage Vacature\"}},\"Property\":\"SchaalType\"}},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Percentage Vacature\"}},\"Property\":\"Percentage van Schaal Type\"}}],\"cachedValueItems\":[{\"identities\":[{\"scopeId\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Percentage Vacature\"}},\"Property\":\"SchaalType\"}},\"Right\":{\"Literal\":{\"Value\":\"'CAO'\"}}}}},{\"scopeId\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Percentage Vacature\"}},\"Property\":\"Percentage van Schaal Type\"}},\"Right\":{\"Literal\":{\"Value\":\"'100% van CAO'\"}}}}}],\"valueMap\":{\"0\":\"CAO\",\"1\":\"100% van CAO\"}},{\"identities\":[{\"scopeId\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Percentage Vacature\"}},\"Property\":\"SchaalType\"}},\"Right\":{\"Literal\":{\"Value\":\"'LNT'\"}}}}},{\"scopeId\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Percentage Vacature\"}},\"Property\":\"Percentage van Schaal Type\"}},\"Right\":{\"Literal\":{\"Value\":\"'100% van LNT'\"}}}}}],\"valueMap\":{\"0\":\"LNT\",\"1\":\"100% van LNT\"}}]}}}",
@@ -106,22 +124,22 @@
           "z": 0.00
         },
         {
-          "config": "{\"name\":\"6468525da94f7f0c5051\",\"layouts\":[{\"id\":0,\"position\":{\"x\":327.2136880328777,\"y\":1037.0423234481152,\"z\":14000,\"width\":436.2849173771703,\"height\":166.20377804844583,\"tabOrder\":14000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.FTE Forecasting Vacatures TEST\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Vacatures TEST\"},\"Name\":\"Measure Table.FTE Forecasting Vacatures TEST\",\"NativeReferenceName\":\"FTE Forecasting Vacatures TEST\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Vacatures TEST\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "config": "{\"name\":\"615d841148991e279207\",\"layouts\":[{\"id\":0,\"position\":{\"x\":65.89132123766721,\"y\":794.3564838096547,\"z\":17004,\"width\":334.94754962480835,\"height\":161.06767413651986,\"tabOrder\":17004}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.FTE Forecasting Vacatures GB 4213500 Reis en Verblijfkosten\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Vacatures GB 4213500 Reis en Verblijfkosten\"},\"Name\":\"Measure Table.FTE Forecasting Vacatures GB 4213500 Reis en Verblijfkosten\",\"NativeReferenceName\":\"FTE Forecasting Vacatures GB 4213500 Reis en Verblijfkosten\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Vacatures GB 4213500 Reis en Verblijfkosten\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
           "filters": "[]",
-          "height": 166.20,
-          "width": 436.28,
-          "x": 327.21,
-          "y": 1037.04,
-          "z": 14000.00
+          "height": 161.07,
+          "width": 334.95,
+          "x": 65.89,
+          "y": 794.36,
+          "z": 17004.00
         },
         {
-          "config": "{\"name\":\"6ab8a67ea0739d56addd\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":425.45008067827933,\"z\":13000,\"width\":1021.3930245695456,\"height\":586.5580156410101,\"tabOrder\":8000}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.Totale Bedrag Medewerker Forecasting\"},{\"queryRef\":\"Measure Table.Totale Bedrag Vacatures Forecasting\"}],\"Rows\":[{\"queryRef\":\"Dim Grootboek.Code GB + Omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Totale Bedrag Medewerker Forecasting\"},\"Name\":\"Measure Table.Totale Bedrag Medewerker Forecasting\",\"NativeReferenceName\":\"Totale Bedrag Medewerker Forecasting\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Code GB + Omschrijving\"},\"Name\":\"Dim Grootboek.Code GB + Omschrijving\",\"NativeReferenceName\":\"Code GB + Omschrijving\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Totale Bedrag Vacatures Forecasting\"},\"Name\":\"Measure Table.Totale Bedrag Vacatures Forecasting\",\"NativeReferenceName\":\"Totale Bedrag Vacatures Forecasting\"}]},\"drillFilterOtherVisuals\":true}}",
+          "config": "{\"name\":\"6ab8a67ea0739d56addd\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":18.303144788240893,\"z\":11000,\"width\":1067.073341154444,\"height\":644.2706965460794,\"tabOrder\":8000}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"Dim Grootboek.Code GB + Omschrijving\",\"active\":true},{\"queryRef\":\"Dim Looncomponent.LC Code + Omschrijving\",\"active\":true}],\"Values\":[{\"queryRef\":\"Measure Table.Totale Bedrag Vacatures Forecasting\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Grootboek\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"Dim Looncomponent\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Code GB + Omschrijving\"},\"Name\":\"Dim Grootboek.Code GB + Omschrijving\",\"NativeReferenceName\":\"Code GB + Omschrijving\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"LC Code + Omschrijving\"},\"Name\":\"Dim Looncomponent.LC Code + Omschrijving\",\"NativeReferenceName\":\"LC Code + Omschrijving\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Totale Bedrag Vacatures Forecasting\"},\"Name\":\"Measure Table.Totale Bedrag Vacatures Forecasting\",\"NativeReferenceName\":\"Totale Bedrag Vacatures Forecasting\"}]},\"expansionStates\":[{\"roles\":[\"Rows\"],\"levels\":[{\"queryRefs\":[\"Dim Grootboek.Code GB + Omschrijving\"],\"identityKeys\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Grootboek\"}},\"Property\":\"Code GB + Omschrijving\"}}],\"isPinned\":true},{\"queryRefs\":[\"Dim Looncomponent.LC Code + Omschrijving\"],\"isCollapsed\":true,\"isPinned\":true}],\"root\":{\"identityValues\":null}}],\"drillFilterOtherVisuals\":true}}",
           "filters": "[]",
-          "height": 586.56,
-          "width": 1021.39,
+          "height": 644.27,
+          "width": 1067.07,
           "x": 0.00,
-          "y": 425.45,
-          "z": 13000.00
+          "y": 18.30,
+          "z": 11000.00
         },
         {
           "config": "{\"name\":\"70d0af9996f89576eb7a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1065.6370528408975,\"y\":325.79986328893676,\"z\":4000,\"width\":213.80616028336476,\"height\":67.8749715185285,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim SchaalType.SchaalType Forecasting\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim SchaalType\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"SchaalType Forecasting\"},\"Name\":\"Dim SchaalType.SchaalType Forecasting\",\"NativeReferenceName\":\"SchaalType Forecasting\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
@@ -133,13 +151,22 @@
           "z": 4000.00
         },
         {
-          "config": "{\"name\":\"7e062b55080bcf3a2e3d\",\"layouts\":[{\"id\":0,\"position\":{\"x\":26.26763505632783,\"y\":13.133817528163915,\"z\":11000,\"width\":1039.2133119159698,\"height\":366.1051635975691,\"tabOrder\":12000}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.Totale Bedrag Medewerker Forecasting\"}],\"Rows\":[{\"queryRef\":\"Dim Medewerker.Volledige Naam\",\"active\":true},{\"queryRef\":\"Dim Looncomponent.LC Code + Omschrijving\"}],\"Columns\":[{\"queryRef\":\"Dim Grootboek.Code GB + Omschrijving\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"Dim Grootboek\",\"Type\":0},{\"Name\":\"d2\",\"Entity\":\"Dim Looncomponent\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Totale Bedrag Medewerker Forecasting\"},\"Name\":\"Measure Table.Totale Bedrag Medewerker Forecasting\",\"NativeReferenceName\":\"Totale Bedrag Medewerker Forecasting\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Volledige Naam\"},\"Name\":\"Dim Medewerker.Volledige Naam\",\"NativeReferenceName\":\"Volledige Naam\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"Code GB + Omschrijving\"},\"Name\":\"Dim Grootboek.Code GB + Omschrijving\",\"NativeReferenceName\":\"Code GB + Omschrijving\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d2\"}},\"Property\":\"LC Code + Omschrijving\"},\"Name\":\"Dim Looncomponent.LC Code + Omschrijving\",\"NativeReferenceName\":\"LC Code + Omschrijving\"}]},\"drillFilterOtherVisuals\":true}}",
+          "config": "{\"name\":\"85f50550e8e92ef3cbed\",\"layouts\":[{\"id\":0,\"position\":{\"x\":34.7759750976577,\"y\":794.3564838096547,\"z\":17000,\"width\":298.34126004832655,\"height\":87.85509498355628,\"tabOrder\":17000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Medewerker.Medewerker ID\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Medewerker ID\"},\"Name\":\"Dim Medewerker.Medewerker ID\",\"NativeReferenceName\":\"Medewerker ID\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"selfFilterEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"selfFilter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Contains\":{\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Medewerker ID\"}},\"Right\":{\"Literal\":{\"Value\":\"'400'\"}}}},\"Annotations\":{\"PowerBI.MParameterBehavior\":1}}]}}}}]}}}",
           "filters": "[]",
-          "height": 366.11,
-          "width": 1039.21,
-          "x": 26.27,
-          "y": 13.13,
-          "z": 11000.00
+          "height": 87.86,
+          "width": 298.34,
+          "x": 34.78,
+          "y": 794.36,
+          "z": 17000.00
+        },
+        {
+          "config": "{\"name\":\"902531360ca784bd50e1\",\"layouts\":[{\"id\":0,\"position\":{\"x\":461.23924866367054,\"y\":770.5623955849417,\"z\":17005,\"width\":312.9837758789193,\"height\":161.06767413651986,\"tabOrder\":17005}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.Count Vacatures GB 4213500 Reis en verblijfkosten\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Count Vacatures GB 4213500 Reis en verblijfkosten\"},\"Name\":\"Measure Table.Count Vacatures GB 4213500 Reis en verblijfkosten\",\"NativeReferenceName\":\"Count Vacatures GB 4213500 Reis en verblijfkosten\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Count Vacatures GB 4213500 Reis en verblijfkosten\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 161.07,
+          "width": 312.98,
+          "x": 461.24,
+          "y": 770.56,
+          "z": 17005.00
         },
         {
           "config": "{\"name\":\"9232c035822e5dce9ded\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1065.6976212874613,\"y\":140.91869372396184,\"z\":1000,\"width\":213.57989517537965,\"height\":70.45934686198092,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Indexering Actuals.Index Name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Actuals\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"},\"Name\":\"Dim Indexering Actuals.Index Name\",\"NativeReferenceName\":\"Index Actuals\"}]},\"columnProperties\":{\"Dim Indexering Actuals.Index Name\":{\"displayName\":\"Index Actuals\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Actuals\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'0.00%'\"}}]]}}}]}}}}],\"selection\":[{\"properties\":{\"strictSingleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
@@ -151,13 +178,22 @@
           "z": 1000.00
         },
         {
-          "config": "{\"name\":\"b0526d577870eb4549bf\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1077,\"y\":648,\"width\":202,\"height\":364,\"z\":14001,\"tabOrder\":14001}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Type Personeel.Type Zorg Functie\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Type Personeel\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Type Zorg Functie\"},\"Name\":\"Dim Type Personeel.Type Zorg Functie\",\"NativeReferenceName\":\"Type Zorg Functie\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "config": "{\"name\":\"9e832cced0e23d912c59\",\"layouts\":[{\"id\":0,\"position\":{\"x\":821.8112009920161,\"y\":858.4174905684979,\"z\":17002,\"width\":457.5786197060223,\"height\":73.21257915296357,\"tabOrder\":17002}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Vacature Start of Month.Formatieplaats Code + Omschrijving + FTE (verschil)\",\"active\":true},{\"queryRef\":\"Dim Period.Month name (short)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Vacature Start of Month\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"Dim Period\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Formatieplaats Code + Omschrijving + FTE (verschil)\"},\"Name\":\"Dim Vacature Start of Month.Formatieplaats Code + Omschrijving + FTE (verschil)\",\"NativeReferenceName\":\"Formatieplaats Code + Omschrijving + FTE (verschil)\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"Month name (short)\"},\"Name\":\"Dim Period.Month name (short)\",\"NativeReferenceName\":\"Month name (short)\"}]},\"expansionStates\":[{\"roles\":[\"Values\"],\"levels\":[{\"queryRefs\":[\"Dim Vacature Start of Month.Formatieplaats Code + Omschrijving + FTE (verschil)\"],\"isCollapsed\":true,\"identityKeys\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Dim Vacature Start of Month\"}},\"Property\":\"Formatieplaats Code + Omschrijving + FTE (verschil)\"}}],\"isPinned\":true},{\"queryRefs\":[\"Dim Period.Month name (short)\"],\"isCollapsed\":true,\"isPinned\":true}],\"root\":{\"identityValues\":null}}],\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
           "filters": "[]",
-          "height": 364.00,
-          "width": 202.00,
-          "x": 1077.00,
-          "y": 648.00,
-          "z": 14001.00
+          "height": 73.21,
+          "width": 457.58,
+          "x": 821.81,
+          "y": 858.42,
+          "z": 17002.00
+        },
+        {
+          "config": "{\"name\":\"b0526d577870eb4549bf\",\"layouts\":[{\"id\":0,\"position\":{\"x\":530.7911988589859,\"y\":691.8588729955057,\"z\":13000,\"width\":203.16490714947392,\"height\":69.5519501953154,\"tabOrder\":14000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Range voor Measures.Range\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Range Overwerk\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Range\"},\"Name\":\"Dim Range voor Measures.Range\",\"NativeReferenceName\":\"Range Overwerkl\"}]},\"columnProperties\":{\"Dim Range voor Measures.Range\":{\"displayName\":\"Range Overwerkl\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 69.55,
+          "width": 203.16,
+          "x": 530.79,
+          "y": 691.86,
+          "z": 13000.00
         },
         {
           "config": "{\"name\":\"b8f18c015d4efafde63e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1065.6370528408975,\"y\":425.9154462787663,\"z\":5000,\"width\":213.80616028336476,\"height\":64.48122294260207,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Indexering Vacatures.Index Name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Vacatures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"},\"Name\":\"Dim Indexering Vacatures.Index Name\",\"NativeReferenceName\":\"Indexering Vacatures\"}]},\"columnProperties\":{\"Dim Indexering Vacatures.Index Name\":{\"displayName\":\"Indexering Vacatures\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Vacatures\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'1%'\"}}]]}}}]}}}}]}}}",
@@ -169,13 +205,13 @@
           "z": 5000.00
         },
         {
-          "config": "{\"name\":\"bd83895da3610c00f91b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":115.44738221449605,\"y\":360.0858826214043,\"z\":12000,\"width\":525.0107143563987,\"height\":211.65353405990942,\"tabOrder\":13000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.Count Medewerkers\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Count Medewerkers\"},\"Name\":\"Measure Table.Count Medewerkers\",\"NativeReferenceName\":\"Count Medewerkers\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Count Medewerkers\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "config": "{\"name\":\"bd83895da3610c00f91b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":115.44738221449605,\"y\":360.0858826214043,\"z\":10000,\"width\":525.0107143563987,\"height\":211.65353405990942,\"tabOrder\":12000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.Count Medewerkers\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Count Medewerkers\"},\"Name\":\"Measure Table.Count Medewerkers\",\"NativeReferenceName\":\"Count Medewerkers\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Count Medewerkers\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
           "filters": "[]",
           "height": 211.65,
           "width": 525.01,
           "x": 115.45,
           "y": 360.09,
-          "z": 12000.00
+          "z": 10000.00
         },
         {
           "config": "{\"name\":\"cd4ec0a5f00c4ef24dae\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1076.953103360109,\"y\":572.5131570536722,\"z\":7000,\"width\":202.47416529946946,\"height\":75.05507851618265,\"tabOrder\":7000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dagkoers EURO/USD.Dagkoers\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dagkoers EURO/USD\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Dagkoers\"},\"Name\":\"Dagkoers EURO/USD.Dagkoers\",\"NativeReferenceName\":\"Dagkoers\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dagkoers EURO/USD\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Dagkoers\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"2.0000000000000018D\"}}]]}}}]}}}}]}}}",
@@ -185,15 +221,6 @@
           "x": 1076.95,
           "y": 572.51,
           "z": 7000.00
-        },
-        {
-          "config": "{\"name\":\"ce9d5bd7aaf44814e18f\",\"layouts\":[{\"id\":0,\"position\":{\"x\":698.0107372825141,\"y\":1096.874015729665,\"z\":10000,\"width\":427.0847368278455,\"height\":122.29298631634343,\"tabOrder\":11000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Measure Table.FTE Forecasting Medewerker (max period at total)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Medewerker (max period at total)\"},\"Name\":\"Measure Table.FTE Forecasting Medewerker (max period at total)\",\"NativeReferenceName\":\"FTE Forecasting Medewerker (max period at total)\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"FTE Forecasting Medewerker (max period at total)\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"labels\":[{\"properties\":{\"labelDisplayUnits\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}}}}]}}}",
-          "filters": "[]",
-          "height": 122.29,
-          "width": 427.08,
-          "x": 698.01,
-          "y": 1096.87,
-          "z": 10000.00
         },
         {
           "config": "{\"name\":\"d3f2db72bea9367827c4\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1065.6370528408975,\"y\":213.80616028336476,\"z\":2000,\"width\":213.80616028336476,\"height\":74.66246867038134,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Indexering Forecasting.Index Name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Forecasting\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"},\"Name\":\"Dim Indexering Forecasting.Index Name\",\"NativeReferenceName\":\"Index Forecasting\"}]},\"columnProperties\":{\"Dim Indexering Forecasting.Index Name\":{\"displayName\":\"Index Forecasting\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Indexering Forecasting\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Index Name\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'1%'\"}}]]}}}]}}}}],\"selection\":[{\"properties\":{\"strictSingleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
@@ -212,6 +239,24 @@
           "x": 1065.64,
           "y": 0.00,
           "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"ddf5de24a115d3248341\",\"layouts\":[{\"id\":0,\"position\":{\"x\":664.4041558131445,\"y\":984.70918960736,\"z\":17003,\"width\":514.3183685495691,\"height\":565.5671739566436,\"tabOrder\":17003}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"Dim Medewerker.Medewerker ID\",\"active\":true}],\"Values\":[{\"queryRef\":\"Measure Table.(M) Grondslag AOV/AVBZ\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Medewerker\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measure Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Medewerker ID\"},\"Name\":\"Dim Medewerker.Medewerker ID\",\"NativeReferenceName\":\"Medewerker ID\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"(M) Grondslag AOV/AVBZ\"},\"Name\":\"Measure Table.(M) Grondslag AOV/AVBZ\",\"NativeReferenceName\":\"(M) Grondslag AOV/AVBZ\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{}}}",
+          "filters": "[]",
+          "height": 565.57,
+          "width": 514.32,
+          "x": 664.40,
+          "y": 984.71,
+          "z": 17003.00
+        },
+        {
+          "config": "{\"name\":\"f9d347e697016023439f\",\"layouts\":[{\"id\":0,\"position\":{\"x\":311.1534614000952,\"y\":675.386042686089,\"z\":14000,\"width\":203.16490714947392,\"height\":65.89132123766721,\"tabOrder\":15000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Dim Range Personeel niet in Loondienst.Range\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim Range Personeel niet in Loondienst\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Range\"},\"Name\":\"Dim Range Personeel niet in Loondienst.Range\",\"NativeReferenceName\":\"Range\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 65.89,
+          "width": 203.16,
+          "x": 311.15,
+          "y": 675.39,
+          "z": 14000.00
         }
       ],
       "width": 1280.00

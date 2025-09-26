@@ -95,7 +95,7 @@ table 'Dim SchaalType'
 				    #"Added Custom1" = Table.AddColumn(#"Replaced Value", "MAX Trede", each if Text.Contains([#"Schaal/Trede"], "MAX") or [#"Schaal ID"] = 180 then true else false),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom1",{{"MAX Trede", type logical}}),
 				    #"Added Custom2" = Table.AddColumn(#"Changed Type", "SchaalType Forecasting", each if [SchaalType] = "BMP" then "LNT" else [SchaalType]),
-				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom2",{{"Trede", type number}, {"Salaris", type number}})
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom2",{{"Trede", type number}, {"Salaris", type number}, {"SchaalType", type text}, {"Schaal/Trede", type text}, {"SchaalType Forecasting", type text}, {"Schaal", type text}})
 				in
 				    #"Changed Type1"
 
