@@ -1103,7 +1103,6 @@ table 'Measure Table'
 
 	measure 'Totale Bedrag Medewerker Forecasting' = ```
 			
-			VAR Medewerker =
 			SUMX(
 			    'Dim Grootboek',
 			    'Measure Table'[(M) GB 4101100 - Maaltijd Vergoeding] + 
@@ -1115,6 +1114,7 @@ table 'Measure Table'
 			    'Measure Table'[(M) GB 4121500 - Kosten Stagaires] +
 			    'Measure Table'[(M) GB 4125100 - Personeel niet in Loondienst] +
 			    'Measure Table'[(M) GB 4125500 - Overige Personeelskosten] +
+			    'Measure Table'[(M) GB 4126000 - RvC Kosten] +
 			    'Measure Table'[(M) GB 4215000 - Overige Jubileum kosten] +
 			    'Measure Table'[(M) LC 2434 - Salaris] + 
 			    'Measure Table'[(M) LC 2545 - Pensioen Toeslag] +
@@ -1143,13 +1143,9 @@ table 'Measure Table'
 			    'Measure Table'[(M) LC 3121 - Reservering Vakantiegeld Bedrag] + 
 			    'Measure Table'[(M) LC 3135 - Vakantietoeslag Med Spec] +
 			    'Measure Table'[(M) LC 3142 - Medische Kosten Eig Risico (Eigen Personeel)] +
-			    'Measure Table'[(M) LC 3164 - Softlanding]
+			    'Measure Table'[(M) LC 3164 - Softlanding] 
 			)
 			
-			VAR RvC = [(M) GB 4126000 - RvC Kosten]
-			
-			RETURN
-			Medewerker + RvC
 			```
 		displayFolder: Forecasting\Medewerker
 		lineageTag: 16134d26-6f71-4796-b993-4cfe858a4bee
@@ -1308,10 +1304,11 @@ table 'Measure Table'
 			
 			RETURN
 			IF(
-			    ISINSCOPE('Dim Period'[Month no.]),
+			    selectedPeriod,
 			    CALCULATE(
 			        SUM('Fact Forecasting Medewerkers'[FTE (Divided by 100)]),
-			        'Dim Looncomponent'[LC] = "2434"
+			        'Dim Looncomponent'[LC] = "2434",
+			        'Dim Period'[Month no.] = selectedPeriod
 			    ),
 			    maxFTE
 			)
@@ -1453,7 +1450,7 @@ table 'Measure Table'
 			VAR personeelnietinloondienst = 
 			CALCULATE(
 			    SUM('Fact Forecasting Medewerkers'[(M) GB 4125100 - Personeel niet in Loondienst]),
-			    'Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst] = 1
+			    'Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst Mdw] = 1
 			)
 			
 			VAR selectedkoers = SELECTEDVALUE('Dagkoers EURO/USD'[Dagkoers])
@@ -2572,7 +2569,6 @@ table 'Measure Table'
 			VAR amount =
 			CALCULATE(
 			    [Bedrag Forecasting Vacatures] * 0.037,
-			    'Dim Vacatures Medewerker'[Feesturen flag] = 1,
 			    'Dim Looncomponent'[LC] = "3086",
 			    'Dim Grootboek'[Code Grootboek] = "4101500"
 			)
@@ -2613,8 +2609,8 @@ table 'Measure Table'
 			VAR kosten =
 			CALCULATE(
 			    [Bedrag Forecasting Vacatures] * 0.075,
-			    'Dim Vacatures Medewerker'[Flag Arts-Assistenten] = 0,
-			    'Dim Vacatures Medewerker'[Flag Medische Specialisten] = 0,
+			    'Dim Medewerker'[Flag Arts-Assistenten] = 0,
+			    'Dim Medewerker'[Flag Medische Specialisten] = 0,
 			    'Dim Looncomponent'[LC] = "3121",
 			    'Dim Grootboek'[Code Grootboek] = "4102000"
 			)
@@ -2631,7 +2627,7 @@ table 'Measure Table'
 			VAR kosten = 
 			CALCULATE(
 			    [Bedrag Forecasting Vacatures] * 0.075,
-			    'Dim Vacatures Medewerker'[Flag Medische Specialisten] = 1,
+			    'Dim Medewerker'[Flag Medische Specialisten] = 1,
 			    'Dim Looncomponent'[LC] = "3135",
 			    'Dim Grootboek'[Code Grootboek] = "4102000"
 			)
@@ -2684,7 +2680,7 @@ table 'Measure Table'
 			    [Bedrag Forecasting Vacatures] *perc,
 			    'Dim Grootboek'[Code Grootboek] = "4120000",
 			    'Dim Looncomponent'[LC] = "3083",
-			    'Dim Vacatures Medewerker'[Flag Medische Specialisten] = 0
+			    'Dim Medewerker'[Flag Medische Specialisten] = 0
 			)
 			
 			RETURN
@@ -2701,7 +2697,7 @@ table 'Measure Table'
 			CALCULATE(
 			    [Bedrag Forecasting Vacatures] * 0.04,
 			    'Dim Looncomponent'[LC] = "3142",
-			    'Dim Vacatures Medewerker'[Flag Medische Specialisten] = 0
+			    'Dim Medewerker'[Flag Medische Specialisten] = 0
 			)
 			RETURN
 			kosten
@@ -2769,7 +2765,10 @@ table 'Measure Table'
 			
 			VAR FTE = [FTE Forecasting Vacatures GB 4124000 Verhuiskosten]
 			RETURN
-			2500 * FTE
+			CALCULATE(
+			    2500 * FTE,
+			   'Dim Medewerker'[Type Zorg Functie] IN {"Medisch Specialisten", "Arts-assistenten"}
+			)
 			// VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
 			// VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
 			
@@ -2805,7 +2804,10 @@ table 'Measure Table'
 			
 			VAR FTE = [FTE Forecasting Vacatures GB 4213500 Reis en Verblijfkosten]
 			RETURN
-			21064 * FTE
+			CALCULATE(
+			    21064 * FTE,
+			    'Dim Medewerker'[Flag Medische Specialisten] = 1
+			)
 			// DIVIDE(21064 * FTE, FTETotal, BLANK())
 			
 			
@@ -2863,6 +2865,9 @@ table 'Measure Table'
 			    'Measure Table'[(V) LC 3015 - Intensiteitstoeslag] +
 			    'Measure Table'[(V) LC 2807 - WG bijdrage premie AOV/AWW] +
 			    'Measure Table'[(V) LC 2809 - AVBZ premie] +
+			    'Measure Table'[(V) LC 3010 - Schemawerk 30%] + 
+			    'Measure Table'[(V) LC 3011 - Schemawerk 45%] + 
+			    'Measure Table'[(V) LC 3012 - Schemawerk 50%] +
 			    'Measure Table'[(V) LC 3075 - Overwerk 300%] +
 			    'Measure Table'[(V) LC 3080 Beroepkosten (Specialisten)] +
 			    'Measure Table'[(V) LC 3083 - Studiekosten] +
@@ -4201,7 +4206,7 @@ table 'Measure Table'
 			VAR salaris = 
 			CALCULATE(
 			    [Bedrag Forecasting Vacatures] * 0.008,
-			    'Dim Vacatures Medewerker'[Flag Overtime 200% and 300% Type Personeel] = 1,
+			    'Dim Medewerker'[Flag Overtime 200% and 300% Type Personeel] = 1,
 			    'Dim Grootboek'[Code Grootboek] = "4101000",
 			    'Dim Looncomponent'[LC] = "2622"
 			)
@@ -4223,7 +4228,7 @@ table 'Measure Table'
 			    [Bedrag Forecasting Vacatures] * 0.0049,
 			    'Dim Grootboek'[Code Grootboek] = "4101000",
 			    'Dim Looncomponent'[LC] = "3075",
-			    'Dim Vacatures Medewerker'[Flag Overtime 200% and 300% Type Personeel] = 1
+			    'Dim Medewerker'[Flag Overtime 200% and 300% Type Personeel] = 1
 			)
 			VAR perc = SELECTEDVALUE('Dim Range Overwerk'[Percentage])
 			RETURN
@@ -4237,25 +4242,31 @@ table 'Measure Table'
 
 	measure '(V) LC 3010 - Schemawerk 30%' = ```
 			
-			
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			
 			VAR amount = 
-			CALCULATE(
-			    DIVIDE([(OE) LC 3010 - Schemawerk 30%], [FTE OE LC 3010 - Schemawerk 30%], BLANK()) * [FTE Forecasting Vacatures],
-			    ALL('Dim Grootboek'),
-			    ALL('Dim Looncomponent')
-			    // 'Dim Medewerker'[Flag LC 3010 - Schemawerk 30%] = 1
+			SUMX(
+			    'Dim Medewerker',
+			    DIVIDE([(V) Total LC 3010 - Schemawerk 30%], [FTE Forecasting Vacatures LC 3010 Schemawerk 30%], BLANK())
 			)
 			RETURN
-			SWITCH(
-			    TRUE(),
-			    selectedGL = "4103000" && selectedLC = "3010", amount,
-			    selectedGL = "4103000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), amount,
-			    selectedLC = "3010" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), amount,
-			    BLANK()
-			)
+			amount
+			// VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			// VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			
+			// VAR amount = 
+			// CALCULATE(
+			//     DIVIDE([(OE) LC 3010 - Schemawerk 30%], [FTE OE LC 3010 - Schemawerk 30%], BLANK()) * [FTE Forecasting Vacatures],
+			//     ALL('Dim Grootboek'),
+			//     ALL('Dim Looncomponent')
+			//     // 'Dim Medewerker'[Flag LC 3010 - Schemawerk 30%] = 1
+			// )
+			// RETURN
+			// SWITCH(
+			//     TRUE(),
+			//     selectedGL = "4103000" && selectedLC = "3010", amount,
+			//     selectedGL = "4103000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), amount,
+			//     selectedLC = "3010" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), amount,
+			//     BLANK()
+			// )
 			```
 		displayFolder: Forecasting\Vacatures
 		lineageTag: c997715b-eaaf-490a-a7fb-432ad9f16cfb
@@ -4264,26 +4275,30 @@ table 'Measure Table'
 
 	measure '(V) LC 3011 - Schemawerk 45%' = ```
 			
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			
-			VAR amount = 
-			CALCULATE(
-			    DIVIDE([(OE) LC 3011 - Schemawerk 45%], [FTE OE LC 3011 - Schemawerk 45%], BLANK()) * [FTE Forecasting Vacatures],
-			    ALL('Dim Grootboek'),
-			    ALL('Dim Looncomponent')
-			    // 'Dim Medewerker'[Flag LC 3011 - Schemawerk 45%] = 1
+			SUMX(
+			    'Dim Medewerker',
+			    DIVIDE([(V) Total LC 3011 - Schemawerk 45%], [FTE Forecasting Vacatures LC 3011 Schemawerk 45%], BLANK())
 			)
+			// VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			// VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			
+			// VAR amount = 
+			// CALCULATE(
+			//     DIVIDE([(OE) LC 3011 - Schemawerk 45%], [FTE OE LC 3011 - Schemawerk 45%], BLANK()) * [FTE Forecasting Vacatures],
+			//     ALL('Dim Grootboek'),
+			//     ALL('Dim Looncomponent')
+			//     // 'Dim Medewerker'[Flag LC 3011 - Schemawerk 45%] = 1
+			// )
 			
 			
-			RETURN
-			SWITCH(
-			    TRUE(),
-			    selectedGL = "4103000" && selectedLC = "3011", amount,
-			    selectedGL = "4103000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), amount,
-			    selectedLC = "3011" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), amount,
-			    BLANK()
-			)
+			// RETURN
+			// SWITCH(
+			//     TRUE(),
+			//     selectedGL = "4103000" && selectedLC = "3011", amount,
+			//     selectedGL = "4103000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), amount,
+			//     selectedLC = "3011" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), amount,
+			//     BLANK()
+			// )
 			```
 		displayFolder: Forecasting\Vacatures
 		lineageTag: a270bbdb-af7b-4e23-ab1b-06cbe4517417
@@ -4292,26 +4307,30 @@ table 'Measure Table'
 
 	measure '(V) LC 3012 - Schemawerk 50%' = ```
 			
-			VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
-			VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
-			
-			VAR amount = 
-			CALCULATE(
-			    DIVIDE([(OE) LC 3012 - Schemawerk 50%], [FTE OE LC 3012 - Schemawerk 50%], BLANK()) * [FTE Forecasting Vacatures],
-			    ALL('Dim Grootboek'),
-			    ALL('Dim Looncomponent')
-			    // 'Dim Medewerker'[Flag LC 3012 - Schemawerk 50%] = 1
+			SUMX(
+			    'Dim Medewerker',
+			    DIVIDE([(V) Total LC 3012 - Schemawerk 50%], [FTE Forecasting Vacatures LC 3012 Schemawerk 50%], BLANK())
 			)
+			// VAR selectedGL = SELECTEDVALUE('Dim Grootboek'[Code Grootboek])
+			// VAR selectedLC = SELECTEDVALUE('Dim Looncomponent'[LC])
+			
+			// VAR amount = 
+			// CALCULATE(
+			//     DIVIDE([(OE) LC 3012 - Schemawerk 50%], [FTE OE LC 3012 - Schemawerk 50%], BLANK()) * [FTE Forecasting Vacatures],
+			//     ALL('Dim Grootboek'),
+			//     ALL('Dim Looncomponent')
+			//     // 'Dim Medewerker'[Flag LC 3012 - Schemawerk 50%] = 1
+			// )
 			
 			
-			RETURN
-			SWITCH(
-			    TRUE(),
-			    selectedGL = "4103000" && selectedLC = "3012", amount,
-			    selectedGL = "4103000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), amount,
-			    selectedLC = "3012" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), amount,
-			    BLANK()
-			)
+			// RETURN
+			// SWITCH(
+			//     TRUE(),
+			//     selectedGL = "4103000" && selectedLC = "3012", amount,
+			//     selectedGL = "4103000" && NOT HASONEVALUE('Dim Looncomponent'[LC]), amount,
+			//     selectedLC = "3012" && NOT HASONEVALUE('Dim Grootboek'[Code Grootboek]), amount,
+			//     BLANK()
+			// )
 			```
 		displayFolder: Forecasting\Vacatures
 		lineageTag: 0be492cd-3c3b-4d25-8268-3a4750ae30bc
@@ -4414,9 +4433,9 @@ table 'Measure Table'
 			    'Dim Grootboek',
 			    'Measure Table'[(V) LC 2432 - Salaris] + 
 			    'Measure Table'[(V) GB 4106000 - Bijzondere Vergoeding] +
-			    // 'Measure Table'[(V) LC 3010 - Schemawerk 30%] +
-			    // 'Measure Table'[(V) LC 3011 - Schemawerk 45%] + 
-			    // 'Measure Table'[(V) LC 3012 - Schemawerk 50%] +
+			    'Measure Table'[(V) LC 3010 - Schemawerk 30%] +
+			    'Measure Table'[(V) LC 3011 - Schemawerk 45%] + 
+			    'Measure Table'[(V) LC 3012 - Schemawerk 50%] +
 			    'Measure Table'[(V) GB 4102200 - Vakantiedagen] + 
 			    'Measure Table'[(V) LC 3135 - Vakantietoeslag Med Spec] + 
 			    'Measure Table'[(V) LC 3121 - Reservering Vakantiegeld] +
@@ -4440,8 +4459,11 @@ table 'Measure Table'
 			
 			VAR amount = 
 			SUMX(
-			    'Dim Vacatures Medewerker',
-			    DIVIDE(700, 12, BLANK()) * [Count Formatieplaats Key (Count Maanden in Dienst Vacatures)]
+			    'Dim Medewerker',
+			    CALCULATE(
+			        DIVIDE(700, 12, BLANK()) * [Count Formatieplaats Key (Count Maanden in Dienst Vacatures)],
+			        'Dim Medewerker'[Flag Medewerker] = 0
+			    )
 			)
 			
 			RETURN
@@ -4463,7 +4485,7 @@ table 'Measure Table'
 			VAR frequentie = 
 			CALCULATE(
 			    [Bedrag Forecasting Vacatures] * 0.06,
-			    'Dim Vacatures Medewerker'[Flag Medische Specialisten] = 1,
+			    'Dim Medewerker'[Flag Medische Specialisten] = 1,
 			    'Dim Looncomponent'[LC] = "3014",
 			    'Dim Grootboek'[Code Grootboek] = "4103000"
 			)
@@ -4482,7 +4504,7 @@ table 'Measure Table'
 			VAR salaris = 
 			CALCULATE(
 			    [Bedrag Forecasting Vacatures] * 0.15,
-			    'Dim Vacatures Medewerker'[Flag Medische Specialisten] = 1,
+			    'Dim Medewerker'[Flag Medische Specialisten] = 1,
 			    'Dim Grootboek'[Code Grootboek] = "4103000",
 			    'Dim Looncomponent'[LC] = "3015"
 			)
@@ -4578,11 +4600,12 @@ table 'Measure Table'
 			
 			VAR amount = 
 			SUMX(
-			    'Dim Vacatures Medewerker',
+			    'Dim Medewerker',
 			    CALCULATE(
 			        [(V) Berekende WG AOV/AWW],
 			        ALL('Dim Grootboek'),
-			        ALL('Dim Looncomponent')
+			        ALL('Dim Looncomponent'),
+			        'Dim Medewerker'[Flag Medewerker] = 0
 			    )
 			)
 			
@@ -4614,11 +4637,12 @@ table 'Measure Table'
 			
 			VAR amount = 
 			SUMX(
-			    'Dim Vacatures Medewerker',
+			    'Dim Medewerker',
 			    CALCULATE(
 			        [(V) Berekende AVBZ],
 			        ALL('Dim Grootboek'),
-			        ALL('Dim Looncomponent'[LC])
+			        ALL('Dim Looncomponent'[LC]),
+			        'Dim Medewerker'[Flag Medewerker] = 0
 			    )
 			)
 			
@@ -4975,7 +4999,7 @@ table 'Measure Table'
 			        SUM('Fact Forecasting Medewerkers'[FTE (Divided by 100)]),
 			        'Dim Grootboek'[Code Grootboek] = "4125100",
 			        'Dim Looncomponent'[LC] = "0001",
-			        'Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst] = 1,
+			        'Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst Mdw] = 1,
 			        'Dim Period'[Month no.] = maxPeriod
 			    )
 			
@@ -4986,7 +5010,7 @@ table 'Measure Table'
 			        SUM('Fact Forecasting Medewerkers'[FTE (Divided by 100)]),
 			        'Dim Grootboek'[Code Grootboek] = "4125100",
 			        'Dim Looncomponent'[LC] = "0001",
-			        'Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst] = 1
+			        'Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst Mdw] = 1
 			    ),
 			    maxFTE
 			)
@@ -5003,7 +5027,7 @@ table 'Measure Table'
 			    [FTE Forecasting Medewerker (max period at total) Personeel niet in Loondienst],
 			    ALLSELECTED('Dim Medewerker'),
 			    KEEPFILTERS('Dim Medewerker'[Medewerkers in Fact Forecasting] = 1),
-			    KEEPFILTERS('Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst] = 1)
+			    KEEPFILTERS('Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst Mdw] = 1)
 			)
 			
 			```
@@ -5032,7 +5056,7 @@ table 'Measure Table'
 			        'Dim Period'[Month no.] = maxPeriod,
 			        'Dim Looncomponent'[LC] = "3081",
 			        'Dim Grootboek'[Code Grootboek] = "4123500",
-			        'Dim Vacatures Medewerker'[Flag Medische Specialisten] = 1
+			        'Dim Medewerker'[Flag Medische Specialisten] = 1
 			    )
 			
 			RETURN
@@ -5043,7 +5067,7 @@ table 'Measure Table'
 			        'Dim Period'[Month no.] = selectedPeriod,
 			        'Dim Looncomponent'[LC] = "3081",
 			        'Dim Grootboek'[Code Grootboek] = "4123500",
-			        'Dim Vacatures Medewerker'[Flag Medische Specialisten] = 1
+			        'Dim Medewerker'[Flag Medische Specialisten] = 1
 			    ),
 			    maxFTE
 			)
@@ -5056,8 +5080,8 @@ table 'Measure Table'
 			
 			CALCULATE(
 			    [FTE Forecasting Vacatures GB 4213500 Reis en Verblijfkosten],
-			    ALLSELECTED('Dim Vacatures Medewerker'),
-			    KEEPFILTERS('Dim Vacatures Medewerker'[Flag Medische Specialisten] = 1)
+			    ALLSELECTED('Dim Medewerker'),
+			    KEEPFILTERS('Dim Medewerker'[Flag Medische Specialisten] = 1)
 			)
 			
 			```
@@ -5093,7 +5117,7 @@ table 'Measure Table'
 			        'Dim Period'[Month no.] = maxPeriod,
 			        'Dim Looncomponent'[LC] = "3082",
 			        'Dim Grootboek'[Code Grootboek] = "4124000",
-			        'Dim Vacatures Medewerker'[Flag Medische Specialisten] = 1
+			        'Dim Medewerker'[Type Zorg Functie] IN {"Medisch Specialisten", "Arts-assistenten"}
 			    )
 			
 			RETURN
@@ -5104,7 +5128,7 @@ table 'Measure Table'
 			        'Dim Period'[Month no.] = selectedPeriod,
 			        'Dim Looncomponent'[LC] = "3082",
 			        'Dim Grootboek'[Code Grootboek] = "4124000",
-			        'Dim Vacatures Medewerker'[Flag Medische Specialisten] = 1
+			        'Dim Medewerker'[Type Zorg Functie] IN {"Medisch Specialisten", "Arts-assistenten"}
 			    ),
 			    maxFTE
 			)
@@ -5127,7 +5151,7 @@ table 'Measure Table'
 			        SUM('Fact Forecasting Vacatures'[Verschil per Vac (FTE)]),
 			        'Dim Period'[Month no.] = maxPeriod,
 			        'Dim Looncomponent'[LC] = "3095",
-			        'Dim Vacatures Medewerker'[Flag Medische Specialisten] = 1
+			        'Dim Medewerker'[Flag Medische Specialisten] = 1
 			    )
 			
 			RETURN
@@ -5137,7 +5161,7 @@ table 'Measure Table'
 			        SUM('Fact Forecasting Vacatures'[Verschil per Vac (FTE)]),
 			        'Dim Period'[Month no.] = selectedPeriod,
 			        'Dim Looncomponent'[LC] = "3095",
-			        'Dim Vacatures Medewerker'[Flag Medische Specialisten] = 1
+			        'Dim Medewerker'[Flag Medische Specialisten] = 1
 			    ),
 			    maxFTE
 			)
@@ -5145,6 +5169,208 @@ table 'Measure Table'
 		lineageTag: aaeac27e-7169-471a-b9b6-27efe143a4ce
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'FTE Forecasting Vacatures LC 3010 Schemawerk 30%' =
+			
+			VAR selectedPeriod = SELECTEDVALUE('Dim Period'[Month no.])
+			VAR selectedYear = SELECTEDVALUE('Dim Period'[Year])
+			VAR maxPeriod =
+			    CALCULATE(
+			        MAX('Dim Period'[Month no.]),
+			        REMOVEFILTERS('Dim Period')        // removes month-level filters for correct total
+			    )
+			VAR maxFTE =
+			    CALCULATE(
+			        SUM('Fact Forecasting Vacatures'[Verschil per Vac (FTE)]),
+			        'Dim Period'[Month no.] = maxPeriod,
+			        'Dim Looncomponent'[LC] = "3010"
+			    )
+			
+			RETURN
+			IF(
+			    selectedPeriod,
+			    CALCULATE(
+			        SUM('Fact Forecasting Vacatures'[Verschil per Vac (FTE)]),
+			        'Dim Period'[Month no.] = selectedPeriod,
+			        'Dim Looncomponent'[LC] = "3010"
+			    ),
+			    maxFTE
+			)
+		displayFolder: Forecasting
+		lineageTag: 4c3e41ce-69b9-4c31-9a94-efecd3d521ed
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'FTE Forecasting Vacatures LC 3011 Schemawerk 45%' =
+			
+			VAR selectedPeriod = SELECTEDVALUE('Dim Period'[Month no.])
+			VAR selectedYear = SELECTEDVALUE('Dim Period'[Year])
+			VAR maxPeriod =
+			    CALCULATE(
+			        MAX('Dim Period'[Month no.]),
+			        REMOVEFILTERS('Dim Period')        // removes month-level filters for correct total
+			    )
+			VAR maxFTE =
+			    CALCULATE(
+			        SUM('Fact Forecasting Vacatures'[Verschil per Vac (FTE)]),
+			        'Dim Period'[Month no.] = maxPeriod,
+			        'Dim Looncomponent'[LC] = "3011"
+			    )
+			
+			RETURN
+			IF(
+			    selectedPeriod,
+			    CALCULATE(
+			        SUM('Fact Forecasting Vacatures'[Verschil per Vac (FTE)]),
+			        'Dim Period'[Month no.] = selectedPeriod,
+			        'Dim Looncomponent'[LC] = "3011"
+			    ),
+			    maxFTE
+			)
+		displayFolder: Forecasting
+		lineageTag: 38711757-b97f-4bc9-9d4e-6eb7b9ce151d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'FTE Forecasting Vacatures LC 3012 Schemawerk 50%' =
+			
+			VAR selectedPeriod = SELECTEDVALUE('Dim Period'[Month no.])
+			VAR selectedYear = SELECTEDVALUE('Dim Period'[Year])
+			VAR maxPeriod =
+			    CALCULATE(
+			        MAX('Dim Period'[Month no.]),
+			        REMOVEFILTERS('Dim Period')        // removes month-level filters for correct total
+			    )
+			VAR maxFTE =
+			    CALCULATE(
+			        SUM('Fact Forecasting Vacatures'[Verschil per Vac (FTE)]),
+			        'Dim Period'[Month no.] = maxPeriod,
+			        'Dim Looncomponent'[LC] = "3012"
+			    )
+			
+			RETURN
+			IF(
+			    selectedPeriod,
+			    CALCULATE(
+			        SUM('Fact Forecasting Vacatures'[Verschil per Vac (FTE)]),
+			        'Dim Period'[Month no.] = selectedPeriod,
+			        'Dim Looncomponent'[LC] = "3012"
+			    ),
+			    maxFTE
+			)
+		displayFolder: Forecasting
+		lineageTag: 7a3ad6b4-fb6f-4963-912a-1616d186416a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(V) LC 3010 - Schemawerk 30% (Salaris)' =
+			
+			CALCULATE(
+			    [Bedrag Forecasting Vacatures],
+			    'Dim Looncomponent'[LC] = "3010"
+			)
+		displayFolder: Statistics\Extrapolation
+		lineageTag: f8d0f374-f6c1-4bb6-a0a8-48685469e32d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(V) LC 3011 - Schemawerk 45% (Salaris)' =
+			
+			CALCULATE(
+			    [Bedrag Forecasting Vacatures],
+			    'Dim Looncomponent'[LC] = "3011"
+			)
+		displayFolder: Statistics\Extrapolation
+		lineageTag: 6364915c-246b-4627-9c33-7423ec4cdd90
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(V) LC 3012 - Schemawerk 50% (Salaris)' =
+			
+			CALCULATE(
+			    [Bedrag Forecasting Vacatures],
+			    'Dim Looncomponent'[LC] = "3012"
+			)
+		displayFolder: Statistics\Extrapolation
+		lineageTag: fa5085af-ca9b-4730-84ae-0464fd6c28bd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(V) LC 3010 - Schemawerk 30% Total per period' =
+			
+			SUMX(
+			    VALUES('Dim Period'[Month no.]),
+			    [(E) % LC 3010 - Schemawerk 30%] * [(V) LC 3010 - Schemawerk 30% (Salaris)]
+			)
+		displayFolder: Statistics\Extrapolation
+		lineageTag: 34a7bdb6-fc17-4a92-a48d-00e18fd59e84
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(V) LC 3011 - Schemawerk 45% Total per period' =
+			
+			SUMX(
+			    VALUES('Dim Period'[Month no.]),
+			    [(E) % LC 3011 - Schemawerk 45%] * [(V) LC 3011 - Schemawerk 45% (Salaris)]
+			)
+		displayFolder: Statistics\Extrapolation
+		lineageTag: 2338c706-a4e4-4248-bada-40581187bcc7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(V) LC 3012 - Schemawerk 50% Total per period' =
+			
+			SUMX(
+			    VALUES('Dim Period'[Month no.]),
+			    [(E) % LC 3012 - Schemawerk 50%] * [(V) LC 3012 - Schemawerk 50% (Salaris)]
+			)
+		displayFolder: Statistics\Extrapolation
+		lineageTag: 39ee10b4-ecf3-442f-8b34-43305209b9f1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(V) Total LC 3010 - Schemawerk 30%' =
+			
+			CALCULATE(
+			    [(V) LC 3010 - Schemawerk 30% Total per period],
+			    ALL('Dim Period')
+			)
+		displayFolder: Forecasting\Vacatures
+		lineageTag: dfa9a762-64ba-4c94-b643-5ff7ce8c383d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(V) Total LC 3011 - Schemawerk 45%' =
+			
+			CALCULATE(
+			    [(V) LC 3011 - Schemawerk 45% Total per period],
+			    ALL('Dim Period')
+			)
+		displayFolder: Forecasting\Vacatures
+		lineageTag: a8002fa5-751d-4a36-8f1e-c89f40658ca9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '(V) Total LC 3012 - Schemawerk 50%' =
+			
+			CALCULATE(
+			    [(V) LC 3012 - Schemawerk 50% Total per period],
+			    ALL('Dim Period')
+			)
+		displayFolder: Forecasting\Vacatures
+		lineageTag: c86b4ce1-4f7a-4deb-9d47-1d4ca680a573
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Flag Actuals smaller than Forecasting' =
+			
+			IF(
+			    [Salaris Indexering Actuals] > [(M) LC 2434 - Salaris],
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: b8e2dc3f-cffd-4646-aa42-01bf3f88eb7e
 
 	partition 'Measure Table' = m
 		mode: import

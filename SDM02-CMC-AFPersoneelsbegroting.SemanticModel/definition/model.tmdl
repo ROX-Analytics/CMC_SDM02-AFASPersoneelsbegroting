@@ -157,7 +157,6 @@ ref table 'Dim Vacature Start of Month'
 ref table 'Fact Forcasting Schemawerk'
 ref table 'Dim Organisatie Eenheid Flag Standby'
 ref table 'Fact RvC'
-ref table 'Dim Medewerker RVC'
 ref table 'Dim Cluster/Afdeling Functienveau'
 ref table 'Weergave BP dump'
 ref table LocalDateTable_1037b00d-2c0f-4ada-adf0-f563bcdcf480
@@ -165,6 +164,8 @@ ref table LocalDateTable_ce44edf7-627d-4c86-9285-960f0aab00bb
 ref table 'Dim Range Overwerk'
 ref table 'Dim Range Personeel niet in Loondienst'
 ref table 'Dim Range Studiekosten CAO'
+ref table LocalDateTable_669500d1-e0f3-4184-8e3f-fc5b192de8b0
+ref table LocalDateTable_9f430bb0-3f78-44bc-a7f4-16798fd6fa8a
 
 ref cultureInfo en-US
 

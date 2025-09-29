@@ -115,7 +115,7 @@ table 'Fact Salaris Indexering Actuals'
 		annotation SummarizationSetBy = Automatic
 
 	column 'Schaal ID'
-		dataType: int64
+		dataType: double
 		formatString: 0
 		lineageTag: dbda85c5-3355-4444-9ad4-14e1e6b65f07
 		summarizeBy: count
@@ -278,15 +278,19 @@ table 'Fact Salaris Indexering Actuals'
 				    #"Added Custom" = Table.AddColumn(#"Changed Type9", "Boekingsperiode (leading zeros)", each Text.PadStart(Text.From([Boekingsperiode]),2,"0"), type nullable text),
 				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Year/Period", each Text.From([Jaar]) & "/" & Text.From([#"Boekingsperiode (leading zeros)"]), type nullable text),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom1",{{"IsExtrapolated", type logical}}),
-				    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
+				
+				    DimMed = Table.Buffer(#"Dim Medewerker"),
+				    DimSchaal = Table.Buffer(#"Dim SchaalType"),
+				
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Medewerker ID"}, DimMed, {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
 				    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Schaal ID", "Type Personeel ID", "Anniversary Month", "Type Zorg Functie"}, {"Schaal ID", "Type Personeel ID", "Anniversary Month", "Type Zorg Functie"}),
-				    #"Merged Queries1" = Table.NestedJoin(#"Expanded Dim Medewerker", {"Schaal ID"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
+				    #"Merged Queries1" = Table.NestedJoin(#"Expanded Dim Medewerker", {"Schaal ID"}, DimSchaal, {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
 				    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries1", "Dim SchaalType", {"SchaalType", "MAX Trede"}, {"Schaal.SchaalType", "Schaal.MAX Trede"}),
 				    #"Changed Type1" = Table.TransformColumnTypes(#"Expanded Dim SchaalType",{{"Schaal.SchaalType", type text}}),
 				    #"Added Custom2" = Table.AddColumn(#"Changed Type1", "Trede Verhoging", each if [IsExtrapolated] = false or [Type Zorg Functie] = "Type Zorg Functie" or [#"Schaal.MAX Trede"] = true then false else if ([IsExtrapolated] = true and [Boekingsperiode] >= [Anniversary Month] and [#"Schaal.MAX Trede"] = false) then true else null, type logical),
 				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Bedrag (OLD)", each [Waarde] - [Bedrag_credit], type nullable number),
 				    #"Added Custom4" = Table.AddColumn(#"Added Custom3", "Schaal ID (New)", each if [Trede Verhoging] = true and [Type Zorg Functie] <> "Type Zorg Functie" then ([Schaal ID] + 1) else [Schaal ID], type nullable number),
-				    #"Merged Queries2" = Table.NestedJoin(#"Added Custom4", {"Schaal ID (New)"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
+				    #"Merged Queries2" = Table.NestedJoin(#"Added Custom4", {"Schaal ID (New)"}, DimSchaal, {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
 				    #"Expanded Dim SchaalType1" = Table.ExpandTableColumn(#"Merged Queries2", "Dim SchaalType", {"Salaris"}, {"Salaris"}),
 				    #"Changed Type5" = Table.TransformColumnTypes(#"Expanded Dim SchaalType1",{{"Salaris", type number}}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type5",{{"Salaris", "Salaris (Schaal ID New)"}}),

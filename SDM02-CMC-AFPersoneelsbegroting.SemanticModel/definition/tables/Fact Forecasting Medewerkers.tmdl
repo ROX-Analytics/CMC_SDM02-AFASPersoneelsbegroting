@@ -690,7 +690,7 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'Flag Personeel Niet in Loondienst' = RELATED('Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst])
+	column 'Flag Personeel Niet in Loondienst' = RELATED('Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst Mdw])
 		formatString: 0
 		lineageTag: bb54369a-3d41-40ae-9823-f7718552b31b
 		summarizeBy: sum
@@ -705,7 +705,7 @@ table 'Fact Forecasting Medewerkers'
 			VAr basesetmedewerker = 
 			FILTER(
 			    'Dim Medewerker',
-			    'Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst] = 1 &&
+			    'Dim Medewerker'[Flag GB 4125100 - Personeel niet in loondienst Mdw] = 1 &&
 			    'Dim Medewerker'[Status_dienstverband] = "In dienst" && 
 			    'Dim Medewerker'[Medewerkers in Fact Forecasting] = 1
 			)

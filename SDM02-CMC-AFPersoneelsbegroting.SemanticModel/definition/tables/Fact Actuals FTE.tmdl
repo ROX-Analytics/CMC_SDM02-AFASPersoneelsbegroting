@@ -62,7 +62,7 @@ table 'Fact Actuals FTE'
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column 'Schaal ID'
-		dataType: int64
+		dataType: double
 		formatString: 0
 		lineageTag: 8bb597fd-8aa5-4cf2-a303-e81fd070545e
 		summarizeBy: none

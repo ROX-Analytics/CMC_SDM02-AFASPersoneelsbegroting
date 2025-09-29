@@ -4,7 +4,7 @@ table 'Dim Percentage Vacature LNT'
 	column Percentage
 		dataType: double
 		lineageTag: e6791c81-a617-4408-a86a-2f956f46a3bc
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Percentage
 
 		annotation SummarizationSetBy = Automatic

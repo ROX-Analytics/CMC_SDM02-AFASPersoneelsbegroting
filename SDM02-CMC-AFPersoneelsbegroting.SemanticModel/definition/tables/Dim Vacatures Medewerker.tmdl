@@ -116,22 +116,6 @@ table 'Dim Vacatures Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Feesturen flag' =
-			
-			IF(
-			    CALCULATE(
-			        COUNTROWS('Fact Forecasting Vacatures'),
-			        'Dim Vacatures Medewerker'[Flag Vacatures in Fact Forecasting] = 1
-			    ) > 0,
-			    1,
-			    0
-			)
-		formatString: 0
-		lineageTag: 1e2d974e-94c4-4aa5-b4ba-f59a57baff34
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'Flag Vacatures in Fact Forecasting' =
 			
 			IF(
@@ -271,11 +255,11 @@ table 'Dim Vacatures Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column OE
+	column 'OE Code'
 		dataType: string
 		lineageTag: dbae704a-e5be-412c-9c6e-32c24cc8dd20
 		summarizeBy: none
-		sourceColumn: OE
+		sourceColumn: OE Code
 
 		annotation SummarizationSetBy = Automatic
 
@@ -357,6 +341,23 @@ table 'Dim Vacatures Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Flag Medewerker'
+		dataType: int64
+		formatString: 0
+		lineageTag: afb43652-2869-4754-9d67-7d60ad11b0ad
+		summarizeBy: sum
+		sourceColumn: Flag Medewerker
+
+		annotation SummarizationSetBy = Automatic
+
+	column Voornaam
+		dataType: string
+		lineageTag: 3c31e0f3-6f08-4ad0-a520-b6bd8d093fbb
+		summarizeBy: none
+		sourceColumn: Voornaam
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Vacatures Medewerker' = m
 		mode: import
 		queryGroup: Model
@@ -426,9 +427,12 @@ table 'Dim Vacatures Medewerker'
 				    #"Merged Queries7" = Table.NestedJoin(#"Removed Other Columns2", {"Formatieplaats"}, #"Dim Vacature per Verschil FTE Test", {"Formatieplaats"}, "Dim Vacature per Verschil FTE Test", JoinKind.LeftOuter),
 				    #"Expanded Dim Vacature per Verschil FTE Test" = Table.ExpandTableColumn(#"Merged Queries7", "Dim Vacature per Verschil FTE Test", {"Verschil (excl)", "Medewerker ID", "Nr van Vacature"}, {"Verschil (excl)", "Medewerker ID", "Nr van Vacature"}),
 				    #"Transform Nr Vac" = Table.TransformColumns(#"Expanded Dim Vacature per Verschil FTE Test", {{"Nr van Vacature", each Text.PadStart(Text.From(_), 2, "0"), type nullable text}}),
-				    #"Renamed Columns4" = Table.RenameColumns(#"Transform Nr Vac",{{"Dim Zorg.Type Zorg Functie", "Type Zorg Functie"}, {"Omschrijving", "Formatieplaats Omschrijving"}})
+				    #"Renamed Columns4" = Table.RenameColumns(#"Transform Nr Vac",{{"Dim Zorg.Type Zorg Functie", "Type Zorg Functie"}, {"Omschrijving", "Formatieplaats Omschrijving"}}),
+				    #"Added Custom8" = Table.AddColumn(#"Renamed Columns4", "Flag Medewerker", each 0, type nullable Int64.Type),
+				    #"Added Custom9" = Table.AddColumn(#"Added Custom8", "Voornaam", each "Vacature" & " " & [Formatieplaats Omschrijving], type nullable text),
+				    #"Renamed Columns6" = Table.RenameColumns(#"Added Custom9",{{"OE", "OE Code"}})
 				in
-				    #"Renamed Columns4"
+				    #"Renamed Columns6"
 
 	annotation PBI_NavigationStepName = Navigation
 

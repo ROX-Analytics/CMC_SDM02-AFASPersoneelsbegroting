@@ -280,7 +280,7 @@ table 'Dim Medewerker'
 		annotation SummarizationSetBy = Automatic
 
 	column 'Schaal ID'
-		dataType: int64
+		dataType: double
 		formatString: 0
 		lineageTag: d578eaba-0ae6-4e76-bca7-b02da6dd7b94
 		summarizeBy: count
@@ -314,7 +314,13 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Volledige Naam' = 'Dim Medewerker'[Achternaam] & " " & "," & " " & 'Dim Medewerker'[Voorletters] & " " & "(" & 'Dim Medewerker'[Voornaam] & ")"
+	column 'Volledige Naam' =
+			
+			IF(
+			    'Dim Medewerker'[Flag Medewerker] = 1,
+			    'Dim Medewerker'[Achternaam] & " " & "," & " " & 'Dim Medewerker'[Voorletters] & " " & "(" & 'Dim Medewerker'[Voornaam] & ")",
+			    'Dim Medewerker'[Formatieplaats Code + Omschrijving + FTE (Verschil)]
+			)
 		lineageTag: 1b42076c-7936-433a-8898-bbd49f2e914d
 		summarizeBy: none
 
@@ -368,11 +374,11 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Type Zorg Functie'
+	column 'Dim Zorg.Type Zorg Functie'
 		dataType: string
 		lineageTag: aeafe45b-638e-42ad-824f-2914bdea7411
 		summarizeBy: none
-		sourceColumn: Type Zorg Functie
+		sourceColumn: Dim Zorg.Type Zorg Functie
 
 		annotation SummarizationSetBy = Automatic
 
@@ -401,22 +407,10 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Flag Indexering Forecasting' =
-			
-			IF(
-			    'Dim Medewerker'[Type Personeel ID] = "Z_3" || 'Dim Medewerker'[Type Personeel ID] = "Z_1" || 'Dim Medewerker'[Type Personeel ID] = "Z_15" || 'Dim Medewerker'[Type Personeel ID] = "Z_10" || 'Dim Medewerker'[Dienstbetrekking ID] = 4,
-			    "0",
-			    "1"
-			)
-		lineageTag: 69c029c4-f0f6-4fc8-b852-82697c4bfdd4
-		summarizeBy: none
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'Flag Overtime 200% and 300% Type Personeel' =
 			
 			IF(
-			    ('Dim Medewerker'[Type Zorg Functie] = "Medisch Specialisten" || CONTAINSSTRING('Dim Medewerker'[Soort_functie], "Echelon 2") || CONTAINSSTRING('Dim Medewerker'[Soort_functie], "Echelon 1")) && 'Dim Medewerker'[Flag Maaltijdvergoeding] = 0,
+			    ('Dim Medewerker'[Flag Medische Specialisten] = 1 || CONTAINSSTRING('Dim Medewerker'[Soort_functie], "Echelon 2") || CONTAINSSTRING('Dim Medewerker'[Soort_functie], "Echelon 1")) && 'Dim Medewerker'[Flag Maaltijdvergoeding] = 0,
 			    0,
 			    1
 			)
@@ -436,7 +430,7 @@ table 'Dim Medewerker'
 	column 'Flag Maaltijdvergoeding' =
 			
 			IF(
-			    'Dim Medewerker'[Type Zorg Functie] = "Medisch Specialisten" ||
+			    'Dim Medewerker'[Flag Medische Specialisten] = 1 ||
 			    'Dim Medewerker'[Type Personeel ID] = "S_4" ||
 			    'Dim Medewerker'[Type Personeel ID] = "S_5" ||
 			    'Dim Medewerker'[Type Personeel ID] = "O_4",
@@ -559,7 +553,7 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Flag 4105000 - Gratificaties' =
+	column 'Flag 4105000 - Gratificaties Mdw' =
 			
 			// 'Dim Medewerker'[Dienstjaren] IN {12.5, 25, 35, 40}
 			IF(
@@ -577,19 +571,6 @@ table 'Dim Medewerker'
 		formatString: 0.0
 		lineageTag: ef1817a6-126b-4628-8d35-c59fbc705816
 		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Flag GB 4116000 - Medische Kosten Eig Risico' = ```
-			
-			LOOKUPVALUE(
-			    'Dim SchaalType'[SchaalType Forecasting],
-			    'Dim SchaalType'[Schaal ID], 'Dim Medewerker'[Schaal ID]
-			)
-			
-			```
-		lineageTag: b20d3af8-7e58-4c42-8f29-abc8d4cc45a9
-		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
@@ -733,14 +714,7 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Flag GB 4106000 Bijzondere Vergoeding'
-		type: calculated
-		lineageTag: 5fb274b9-ecd8-4854-bf14-92db66c74535
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Flag KPL 1840 - Medische Dienst' =
+	column 'Flag KPL 1840 - Medische Dienst Mdw' =
 			
 			IF(
 			    CALCULATE(
@@ -757,11 +731,11 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Flag GB 4125100 - Personeel niet in loondienst' =
+	column 'Flag GB 4125100 - Personeel niet in loondienst Mdw' =
 			
 			IF(
-			    'Dim Medewerker'[Kostenplaats] = "1840" ||
-			    'Dim Medewerker'[Dienstbetrekking ID] = 5,
+			    ('Dim Medewerker'[Kostenplaats] = "1840" ||
+			    'Dim Medewerker'[Dienstbetrekking ID] = 5) && 'Dim Medewerker'[Flag Medewerker] = 1,
 			    1,
 			    0
 			)
@@ -774,7 +748,7 @@ table 'Dim Medewerker'
 	column 'Maanden in Dienst' = RELATED('Fact Medewerker Maanden in Dienst Actuals'[Maanden in Dienst])
 		formatString: 0
 		lineageTag: d3a8d4fd-779f-4b5b-8178-e156319ca8d0
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
@@ -943,6 +917,159 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Type Zorg Functie'
+		dataType: string
+		lineageTag: a4d1be89-c306-493b-a8ba-71656d6bd5e1
+		summarizeBy: none
+		sourceColumn: Type Zorg Functie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Declarerend_Niet-declarerend
+		dataType: string
+		lineageTag: 53412a46-2cb2-4d67-b24f-71c1869bfca0
+		summarizeBy: none
+		sourceColumn: Declarerend_Niet-declarerend
+
+		annotation SummarizationSetBy = Automatic
+
+	column Service_Line_Type
+		dataType: string
+		lineageTag: d2305110-c285-4084-b060-3b8cec1969fb
+		summarizeBy: none
+		sourceColumn: Service_Line_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Service_Lines
+		dataType: string
+		lineageTag: 57c63a8e-e527-442f-a52f-7c16aadc454b
+		summarizeBy: none
+		sourceColumn: Service_Lines
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cluster_Afdeling
+		dataType: string
+		lineageTag: ad4804fb-9fa5-4164-bd1c-22c32f595b50
+		summarizeBy: none
+		sourceColumn: Cluster_Afdeling
+
+		annotation SummarizationSetBy = Automatic
+
+	column Omschrijving_2
+		dataType: string
+		lineageTag: 16fb3d79-2a79-421a-ab6a-ad0402a9d7d6
+		summarizeBy: none
+		sourceColumn: Omschrijving_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Omschrijving_3
+		dataType: string
+		lineageTag: 58a7ae29-9c13-4bdd-aabf-a340644b6567
+		summarizeBy: none
+		sourceColumn: Omschrijving_3
+
+		annotation SummarizationSetBy = Automatic
+
+	column Generieke_functienaam
+		dataType: string
+		lineageTag: 1aa7ea19-4f59-48d0-9c2b-2e193732ccaa
+		summarizeBy: none
+		sourceColumn: Generieke_functienaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Begin Datum'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6d362fd7-3776-49f0-ac00-3c374b9b01d9
+		summarizeBy: none
+		sourceColumn: Begin Datum
+
+		variation Variation
+			isDefault
+			relationship: b0c01dd0-25f1-4fe9-80d8-3673293bc269
+			defaultHierarchy: LocalDateTable_669500d1-e0f3-4184-8e3f-fc5b192de8b0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Eind Datum'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 12a6b472-327e-4e1b-a132-d265e0159936
+		summarizeBy: none
+		sourceColumn: Eind Datum
+
+		variation Variation
+			isDefault
+			relationship: 41bb0372-7368-441c-b042-9c7b98d1235f
+			defaultHierarchy: LocalDateTable_9f430bb0-3f78-44bc-a7f4-16798fd6fa8a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Max Schaal/Trede'
+		dataType: string
+		lineageTag: 3d59e095-ddd0-49b7-8e4d-085a6246568b
+		summarizeBy: none
+		sourceColumn: Max Schaal/Trede
+
+		annotation SummarizationSetBy = Automatic
+
+	column SchaalType
+		dataType: string
+		lineageTag: e2a2b0fc-349b-4878-bba1-8eaabeefd974
+		summarizeBy: none
+		sourceColumn: SchaalType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Verschil (excl)'
+		dataType: double
+		formatString: 0.00
+		lineageTag: e1ffabfd-0768-4aa0-8c8e-e073cba0bd3a
+		summarizeBy: sum
+		sourceColumn: Verschil (excl)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nr van Vacature'
+		dataType: string
+		lineageTag: 4acbcd0d-fb79-4ba3-8932-6256660067ed
+		summarizeBy: none
+		sourceColumn: Nr van Vacature
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Status Dienstverband' =
+			
+			IF(
+			    'Dim Medewerker'[Status_dienstverband] = "In dienst" || 'Dim Medewerker'[Flag Medewerker] = 0,
+			    "In Dienst",
+			    "Uit Dienst"
+			)
+		lineageTag: 5959a058-0ab3-4bee-9b7e-657057590c8f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Formatieplaats Code + Omschrijving + FTE (Verschil)' =
+			
+			IF(
+			    'Dim Medewerker'[Flag Medewerker] = 0,
+			    'Dim Medewerker'[Formatieplaats] & " " & "-" & " " & 'Dim Medewerker'[Formatieplaats Omschrijving] & " " & 'Dim Medewerker'[Nr van Vacature] & " " & "(" & "FTE - " & FORMAT('Dim Medewerker'[Verschil (excl)], "0.00") & ")",
+			    BLANK()
+			)
+		lineageTag: a8bd1420-6d9d-4964-ba20-c46bef85d359
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Medewerker' = m
 		mode: import
 		queryGroup: Model
@@ -995,15 +1122,16 @@ table 'Dim Medewerker'
 				    #"Renamed Columns4" = Table.RenameColumns(#"Inserted Month",{{"Month", "Anniversary Month"}}),
 				    #"Appended Query" = Table.Combine({#"Renamed Columns4", #"Dim Vrijwilleger en Stagair"}),
 				    #"Changed Type7" = Table.TransformColumnTypes(#"Appended Query",{{"Medewerker ID", type text}, {"Voornaam", type text}, {"Voorletters", type text}, {"Achternaam", type text}, {"Geboortenaam", type text}, {"Voorvoegsel", type text}, {"Status_dienstverband", type text}}),
-				    #"Added Custom" = Table.AddColumn(#"Changed Type7", "Flag Medewerker", each 1, type nullable number),
-				    #"Renamed Columns5" = Table.RenameColumns(#"Added Custom",{{"Formatieplaats Code", "Formatieplaats"}, {"Functie Code", "Functie"}, {"Cluster/Afdeling Formatieplaats", "Cluster_Afdeling Formatieplaats"}, {"Omschrijving_5", "Formatieplaats Omschrijving"}}),
+				    #"Renamed Columns5" = Table.RenameColumns(#"Changed Type7",{{"Formatieplaats Code", "Formatieplaats"}, {"Functie Code", "Functie"}, {"Cluster/Afdeling Formatieplaats", "Cluster_Afdeling Formatieplaats"}, {"Omschrijving_5", "Formatieplaats Omschrijving"}}),
 				    #"Merged Queries10" = Table.NestedJoin(#"Renamed Columns5", {"Schaal ID"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
 				    #"Expanded Dim SchaalType1" = Table.ExpandTableColumn(#"Merged Queries10", "Dim SchaalType", {"Schaal/Trede"}, {"Schaal/Trede"}),
-				    #"Removed Other Columns3" = Table.SelectColumns(#"Expanded Dim SchaalType1",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster/Afdeling Functie", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Formatieplaats", "Formatieplaats Omschrijving", "Cluster_Afdeling Formatieplaats", "OE Code", "Soort_medewerker", "Type_contract", "Schaal ID", "Dienstbetrekking ID", "C/A Formatie ID", "C/A Functie ID", "Dim Zorg.Type Zorg Functie", "Staf of Zorg", "Type Personeel ID", "In_dienst__i.v.m._dienstjaren_", "Anniversary Month", "Flag Medewerker", "Schaal/Trede"}),
-				    #"Renamed Columns6" = Table.RenameColumns(#"Removed Other Columns3",{{"Dim Zorg.Type Zorg Functie", "Type Zorg Functie"}}),
-				    #"Trimmed Text" = Table.TransformColumns(#"Renamed Columns6",{{"Type Zorg Functie", Text.Trim, type text}})
+				    #"Removed Other Columns3" = Table.SelectColumns(#"Expanded Dim SchaalType1",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster/Afdeling Functie", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Formatieplaats", "Formatieplaats Omschrijving", "Cluster_Afdeling Formatieplaats", "OE Code", "Soort_medewerker", "Type_contract", "Schaal ID", "Dienstbetrekking ID", "C/A Formatie ID", "C/A Functie ID", "Dim Zorg.Type Zorg Functie", "Staf of Zorg", "Type Zorg Functie", "Type Personeel ID", "In_dienst__i.v.m._dienstjaren_", "Anniversary Month", "Schaal/Trede"}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Removed Other Columns3",{{"Type Zorg Functie", Text.Trim, type text}}),
+				    #"Appended Query1" = Table.Combine({#"Trimmed Text", #"Dim Medewerker RVC"}),
+				    #"Added Custom" = Table.AddColumn(#"Appended Query1", "Flag Medewerker", each 1, type nullable number),
+				    #"Appended Query2" = Table.Combine({#"Added Custom", #"Dim Vacatures Medewerker"})
 				in
-				    #"Trimmed Text"
+				    #"Appended Query2"
 
 	annotation PBI_NavigationStepName = Navigation
 

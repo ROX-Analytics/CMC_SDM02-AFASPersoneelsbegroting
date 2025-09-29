@@ -14,6 +14,9 @@ table 'Dim Range Personeel niet in Loondienst'
 	column Range = FORMAT('Dim Range Personeel niet in Loondienst'[Percentage] * 100, "0") & "%"
 		lineageTag: 6126985f-8dd8-45b3-91df-c3ae95adfbb7
 		summarizeBy: none
+		sortByColumn: Percentage
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 

@@ -215,7 +215,7 @@ table 'Fact Personeels Kosten'
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column 'Schaal ID'
-		dataType: int64
+		dataType: double
 		formatString: 0
 		lineageTag: d4082484-a5d8-4c7b-9535-0f3e002f73be
 		summarizeBy: none
@@ -321,7 +321,10 @@ table 'Fact Personeels Kosten'
 				    #"Added Custom7" = Table.AddColumn(#"Added Custom6", "Saldo", each ([Waarde] * [FTE]) - [Bedrag_credit], type nullable number),
 				    #"Trimmed Text" = Table.TransformColumns(#"Added Custom7",{{"Grootboekrekening", Text.Trim, type text}}),
 				    #"Changed Type6" = Table.TransformColumnTypes(#"Trimmed Text",{{"Jaar", Int64.Type}, {"Salarisperiode", Int64.Type}, {"Boekingsperiode", Int64.Type}}),
-				    #"Merged Queries" = Table.NestedJoin(#"Changed Type6", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
+				
+				    DimMed = Table.Buffer(#"Dim Medewerker"),
+				
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type6", {"Medewerker ID"}, DimMed, {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
 				    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Schaal ID"}, {"Schaal ID"})
 				in
 				    #"Expanded Dim Medewerker"

@@ -154,17 +154,17 @@ table 'Fact Forecasting Vacatures'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'Flag Medische Specialisten' = RELATED('Dim Vacatures Medewerker'[Flag Medische Specialisten])
+	column 'Flag Medische Specialisten' = RELATED('Dim Medewerker'[Flag Medische Specialisten])
 		formatString: 0
 		lineageTag: 4eb5509b-640a-47f8-8cee-7440d91f8250
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Flag overwerk 200% en 300%' = RELATED('Dim Vacatures Medewerker'[Flag Overtime 200% and 300% Type Personeel])
+	column 'Flag overwerk 200% en 300%' = RELATED('Dim Medewerker'[Flag Overtime 200% and 300% Type Personeel])
 		formatString: 0
 		lineageTag: dacf26c5-a1d4-45c4-a93d-1bca2a8424d5
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
@@ -276,16 +276,18 @@ table 'Fact Forecasting Vacatures'
 			
 			RETURN
 			IF(
-			    selectedGl = "4101100" && selectedLC = "0001" && RELATED('Dim Vacatures Medewerker'[Flag Maaltijdvergoeding]) = 1,
+			    selectedGl = "4101100" && selectedLC = "0001" && RELATED('Dim Medewerker'[Flag Maaltijdvergoeding]) = 1,
 			    DIVIDE(amount, 12, BLANK()),
 			    BLANK()
 			)
 			
 			```
 		lineageTag: e5b81b40-496f-4033-a510-8c36bb329077
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column 'Type Zorg Functie'
 		dataType: string
@@ -352,6 +354,22 @@ table 'Fact Forecasting Vacatures'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column 'Percentage Name CAO'
+		dataType: string
+		lineageTag: 532cfc1c-0bf0-429e-a69e-66de0749cb25
+		summarizeBy: none
+		sourceColumn: Percentage Name CAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Percentage Name LNT'
+		dataType: string
+		lineageTag: d285a14b-1ccb-4469-b97c-4886a9bcb423
+		summarizeBy: none
+		sourceColumn: Percentage Name LNT
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Fact Forecasting Vacatures' = m
 		mode: import
 		queryGroup: Model
@@ -411,7 +429,7 @@ table 'Fact Forecasting Vacatures'
 				        else null, type nullable number),
 				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Formatieplaats Key", each Text.From([Medewerker ID]) & "_" & Text.From([Month]), type nullable text),
 				    #"Renamed Columns6" = Table.RenameColumns(#"Added Custom1",{{"Salaris", "Salaris Incl Indexering"}}),
-				    #"Removed Other Columns1" = Table.SelectColumns(#"Renamed Columns6",{"Formatieplaats", "Omschrijving", "Kostenplaats", "Type Zorg Functie", "Type Personeel ID", "Max Schaal/Trede", "Schaal ID", "SchaalType", "Year Forecasting", "Verschil per Vac (FTE)", "Medewerker ID", "Month", "Year/Period", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "Percentage Key", "Salaris (incl %)", "Index Name", "Salaris Incl Indexering", "Formatieplaats Key"})
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Renamed Columns6",{"Formatieplaats", "Omschrijving", "Kostenplaats", "Type Zorg Functie", "Type Personeel ID", "Max Schaal/Trede", "Schaal ID", "SchaalType", "Year Forecasting", "Verschil per Vac (FTE)", "Medewerker ID", "Month", "Year/Period", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "Percentage Name CAO", "Percentage Name LNT", "Percentage Key", "Salaris (incl %)", "Index Name", "Salaris Incl Indexering", "Formatieplaats Key"})
 				in
 				    #"Removed Other Columns1"
 				```

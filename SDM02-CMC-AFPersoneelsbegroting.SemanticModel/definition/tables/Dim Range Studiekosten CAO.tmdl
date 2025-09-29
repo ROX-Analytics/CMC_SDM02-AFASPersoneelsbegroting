@@ -14,6 +14,9 @@ table 'Dim Range Studiekosten CAO'
 	column Range = FORMAT('Dim Range Studiekosten CAO'[Percentage] * 100, "0") & "%"
 		lineageTag: 1367b428-406e-4bec-a2d6-d7712c0b4439
 		summarizeBy: none
+		sortByColumn: Percentage
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
