@@ -646,6 +646,26 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Dim Medewerker (FormatieBezetting)",
+          "nodeLineageTag": "5aaad5ac-cca6-4ca8-bc12-2fa4dc892f43",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Fact Medewerker AVG FTE (Actuals Extrapol)",
+          "nodeLineageTag": "d103bba8-96f5-4a39-bdb4-b9299b4b833b",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -1031,6 +1051,19 @@
             "width": 234
           },
           "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 608.33333206176758,
+            "y": 52.333335876464844
+          },
+          "nodeIndex": "Fact Medewerker AVG FTE (Actuals Extrapol)",
+          "nodeLineageTag": "d103bba8-96f5-4a39-bdb4-b9299b4b833b",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "Fact For MdW",
@@ -1653,7 +1686,7 @@
     {
       "ordinal": 11,
       "scrollPosition": {
-        "x": 0,
+        "x": 274,
         "y": 0
       },
       "nodes": [
@@ -2409,6 +2442,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Fact Sal Indexering",
+  "selectedDiagram": "Fact For MdW",
   "defaultDiagram": "All tables"
 }

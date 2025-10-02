@@ -281,24 +281,6 @@ table 'Fact Personeels Kosten'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Grootboekrekening - Copy'
-		dataType: int64
-		formatString: 0
-		lineageTag: 5806b867-bb7e-4f53-9071-344dbacd663f
-		summarizeBy: sum
-		sourceColumn: Grootboekrekening - Copy
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Grootboek_vervangend - Copy'
-		dataType: int64
-		formatString: 0
-		lineageTag: cb8ade9a-b514-4e91-8a5e-f6d4d1442ca5
-		summarizeBy: sum
-		sourceColumn: Grootboek_vervangend - Copy
-
-		annotation SummarizationSetBy = Automatic
-
 	partition 'Fact Personeels Kosten' = m
 		mode: import
 		queryGroup: Model

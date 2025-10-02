@@ -56,11 +56,6 @@ table 'Fact Journal Entries'
 		summarizeBy: none
 		sourceColumn: Boekstukdatum
 
-		variation Variation
-			isDefault
-			relationship: a1059d3f-812b-46d2-88d4-273673fdc8d6
-			defaultHierarchy: LocalDateTable_66df9115-5a45-40e8-bedd-3749737c0232.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -277,11 +272,6 @@ table 'Fact Journal Entries'
 		summarizeBy: none
 		sourceColumn: Datum_toegevoegd
 
-		variation Variation
-			isDefault
-			relationship: 3cb421e9-5477-4d19-aebe-8dbdcaacf0c0
-			defaultHierarchy: LocalDateTable_756b7e71-d8c2-4c27-a515-49334cad0cc6.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -300,11 +290,6 @@ table 'Fact Journal Entries'
 		lineageTag: 5199db51-1181-4c40-b9b3-0ca67ed1fe9c
 		summarizeBy: none
 		sourceColumn: Datum_gewijzigd
-
-		variation Variation
-			isDefault
-			relationship: 0785e4f0-143f-4b0c-a649-1cdafd8c750b
-			defaultHierarchy: LocalDateTable_83f54064-336c-402b-902f-703c7a5a3ef0.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 

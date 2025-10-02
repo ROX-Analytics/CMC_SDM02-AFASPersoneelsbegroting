@@ -1,0 +1,36 @@
+table 'Fact Medewerker AVG FTE (Actuals Extrapol)'
+	lineageTag: d103bba8-96f5-4a39-bdb4-b9299b4b833b
+
+	column 'Medewerker ID'
+		dataType: string
+		lineageTag: be7c7f40-c7af-47f9-849a-79f062829664
+		summarizeBy: none
+		sourceColumn: Medewerker ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Average FTE'
+		dataType: double
+		lineageTag: 85924081-60e7-4fcc-90a3-bf00c4aaff0d
+		summarizeBy: none
+		sourceColumn: Average FTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Fact Medewerker AVG FTE (Actuals Extrapol)' = m
+		mode: import
+		queryGroup: Model
+		source =
+				let
+				    Source = Table.SelectColumns(#"Fact Salaris Indexering Actuals",{"Medewerker ID", "FTE"}),
+				    #"Grouped Rows" = Table.Group(Source, {"Medewerker ID"}, {{"Average", each List.Average([FTE]), type nullable number}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Grouped Rows",{{"Average", "Average FTE"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

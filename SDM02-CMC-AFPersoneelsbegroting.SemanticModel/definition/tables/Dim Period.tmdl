@@ -16,11 +16,6 @@ table 'Dim Period'
 		summarizeBy: none
 		sourceColumn: Start of Month
 
-		variation Variation
-			isDefault
-			relationship: 1bb49979-e528-40f2-9797-216ef70a4191
-			defaultHierarchy: LocalDateTable_b34c3d61-d546-40ce-a5bd-7e5591742761.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -31,11 +26,6 @@ table 'Dim Period'
 		lineageTag: d73abcae-7499-4cd3-b691-ce730e272b13
 		summarizeBy: none
 		sourceColumn: Start date year
-
-		variation Variation
-			isDefault
-			relationship: 0ec8b527-25b1-4985-8d90-f00159f67ef5
-			defaultHierarchy: LocalDateTable_01929f72-a80b-407a-8777-f6a042f8cbec.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -67,6 +57,19 @@ table 'Dim Period'
 		lineageTag: 66c19c48-936a-4cea-9f05-354a77541111
 		summarizeBy: sum
 		sourceColumn: Month no.
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name NL' =
+			
+			SWITCH(
+			    TRUE(),
+			    'Dim Period'[Month name (short)] = "May", "Mei",
+			    'Dim Period'[Month name (short)] = "Oct", "Okt",
+			    'Dim Period'[Month name (short)]
+			)
+		lineageTag: 5d048d4b-9ec2-438f-95f3-005d1ec98fae
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 

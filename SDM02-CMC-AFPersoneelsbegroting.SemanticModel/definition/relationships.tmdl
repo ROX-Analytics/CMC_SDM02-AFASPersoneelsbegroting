@@ -1,93 +1,3 @@
-relationship 968b7272-25f6-4bce-9659-09bd9bc08790
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Calendar'.Date
-	toColumn: LocalDateTable_ad3891fd-19ab-4639-8353-00240143c7b3.Date
-
-relationship 5de80d7c-2fd9-4ef4-84ad-551ed8060543
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Calendar'.'Start date year'
-	toColumn: LocalDateTable_17d15d23-9858-43a8-83a2-65bffd42729d.Date
-
-relationship 1bb49979-e528-40f2-9797-216ef70a4191
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Period'.'Start of Month'
-	toColumn: LocalDateTable_b34c3d61-d546-40ce-a5bd-7e5591742761.Date
-
-relationship 0ec8b527-25b1-4985-8d90-f00159f67ef5
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Period'.'Start date year'
-	toColumn: LocalDateTable_01929f72-a80b-407a-8777-f6a042f8cbec.Date
-
-relationship af0ae359-8051-4c8f-8e7b-9556229a1768
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker'.Geboortedatum
-	toColumn: LocalDateTable_34f1b705-fae0-4db0-ba69-dc3ad200a7e3.Date
-
-relationship 70058c35-4278-4132-bf5a-36fc527d722d
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker'.Datum_in_dienst
-	toColumn: LocalDateTable_7179e43a-e07b-4353-ad18-05456413521c.Date
-
-relationship b15b4e5f-dd8d-402d-a0d3-16f0eb171abb
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker'.Datum_uit_dienst
-	toColumn: LocalDateTable_5f12439e-ea17-4015-b112-d0b0ea49a114.Date
-
-relationship ee060fd5-3406-47d7-a29a-5ce35876a3eb
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker'.Begindatum_salaris
-	toColumn: LocalDateTable_a05a6d95-eba5-4957-a2a5-100deadbc7e5.Date
-
-relationship 37ded886-c002-4c53-90f7-68356261ba2d
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker'.Einddatum_salaris
-	toColumn: LocalDateTable_c14b01a2-ce33-42b3-897e-a59aeebc8f72.Date
-
-relationship 9ea96603-4370-46b1-83e8-b9092b8726d4
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker'.Begindatum_functie
-	toColumn: LocalDateTable_d6929cb5-d1ee-4883-8a1f-f035cb711259.Date
-
-relationship 369bf740-7b40-487e-9c1e-de77d96ae3b4
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Fact FormatiePlaats'.'Begin Datum'
-	toColumn: LocalDateTable_ff0b6a01-a3a6-42f7-906d-39e53520f9c0.Date
-
-relationship 66a7ea94-9b8e-4d77-86a9-70c6f3c4ac7a
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Fact FormatiePlaats'.'Eind Datum'
-	toColumn: LocalDateTable_446649bc-0a8a-4f7b-a7a4-374345c30b17.Date
-
-relationship 76de0eee-6d1c-4672-ae17-5e64da9a91a0
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Fact FormatiePlaats'.'Datum Gewijzigd'
-	toColumn: LocalDateTable_440d5084-fae8-4d5f-8be9-307106ab9e02.Date
-
-relationship a1059d3f-812b-46d2-88d4-273673fdc8d6
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Fact Journal Entries'.Boekstukdatum
-	toColumn: LocalDateTable_66df9115-5a45-40e8-bedd-3749737c0232.Date
-
-relationship 3cb421e9-5477-4d19-aebe-8dbdcaacf0c0
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Fact Journal Entries'.Datum_toegevoegd
-	toColumn: LocalDateTable_756b7e71-d8c2-4c27-a515-49334cad0cc6.Date
-
-relationship 0785e4f0-143f-4b0c-a649-1cdafd8c750b
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Fact Journal Entries'.Datum_gewijzigd
-	toColumn: LocalDateTable_83f54064-336c-402b-902f-703c7a5a3ef0.Date
-
-relationship 5f0947ad-7d8d-42eb-9c72-d1210af4437d
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Date Last Refreshed'.'Date Last Refreshed'
-	toColumn: LocalDateTable_3e04eb1b-5b20-4ca3-b677-af3d5ec8c03d.Date
-
-relationship 5375ce7a-e028-4880-be47-6a65fc18ba68
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker'.'In_dienst__i.v.m._dienstjaren_'
-	toColumn: LocalDateTable_b0951fab-f7e7-469c-b1c8-e5981f017388.Date
-
 relationship fb8d91d8-508b-064a-9754-e9227cc18a3a
 	fromColumn: 'Fact Actuals FTE'.Kostenplaats
 	toColumn: 'Dim Kostenplaats'.Kostenplaats
@@ -313,7 +223,7 @@ relationship 4d8b5f47-a49e-8f43-e94e-8d3005f47917
 	toColumn: 'Dim Functie'.Functiecode
 
 relationship 11dec583-39df-1807-3c4d-eb07a5e5c10d
-	fromColumn: 'Dim Medewerker'.'OE Code'
+	fromColumn: 'Dim Medewerker'.'OE Code Original'
 	toColumn: 'Dim Organisatie Eenheid'.OE
 
 relationship 7448a03a-cf33-ed3a-1a4e-623223e8c910
@@ -370,16 +280,6 @@ relationship 3fd13aec-a95c-2cc8-60c6-84393c69fa2d
 	fromColumn: 'Fact RvC'.'Schaal ID'
 	toColumn: 'Dim SchaalType'.'Schaal ID'
 
-relationship 09433c0e-5e49-4764-8cbe-dd655f68ebe4
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Vacatures Medewerker'.'Begin Datum'
-	toColumn: LocalDateTable_1037b00d-2c0f-4ada-adf0-f563bcdcf480.Date
-
-relationship 81ef511e-4f05-4a42-9d9a-e03435b5074d
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Vacatures Medewerker'.'Eind Datum'
-	toColumn: LocalDateTable_ce44edf7-627d-4c86-9285-960f0aab00bb.Date
-
 relationship eeed5753-be04-d218-dd0a-5ce0a0122b5f
 	fromColumn: 'Dim Vacatures Medewerker'.'OE Code'
 	toColumn: 'Dim Organisatie Eenheid'.OE
@@ -404,17 +304,11 @@ relationship 6f0e9645-40a6-d615-690e-a42ad66558cb
 	fromColumn: 'Fact Forecasting Vacatures'.'Percentage Name CAO'
 	toColumn: 'Dim Percentage Vacature CAO'.'Percentage Name'
 
-relationship b0c01dd0-25f1-4fe9-80d8-3673293bc269
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker'.'Begin Datum'
-	toColumn: LocalDateTable_669500d1-e0f3-4184-8e3f-fc5b192de8b0.Date
-
-relationship 41bb0372-7368-441c-b042-9c7b98d1235f
-	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Dim Medewerker'.'Eind Datum'
-	toColumn: LocalDateTable_9f430bb0-3f78-44bc-a7f4-16798fd6fa8a.Date
-
 relationship 3aa1ecd1-a817-54ec-094b-ca2cf26914f6
 	fromColumn: 'Fact Forecasting Vacatures'.'Medewerker ID'
 	toColumn: 'Dim Medewerker'.'Medewerker ID'
+
+relationship 26c6f933-a4ff-ae96-77e5-3075870f7a4d
+	fromColumn: 'Fact Forecasting Medewerkers'.'Medewerker ID'
+	toColumn: 'Fact Medewerker AVG FTE (Actuals Extrapol)'.'Medewerker ID'
 

@@ -155,7 +155,7 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'FTE (Divided by 100)' = DIVIDE('Fact Forecasting Medewerkers'[FTE], 100, BLANK())
+	column 'FTE (Divided by 100)' = RELATED('Fact Medewerker AVG FTE (Actuals Extrapol)'[Average FTE])
 		lineageTag: 66ece7f7-e15a-43b3-8f3d-998e58053720
 		summarizeBy: sum
 
@@ -912,6 +912,45 @@ table 'Fact Forecasting Medewerkers'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column 'Flag Medewerker'
+		dataType: double
+		lineageTag: cba78c8e-b6c4-4ca4-9bcc-63de1ee8f16a
+		summarizeBy: sum
+		sourceColumn: Flag Medewerker
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Max Salaris End Actuals'
+		dataType: double
+		lineageTag: cf1b8d1a-4416-4f92-93f9-3981cb8bb80f
+		summarizeBy: sum
+		sourceColumn: Max Salaris End Actuals
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'New Schaal ID (Trede Verhoging Actuals)'
+		dataType: double
+		lineageTag: 182c0a6b-e400-42cd-b77f-3841021c5d49
+		summarizeBy: sum
+		sourceColumn: New Schaal ID (Trede Verhoging Actuals)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'MAX Trede Actuals'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f731c3be-4796-41db-b35e-0eea8006451c
+		summarizeBy: none
+		sourceColumn: MAX Trede Actuals
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Fact Forecasting Medewerkers' = m
 		mode: import
 		queryGroup: Model
@@ -928,7 +967,7 @@ table 'Fact Forecasting Medewerkers'
 				    #"Added Custom2" = Table.AddColumn(#"Renamed Columns", "Salaris Base Forecasting", each if [Period] >= 7 and ([#"Type Zorg Functie"] = "Medisch Specialisten" or [#"Type Zorg Functie"] = "Arts-assistenten") or [#"SchaalType Forecasting"] = "Andere OVK" then [#"Salaris Base Forecasting Original 2"] else if [Period] < 7 then [#"Salaris Base Forecasting Original 2"] else ([#"Salaris Base Forecasting Original 2"] * [Indexering]) + [#"Salaris Base Forecasting Original 2"], type nullable number),
 				    #"Renamed Columns1" = Table.RenameColumns(#"Added Custom2",{{"Index Name", "Indexering Forecasting"}}),
 				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Indexering", type number}}),
-				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type1",{"Medewerker ID", "FTE", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "Year Forecasting", "Period", "Period (leading zeros)", "Anniversary Month", "Kostenplaats", "Type Personeel ID", "Year/Period", "Index Name Actuals", "SchaalType Forecasting", "Trede Verhoging (Forecasting)", "New Schaal ID (Forecasting)", "Softlanding per Maand", "Indexering Forecasting", "Indexering", "Salaris Base Forecasting"}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type1",{"Medewerker ID", "FTE", "Flag Medewerker", "LC", "Omschrijving LC", "Grootboekrekening", "Grootboekrekening_omschrijving", "Year Forecasting", "Period", "Period (leading zeros)", "Anniversary Month", "Kostenplaats", "Type Personeel ID", "Year/Period", "Index Name Actuals", "Max Salaris End Actuals", "New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals", "SchaalType Forecasting", "Trede Verhoging (Forecasting)", "New Schaal ID (Forecasting)", "Softlanding per Maand", "Indexering Forecasting", "Indexering", "Salaris Base Forecasting"}),
 				    #"Changed Type3" = Table.TransformColumnTypes(#"Removed Other Columns",{{"New Schaal ID (Forecasting)", Int64.Type}})
 				in
 				    #"Changed Type3"

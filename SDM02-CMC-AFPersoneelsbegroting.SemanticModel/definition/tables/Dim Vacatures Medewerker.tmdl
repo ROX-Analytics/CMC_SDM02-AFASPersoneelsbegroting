@@ -294,11 +294,6 @@ table 'Dim Vacatures Medewerker'
 		summarizeBy: none
 		sourceColumn: Begin Datum
 
-		variation Variation
-			isDefault
-			relationship: 09433c0e-5e49-4764-8cbe-dd655f68ebe4
-			defaultHierarchy: LocalDateTable_1037b00d-2c0f-4ada-adf0-f563bcdcf480.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -309,11 +304,6 @@ table 'Dim Vacatures Medewerker'
 		lineageTag: a25f2ec4-5f9d-436b-bc26-ecc0813098ae
 		summarizeBy: none
 		sourceColumn: Eind Datum
-
-		variation Variation
-			isDefault
-			relationship: 81ef511e-4f05-4a42-9d9a-e03435b5074d
-			defaultHierarchy: LocalDateTable_ce44edf7-627d-4c86-9285-960f0aab00bb.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 

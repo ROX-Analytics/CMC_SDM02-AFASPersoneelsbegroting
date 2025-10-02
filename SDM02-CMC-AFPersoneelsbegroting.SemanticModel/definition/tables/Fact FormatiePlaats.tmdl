@@ -221,11 +221,6 @@ table 'Fact FormatiePlaats'
 		summarizeBy: none
 		sourceColumn: Begin Datum
 
-		variation Variation
-			isDefault
-			relationship: 369bf740-7b40-487e-9c1e-de77d96ae3b4
-			defaultHierarchy: LocalDateTable_ff0b6a01-a3a6-42f7-906d-39e53520f9c0.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -237,11 +232,6 @@ table 'Fact FormatiePlaats'
 		summarizeBy: none
 		sourceColumn: Eind Datum
 
-		variation Variation
-			isDefault
-			relationship: 66a7ea94-9b8e-4d77-86a9-70c6f3c4ac7a
-			defaultHierarchy: LocalDateTable_446649bc-0a8a-4f7b-a7a4-374345c30b17.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -252,11 +242,6 @@ table 'Fact FormatiePlaats'
 		lineageTag: 6898be62-66f4-4422-87b8-c078c48860aa
 		summarizeBy: none
 		sourceColumn: Datum Gewijzigd
-
-		variation Variation
-			isDefault
-			relationship: 76de0eee-6d1c-4672-ae17-5e64da9a91a0
-			defaultHierarchy: LocalDateTable_440d5084-fae8-4d5f-8be9-307106ab9e02.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 

@@ -1233,30 +1233,6 @@ expression 'Forecasting Vacature Date Function' = ```
 
 	annotation PBI_ResultType = Function
 
-expression 'Dim Medewerker (FormatieBezetting)' =
-		let
-		    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_Formatiebezetting" & "?skip=-1&take=-1", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
-		    rows = Source[rows],
-		    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-		    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_"}),
-		    #"Inserted Text Range" = Table.AddColumn(#"Expanded Column1", "DtmInDienst", each Text.Middle([Datum_in_dienst], 0, 10), type text),
-		    #"Inserted Text Range1" = Table.AddColumn(#"Inserted Text Range", "DtmUitDienst", each Text.Middle([Datum_uit_dienst], 0, 10), type text),
-		    #"Inserted Text Range2" = Table.AddColumn(#"Inserted Text Range1", "Geboortedtm", each Text.Middle([Geboortedatum], 0, 10), type text),
-		    #"Removed Other Columns" = Table.SelectColumns(#"Inserted Text Range2",{"Medewerker", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Organisatorische_eenheid", "Functie", "Geboorteplaats", "Geslacht", "Leeftijd", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "DtmInDienst", "DtmUitDienst", "Geboortedtm"}),
-		    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Organisatorische_eenheid", "OE"}, {"Functie", "Functiecode"}}),
-		    #"Inserted Text Range3" = Table.AddColumn(#"Renamed Columns", "DtmInDienstSehos", each Text.Middle([In_dienst__i.v.m._dienstjaren_], 0, 10), type text),
-		    #"Changed Type" = Table.TransformColumnTypes(#"Inserted Text Range3",{{"DtmInDienst", type date}, {"DtmUitDienst", type date}, {"Geboortedtm", type date}, {"DtmInDienstSehos", type date}, {"In_dienst__i.v.m._dienstjaren_", type datetime}}),
-		    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"In_dienst__i.v.m._dienstjaren_", type date}}),
-		    #"Removed Duplicates" = Table.Distinct(#"Changed Type1", {"Medewerker"})
-		in
-		    #"Removed Duplicates"
-	lineageTag: 03b8e3c3-1343-4a6c-bdf6-46bbb4c49a67
-	queryGroup: Staging\Formatie
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
 expression 'Extrapolatie Salaris Indexering Actuals' =
 		(inputTable as table) as table =>
 		let
@@ -1341,7 +1317,10 @@ expression 'Fact Salaris Indexering Actuals Source' =
 		    #"Removed Other Columns1" = Table.SelectColumns(#"Changed Type2",{"Jaar", "Boekingsperiode", "Medewerker ID", "Kostenplaats", "LC", "Omschrijving LC", "Waarde", "Bedrag_credit", "Grootboekrekening", "Grootboekrekening_omschrijving", "FTE"}),
 		    #"Filtered Rows" = Table.SelectRows(#"Removed Other Columns1", each [LC] = "2434" and ([Grootboekrekening] <> "1995000")),
 		    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"Jaar", Int64.Type}, {"Boekingsperiode", Int64.Type}, {"Waarde", type number}, {"Bedrag_credit", type number}}),
-		    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
+		
+		    DimMed = Table.Buffer(#"Dim Medewerker"),
+		
+		    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Medewerker ID"}, DimMed, {"Medewerker ID"}, "Dim Medewerker", JoinKind.LeftOuter),
 		    #"Expanded Dim Medewerker" = Table.ExpandTableColumn(#"Merged Queries", "Dim Medewerker", {"Naam_werkgever"}, {"Naam_werkgever"}),
 		    #"Filtered Rows1" = Table.SelectRows(#"Expanded Dim Medewerker", each [Naam_werkgever] = "Curacao Medical Center Exploitatie")
 		in
@@ -1621,16 +1600,12 @@ expression 'Dim SchaalType AOVK' = ```
 
 expression 'Fact Medewerker MAX Schaal/Trede Actuals' =
 		let
-		    Source = #"Buffered Fact Salaris Indexering Actuals",
-		    #"Grouped Rows" = Table.Group(Source, {"Medewerker ID"}, {{"Schaal ID (New)", each List.Max([#"Schaal ID (New)"]), type nullable number}, {"Max Period", each List.Max([Boekingsperiode]), type nullable number}}),
-		    #"Filtered Rows1" = Table.SelectRows(#"Grouped Rows", each ([Max Period] = 12)),
-		    #"Merged Queries" = Table.NestedJoin(#"Filtered Rows1", {"Schaal ID (New)"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Fact Salaris Indexering Actuals",{"Boekingsperiode", "Medewerker ID", "Schaal ID (New)"}),
+		    #"Grouped Rows" = Table.Group(#"Removed Other Columns", {"Medewerker ID"}, {{"Schaal ID (New)", each List.Max([#"Schaal ID (New)"]), type nullable number}}),
+		    #"Merged Queries" = Table.NestedJoin(#"Grouped Rows", {"Schaal ID (New)"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
 		    #"Expanded Dim SchaalType" = Table.ExpandTableColumn(#"Merged Queries", "Dim SchaalType", {"MAX Trede"}, {"MAX Trede"}),
 		    #"Renamed Columns" = Table.RenameColumns(#"Expanded Dim SchaalType",{{"MAX Trede", "MAX Trede Actuals"}}),
-		    #"Sorted Rows" = Table.Sort(#"Renamed Columns",{{"Medewerker ID", Order.Ascending}}),
-		    #"Filtered Rows" = Table.SelectRows(#"Sorted Rows", each ([#"Schaal ID (New)"] <> null)),
-		    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"Medewerker ID", "Schaal ID (New)", "Max Period"}),
-		    #"Renamed Columns1" = Table.RenameColumns(#"Removed Duplicates",{{"Schaal ID (New)", "New Schaal ID (Trede Verhoging Actuals)"}})
+		    #"Renamed Columns1" = Table.RenameColumns(#"Renamed Columns",{{"Schaal ID (New)", "New Schaal ID (Trede Verhoging Actuals)"}})
 		in
 		    #"Renamed Columns1"
 	lineageTag: 68800a72-27f1-4c4f-82c4-fd1e621a6ff4
@@ -1642,13 +1617,12 @@ expression 'Fact Medewerker MAX Schaal/Trede Actuals' =
 
 expression 'Fact Medewerker MAX Salaris Incl Indexering' =
 		let
-		    Source = #"Buffered Fact Salaris Indexering Actuals",
-		    #"Grouped Rows" = Table.Group(Source, {"Medewerker ID", "Index Name"}, {{"Max Period", each List.Max([Boekingsperiode]), type nullable number}, {"Max Salaris End Actuals", each List.Max([Bedrag Incl Indexering]), type nullable number}}),
-		    #"Renamed Columns" = Table.RenameColumns(#"Grouped Rows",{{"Index Name", "Index Name Actuals"}}),
-		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([Max Period] = 12)),
-		    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"Medewerker ID", "Index Name Actuals"})
+		    #"Removed Other Columns" = Table.SelectColumns(#"Fact Salaris Indexering Actuals",{"Boekingsperiode", "Medewerker ID", "Index Name", "Bedrag Incl Indexering"}),
+		    #"Renamed Index Column" = Table.RenameColumns(#"Removed Other Columns",{{"Index Name", "Index Name Actuals"}}),
+		    #"Filtered Max Period" = Table.SelectRows(#"Renamed Index Column", each [Boekingsperiode] = 12),
+		    #"Grouped Rows" = Table.Group(#"Filtered Max Period", {"Medewerker ID", "Index Name Actuals"}, {{"Max Salaris End Actuals", each List.Max([Bedrag Incl Indexering]), type nullable number}})
 		in
-		    #"Removed Duplicates"
+		    #"Grouped Rows"
 	lineageTag: 1b693238-cb83-44aa-8449-528ef19b7000
 	queryGroup: Staging\Forecasting
 
@@ -1883,26 +1857,14 @@ expression 'LC Overig' =
 
 	annotation PBI_ResultType = Table
 
-expression 'Buffered Fact Salaris Indexering Actuals' =
-		let
-		    Source = #"Fact Salaris Indexering Actuals",
-		    #"Buffer" = Table.Buffer(Source)
-		in
-		    #"Buffer"
-	lineageTag: 10396506-9a4c-42bc-910b-9e8420374df3
-	queryGroup: 'Staging\Forecasting\Buffer Queries'
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
 expression 'Fact Forecasting Medewerkers Source' = ```
 		let
 		    // Employees
-		    Employees = Table.Distinct(
-		        Table.SelectColumns(#"Fact Personeels Kosten 2025", {"Medewerker", "FTE"})
-		    ),
-		    RenamedEmployees = Table.RenameColumns(Employees, {{"Medewerker", "Medewerker ID"}}),
+		    Employees = Table.SelectColumns(#"Dim Medewerker", {"Medewerker ID", "Aantal_FTE", "Flag Medewerker"}),
+		
+		    #"Filtered Rows" = Table.SelectRows(Employees, each ([Flag Medewerker] = 1)),
+		    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"Medewerker ID"}),
+		    RenamedEmployees = Table.RenameColumns(#"Removed Duplicates", {{"Aantal_FTE", "FTE"}}),
 		
 		    // LC table (buffer since it's reused)
 		    DimLCperGB = Table.Buffer(#"Dim LC per GL Support"),
@@ -1926,10 +1888,9 @@ expression 'Fact Forecasting Medewerkers Source' = ```
 		
 		    DimMedwerker = Table.Buffer(#"Dim Medewerker"),
 		
-		    #"Merged Queries1" = Table.NestedJoin(ChangedType, {"Medewerker ID"}, #"Dim Medewerker", {"Medewerker ID"}, "Dim Medewerker Details", JoinKind.LeftOuter),
+		    #"Merged Queries1" = Table.NestedJoin(ChangedType, {"Medewerker ID"}, DimMedwerker, {"Medewerker ID"}, "Dim Medewerker Details", JoinKind.LeftOuter),
 		    #"Expanded Dim Medewerker Details" = Table.ExpandTableColumn(#"Merged Queries1", "Dim Medewerker Details", {"Anniversary Month", "Kostenplaats", "Naam_werkgever", "Schaal ID", "Type Personeel ID", "Type Zorg Functie"}, {"Anniversary Month", "Kostenplaats", "Naam_werkgever", "Schaal ID", "Type Personeel ID", "Type Zorg Functie"}),
-		    #"Filtered Rows1" = Table.SelectRows(#"Expanded Dim Medewerker Details", each true),
-		    #"Added Custom year/period" = Table.AddColumn(#"Filtered Rows1", "Year/Period", each Text.From([Year Forecasting]) & "/" & Text.From([#"Period (leading zeros)"]), type nullable text),
+		    #"Added Custom year/period" = Table.AddColumn(#"Expanded Dim Medewerker Details", "Year/Period", each Text.From([Year Forecasting]) & "/" & Text.From([#"Period (leading zeros)"]), type nullable text),
 		
 		    FactMaxSal = Table.Buffer(#"Fact Medewerker MAX Salaris Incl Indexering"),
 		    FactMaxSchaal = Table.Buffer(#"Fact Medewerker MAX Schaal/Trede Actuals"),
@@ -1939,7 +1900,8 @@ expression 'Fact Forecasting Medewerkers Source' = ```
 		
 		    #"Merged Queries2" = Table.NestedJoin(#"Added Custom year/period", {"Medewerker ID"}, FactMaxSal, {"Medewerker ID"}, "Fact Medewerker MAX Salaris Incl Indexering", JoinKind.LeftOuter),
 		    #"Expanded Fact Medewerker MAX Salaris Incl Indexering" = Table.ExpandTableColumn(#"Merged Queries2", "Fact Medewerker MAX Salaris Incl Indexering", {"Index Name Actuals", "Max Salaris End Actuals"}, {"Index Name Actuals", "Max Salaris End Actuals"}),
-		    #"Changed Type1" = Table.TransformColumnTypes(#"Expanded Fact Medewerker MAX Salaris Incl Indexering",{{"Index Name Actuals", type text}}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Expanded Fact Medewerker MAX Salaris Incl Indexering", each ([Max Salaris End Actuals] <> null)),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Filtered Rows1",{{"Index Name Actuals", type text}}),
 		    #"Merged Queries3" = Table.NestedJoin(#"Changed Type1", {"Medewerker ID"}, FactMaxSchaal, {"Medewerker ID"}, "Fact Medewerker MAX Schaal/Trede Actuals", JoinKind.LeftOuter),
 		    #"Expanded Fact Medewerker MAX Schaal/Trede Actuals" = Table.ExpandTableColumn(#"Merged Queries3", "Fact Medewerker MAX Schaal/Trede Actuals", {"New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals"}, {"New Schaal ID (Trede Verhoging Actuals)", "MAX Trede Actuals"}),
 		    #"Merged Queries4" = Table.NestedJoin(#"Expanded Fact Medewerker MAX Schaal/Trede Actuals", {"New Schaal ID (Trede Verhoging Actuals)"}, DimSchaal, {"Schaal ID"}, "Dim SchaalType", JoinKind.Inner),

@@ -1,0 +1,339 @@
+table 'Dim Medewerker (FormatieBezetting)'
+	lineageTag: 5aaad5ac-cca6-4ca8-bc12-2fa4dc892f43
+
+	column Medewerker
+		dataType: string
+		lineageTag: e53de108-8f1a-4d08-b1db-e06c43f63cc7
+		summarizeBy: none
+		sourceColumn: Medewerker
+
+		annotation SummarizationSetBy = Automatic
+
+	column Voornaam
+		dataType: string
+		lineageTag: 1b3a4bfa-bb60-48b2-a927-091a04689c88
+		summarizeBy: none
+		sourceColumn: Voornaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column Voorletters
+		dataType: string
+		lineageTag: 50ee89e0-ad4c-4734-ad49-933368560059
+		summarizeBy: none
+		sourceColumn: Voorletters
+
+		annotation SummarizationSetBy = Automatic
+
+	column Achternaam
+		dataType: string
+		lineageTag: 5f4178a8-52a7-4c31-ae6e-5f43654613f0
+		summarizeBy: none
+		sourceColumn: Achternaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geboortenaam
+		dataType: string
+		lineageTag: 7afdb162-d3ac-477f-98c3-e28efb4cc9b0
+		summarizeBy: none
+		sourceColumn: Geboortenaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column Voorvoegsel
+		dataType: string
+		lineageTag: 3e07f3ab-9956-4c89-86ef-f1f0a811aad6
+		summarizeBy: none
+		sourceColumn: Voorvoegsel
+
+		annotation SummarizationSetBy = Automatic
+
+	column E-mail_werk
+		dataType: string
+		lineageTag: 66091208-e3da-4793-8bbb-798c45f5e503
+		summarizeBy: none
+		sourceColumn: E-mail_werk
+
+		annotation SummarizationSetBy = Automatic
+
+	column OE
+		dataType: string
+		lineageTag: a0106071-7d2f-48da-bf8e-7e73735deab2
+		summarizeBy: none
+		sourceColumn: OE
+
+		annotation SummarizationSetBy = Automatic
+
+	column Functiecode
+		dataType: string
+		lineageTag: 95f76b29-bc75-47c6-a8e1-b2cd2a2f1b05
+		summarizeBy: none
+		sourceColumn: Functiecode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geboorteplaats
+		dataType: string
+		lineageTag: da69d49f-def7-4408-80c5-344a7498ee4b
+		summarizeBy: none
+		sourceColumn: Geboorteplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geslacht
+		dataType: string
+		lineageTag: a31d446d-c14d-44b0-a500-383ad075e426
+		summarizeBy: none
+		sourceColumn: Geslacht
+
+		annotation SummarizationSetBy = Automatic
+
+	column Leeftijd
+		dataType: string
+		lineageTag: dfaf0933-939a-4198-a2e8-2744f1e5a8a1
+		summarizeBy: none
+		sourceColumn: Leeftijd
+
+		annotation SummarizationSetBy = Automatic
+
+	column Formatieplaats
+		dataType: string
+		lineageTag: ce4025ed-c9c5-4f81-b174-bacca4327069
+		summarizeBy: none
+		sourceColumn: Formatieplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column Omschrijving_3
+		dataType: string
+		lineageTag: c8d809aa-d2f8-4741-9a54-4c829efa00da
+		summarizeBy: none
+		sourceColumn: Omschrijving_3
+
+		annotation SummarizationSetBy = Automatic
+
+	column Omschrijving_3_2
+		dataType: string
+		lineageTag: a99d5830-e364-44b1-8d28-028af158d28e
+		summarizeBy: none
+		sourceColumn: Omschrijving_3_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status_dienstverband
+		dataType: string
+		lineageTag: 392c88d6-f5f9-4ac1-ae30-dbfe529f953b
+		summarizeBy: none
+		sourceColumn: Status_dienstverband
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kostenplaats
+		dataType: string
+		lineageTag: e64e39c2-6f88-4a56-8a19-ac356c1df1fb
+		summarizeBy: none
+		sourceColumn: Kostenplaats
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geblokkeerd
+		dataType: string
+		lineageTag: bcb09330-4d64-4b5a-93dd-d14dda20e256
+		summarizeBy: none
+		sourceColumn: Geblokkeerd
+
+		annotation SummarizationSetBy = Automatic
+
+	column Naam_werkgever
+		dataType: string
+		lineageTag: 1b68f0b8-f021-4700-8966-f70cef147809
+		summarizeBy: none
+		sourceColumn: Naam_werkgever
+
+		annotation SummarizationSetBy = Automatic
+
+	column Aantal_FTE
+		dataType: string
+		lineageTag: 3f39bb3b-2eef-4915-b509-8c7390521b7b
+		summarizeBy: none
+		sourceColumn: Aantal_FTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column Initiatief
+		dataType: string
+		lineageTag: 91dbd8e7-33b0-44bf-9c94-cfa0f0ba9bf5
+		summarizeBy: none
+		sourceColumn: Initiatief
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dienstjaren
+		dataType: string
+		lineageTag: de357507-25c8-4663-a5ae-5c938a49c9c2
+		summarizeBy: none
+		sourceColumn: Dienstjaren
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cluster_Afdeling
+		dataType: string
+		lineageTag: 87fd59df-11fb-43b5-8efa-9a5d58dbefaa
+		summarizeBy: none
+		sourceColumn: Cluster_Afdeling
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dienstbetrekking
+		dataType: string
+		lineageTag: 101bd252-c093-4003-bbb7-21e1a9da497e
+		summarizeBy: none
+		sourceColumn: Dienstbetrekking
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nationaliteit
+		dataType: string
+		lineageTag: aac39e79-e9bf-403a-b50b-9310c0720bb7
+		summarizeBy: none
+		sourceColumn: Nationaliteit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Functie_2
+		dataType: string
+		lineageTag: b1f959fb-a0a3-4955-8b8d-3c74d5fa8ac7
+		summarizeBy: none
+		sourceColumn: Functie_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Omschrijving_4
+		dataType: string
+		lineageTag: 64923aab-dedc-4e6b-ba41-824496cd1853
+		summarizeBy: none
+		sourceColumn: Omschrijving_4
+
+		annotation SummarizationSetBy = Automatic
+
+	column In_opleiding
+		dataType: string
+		lineageTag: d73ac530-edc9-46e5-99e1-35312dc67d75
+		summarizeBy: none
+		sourceColumn: In_opleiding
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cluster_Afdeling_2
+		dataType: string
+		lineageTag: 9a313a05-3a5d-418e-b113-c5804e85ee4f
+		summarizeBy: none
+		sourceColumn: Cluster_Afdeling_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Patientgebonden_functies
+		dataType: string
+		lineageTag: 4d4dbc68-c5e3-4440-b6ce-3fa9f9f9f79b
+		summarizeBy: none
+		sourceColumn: Patientgebonden_functies
+
+		annotation SummarizationSetBy = Automatic
+
+	column Patientgebonden_functies_2
+		dataType: string
+		lineageTag: 97d7c394-4bf4-473a-8278-13f25765442e
+		summarizeBy: none
+		sourceColumn: Patientgebonden_functies_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Soort_functie
+		dataType: string
+		lineageTag: 1315b881-8228-4caa-a0f6-d0ec9f75905f
+		summarizeBy: none
+		sourceColumn: Soort_functie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'In_dienst__i.v.m._dienstjaren_'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 06483415-8a9f-4c8a-b058-306038380d3d
+		summarizeBy: none
+		sourceColumn: In_dienst__i.v.m._dienstjaren_
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DtmInDienst
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e2784376-e460-4f94-8b76-5a9a16ed204b
+		summarizeBy: none
+		sourceColumn: DtmInDienst
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DtmUitDienst
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 83573b9b-6f24-45a9-b33a-7b119b15e4f3
+		summarizeBy: none
+		sourceColumn: DtmUitDienst
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Geboortedtm
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4afc5e7b-eb21-4e0d-b596-e94c239b65a2
+		summarizeBy: none
+		sourceColumn: Geboortedtm
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DtmInDienstSehos
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: dab49d96-a3c2-43da-91e9-368334cf449b
+		summarizeBy: none
+		sourceColumn: DtmInDienstSehos
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'Dim Medewerker (FormatieBezetting)' = m
+		mode: import
+		queryGroup: Staging\Formatie
+		source =
+				let
+				    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_Formatiebezetting" & "?skip=-1&take=-1", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+				    rows = Source[rows],
+				    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_"}),
+				    #"Inserted Text Range" = Table.AddColumn(#"Expanded Column1", "DtmInDienst", each Text.Middle([Datum_in_dienst], 0, 10), type text),
+				    #"Inserted Text Range1" = Table.AddColumn(#"Inserted Text Range", "DtmUitDienst", each Text.Middle([Datum_uit_dienst], 0, 10), type text),
+				    #"Inserted Text Range2" = Table.AddColumn(#"Inserted Text Range1", "Geboortedtm", each Text.Middle([Geboortedatum], 0, 10), type text),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Inserted Text Range2",{"Medewerker", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Organisatorische_eenheid", "Functie", "Geboorteplaats", "Geslacht", "Leeftijd", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "DtmInDienst", "DtmUitDienst", "Geboortedtm"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Organisatorische_eenheid", "OE"}, {"Functie", "Functiecode"}}),
+				    #"Inserted Text Range3" = Table.AddColumn(#"Renamed Columns", "DtmInDienstSehos", each Text.Middle([In_dienst__i.v.m._dienstjaren_], 0, 10), type text),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Inserted Text Range3",{{"DtmInDienst", type date}, {"DtmUitDienst", type date}, {"Geboortedtm", type date}, {"DtmInDienstSehos", type date}, {"In_dienst__i.v.m._dienstjaren_", type datetime}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"In_dienst__i.v.m._dienstjaren_", type date}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Changed Type1", {"Medewerker"})
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

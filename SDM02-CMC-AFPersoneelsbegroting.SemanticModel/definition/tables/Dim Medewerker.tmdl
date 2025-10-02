@@ -48,11 +48,6 @@ table 'Dim Medewerker'
 		summarizeBy: none
 		sourceColumn: Geboortedatum
 
-		variation Variation
-			isDefault
-			relationship: af0ae359-8051-4c8f-8e7b-9556229a1768
-			defaultHierarchy: LocalDateTable_34f1b705-fae0-4db0-ba69-dc3ad200a7e3.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -88,11 +83,6 @@ table 'Dim Medewerker'
 		summarizeBy: none
 		sourceColumn: Datum_in_dienst
 
-		variation Variation
-			isDefault
-			relationship: 70058c35-4278-4132-bf5a-36fc527d722d
-			defaultHierarchy: LocalDateTable_7179e43a-e07b-4353-ad18-05456413521c.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -103,11 +93,6 @@ table 'Dim Medewerker'
 		lineageTag: c5b1b530-3c3c-40ff-9f9d-0176f07346f6
 		summarizeBy: none
 		sourceColumn: Datum_uit_dienst
-
-		variation Variation
-			isDefault
-			relationship: b15b4e5f-dd8d-402d-a0d3-16f0eb171abb
-			defaultHierarchy: LocalDateTable_5f12439e-ea17-4015-b112-d0b0ea49a114.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -181,11 +166,6 @@ table 'Dim Medewerker'
 		summarizeBy: none
 		sourceColumn: Begindatum_salaris
 
-		variation Variation
-			isDefault
-			relationship: ee060fd5-3406-47d7-a29a-5ce35876a3eb
-			defaultHierarchy: LocalDateTable_a05a6d95-eba5-4957-a2a5-100deadbc7e5.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -197,11 +177,6 @@ table 'Dim Medewerker'
 		summarizeBy: none
 		sourceColumn: Einddatum_salaris
 
-		variation Variation
-			isDefault
-			relationship: 37ded886-c002-4c53-90f7-68356261ba2d
-			defaultHierarchy: LocalDateTable_c14b01a2-ce33-42b3-897e-a59aeebc8f72.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -212,11 +187,6 @@ table 'Dim Medewerker'
 		lineageTag: ff8fd8eb-fba9-4539-bb2f-145503154344
 		summarizeBy: none
 		sourceColumn: Begindatum_functie
-
-		variation Variation
-			isDefault
-			relationship: 9ea96603-4370-46b1-83e8-b9092b8726d4
-			defaultHierarchy: LocalDateTable_d6929cb5-d1ee-4883-8a1f-f035cb711259.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -238,11 +208,11 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'OE Code'
+	column 'OE Code Original'
 		dataType: string
 		lineageTag: c7131ac7-79d7-46bb-97ea-e6a9dea45aec
 		summarizeBy: none
-		sourceColumn: OE Code
+		sourceColumn: OE Code Original
 
 		annotation SummarizationSetBy = Automatic
 
@@ -388,11 +358,6 @@ table 'Dim Medewerker'
 		lineageTag: 22dbb561-ce7e-41e0-8330-a33111d0a579
 		summarizeBy: none
 		sourceColumn: In_dienst__i.v.m._dienstjaren_
-
-		variation Variation
-			isDefault
-			relationship: 5375ce7a-e028-4880-be47-6a65fc18ba68
-			defaultHierarchy: LocalDateTable_b0951fab-f7e7-469c-b1c8-e5981f017388.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -988,11 +953,6 @@ table 'Dim Medewerker'
 		summarizeBy: none
 		sourceColumn: Begin Datum
 
-		variation Variation
-			isDefault
-			relationship: b0c01dd0-25f1-4fe9-80d8-3673293bc269
-			defaultHierarchy: LocalDateTable_669500d1-e0f3-4184-8e3f-fc5b192de8b0.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -1003,11 +963,6 @@ table 'Dim Medewerker'
 		lineageTag: 12a6b472-327e-4e1b-a132-d265e0159936
 		summarizeBy: none
 		sourceColumn: Eind Datum
-
-		variation Variation
-			isDefault
-			relationship: 41bb0372-7368-441c-b042-9c7b98d1235f
-			defaultHierarchy: LocalDateTable_9f430bb0-3f78-44bc-a7f4-16798fd6fa8a.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -1070,17 +1025,24 @@ table 'Dim Medewerker'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'OE Code'
+		dataType: string
+		lineageTag: 6a1f0155-0501-48fc-8543-fe92a5248ff9
+		summarizeBy: none
+		sourceColumn: OE Code
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Medewerker' = m
 		mode: import
 		queryGroup: Model
-		source =
+		source = ```
 				let
-				    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP" & "?skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
+				    Source = Json.Document(Web.Contents("https://86331.rest.afas.online/ProfitRestServices/connectors/CMC_WeergaveBP?filterfieldids=Einddatum_salaris,Naam_werkgever&filtervalues=%5Bis%20leeg%5DT00%3A00%3A00,Curacao%20Medical%20Center%20Exploitatie&operatortypes=8,1&" & "skip=0&take=500000", [Headers=[Authorization="AfasToken PHRva2VuPjx2ZXJzaW9uPjE8L3ZlcnNpb24+PGRhdGE+Qjk5N0I1MjNGMzhENDgwNjgyRTA0NzQ4RkZCQUQ1RjU5MTA1OEU3QUEwQTQ0MDMxODlBNUVGNTNEMjFDREQ5MTwvZGF0YT48L3Rva2VuPg=="]])),
 				    rows = Source[rows],
 				    #"Converted to Table" = Table.FromList(rows, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
 				    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}, {"Medewerker", "Roepnaam", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Organisatorische_eenheid", "Omschrijving_2", "Functie", "Omschrijving", "Geboorteplaats", "Geslacht", "Leeftijd", "Datum_in_dienst", "Formatieplaats", "Omschrijving_3", "Omschrijving_3_2", "Datum_uit_dienst", "Dienstverband", "Dienstverband_2", "Status_dienstverband", "Kostenplaats", "Omschrijving_4", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Initiatief", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "Nationaliteit", "Functie_2", "Omschrijving_4_2", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "In_dienst__i.v.m._dienstjaren_", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Volgnummer", "Formatieplaats_2", "Omschrijving_5", "Service_Lines", "Service_Line_Type", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Omschrijving_6", "Soort_medewerker", "Type_contract"}),
-				    #"Filtered Rows" = Table.SelectRows(#"Expanded Column1", each ([Naam_werkgever] = "Curacao Medical Center Exploitatie")),
-				    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"Medewerker", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats_2", "Omschrijving_5", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Soort_medewerker", "Type_contract"}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Expanded Column1",{"Medewerker", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "Cluster_Afdeling", "Dienstbetrekking", "In_opleiding", "Cluster_Afdeling_2", "Patientgebonden_functies", "Patientgebonden_functies_2", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Trede", "Schaal", "Formatieplaats_2", "Omschrijving_5", "Cluster_Afdeling_3", "Organisatorische_eenheid_2", "Soort_medewerker", "Type_contract"}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Medewerker", "Medewerker ID"}}),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Begindatum_salaris", type datetime}, {"Einddatum_salaris", type datetime}, {"Begindatum_functie", type datetime}}),
 				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Begindatum_salaris", type date}, {"Einddatum_salaris", type date}, {"Begindatum_functie", type date}, {"Datum_in_dienst", type datetime}, {"Datum_uit_dienst", type datetime}}),
@@ -1126,12 +1088,20 @@ table 'Dim Medewerker'
 				    #"Merged Queries10" = Table.NestedJoin(#"Renamed Columns5", {"Schaal ID"}, #"Dim SchaalType", {"Schaal ID"}, "Dim SchaalType", JoinKind.LeftOuter),
 				    #"Expanded Dim SchaalType1" = Table.ExpandTableColumn(#"Merged Queries10", "Dim SchaalType", {"Schaal/Trede"}, {"Schaal/Trede"}),
 				    #"Removed Other Columns3" = Table.SelectColumns(#"Expanded Dim SchaalType1",{"Medewerker ID", "Voornaam", "Voorletters", "Achternaam", "Geboortenaam", "Voorvoegsel", "E-mail_werk", "Geboortedatum", "Functie", "Geslacht", "Leeftijd", "Datum_in_dienst", "Datum_uit_dienst", "Status_dienstverband", "Kostenplaats", "Geblokkeerd", "Naam_werkgever", "Aantal_FTE", "Dienstjaren", "In_opleiding", "Cluster/Afdeling Functie", "Patientgebonden_functies", "Soort_functie", "Salaris", "Begindatum_salaris", "Einddatum_salaris", "Begindatum_functie", "Formatieplaats", "Formatieplaats Omschrijving", "Cluster_Afdeling Formatieplaats", "OE Code", "Soort_medewerker", "Type_contract", "Schaal ID", "Dienstbetrekking ID", "C/A Formatie ID", "C/A Functie ID", "Dim Zorg.Type Zorg Functie", "Staf of Zorg", "Type Zorg Functie", "Type Personeel ID", "In_dienst__i.v.m._dienstjaren_", "Anniversary Month", "Schaal/Trede"}),
-				    #"Trimmed Text" = Table.TransformColumns(#"Removed Other Columns3",{{"Type Zorg Functie", Text.Trim, type text}}),
-				    #"Appended Query1" = Table.Combine({#"Trimmed Text", #"Dim Medewerker RVC"}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Removed Other Columns3",{{"Type Zorg Functie", Text.Trim, type text}}),    
+				    #"Renamed Columns6" = Table.RenameColumns(#"Trimmed Text",{{"OE Code", "OE Code Original"}}),
+				    DimMedForm = Table.Buffer(#"Dim Medewerker (FormatieBezetting)"),
+				
+				    #"Merge Dim Mdw" = Table.NestedJoin(#"Renamed Columns6", {"OE Code Original"}, DimMedForm, {"OE"}, "Dim Medewerker (FormatieBezetting)", JoinKind.LeftOuter),
+				    #"Expanden Dim Med" = Table.ExpandTableColumn(#"Merge Dim Mdw", "Dim Medewerker (FormatieBezetting)", {"OE"}, {"OE Code"}),
+				    #"Removed Duplicates2" = Table.Distinct(#"Expanden Dim Med", {"Medewerker ID"}),
+				
+				    #"Appended Query1" = Table.Combine({#"Removed Duplicates2", #"Dim Medewerker RVC"}),
 				    #"Added Custom" = Table.AddColumn(#"Appended Query1", "Flag Medewerker", each 1, type nullable number),
 				    #"Appended Query2" = Table.Combine({#"Added Custom", #"Dim Vacatures Medewerker"})
 				in
 				    #"Appended Query2"
+				```
 
 	annotation PBI_NavigationStepName = Navigation
 

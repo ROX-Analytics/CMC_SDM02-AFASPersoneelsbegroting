@@ -8,11 +8,6 @@ table 'Dim Calendar'
 		summarizeBy: none
 		sourceColumn: Date
 
-		variation Variation
-			isDefault
-			relationship: 968b7272-25f6-4bce-9659-09bd9bc08790
-			defaultHierarchy: LocalDateTable_ad3891fd-19ab-4639-8353-00240143c7b3.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -253,11 +248,6 @@ table 'Dim Calendar'
 		lineageTag: df599161-43e2-4181-90a0-256618ed504e
 		summarizeBy: none
 		sourceColumn: Start date year
-
-		variation Variation
-			isDefault
-			relationship: 5de80d7c-2fd9-4ef4-84ad-551ed8060543
-			defaultHierarchy: LocalDateTable_17d15d23-9858-43a8-83a2-65bffd42729d.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
